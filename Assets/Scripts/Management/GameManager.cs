@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 namespace ILOVEYOU
 {
     using Cards;
+    using ILOVEYOU.EnemySystem;
     using Player;
     namespace Management
     {
@@ -12,6 +13,7 @@ namespace ILOVEYOU
         {
             //Management
             private PlayerManager[] m_playMen = new PlayerManager[2];
+            private EnemySpawner[] m_EnSper = new EnemySpawner[2];
             public bool ReadyForPlay { get { return m_playMen[0] != null && m_playMen[1] != null; } }
             private CardManager m_cardMan;
             [Header("Tasks & Cards")]
@@ -24,6 +26,7 @@ namespace ILOVEYOU
             [SerializeField] private float m_timePerStage;
             [SerializeField] private int m_difficultyCap;
             private float m_timer;
+            private float[] m_spawnTimer = new float[] { 5f, 5f };
             public int GetDifficulty { get { return (int)(m_timer / m_timePerStage); } }
             private void Awake()
             {
@@ -63,7 +66,12 @@ namespace ILOVEYOU
             /// <returns></returns>
             private bool ReadyPlayer(int index, PlayerInput input)
             {
+                //get PlayerManager
                 m_playMen[index] = input.GetComponent<PlayerManager>();
+                //Get and initialize EnemySpawner
+                m_EnSper[index] = input.GetComponent<EnemySpawner>();
+                m_EnSper[index].Initialize(this);
+
                 if (m_playMen[index] == null)
                 {
                     Debug.LogError($"Invalid player loaded, no PlayerManager found for player {index + 1}, Aborting.");
@@ -121,9 +129,21 @@ namespace ILOVEYOU
                         }
                         //update any timer tasks
                         m_playMen[i].UpdateTimers(false);
+
+                        //update spawn timer
+                        if (m_spawnTimer[i] <= 0)
+                        {
+                            m_EnSper[i].SpawnEnemyWave();
+                            m_spawnTimer[i] = 5f; //Possible TODO: add formula to scale spawn time with difficulty
+                        }
+                        else
+                        {
+                            m_spawnTimer[i] -= 1f * Time.deltaTime;
+                        }
                     }
                     if(GetDifficulty < m_difficultyCap)
                     m_timer += Time.deltaTime * m_difficultySpeed;
+
                 }
                 Debug.Log($"Current difficulty {GetDifficulty}.");
             }
