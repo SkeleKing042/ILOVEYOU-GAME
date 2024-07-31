@@ -10,12 +10,21 @@ namespace ILOVEYOU
 
         public class GameManager : MonoBehaviour
         {
+            //Management
             private PlayerManager[] m_playMen = new PlayerManager[2];
+            public bool ReadyForPlay { get { return m_playMen[0] != null && m_playMen[1] != null; } }
             private CardManager m_cardMan;
+            [Header("Tasks & Cards")]
             [Tooltip("The maximum number of tasks a player can have.")]
             [SerializeField] private int m_maxTaskCount;
             [Tooltip("The number of cards shown to the player.\nPLEASE KEEP AT 3")]
             [SerializeField] private int m_numberOfCardsToGive = 3;
+            [Header("Difficulty")]
+            [SerializeField] private float m_difficultySpeed;
+            [SerializeField] private float m_timePerStage;
+            [SerializeField] private int m_difficultyCap;
+            private float m_timer;
+            public int GetDifficulty { get { return (int)(m_timer / m_timePerStage); } }
             private void Awake()
             {
                 //Make sure that the other management scripts work
@@ -89,26 +98,30 @@ namespace ILOVEYOU
             private void Update()
             {
                 //Give players tasks
-                for (int i = 0; i < m_playMen.Length; i++)
+                if (ReadyForPlay)
                 {
-                    if (m_playMen[i] == null)
-                        continue;
-                    if (m_playMen[i].NumberOfTasks < m_maxTaskCount)
+                    for (int i = 0; i < m_playMen.Length; i++)
                     {
-                        //Change for random generation
-                        Debug.Log($"Giving player {i + 1} a task.");
-                        m_playMen[i].AddTask(TaskType.Time, 10);
+                        if (m_playMen[i].NumberOfTasks < m_maxTaskCount)
+                        {
+                            //Change for random generation
+                            Debug.Log($"Giving player {i + 1} a task.");
+                            m_playMen[i].AddTask(TaskType.Time, 10);
+                        }
+                        if (m_playMen[i].TaskCompletionPoints > 0 && !m_playMen[i].CardsInHand)
+                        {
+                            //hand out cards to the player
+                            Debug.Log($"Player {i + 1} has completed a task, dealing cards.");
+                            m_playMen[i].TaskCompletionPoints--;
+                            m_playMen[i].CollectHand(m_cardMan.DispenseCards(m_numberOfCardsToGive).ToArray());
+                        }
+                        //update any timer tasks
+                        m_playMen[i].UpdateTimers(false);
                     }
-                    if (m_playMen[i].TaskCompletionPoints > 0 && !m_playMen[i].CardsInHand)
-                    {
-                        //hand out cards to the player
-                        Debug.Log($"Player {i + 1} has completed a task, dealing cards.");
-                        m_playMen[i].TaskCompletionPoints--;
-                        m_playMen[i].CollectHand(m_cardMan.DispenseCards(m_numberOfCardsToGive).ToArray());
-                    }
-                    //update any timer tasks
-                    m_playMen[i].UpdateTimers(false);
+                    if(GetDifficulty < m_difficultyCap)
+                    m_timer += Time.deltaTime * m_difficultySpeed;
                 }
+                Debug.Log($"Current difficulty {GetDifficulty}.");
             }
         }
     }
