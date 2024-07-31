@@ -25,6 +25,7 @@ namespace ILOVEYOU
             // Update is called once per frame
             void Update()
             {
+                //this is simple movement logic, subsequent enemy scripts can be as simple or as complex as they want
                 if (Vector3.Distance(transform.position, m_playerTransform.position) < m_distanceCondition)
                 {
                     DoNearAction();
@@ -35,14 +36,15 @@ namespace ILOVEYOU
                 }
 
             }
-
+            
             public virtual void MoveToTarget()
             {
+                //gets relative position between the player and enemy
                 Vector3 relativePos = m_playerTransform.position - transform.position;
-
+                //looks at the player (removing x, and z rotation)
                 Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
                 rotation = Quaternion.Euler(0f, rotation.eulerAngles.y, 0f);
-
+                //moves and rotates the enemy
                 transform.SetPositionAndRotation(transform.position + (m_speed * Time.deltaTime * transform.forward), rotation);
 
             }

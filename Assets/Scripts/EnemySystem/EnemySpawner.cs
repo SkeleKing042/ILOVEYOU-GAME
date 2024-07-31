@@ -28,30 +28,34 @@ namespace ILOVEYOU
 
             private GameManager m_manager;
 
-            //[SerializeField] private Transform TEMPPLAYERPOS;
-
-
-
+            /// <summary>
+            /// called by GameManager to initialize the m_manager variable
+            /// </summary>
             public void Initialize(GameManager manager)
             {
                 m_manager = manager;
             }
-
+            /// <summary>
+            /// spawns a group of enemies around the player
+            /// </summary>
             public void SpawnEnemyWave()
             {   
-
+                //goes through each prefab list
                 for (int i = 0; i < m_enemyGroups.Length; i++)
                 {
+                    //ignores list if threshold is 0 or the current difficulty is larger than the threshold assigned to the group
                     if (m_manager.GetDifficulty > m_enemyGroups[i].Threshold() || m_enemyGroups[i].Threshold() == 0) continue;
-
-                    Debug.Log("Spawning Group " + i);
 
                     SpawnRandomEnemiesFromGroup(i);
 
+                    //terminates function to prevent further enemy spawn functions from being called
                     return;
                 }
             }
-
+            /// <summary>
+            /// Creates enemies in a circle surrounding the player. Number of enemies depends on the current difficulty.
+            /// </summary>
+            /// <param name="groupNumber">enemy group to spawn from</param>
             public void SpawnRandomEnemiesFromGroup(int groupNumber)
             {
                 //TODO: formula for enemy count and game difficulty
@@ -70,7 +74,10 @@ namespace ILOVEYOU
                         transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
                 }
             }
-
+            /// <summary>
+            /// Spawns a singular random enemy from a group
+            /// </summary>
+            /// <param name="groupNumber">enemy group to spawn from</param>
             public void SpawnRandomEnemyFromGroup(int groupNumber)
             {
                 float angle = Random.Range(0f,1f) * Mathf.PI * 2f;
@@ -81,7 +88,11 @@ namespace ILOVEYOU
                 enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
                     transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
             }
-
+            /// <summary>
+            /// spawns a singular specified enemy from a group
+            /// </summary>
+            /// <param name="groupNumber">enemy group to spawn from</param>
+            /// <param name="prefabIndex">which enemy from the array to spawn</param>
             public void SpawnEnemyFromGroup(int groupNumber, int prefabIndex)
             {
                 float angle = Random.Range(0f, 1f) * Mathf.PI * 2f;
@@ -94,6 +105,7 @@ namespace ILOVEYOU
 
             public void OnDrawGizmos()
             {
+                //this is just to visualise where the enemies will spawn easier
                 if (transform) Gizmos.DrawWireSphere(transform.position, m_spawnRange);
             }
         }
