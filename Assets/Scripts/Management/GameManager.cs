@@ -78,6 +78,10 @@ namespace ILOVEYOU
                 Debug.Log($"Player {index + 1} has joined.");
                 return true;
             }
+            public PlayerManager GetPlayer(int index)
+            {
+                return m_playMen[index];
+            }
             /// <summary>
             /// 
             /// </summary>
