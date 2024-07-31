@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7110859564445769062}
   - component: {fileID: 7110859564445769063}
+  - component: {fileID: 1262486099391086902}
   - component: {fileID: 213998485764028618}
   m_Layer: 0
   m_Name: GameManager
@@ -77,6 +78,20 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &1262486099391086902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7110859564445768984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 664f7477d105c9441bc913f4ce9f3b2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxTaskCount: 1
+  m_numberOfCardsToGive: 3
 --- !u!114 &213998485764028618
 MonoBehaviour:
   m_ObjectHideFlags: 0

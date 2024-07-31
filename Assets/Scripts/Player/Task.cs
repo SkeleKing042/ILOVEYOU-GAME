@@ -14,7 +14,7 @@ namespace ILOVEYOU
             Unique
         };
         [System.Serializable]
-        public struct Task
+        public class Task
         {
             [SerializeField] private TaskType m_type;
             public TaskType GetTaskType { get { return m_type; } }
