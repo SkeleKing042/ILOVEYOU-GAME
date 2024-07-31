@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,14 +26,22 @@ namespace ILOVEYOU
             {
                 for (int i = 0; i < m_patternObj.GetSize(); i++)
                 {
-                    m_cooldown[i] -= Time.deltaTime;
-                    if (m_cooldown[i] <= 0)
+                    try
                     {
-                        ShootArray(i);
-                        m_cooldown[i] = _getBulletPattern(i).FireSpeed;
-                    }
+                        m_cooldown[i] -= Time.deltaTime;
+                    
+                        if (m_cooldown[i] <= 0)
+                        {
+                            ShootArray(i);
+                            m_cooldown[i] = _getBulletPattern(i).FireSpeed;
+                        }
 
-                    m_spinFactor[i] += _getBulletPattern(i).SpinFactor * Time.deltaTime;
+                        m_spinFactor[i] += _getBulletPattern(i).SpinFactor * Time.deltaTime;
+                    }
+                    catch (Exception)
+                    {
+                        Debug.LogWarning("Bullet object updated in play mode! Please restart in order for it to update properly.");
+                    }
                 }
             }
 
@@ -41,9 +50,22 @@ namespace ILOVEYOU
                 PatternInitialize();
             }
 
+            /// <summary>
+            /// adds target for the bullets to inherit can be used for homing bullets
+            /// </summary>
+            /// <param name="target">transform of the target</param>
             public void AddTarget(Transform target)
             {
                 m_target = target;
+            }
+            /// <summary>
+            /// Replaces the current bullet pattern with a new one
+            /// </summary>
+            /// <param name="bulletPatternObject">Pattern object to replace the current one.</param>
+            public void ChangePattern( BulletPatternObject bulletPatternObject)
+            {
+                m_patternObj = bulletPatternObject;
+                PatternInitialize();
             }
 
             /// <summary>

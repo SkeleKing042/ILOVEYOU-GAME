@@ -19,6 +19,7 @@ namespace ILOVEYOU
 
             private void Update()
             {
+                //bug: if initial m_speed is 0, any acceleration applied to the bulled makes it move all whacky
                 //basic movement
                 transform.position += m_speed * Time.deltaTime * transform.forward + m_sideSpeed * Time.deltaTime * transform.right;
                 //accelerates speed linearly
