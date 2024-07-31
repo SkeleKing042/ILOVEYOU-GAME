@@ -1,3 +1,4 @@
+using ILOVEYOU.Management;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,42 +26,48 @@ namespace ILOVEYOU
             [SerializeField] private EnemyPrefabs[] m_enemyGroups;
             [SerializeField] private float m_spawnRange;
 
+            private GameManager m_manager;
 
-            [SerializeField] private Transform TEMPPLAYERPOS;
+            //[SerializeField] private Transform TEMPPLAYERPOS;
 
-            private void Start()
+
+
+            public void Initialize(GameManager manager)
             {
-                SpawnEnemyWave();
+                m_manager = manager;
             }
 
             public void SpawnEnemyWave()
-            {
-                float tempTimeValue = 2f;
-                
+            {   
 
                 for (int i = 0; i < m_enemyGroups.Length; i++)
                 {
-                    if (tempTimeValue > m_enemyGroups[i].Threshold() || m_enemyGroups[i].Threshold() == 0) continue;
+                    if (m_manager.GetDifficulty > m_enemyGroups[i].Threshold() || m_enemyGroups[i].Threshold() == 0) continue;
 
                     Debug.Log("Spawning Group " + i);
 
                     SpawnRandomEnemiesFromGroup(i);
+
+                    return;
                 }
             }
 
             public void SpawnRandomEnemiesFromGroup(int groupNumber)
             {
-                int tempEnemyCount = 10;
+                //TODO: formula for enemy count and game difficulty
+                float enemyCount = m_manager.GetDifficulty;
+                //offset to make the enemy positions more random
+                float offset = Random.Range(0f, 1f);
 
-                for (int i = 0; i < tempEnemyCount; i++)
+                for (int i = 0; i < enemyCount; i++)
                 {
-                    float angle = i / (float)tempEnemyCount * Mathf.PI * 2f;
+                    float angle = (i / enemyCount + offset) * Mathf.PI * 2f;
 
                     GameObject enemy = Instantiate(m_enemyGroups[groupNumber].RandomEnemyPrefab());
-                    enemy.GetComponent<Enemy>().Initialize(TEMPPLAYERPOS);
+                    enemy.GetComponent<Enemy>().Initialize(transform);
 
-                    enemy.transform.position = new(TEMPPLAYERPOS.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
-                        TEMPPLAYERPOS.position.z + (Mathf.Sin(angle) * m_spawnRange));
+                    enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
+                        transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
                 }
             }
 
@@ -69,10 +76,10 @@ namespace ILOVEYOU
                 float angle = Random.Range(0f,1f) * Mathf.PI * 2f;
 
                 GameObject enemy = Instantiate(m_enemyGroups[groupNumber].RandomEnemyPrefab());
-                enemy.GetComponent<Enemy>().Initialize(TEMPPLAYERPOS);
+                enemy.GetComponent<Enemy>().Initialize(transform);
 
-                enemy.transform.position = new(TEMPPLAYERPOS.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
-                    TEMPPLAYERPOS.position.z + (Mathf.Sin(angle) * m_spawnRange));
+                enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
+                    transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
             }
 
             public void SpawnEnemyFromGroup(int groupNumber, int prefabIndex)
@@ -81,13 +88,13 @@ namespace ILOVEYOU
 
                 GameObject enemy = Instantiate(m_enemyGroups[groupNumber].EnemyPrefab(prefabIndex));
 
-                enemy.transform.position = new(TEMPPLAYERPOS.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
-                    TEMPPLAYERPOS.position.z + (Mathf.Sin(angle) * m_spawnRange));
+                enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
+                    transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
             }
 
             public void OnDrawGizmos()
             {
-                if (TEMPPLAYERPOS) Gizmos.DrawWireSphere(TEMPPLAYERPOS.position, m_spawnRange);
+                if (transform) Gizmos.DrawWireSphere(transform.position, m_spawnRange);
             }
         }
     }

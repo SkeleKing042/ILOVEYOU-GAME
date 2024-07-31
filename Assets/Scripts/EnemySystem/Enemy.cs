@@ -12,7 +12,7 @@ namespace ILOVEYOU
             [SerializeField] protected float m_damage = 1f;
             [SerializeField] protected float m_health = 1f;
             [SerializeField] protected float m_distanceCondition = 1f;
-            [SerializeField] protected Transform m_playerTransform; //temp serialization
+            protected Transform m_playerTransform; //temp serialization
 
             public void Initialize(Transform target)
             {

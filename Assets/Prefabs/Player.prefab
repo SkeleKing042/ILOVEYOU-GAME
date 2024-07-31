@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 4373512174995507451}
   - component: {fileID: 3879512174640564857}
   - component: {fileID: 1146677423907829169}
+  - component: {fileID: 6247909786129688140}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -139,9 +140,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e846eb67d82e994397c8554be64a760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_tasks: []
   TaskCompletionPoints: 0
   m_cardTimeout: 5
+--- !u!114 &6247909786129688140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2304864054761233360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96824b4391e453a4f9d8bfba3787b2dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_enemyGroups:
+  - m_groupName: Basic Enemies
+    m_threshold: 5
+    m_enemyPrefabs:
+    - {fileID: 7613335133617298300, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+  m_spawnRange: 10
 --- !u!1 &2368601335451209403
 GameObject:
   m_ObjectHideFlags: 0
