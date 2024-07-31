@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static ILOVEYOU.ProjectileSystem.BulletPatternObject;
 
@@ -48,6 +49,11 @@ namespace ILOVEYOU
             private void Start()
             {
                 PatternInitialize();
+            }
+
+            private void Update()
+            {
+                PatternUpdate();
             }
 
             /// <summary>
