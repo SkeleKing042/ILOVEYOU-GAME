@@ -54,8 +54,6 @@ namespace ILOVEYOU
                     //..reduce the cool down
                     m_fireCoolDown -= Time.deltaTime;
                 }
-                //Apply direction to the player object
-                transform.position += m_moveDir * m_moveSpeed * Time.deltaTime;
                 Color tmp_color = Color.blue;
                 if (m_aimMagnitude >= m_aimDeadZone)
                 {
@@ -63,6 +61,11 @@ namespace ILOVEYOU
                     if (m_debugging) tmp_color = Color.red;
                 }
                 if (m_debugging) Debug.DrawRay(transform.position, m_aimDir * m_aimMagnitude * 5, tmp_color);
+            }
+            public void FixedUpdate()
+            {
+                //Apply direction to the player object
+                transform.Translate(m_moveDir * m_moveSpeed * Time.fixedDeltaTime);
             }
             public void OnMove(InputValue value)
             {

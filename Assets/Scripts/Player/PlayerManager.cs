@@ -1,7 +1,11 @@
+using ILOVEYOU.Cards;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace ILOVEYOU
 {
@@ -9,7 +13,21 @@ namespace ILOVEYOU
     {
         public class PlayerManager : MonoBehaviour
         {
-            [SerializeField] private List<Task> m_tasks = new List<Task>();
+            private List<Task> m_tasks = new List<Task>();
+            public int NumberOfTasks { get { return m_tasks.Count; } }
+            [HideInInspector] public int TaskCompletionPoints;
+            private DisruptCard[] m_cardsHeld;
+            public bool CardsInHand { get { return m_cardsHeld.Length > 0; } }
+            [SerializeField] private float m_cardTimeout;
+            public bool Startup()
+            {
+                //Reset variables
+                TaskCompletionPoints = 0;
+                m_cardsHeld = new DisruptCard[0];
+                Debug.Log("PlayerManager started successfully");
+                return true;
+            }
+            #region Task Management
             /// <summary>
             /// Creates a new class to add to the list
             /// </summary>
@@ -39,6 +57,7 @@ namespace ILOVEYOU
                 foreach(Task task in completeTasks)
                 {
                     m_tasks.Remove(task);
+                    TaskCompletionPoints++;
                 }
                 return true;
             }
@@ -106,7 +125,7 @@ namespace ILOVEYOU
             /// </summary>
             /// <param name="doReset"></param>
             /// <returns></returns>
-            public bool UpdateTimer(bool doReset)
+            public bool UpdateTimers(bool doReset)
             {
                 foreach (Task task in m_tasks)
                 {
@@ -121,6 +140,73 @@ namespace ILOVEYOU
                 VerifyTaskList();
                 return true;
             }
+            #endregion
+            #region Card Management
+            /// <summary>
+            /// Save a given hand as the cards held by this player
+            /// </summary>
+            /// <param name="cards"></param>
+            public void CollectHand(DisruptCard[] cards)
+            {
+                Debug.Log("Hand dealt, setting up cards.");
+                //Copy the given array to this hand
+                m_cardsHeld = new DisruptCard[cards.Length];
+                cards.CopyTo(m_cardsHeld, 0);
+                //Set up each card
+                foreach(DisruptCard card in m_cardsHeld)
+                {
+                    Debug.Log("Readying discard function to card.");
+                    card.transform.SetParent(transform);
+                    card.m_playerHandToDiscard.AddListener(delegate { DiscardHand(); });
+                }
+                //To stop stockpiling, delete the cards after a set time
+                Invoke("DiscardHand", m_cardTimeout);
+                //DisplayHand();
+            }
+            /// <summary>
+            /// Destroys the player's hand card objects
+            /// </summary>
+            public void DiscardHand()
+            {
+                foreach(DisruptCard card in m_cardsHeld)
+                {
+                    Destroy(card.gameObject);
+                }
+                m_cardsHeld = new DisruptCard[0];
+            }
+            /// <summary>
+            /// Takes a player's input to select a card
+            /// </summary>
+            /// <param name="value"></param>
+            public void OnSelectCard(InputValue value)
+            {
+                //If the hand is empty, don't continue
+                if (!CardsInHand)
+                    return;
+                //Get the vector of the face buttons
+                Vector2 selection = value.Get<Vector2>();
+                Debug.Log($"The inputed value {selection}");
+                //This index will be used to choose a card
+                int index = -1;
+                switch (selection)
+                {
+                    //Top card / Y
+                    case Vector2 v when v.Equals(new Vector2(0.0f, 1.0f)):
+                        index = 1;
+                        break;
+                    //Left card / X
+                    case Vector2 v when v.Equals(new Vector2(-1.0f, 0.0f)):
+                        index = 0;
+                        break;
+                    //Right card / B
+                    case Vector2 v when v.Equals(new Vector2(1.0f, 0.0f)):
+                        index = 2;
+                        break;
+                }
+                //Trigger the effects of the chosen card.
+                m_cardsHeld[index].Trigger();
+            }
+            #endregion
         }
     }
 }
