@@ -12,4 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b89321c30b957b440a960af42175ac50, type: 3}
   m_Name: BasicProjectileEnemy
   m_EditorClassIdentifier: 
-  m_bulletArrays: []
+  m_bulletArrays:
+  - Name: Basic Projectile
+    BulletPrefab: {fileID: 453343250255440340, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
+    BulletsPerArray: 1
+    SpreadWithinArrays: 0
+    InitialAngle: 2
+    AngleOffset: 0
+    SpinFactor: 0
+    BulletSpeed: 1
+    BulletAcceleration: 0
+    SidewaysBulletAcceleration: 0
+    FireSpeed: 1
+    FireSpeedOffset: 0
+    BulletLifetime: 3
+    Offset: {x: 0, y: 0}
