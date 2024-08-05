@@ -1,3 +1,4 @@
+using ILOVEYOU.ProjectileSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,15 @@ namespace ILOVEYOU
             private float m_fireCoolDown;
             public bool CanFire { get { if (m_fireCoolDown <= 0) return true; else return false; } }
 
+            private GameObject m_gun; //gameobject that holds the bullet pattern script
+            private BulletPattern m_pattern;
+
+            private void Start()
+            {
+                m_gun = transform.GetChild(2).gameObject;
+                m_pattern = m_gun.GetComponent<BulletPattern>();
+            }
+
             /// <summary>
             /// Changes a stat
             /// </summary>
@@ -49,11 +59,12 @@ namespace ILOVEYOU
             public void Update()
             {
                 //If we can't fire...
-                if (!CanFire)
-                {
-                    //..reduce the cool down
-                    m_fireCoolDown -= Time.deltaTime;
-                }
+                //if (!CanFire)
+                //{
+                //    //..reduce the cool down
+                //    m_fireCoolDown -= Time.deltaTime;
+                //}
+
                 Color tmp_color = Color.blue;
                 if (m_aimMagnitude >= m_aimDeadZone)
                 {
@@ -77,17 +88,26 @@ namespace ILOVEYOU
             public void OnFire(InputValue value)
             {
                 //If we can fire...
-                if (CanFire)
-                {
+                //if (CanFire)
+               // {
                     //Get the direction of the right stick
                     m_aimDir = value.Get<Vector2>();
                     //Apply it to the x & z axi
                     m_aimDir = new Vector3(m_aimDir.x, 0, m_aimDir.y);
                     if (m_debugging) Debug.Log($"{gameObject} is aiming towards {m_aimDir}.");
+
+                    Vector3 relativePos = (transform.position + m_aimDir) - transform.position;
+                    //looks at the player (removing x, and z rotation)
+                    Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+
+                    m_gun.transform.rotation = rotation;
+
+                    m_pattern.PatternUpdate();
+
                     //Set the cool down
-                    m_fireCoolDown = m_fireRate;
+                    //m_fireCoolDown = m_fireRate;
                     //spawn projectile
-                }
+                //}
             }
         }
     }

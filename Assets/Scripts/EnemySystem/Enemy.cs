@@ -54,7 +54,12 @@ namespace ILOVEYOU
                 Debug.Log("xoxoxoxoxo");
             }
 
+            public void TakeDamage(float damage)
+            {
+                m_health -= damage;
 
+                if (m_health <= 0) Destroy(gameObject);
+            }
         }
     }
 }

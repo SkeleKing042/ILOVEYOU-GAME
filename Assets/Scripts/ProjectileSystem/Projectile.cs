@@ -1,3 +1,4 @@
+using ILOVEYOU.EnemySystem;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Dependencies.Sqlite;
@@ -15,12 +16,12 @@ namespace ILOVEYOU
             protected float m_sideaccelValue; // sideways acceleration factor of the bullet
             protected Transform m_target; // target for homing bullets
             protected float m_lifeTime; // how long the projectile lasts in seconds
-            protected bool m_isFriendly; // if the projectile has been shot by the player
+            protected bool m_isFriendly; // if the projectile has been shot by the player (might not need this)
 
 
             private void Update()
             {
-                //bug: if initial m_speed is 0, any acceleration applied to the bulled makes it move all whacky
+                //bug: if initial m_speed is 0, any acceleration applied to the bullet makes it move all whacky
                 //basic movement
                 transform.position += m_speed * Time.deltaTime * transform.forward + m_sideSpeed * Time.deltaTime * transform.right;
                 //accelerates speed linearly
@@ -39,12 +40,21 @@ namespace ILOVEYOU
                 m_lifeTime = lifeTime;
                 m_isFriendly = isFriendly;
 
+                //if the bullet being fired is friendly put it on friendly layer, if hostile put it on hostile layer
+                gameObject.layer = (m_isFriendly) ? 8 : 9;
+
                 Destroy(gameObject, m_lifeTime);
             }
 
             private void OnTriggerEnter(Collider other)
             {
-                
+                Debug.Log("trigger collided");
+
+                if (other.gameObject.GetComponent<Enemy>())
+                {
+                    other.gameObject.GetComponent<Enemy>()
+                        .TakeDamage(1f);
+                }
             }
         }
     }
