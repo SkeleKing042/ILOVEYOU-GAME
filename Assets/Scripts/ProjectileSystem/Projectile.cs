@@ -15,6 +15,7 @@ namespace ILOVEYOU
             protected float m_sideaccelValue; // sideways acceleration factor of the bullet
             protected Transform m_target; // target for homing bullets
             protected float m_lifeTime; // how long the projectile lasts in seconds
+            protected bool m_isFriendly; // if the projectile has been shot by the player
 
 
             private void Update()
@@ -29,15 +30,21 @@ namespace ILOVEYOU
 
             }
 
-            public void InitializeProjectile(float speed, float accelValue, float sideaccelValue, Transform target, float lifeTime)
+            public void InitializeProjectile(float speed, float accelValue, float sideaccelValue, Transform target, float lifeTime, bool isFriendly)
             {
                 m_speed = speed;
                 m_fwdaccelValue = accelValue;
                 m_sideaccelValue = sideaccelValue;
                 m_target = target;
                 m_lifeTime = lifeTime;
+                m_isFriendly = isFriendly;
 
                 Destroy(gameObject, m_lifeTime);
+            }
+
+            private void OnTriggerEnter(Collider other)
+            {
+                
             }
         }
     }

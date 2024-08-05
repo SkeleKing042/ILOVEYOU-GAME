@@ -13,13 +13,14 @@ namespace ILOVEYOU
         {
 
             [SerializeField] private BulletPatternObject m_patternObj;
+            [SerializeField] private bool m_isPlayer;
 
             private BulletPatternArray _getBulletPattern(int i) { return m_patternObj.GetBulletArray(i); }
 
             private float[] m_cooldown;
             private float[] m_spinFactor;
 
-            [SerializeField] private Transform m_target; //temporary serialize
+            private Transform m_target;
             /// <summary>
             /// Goes through each array and adjusts cooldowns for each. If a cooldown for an array has reached 0, the specified array will fire.
             /// </summary>
@@ -119,7 +120,7 @@ namespace ILOVEYOU
                     }
                     //initialize bullet script
                     newBullet.GetComponent<Projectile>().InitializeProjectile(pattern.BulletSpeed, pattern.BulletAcceleration, pattern.SidewaysBulletAcceleration,
-                        null, pattern.BulletLifetime);
+                        null, pattern.BulletLifetime, m_isPlayer);
                     
                     //add position offset to bullet
                     Vector3 posOffset = newBullet.transform.right * pattern.Offset.x + newBullet.transform.forward * pattern.Offset.y;
