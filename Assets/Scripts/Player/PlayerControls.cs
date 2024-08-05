@@ -22,8 +22,8 @@ namespace ILOVEYOU
             private float m_aimMagnitude { get { return m_aimDir.magnitude; } }
             [SerializeField, Range(0f, 1f)] private float m_aimDeadZone;
             //base projectile ref
-            private float m_fireCoolDown;
-            public bool CanFire { get { if (m_fireCoolDown <= 0) return true; else return false; } }
+            //private float m_fireCoolDown;
+            //public bool CanFire { get { if (m_fireCoolDown <= 0) return true; else return false; } }
 
             private GameObject m_gun; //gameobject that holds the bullet pattern script
             private BulletPattern m_pattern;
@@ -92,12 +92,12 @@ namespace ILOVEYOU
                // {
                     //Get the direction of the right stick
                     m_aimDir = value.Get<Vector2>();
-                    //Apply it to the x & z axi
+                    //Apply it to the x & z axis
                     m_aimDir = new Vector3(m_aimDir.x, 0, m_aimDir.y);
                     if (m_debugging) Debug.Log($"{gameObject} is aiming towards {m_aimDir}.");
 
                     Vector3 relativePos = (transform.position + m_aimDir) - transform.position;
-                    //looks at the player (removing x, and z rotation)
+                    //gets the required rotation for the shooting
                     Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
 
                     m_gun.transform.rotation = rotation;
