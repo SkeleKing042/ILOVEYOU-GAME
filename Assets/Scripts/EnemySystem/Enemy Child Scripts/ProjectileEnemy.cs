@@ -16,6 +16,7 @@ namespace ILOVEYOU
 
                 pattern.AddTarget(m_playerTransform);
 
+                //this seems to not work in unity
                 //base.Initialize(target);
             }
             void Awake()
@@ -24,7 +25,6 @@ namespace ILOVEYOU
           
             }
 
-            // Update is called once per frame
             void Update()
             {
                 //this is simple movement logic, subsequent enemy scripts can be as simple or as complex as they want
