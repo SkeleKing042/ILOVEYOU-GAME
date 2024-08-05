@@ -14,7 +14,7 @@ namespace ILOVEYOU
             [SerializeField] protected float m_distanceCondition = 1f;
             protected Transform m_playerTransform; //temp serialization
 
-            public void Initialize(Transform target)
+            public virtual void Initialize(Transform target)
             {
                 m_playerTransform = target;
 
@@ -43,7 +43,7 @@ namespace ILOVEYOU
                 Vector3 relativePos = m_playerTransform.position - transform.position;
                 //looks at the player (removing x, and z rotation)
                 Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-                rotation = Quaternion.Euler(0f, rotation.eulerAngles.y, 0f);
+                rotation = Quaternion.Euler(0f, Mathf.LerpAngle(transform.rotation.eulerAngles.y,rotation.eulerAngles.y, Time.deltaTime * 3f), 0f);
                 //moves and rotates the enemy
                 transform.SetPositionAndRotation(transform.position + (m_speed * Time.deltaTime * transform.forward), rotation);
 
