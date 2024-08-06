@@ -8,8 +8,11 @@ namespace ILOVEYOU
     {
         public class LungeEnemy : Enemy
         {
-            [SerializeField] private float m_lungeCooldown = 5f;
-            [SerializeField] private float m_tempSpeed = 0f;
+            [SerializeField] private float m_lungeTime = 5f;
+            [SerializeField] private float m_lungeSpeed = 3f;
+            
+            private float m_lungeCooldown = 5f;
+            private float m_tempSpeed = 0f;
 
             // Start is called before the first frame update
             void Start()
@@ -32,7 +35,7 @@ namespace ILOVEYOU
                 else
                 {
                     transform.position += m_tempSpeed * Time.deltaTime * transform.forward;
-                    m_tempSpeed -= Time.deltaTime * m_speed * 2f;
+                    m_tempSpeed -= Time.deltaTime * m_lungeSpeed * 2f;
                 }
             }
 
@@ -49,8 +52,8 @@ namespace ILOVEYOU
                 m_lungeCooldown -= Time.deltaTime;
                 if(m_lungeCooldown <= 0f)
                 {
-                    m_tempSpeed = m_speed * 3f;
-                    m_lungeCooldown = 3f;
+                    m_tempSpeed = m_lungeSpeed;
+                    m_lungeCooldown = m_lungeTime;
                 }
             }
         }
