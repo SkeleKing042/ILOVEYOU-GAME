@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace ILOVEYOU
 {
@@ -9,10 +10,12 @@ namespace ILOVEYOU
 
         public class HazardObject : MonoBehaviour
         {
-            private Collider[] m_effectArea;
             private bool m_isActive = false;
-            // Start is called before the first frame update
-            void Awake()
+            [SerializeField] private List<string> m_targetTags;
+            [SerializeField] private UnityEvent<GameObject> m_effectsToApplyOnEnter;
+            [SerializeField] private UnityEvent<GameObject> m_effectsToApplyOnStay;
+            [SerializeField] private UnityEvent<GameObject> m_effectsToApplyOnExit;
+      /*      void Awake()
             {
                 //Get all the colliders on this object
                 Collider[] allColliders = GetComponents<Collider>();
@@ -45,7 +48,8 @@ namespace ILOVEYOU
                 {
                     box.enabled = m_isActive;
                 }
-            }
+            }*/
+            #region Toggling
             /// <summary>
             /// Enables all the triggers on this object, then disables them after the given time.
             /// </summary>
@@ -64,7 +68,6 @@ namespace ILOVEYOU
                 {
                     m_isActive = true;
                 }
-                ToggleBoxes();
             }
             /// <summary>
             /// Disables all the trigger on this object.
@@ -75,8 +78,53 @@ namespace ILOVEYOU
                 {
                     m_isActive = false;
                 }
-                ToggleBoxes();
             }
+            #endregion
+            #region CollisionEvents
+            private void OnTriggerEnter(Collider other)
+            {
+                //If this object isn't enabled, don't do anything
+                if(!m_isActive)
+                    return;
+
+                //If the tag of the colliding object is in our list...
+                if(m_targetTags.Contains(other.tag))
+                {
+                    //..carry out the effects on it.
+                    m_effectsToApplyOnEnter.Invoke(other.gameObject);
+                }
+            }
+            private void OnTriggerStay(Collider other)
+            {
+                //If this object isn't enabled, don't do anything
+                if(!m_isActive)
+                    return;
+
+                //If the tag of the colliding object is in our list...
+                if(m_targetTags.Contains(other.tag))
+                {
+                    //..carry out the effects on it.
+                    m_effectsToApplyOnStay.Invoke(other.gameObject);
+                }
+            }
+            private void OnTriggerExit(Collider other)
+            {
+                //If this object isn't enabled, don't do anything
+                if(!m_isActive)
+                    return;
+
+                //If the tag of the colliding object is in our list...
+                if(m_targetTags.Contains(other.tag))
+                {
+                    //..carry out the effects on it.
+                    m_effectsToApplyOnExit.Invoke(other.gameObject);
+                }
+            }
+            public void LogObject(GameObject go)
+            {
+                Debug.Log($"{go} is causing a collision event with {gameObject}.");
+            }
+            #endregion
         }
     }
 }

@@ -12,10 +12,11 @@ namespace ILOVEYOU
             [SerializeField] private bool m_debugging;
             private HazardObject[] m_levelHazards;
             // Start is called before the first frame update
-            public void Awake()
+            public bool Startup()
             {
                 //Get all the hazards in the scene.
                 m_levelHazards = FindObjectsOfType<HazardObject>();
+                return true;
             }
 
             public void EnableHazards()
