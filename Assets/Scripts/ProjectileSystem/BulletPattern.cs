@@ -20,6 +20,9 @@ namespace ILOVEYOU
             private float[] m_cooldown;
             private float[] m_spinFactor;
 
+            [SerializeField] private float m_fireSpeedMulti = 1f; //changes how fast things shoot
+            [SerializeField] private float m_damageMulti = 1f; //changes how much damage things do
+
             private Transform m_target;
             /// <summary>
             /// Goes through each array and adjusts cooldowns for each. If a cooldown for an array has reached 0, the specified array will fire.
@@ -30,7 +33,7 @@ namespace ILOVEYOU
                 {
                     try
                     {
-                        m_cooldown[i] -= Time.deltaTime;
+                        m_cooldown[i] -= Time.deltaTime * m_fireSpeedMulti;
                     
                         if (m_cooldown[i] <= 0)
                         {
@@ -120,7 +123,7 @@ namespace ILOVEYOU
                     }
                     //initialize bullet script
                     newBullet.GetComponent<Projectile>().InitializeProjectile(pattern.BulletSpeed, pattern.BulletAcceleration, pattern.SidewaysBulletAcceleration,
-                        null, pattern.BulletLifetime, m_isPlayer);
+                        m_target, pattern.BulletDamage * m_damageMulti, pattern.BulletPierce, pattern.BulletLifetime, m_isPlayer);
                     
                     //add position offset to bullet
                     Vector3 posOffset = newBullet.transform.right * pattern.Offset.x + newBullet.transform.forward * pattern.Offset.y;
@@ -129,6 +132,24 @@ namespace ILOVEYOU
                     //increase rotation offset for future loops
                     rotOffset += pattern.SpreadWithinArrays;
                 }
+            }
+            //voids for changing or setting fire speed multiplier
+            public void SetFireSpeed(float speed)
+            {
+                m_fireSpeedMulti = speed;
+            }
+            public void AddFireSpeed(float speed)
+            {
+                m_fireSpeedMulti += speed;
+            }
+            //voids for changing or setting dmage multiplier
+            public void SetDamage(float damage)
+            {
+                m_damageMulti = damage;
+            }
+            public void AddDamage(float damage)
+            {
+                m_damageMulti += damage;
             }
         }
     }

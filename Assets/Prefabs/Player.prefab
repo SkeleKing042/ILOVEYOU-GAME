@@ -128,7 +128,7 @@ MonoBehaviour:
   m_moveSpeed: 10
   m_damage: 0
   m_fireRate: 0
-  m_aimDeadZone: 1
+  m_aimDeadZone: 0.904
 --- !u!114 &1146677423907829169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enemyGroups:
   - m_groupName: Basic Enemies
-    m_threshold: 5
+    m_threshold: 9999
     m_enemyPrefabs:
     - {fileID: 7613335133617298300, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
     - {fileID: 6625428459995327672, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 3702365987019445124}
   - component: {fileID: 8928812424675725307}
   m_Layer: 7
-  m_Name: Gun
+  m_Name: BulletPatternObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -285,6 +285,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_patternObj: {fileID: 11400000, guid: a09b745983d2b6e44bd7871c4fafc0a8, type: 2}
   m_isPlayer: 1
+  m_fireSpeedMulti: 1
+  m_damageMulti: 1
 --- !u!1001 &6961264007536109389
 PrefabInstance:
   m_ObjectHideFlags: 0

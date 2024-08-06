@@ -51,7 +51,7 @@ namespace ILOVEYOU
 
             public virtual void DoNearAction()
             {
-                Debug.Log("xoxoxoxoxo");
+                //Debug.Log("xoxoxoxoxo");
             }
 
             public void TakeDamage(float damage)

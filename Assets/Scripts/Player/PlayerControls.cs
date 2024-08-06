@@ -25,13 +25,13 @@ namespace ILOVEYOU
             //private float m_fireCoolDown;
             //public bool CanFire { get { if (m_fireCoolDown <= 0) return true; else return false; } }
 
-            private GameObject m_gun; //gameobject that holds the bullet pattern script
+            private GameObject m_patternObject; //gameobject that holds the bullet pattern script
             private BulletPattern m_pattern;
 
             private void Start()
             {
-                m_gun = transform.GetChild(2).gameObject;
-                m_pattern = m_gun.GetComponent<BulletPattern>();
+                m_patternObject = transform.GetChild(2).gameObject; //this is the empty gameobject with the pattern script object
+                m_pattern = m_patternObject.GetComponent<BulletPattern>();
             }
 
             /// <summary>
@@ -51,7 +51,7 @@ namespace ILOVEYOU
                         m_damage += value;
                         break;
                     case 2:
-                        m_fireRate += value;
+                        m_pattern.SetFireSpeed(value);
                         break;
                 }
                 return true;
@@ -70,6 +70,9 @@ namespace ILOVEYOU
                 {
                     if (m_debugging) Debug.Log($"{gameObject} is firing");
                     if (m_debugging) tmp_color = Color.red;
+
+                    //updates cooldowns
+                    m_pattern.PatternUpdate();
                 }
                 if (m_debugging) Debug.DrawRay(transform.position, m_aimDir * m_aimMagnitude * 5, tmp_color);
             }
@@ -90,23 +93,24 @@ namespace ILOVEYOU
                 //If we can fire...
                 //if (CanFire)
                // {
-                    //Get the direction of the right stick
-                    m_aimDir = value.Get<Vector2>();
-                    //Apply it to the x & z axis
-                    m_aimDir = new Vector3(m_aimDir.x, 0, m_aimDir.y);
-                    if (m_debugging) Debug.Log($"{gameObject} is aiming towards {m_aimDir}.");
 
-                    Vector3 relativePos = (transform.position + m_aimDir) - transform.position;
-                    //gets the required rotation for the shooting
-                    Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+                //Get the direction of the right stick
+                m_aimDir = value.Get<Vector2>();
+                //Apply it to the x & z axis
+                m_aimDir = new Vector3(m_aimDir.x, 0, m_aimDir.y);
+                if (m_debugging) Debug.Log($"{gameObject} is aiming towards {m_aimDir}.");
 
-                    m_gun.transform.rotation = rotation;
+                //find and apply rotation to the pattern object
+                Vector3 relativePos = (transform.position + m_aimDir) - transform.position;
+                //gets the required rotation for the shooting
+                Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+                m_patternObject.transform.rotation = rotation;
+                
 
-                    m_pattern.PatternUpdate();
 
-                    //Set the cool down
-                    //m_fireCoolDown = m_fireRate;
-                    //spawn projectile
+                //Set the cool down
+                //m_fireCoolDown = m_fireRate;
+                //spawn projectile
                 //}
             }
         }
