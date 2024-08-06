@@ -25,6 +25,22 @@ MonoBehaviour:
     BulletSpeed: 5
     BulletAcceleration: 0
     SidewaysBulletAcceleration: 0
+    FireSpeed: 0.5
+    FireSpeedOffset: 0
+    BulletLifetime: 3
+    Offset: {x: 0, y: 0}
+  - Name: PlayerShot
+    BulletPrefab: {fileID: 5662109590556615802, guid: d37b78a56916df743a8402f67f34e205, type: 3}
+    BulletsPerArray: 4
+    SpreadWithinArrays: 30
+    InitialAngle: 1
+    AngleOffset: 135
+    SpinFactor: 0
+    BulletDamage: 1
+    BulletPierce: 2
+    BulletSpeed: 5
+    BulletAcceleration: 0
+    SidewaysBulletAcceleration: 0
     FireSpeed: 1
     FireSpeedOffset: 0
     BulletLifetime: 3

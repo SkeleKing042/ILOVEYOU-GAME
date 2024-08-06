@@ -51,7 +51,7 @@ namespace ILOVEYOU
                 Destroy(gameObject, m_lifeTime);
             }
 
-            private void OnTriggerEnter(Collider other)
+            protected virtual void OnTriggerEnter(Collider other)
             {
                 //if bullet collided with enemy
                 if (other.gameObject.GetComponent<Enemy>())

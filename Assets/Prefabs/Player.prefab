@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 3879512174640564857}
   - component: {fileID: 1146677423907829169}
   - component: {fileID: 6247909786129688140}
+  - component: {fileID: 1076678004529756087}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -124,11 +125,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3602d5baa53ef0e47b915fd73bf259bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_debugging: 0
+  m_debugging: 1
   m_moveSpeed: 10
   m_damage: 0
   m_fireRate: 0
   m_aimDeadZone: 0.904
+  m_boxCastSize: {x: 3, y: 0.5, z: 3}
+  m_mask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &1146677423907829169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +168,19 @@ MonoBehaviour:
     - {fileID: 6625428459995327672, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
     - {fileID: 5426312569765723760, guid: 216d392008d35514d9f5d83766578465, type: 3}
   m_spawnRange: 10
+--- !u!135 &1076678004529756087
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2304864054761233360}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2368601335451209403
 GameObject:
   m_ObjectHideFlags: 0
