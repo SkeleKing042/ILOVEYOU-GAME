@@ -8,8 +8,8 @@ namespace ILOVEYOU
     {
         public class LungeEnemy : Enemy
         {
-            private float m_lungeCooldown = 5f;
-            private float m_tempSpeed = 0f;
+            [SerializeField] private float m_lungeCooldown = 5f;
+            [SerializeField] private float m_tempSpeed = 0f;
 
             // Start is called before the first frame update
             void Start()
