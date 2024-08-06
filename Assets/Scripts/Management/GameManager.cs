@@ -27,6 +27,7 @@ namespace ILOVEYOU
             [SerializeField] private int m_difficultyCap;
             private float m_timer;
             private float[] m_spawnTimer = new float[] { 5f, 5f };
+            [SerializeField] private float[] m_spawnTime = new float[] {5f, 5f};
             public int GetDifficulty { get { return (int)(m_timer / m_timePerStage); } }
             private void Awake()
             {
@@ -134,7 +135,7 @@ namespace ILOVEYOU
                         if (m_spawnTimer[i] <= 0)
                         {
                             m_EnSper[i].SpawnEnemyWave();
-                            m_spawnTimer[i] = 5f; //Possible TODO: add formula to scale spawn time with difficulty
+                            m_spawnTimer[i] = m_spawnTime[i]; //Possible TODO: add formula to scale spawn time with difficulty
                         }
                         else
                         {

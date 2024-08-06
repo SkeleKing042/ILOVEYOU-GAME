@@ -35,7 +35,7 @@ namespace ILOVEYOU
                 else
                 {
                     transform.position += m_tempSpeed * Time.deltaTime * transform.forward;
-                    m_tempSpeed -= Time.deltaTime * m_lungeSpeed * 2f;
+                    m_tempSpeed -= Time.deltaTime * (m_lungeSpeed / 2);
                 }
             }
 
