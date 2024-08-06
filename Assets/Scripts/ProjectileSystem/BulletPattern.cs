@@ -51,10 +51,10 @@ namespace ILOVEYOU
                 PatternInitialize();
             }
 
-            private void Update()
+            /*private void Update()
             {
-                PatternUpdate();
-            }
+                //PatternUpdate();
+            }*/
 
             /// <summary>
             /// adds target for the bullets to inherit can be used for homing bullets
