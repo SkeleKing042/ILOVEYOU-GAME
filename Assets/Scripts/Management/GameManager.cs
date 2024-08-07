@@ -5,6 +5,7 @@ namespace ILOVEYOU
 {
     using Cards;
     using ILOVEYOU.EnemySystem;
+    using ILOVEYOU.Hazards;
     using Player;
     namespace Management
     {
@@ -29,6 +30,8 @@ namespace ILOVEYOU
             private float[] m_spawnTimer = new float[] { 5f, 5f };
             [SerializeField] private float[] m_spawnTime = new float[] {5f, 5f};
             public int GetDifficulty { get { return (int)(m_timer / m_timePerStage); } }
+            //Hazards
+            private HazardManager m_hazMan;
             private void Awake()
             {
                 //Make sure that the other management scripts work
@@ -43,6 +46,21 @@ namespace ILOVEYOU
                 }
                 Debug.Log("Starting CardManager");
                 if (!m_cardMan.Startup())
+                {
+                    Destroy(this);
+                    return;
+                }
+
+                Debug.Log("Getting HazardManager");
+                m_hazMan = GetComponent<HazardManager>();
+                if (m_hazMan == null)
+                {
+                    Debug.LogError($"HazardManager not found, Aborting. Please add the CardManager script to {gameObject} and try again.");
+                    Destroy(this);
+                    return;
+                }
+                Debug.Log("Starting HazardManager");
+                if (!m_hazMan.Startup())
                 {
                     Destroy(this);
                     return;
