@@ -1,3 +1,4 @@
+using ILOVEYOU.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
@@ -59,6 +60,19 @@ namespace ILOVEYOU
                 m_health -= damage;
 
                 if (m_health <= 0) Destroy(gameObject);
+            }
+
+            public virtual void OnCollisionEnter(Collision collision)
+            {
+                //if collided with player
+                if (collision.gameObject.GetComponent<PlayerControls>())
+                {
+                    Debug.Log("Player touched enemy! They took " + m_damage + " damage!");
+
+                    collision.gameObject.GetComponent<PlayerControls>().TakeDamage(m_damage);
+
+                    //damage player
+                }
             }
         }
     }

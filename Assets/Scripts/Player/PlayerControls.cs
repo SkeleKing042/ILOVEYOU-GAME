@@ -11,6 +11,8 @@ namespace ILOVEYOU
         public class PlayerControls : MonoBehaviour
         {
             [SerializeField] private bool m_debugging;
+            [Header("General")]
+            [SerializeField] private float m_health = 10f;
             [Header("Movement")]
             [SerializeField] private float m_moveSpeed;
             private Vector3 m_moveDir;
@@ -56,10 +58,10 @@ namespace ILOVEYOU
                         m_moveSpeed += value;
                         break;
                     case 1:
-                        m_damage += value;
+                        m_pattern.AddDamage(value);
                         break;
                     case 2:
-                        m_pattern.SetFireSpeed(value);
+                        m_pattern.AddFireSpeed(value);
                         break;
                 }
                 return true;
@@ -128,6 +130,13 @@ namespace ILOVEYOU
                 //m_fireCoolDown = m_fireRate;
                 //spawn projectile
                 //}
+            }
+            /// <summary>
+            /// makes the player take the damage oh noooo this is bad
+            /// </summary>
+            public void TakeDamage(float damage)
+            {
+                m_health -= damage;
             }
 
             private void OnDrawGizmos()

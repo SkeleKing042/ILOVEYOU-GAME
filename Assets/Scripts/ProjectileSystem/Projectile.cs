@@ -57,7 +57,7 @@ namespace ILOVEYOU
                 if (other.gameObject.GetComponent<Enemy>())
                 {
                     other.gameObject.GetComponent<Enemy>()
-                        .TakeDamage(m_damage); //test damage value
+                        .TakeDamage(m_damage);
                     m_pierce--;
                     if (m_pierce <= 0) Destroy(gameObject);
                     return;
@@ -65,7 +65,13 @@ namespace ILOVEYOU
                 //if bullet collided with player
                 if (other.gameObject.GetComponent<PlayerControls>())
                 {
-                    //player damage script
+                    Debug.Log("Enemy hit player with projectile for " + m_damage + " damage!");
+
+                    //insert player damage script
+                    other.gameObject.GetComponent<PlayerControls>().TakeDamage(m_damage);
+
+                    m_pierce--;
+                    if (m_pierce <= 0) Destroy(gameObject);
                 }
             }
         }
