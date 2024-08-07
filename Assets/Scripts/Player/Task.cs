@@ -22,6 +22,8 @@ namespace ILOVEYOU
             [SerializeField] private float m_capValue;
             public float GetCapValue { get { return m_capValue; } }
             private float m_incValue;
+            public float GetCurrentValue {  get { return m_incValue; } }
+            public float GetPercent { get { return m_incValue/m_capValue; } }
 
             public bool IsComplete { get { return m_incValue >= m_capValue; } }
 

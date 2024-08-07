@@ -7,6 +7,8 @@ namespace ILOVEYOU
     using ILOVEYOU.EnemySystem;
     using ILOVEYOU.Hazards;
     using Player;
+    using TMPro;
+
     namespace Management
     {
 
@@ -16,6 +18,7 @@ namespace ILOVEYOU
             private PlayerManager[] m_playMen = new PlayerManager[2];
             private EnemySpawner[] m_EnSper = new EnemySpawner[2];
             public bool ReadyForPlay { get { return m_playMen[0] != null && m_playMen[1] != null; } }
+            private bool m_isPlaying;
             private CardManager m_cardMan;
             [Header("Tasks & Cards")]
             [Tooltip("The maximum number of tasks a player can have.")]
@@ -23,7 +26,6 @@ namespace ILOVEYOU
             [Tooltip("The number of cards shown to the player.\nPLEASE KEEP AT 3")]
             [SerializeField] private int m_numberOfCardsToGive = 3;
             [Header("Difficulty")]
-            [SerializeField] private float m_difficultySpeed;
             [SerializeField] private float m_timePerStage;
             [SerializeField] private int m_difficultyCap;
             private float m_timer;
@@ -32,6 +34,10 @@ namespace ILOVEYOU
             public int GetDifficulty { get { return (int)(m_timer / m_timePerStage); } }
             //Hazards
             private HazardManager m_hazMan;
+            //ui
+            [SerializeField] private GameObject m_mainMenuUI;
+            [SerializeField] private GameObject m_InGameSharedUI;
+            [SerializeField] private TextMeshProUGUI m_timerText;
             private void Awake()
             {
                 //Make sure that the other management scripts work
@@ -129,7 +135,7 @@ namespace ILOVEYOU
             private void Update()
             {
                 //Give players tasks
-                if (ReadyForPlay)
+                if (m_isPlaying)
                 {
                     for (int i = 0; i < m_playMen.Length; i++)
                     {
@@ -137,7 +143,6 @@ namespace ILOVEYOU
                         {
                             //Change for random generation
                             Debug.Log($"Giving player {i + 1} a task.");
-                            m_playMen[i].AddTask(TaskType.Time, 10);
                         }
                         if (m_playMen[i].TaskCompletionPoints > 0 && !m_playMen[i].CardsInHand)
                         {
@@ -161,10 +166,25 @@ namespace ILOVEYOU
                         }
                     }
                     if(GetDifficulty < m_difficultyCap)
-                    m_timer += Time.deltaTime * m_difficultySpeed;
+                    m_timer += Time.deltaTime;
 
-                }
+                    m_timerText.text = ((int)m_timer).ToString();
+
                 Debug.Log($"Current difficulty {GetDifficulty}.");
+                }
+            }
+            public void AttemptStartGame()
+            {
+                if (ReadyForPlay)
+                {
+                    m_isPlaying = true;
+                    m_mainMenuUI.SetActive(false);
+                    m_InGameSharedUI.SetActive(true);
+                }
+                else
+                {
+                    Debug.Log("There aren't enough players");
+                }
             }
         }
     }
