@@ -105,7 +105,7 @@ namespace ILOVEYOU
 
             public void OnDrawGizmos()
             {
-                //this is just to visualise where the enemies will spawn easier
+                //this is just to make it easier to visualise where enemies will spawn
                 if (transform) Gizmos.DrawWireSphere(transform.position, m_spawnRange);
             }
         }

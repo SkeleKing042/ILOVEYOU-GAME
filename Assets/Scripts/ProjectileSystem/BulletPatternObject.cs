@@ -35,6 +35,8 @@ namespace ILOVEYOU
                 [Tooltip("The speed at which the bullet array will spin (if any)")] public float SpinFactor;
 
                 [Header("Bullet variables")]
+                [Tooltip("Initial damage of the projectile")] public float BulletDamage;
+                [Tooltip("How many times a bullet can go through enemies")] public int BulletPierce;
                 [Tooltip("Initial speed of the projectile")] public float BulletSpeed;
                 [Tooltip("How fast the bullet accelerates (if it accelerates at all)")] public float BulletAcceleration;
                 [Tooltip("How fast the bullet accelerates to the side (if it accelerates at all)")] public float SidewaysBulletAcceleration;
