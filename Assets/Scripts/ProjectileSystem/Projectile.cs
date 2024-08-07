@@ -34,7 +34,7 @@ namespace ILOVEYOU
 
             }
 
-            public void InitializeProjectile(float speed, float accelValue, float sideaccelValue, Transform target, float damage, int pierce, float lifeTime, bool isFriendly)
+            public virtual void InitializeProjectile(float speed, float accelValue, float sideaccelValue, Transform target, float damage, int pierce, float lifeTime, bool isFriendly)
             {
                 m_speed = speed;
                 m_fwdaccelValue = accelValue;

@@ -7,10 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 330519632356170986, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 330519632356170986, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 453343250255440340, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
       propertyPath: m_Name
       value: HomingProjectile
       objectReference: {fileID: 0}
+    - target: {fileID: 3187435212823482503, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 4782851607102226188, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -75,3 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1702a94f4fc6a364686bace3e81cbc63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_checkRadius: 5
+  m_mask:
+    serializedVersion: 2
+    m_Bits: 64

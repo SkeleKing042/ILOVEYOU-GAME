@@ -84,6 +84,7 @@ namespace ILOVEYOU
 
                     //adds target to pattern script
                     if (m_hitDetect) m_pattern.AddTarget(m_Hit.collider.transform);
+                    else m_pattern.AddTarget(null);
 
                     //updates cooldowns
                     m_pattern.PatternUpdate();
