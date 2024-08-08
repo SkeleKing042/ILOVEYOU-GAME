@@ -19,6 +19,11 @@ namespace ILOVEYOU
             private DisruptCard[] m_cardsHeld;
             public bool CardsInHand { get { return m_cardsHeld.Length > 0; } }
             [SerializeField] private float m_cardTimeout;
+            //ui
+            //[SerializeField] private GameObject m_taskUIElementPrefab;
+            //private List<GameObject> m_taskUIElements = new List<GameObject>();
+            //[SerializeField] private Transform m_taskUIContainer;
+            [SerializeField] private Transform m_cardDisplay;
             public bool Startup()
             {
                 //Reset variables
@@ -37,6 +42,9 @@ namespace ILOVEYOU
             public bool AddTask(TaskType type, float cap)
             {
                 m_tasks.Add(new Task(type, cap));
+                //GameObject taskUI = Instantiate(m_taskUIElementPrefab);
+                //m_taskUIElements.Add(taskUI);
+                //taskUI.transform.SetParent(m_taskUIContainer, false);
                 VerifyTaskList();
                 return true;
             }
@@ -56,6 +64,7 @@ namespace ILOVEYOU
                 //Remove those completed tasks from the main list
                 foreach(Task task in completeTasks)
                 {
+                    //Destroy(m_taskUIElements[m_tasks.IndexOf(task)]);
                     m_tasks.Remove(task);
                     TaskCompletionPoints++;
                 }
@@ -140,6 +149,22 @@ namespace ILOVEYOU
                 VerifyTaskList();
                 return true;
             }
+            /*private void Update()
+            {
+                UpdateTaskUI();
+            }
+            private void UpdateTaskUI()
+            {
+                for (int i = 0; i < m_tasks.Count; i++)
+                {
+                    Image tmp = m_taskUIElements[i].GetComponentInChildren<Image>();
+                    if (tmp != null)
+                    {
+                    tmp.fillAmount = m_tasks[i].GetPercent;
+
+                    }
+                }
+            }*/
             #endregion
             #region Card Management
             /// <summary>
@@ -156,12 +181,12 @@ namespace ILOVEYOU
                 foreach(DisruptCard card in m_cardsHeld)
                 {
                     Debug.Log("Readying discard function to card.");
-                    card.transform.SetParent(transform);
+                    card.transform.SetParent(m_cardDisplay, false);
+                    card.transform.localScale = Vector3.one;
                     card.m_playerHandToDiscard.AddListener(delegate { DiscardHand(); });
                 }
                 //To stop stockpiling, delete the cards after a set time
                 Invoke("DiscardHand", m_cardTimeout);
-                //DisplayHand();
             }
             /// <summary>
             /// Destroys the player's hand card objects
