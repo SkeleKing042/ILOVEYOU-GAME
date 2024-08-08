@@ -13,6 +13,8 @@ namespace ILOVEYOU
             [SerializeField] private bool m_debugging;
             [Header("General")]
             [SerializeField] private float m_health = 10f;
+            [SerializeField] private float m_iframesTotal = 1f; //this is in seconds
+            private float m_iframesCurrent;
             [Header("Movement")]
             [SerializeField] private float m_moveSpeed;
             private Vector3 m_moveDir;
@@ -92,6 +94,7 @@ namespace ILOVEYOU
                     m_pattern.PatternUpdate();
 
                 }
+                m_iframesCurrent = Mathf.Clamp(m_iframesCurrent - Time.deltaTime, 0f, m_iframesTotal);
                 if (m_debugging) Debug.DrawRay(transform.position, m_aimDir * m_aimMagnitude * 5, tmp_color);
             }
             public void FixedUpdate()
@@ -136,7 +139,10 @@ namespace ILOVEYOU
             /// </summary>
             public void TakeDamage(float damage)
             {
+                if (m_iframesCurrent > 0) return;
                 m_health -= damage;
+                m_iframesCurrent = m_iframesTotal;
+                
             }
 
             private void OnDrawGizmos()

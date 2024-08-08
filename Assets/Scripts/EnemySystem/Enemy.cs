@@ -67,7 +67,7 @@ namespace ILOVEYOU
                 //if collided with player
                 if (collision.gameObject.GetComponent<PlayerControls>())
                 {
-                    Debug.Log("Player touched enemy! They took " + m_damage + " damage!");
+                    //Debug.Log("Player touched enemy! They took " + m_damage + " damage!");
 
                     collision.gameObject.GetComponent<PlayerControls>().TakeDamage(m_damage);
 

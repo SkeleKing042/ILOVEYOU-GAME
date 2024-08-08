@@ -65,7 +65,7 @@ namespace ILOVEYOU
                 //if bullet collided with player
                 if (other.gameObject.GetComponent<PlayerControls>())
                 {
-                    Debug.Log("Enemy hit player with projectile for " + m_damage + " damage!");
+                    //Debug.Log("Enemy hit player with projectile for " + m_damage + " damage!");
 
                     //insert player damage script
                     other.gameObject.GetComponent<PlayerControls>().TakeDamage(m_damage);
