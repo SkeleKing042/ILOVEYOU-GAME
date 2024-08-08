@@ -11,6 +11,10 @@ namespace ILOVEYOU
         public class PlayerControls : MonoBehaviour
         {
             [SerializeField] private bool m_debugging;
+            [Header("General")]
+            [SerializeField] private float m_health = 10f;
+            [SerializeField] private float m_iframesTotal = 1f; //this is in seconds
+            private float m_iframesCurrent;
             [Header("Movement")]
             [SerializeField] private float m_moveSpeed;
             private Vector3 m_moveDir;
@@ -56,10 +60,10 @@ namespace ILOVEYOU
                         m_moveSpeed += value;
                         break;
                     case 1:
-                        m_damage += value;
+                        m_pattern.AddDamage(value);
                         break;
                     case 2:
-                        m_pattern.SetFireSpeed(value);
+                        m_pattern.AddFireSpeed(value);
                         break;
                 }
                 return true;
@@ -90,6 +94,7 @@ namespace ILOVEYOU
                     m_pattern.PatternUpdate();
 
                 }
+                m_iframesCurrent = Mathf.Clamp(m_iframesCurrent - Time.deltaTime, 0f, m_iframesTotal);
                 if (m_debugging) Debug.DrawRay(transform.position, m_aimDir * m_aimMagnitude * 5, tmp_color);
             }
             public void FixedUpdate()
@@ -128,6 +133,16 @@ namespace ILOVEYOU
                 //m_fireCoolDown = m_fireRate;
                 //spawn projectile
                 //}
+            }
+            /// <summary>
+            /// makes the player take the damage oh noooo this is bad
+            /// </summary>
+            public void TakeDamage(float damage)
+            {
+                if (m_iframesCurrent > 0) return;
+                m_health -= damage;
+                m_iframesCurrent = m_iframesTotal;
+                
             }
 
             private void OnDrawGizmos()
