@@ -91,14 +91,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 664f7477d105c9441bc913f4ce9f3b2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_playerSpawns:
+  - {fileID: 0}
+  - {fileID: 0}
   m_maxTaskCount: 1
   m_numberOfCardsToGive: 3
-  m_difficultySpeed: 0
-  m_timePerStage: 0
-  m_difficultyCap: 0
+  m_taskList: []
+  m_timePerStage: 5
+  m_difficultyCap: 5
   m_spawnTime:
   - 1
   - 1
+  m_useUI: 1
+  m_mainMenuUI: {fileID: 0}
+  m_InGameSharedUI: {fileID: 0}
+  m_timerText: {fileID: 0}
 --- !u!114 &213998485764028618
 MonoBehaviour:
   m_ObjectHideFlags: 0

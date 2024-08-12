@@ -20,6 +20,7 @@ namespace ILOVEYOU
             private DisruptCard[] m_cardsHeld;
             public bool CardsInHand { get { return m_cardsHeld.Length > 0; } }
             [SerializeField] private float m_cardTimeout;
+            [SerializeField] private GameObject m_blindBox;
             //ui
             //[SerializeField] private GameObject m_taskUIElementPrefab;
             //private List<GameObject> m_taskUIElements = new List<GameObject>();
@@ -50,6 +51,11 @@ namespace ILOVEYOU
                 //m_taskUIElements.Add(taskUI);
                 //taskUI.transform.SetParent(m_taskUIContainer, false);
                 VerifyTaskList();
+                return true;
+            }
+            public bool AddTask(Task task)
+            {
+                AddTask(task.GetTaskType, task.GetCapValue);
                 return true;
             }
             /// <summary>
@@ -233,9 +239,18 @@ namespace ILOVEYOU
                         break;
                 }
                 //Trigger the effects of the chosen card.
-                m_cardsHeld[index].Trigger();
+                m_cardsHeld[index].Trigger(m_manager, this);
             }
             #endregion
+            public void TriggerBlindness(float m_time)
+            {
+                m_blindBox.SetActive(true);
+                Invoke("DisableBlindness", m_time);
+            }
+            private void DisableBlindness()
+            {
+                m_blindBox.SetActive(false);
+            }
         }
     }
 }

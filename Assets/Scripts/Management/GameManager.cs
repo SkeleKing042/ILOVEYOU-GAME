@@ -33,6 +33,7 @@ namespace ILOVEYOU
             [SerializeField] private int m_maxTaskCount;
             [Tooltip("The number of cards shown to the player.\nPLEASE KEEP AT 3")]
             [SerializeField] private int m_numberOfCardsToGive = 3;
+            [SerializeField] private Task[] m_taskList;
 
             [Header("Difficulty")]
             [SerializeField] private float m_timePerStage;
@@ -85,6 +86,12 @@ namespace ILOVEYOU
             }
             public void OnPlayerJoined(PlayerInput input)
             {
+                if (input.currentControlScheme != "Gamepad")
+                {
+                    input.DeactivateInput();
+                    Destroy(input);
+                    return;
+                }    
                 if (m_playMen[0] == null)
                 {
                     ReadyPlayer(0, input);
@@ -157,8 +164,8 @@ namespace ILOVEYOU
                 //winning player
                 int playerNum = (player == m_playMen[0]) ? 1 : 0;
 
-                m_winScreen.GetComponent<TextMeshProUGUI>().text = $"Player {playerNum + 1} wins!";
-                EventSystem.current.SetSelectedGameObject(m_winScreen.transform.GetChild(0).gameObject);
+                m_winScreen.GetComponentInChildren<TextMeshProUGUI>().text = $"Player {playerNum + 1} wins!";
+                EventSystem.current.SetSelectedGameObject(m_winScreen.transform.GetChild(1).gameObject);
 
                 StartCoroutine(_coolSlowMo());
             }
@@ -191,6 +198,8 @@ namespace ILOVEYOU
                         {
                             //Change for random generation
                             Debug.Log($"Giving player {i + 1} a task.");
+                            int rnd = Random.Range(0, m_taskList.Length);
+                            m_playMen[i].AddTask(m_taskList[rnd]);
                         }
                         if (m_playMen[i].TaskCompletionPoints > 0 && !m_playMen[i].CardsInHand)
                         {
@@ -219,7 +228,7 @@ namespace ILOVEYOU
                     if(m_useUI)
                         m_timerText.text = ((int)m_timer).ToString();
 
-                Debug.Log($"Current difficulty {GetDifficulty}.");
+                //Debug.Log($"Current difficulty {GetDifficulty}.");
                 }
             }
             public void AttemptStartGame()
