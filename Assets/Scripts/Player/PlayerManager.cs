@@ -26,20 +26,14 @@ namespace ILOVEYOU
             //[SerializeField] private Transform m_taskUIContainer;
             [SerializeField] private Transform m_cardDisplay;
             private GameManager m_manager;
-            public bool Startup()
+            public bool Startup(GameManager manager)
             {
                 //Reset variables
                 TaskCompletionPoints = 0;
                 m_cardsHeld = new DisruptCard[0];
                 Debug.Log("PlayerManager started successfully");
-                return true;
-            }
-            /// <summary>
-            /// called by GameManager to initialize the m_manager variable
-            /// </summary>
-            public void Initialize(GameManager manager)
-            {
                 m_manager = manager;
+                return true;
             }
             public GameManager GetGameManager() { return m_manager; }
             #region Task Management

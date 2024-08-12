@@ -104,7 +104,6 @@ namespace ILOVEYOU
             {
                 //get PlayerManager
                 m_playMen[index] = input.GetComponent<PlayerManager>();
-                m_playMen[index].Initialize(this);
                 //Get and initialize EnemySpawner
                 m_EnSper[index] = input.GetComponent<EnemySpawner>();
                 m_EnSper[index].Initialize(this);
@@ -115,7 +114,7 @@ namespace ILOVEYOU
                     Destroy(this);
                     return false;
                 }
-                if (!m_playMen[index].Startup())
+                if (!m_playMen[index].Startup(this))
                 {
                     Destroy(this);
                     return false;
