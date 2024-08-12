@@ -29,6 +29,7 @@ namespace ILOVEYOU
             private float m_aimMagnitude { get { return m_aimDir.magnitude; } }
             [SerializeField, Range(0f, 1f)] private float m_aimDeadZone;
 
+            private GameObject m_playerModel;
             private GameObject m_patternObject; //gameobject that holds the bullet pattern script
             private BulletPattern m_pattern;
 
@@ -41,6 +42,7 @@ namespace ILOVEYOU
 
             private void Awake()
             {
+                m_playerModel = transform.GetChild(0).gameObject;
                 m_patternObject = transform.GetChild(2).gameObject; //this is the empty gameobject with the pattern script object
                 m_pattern = m_patternObject.GetComponent<BulletPattern>();
                 m_Collider = GetComponent<Collider>();
@@ -111,6 +113,7 @@ namespace ILOVEYOU
             {
                 //Get the direction of the right stick
                 m_aimDir = value.Get<Vector2>();
+                if (m_aimDir == Vector3.zero) return;
                 //Apply it to the x & z axis
                 m_aimDir = new Vector3(m_aimDir.x, 0, m_aimDir.y);
                 if (m_debugging) Debug.Log($"{gameObject} is aiming towards {m_aimDir}.");
@@ -120,6 +123,7 @@ namespace ILOVEYOU
                 //gets the required rotation for the shooting
                 Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
                 m_patternObject.transform.rotation = rotation;
+                m_playerModel.transform.rotation = rotation;
             }
             /// <summary>
             /// makes the player take the damage oh noooo this is bad
