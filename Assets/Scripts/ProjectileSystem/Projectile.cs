@@ -22,7 +22,7 @@ namespace ILOVEYOU
             protected bool m_isFriendly; // if the projectile has been shot by the player (might not need this)
 
 
-            private void Update()
+            private void FixedUpdate()
             {
                 //bug: if initial m_speed is 0, any acceleration applied to the bullet makes it move all whacky
                 //basic movement
