@@ -26,6 +26,7 @@ namespace ILOVEYOU
             //private List<GameObject> m_taskUIElements = new List<GameObject>();
             //[SerializeField] private Transform m_taskUIContainer;
             [SerializeField] private Transform m_cardDisplay;
+            [SerializeField] private Slider m_healthSlider;
             private GameManager m_manager;
             public bool Startup(GameManager manager)
             {
@@ -251,6 +252,10 @@ namespace ILOVEYOU
             private void DisableBlindness()
             {
                 m_blindBox.SetActive(false);
+            }
+            public void UpdateHealthBar(float value)
+            {
+                m_healthSlider.value = value;
             }
         }
     }

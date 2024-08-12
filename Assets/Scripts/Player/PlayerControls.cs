@@ -14,7 +14,8 @@ namespace ILOVEYOU
             [SerializeField] private bool m_debugging;
             private PlayerManager m_plaMa;
             [Header("General")]
-            [SerializeField] private float m_health = 10f;
+            [SerializeField] private float m_MaxHealth = 10f;
+            private float m_health;
             [SerializeField] private float m_iframesTotal = 1f; //this is in seconds
             private float m_iframesCurrent;
             [Header("Movement")]
@@ -44,6 +45,8 @@ namespace ILOVEYOU
                 m_pattern = m_patternObject.GetComponent<BulletPattern>();
                 m_Collider = GetComponent<Collider>();
                 m_plaMa = GetComponent<PlayerManager>();
+                m_health = m_MaxHealth;
+                UpdateHealthBar();
             }
 
 
@@ -126,8 +129,15 @@ namespace ILOVEYOU
                 if (m_iframesCurrent > 0) return;
                 m_health -= damage;
                 m_iframesCurrent = m_iframesTotal;
+                UpdateHealthBar();
                 if (m_health <= 0) m_plaMa.GetGameManager().PlayerDeath(m_plaMa);
                 
+            }
+
+            public void UpdateHealthBar()
+            {
+                float current = m_health / m_MaxHealth;
+                m_plaMa.UpdateHealthBar(current);
             }
 
             private void OnDrawGizmos()
