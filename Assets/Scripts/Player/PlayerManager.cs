@@ -1,4 +1,5 @@
 using ILOVEYOU.Cards;
+using ILOVEYOU.Management;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace ILOVEYOU
             //private List<GameObject> m_taskUIElements = new List<GameObject>();
             //[SerializeField] private Transform m_taskUIContainer;
             [SerializeField] private Transform m_cardDisplay;
+            private GameManager m_manager;
             public bool Startup()
             {
                 //Reset variables
@@ -32,6 +34,14 @@ namespace ILOVEYOU
                 Debug.Log("PlayerManager started successfully");
                 return true;
             }
+            /// <summary>
+            /// called by GameManager to initialize the m_manager variable
+            /// </summary>
+            public void Initialize(GameManager manager)
+            {
+                m_manager = manager;
+            }
+            public GameManager GetGameManager() { return m_manager; }
             #region Task Management
             /// <summary>
             /// Creates a new class to add to the list

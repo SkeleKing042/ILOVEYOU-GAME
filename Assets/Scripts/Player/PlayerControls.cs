@@ -1,3 +1,4 @@
+using ILOVEYOU.Management;
 using ILOVEYOU.ProjectileSystem;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace ILOVEYOU
         public class PlayerControls : MonoBehaviour
         {
             [SerializeField] private bool m_debugging;
+            private PlayerManager m_plaMa;
             [Header("General")]
             [SerializeField] private float m_health = 10f;
             [SerializeField] private float m_iframesTotal = 1f; //this is in seconds
@@ -25,9 +27,6 @@ namespace ILOVEYOU
             private Vector3 m_aimDir;
             private float m_aimMagnitude { get { return m_aimDir.magnitude; } }
             [SerializeField, Range(0f, 1f)] private float m_aimDeadZone;
-            //base projectile ref
-            //private float m_fireCoolDown;
-            //public bool CanFire { get { if (m_fireCoolDown <= 0) return true; else return false; } }
 
             private GameObject m_patternObject; //gameobject that holds the bullet pattern script
             private BulletPattern m_pattern;
@@ -44,7 +43,9 @@ namespace ILOVEYOU
                 m_patternObject = transform.GetChild(2).gameObject; //this is the empty gameobject with the pattern script object
                 m_pattern = m_patternObject.GetComponent<BulletPattern>();
                 m_Collider = GetComponent<Collider>();
+                m_plaMa = GetComponent<PlayerManager>();
             }
+
 
             /// <summary>
             /// Changes a stat
@@ -70,12 +71,6 @@ namespace ILOVEYOU
             }
             public void Update()
             {
-                //If we can't fire...
-                //if (!CanFire)
-                //{
-                //    //..reduce the cool down
-                //    m_fireCoolDown -= Time.deltaTime;
-                //}
 
                 Color tmp_color = Color.blue;
                 if (m_aimMagnitude >= m_aimDeadZone)
@@ -111,10 +106,6 @@ namespace ILOVEYOU
             }
             public void OnFire(InputValue value)
             {
-                //If we can fire...
-                //if (CanFire)
-               // {
-
                 //Get the direction of the right stick
                 m_aimDir = value.Get<Vector2>();
                 //Apply it to the x & z axis
@@ -126,13 +117,6 @@ namespace ILOVEYOU
                 //gets the required rotation for the shooting
                 Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
                 m_patternObject.transform.rotation = rotation;
-                
-
-
-                //Set the cool down
-                //m_fireCoolDown = m_fireRate;
-                //spawn projectile
-                //}
             }
             /// <summary>
             /// makes the player take the damage oh noooo this is bad
@@ -142,6 +126,7 @@ namespace ILOVEYOU
                 if (m_iframesCurrent > 0) return;
                 m_health -= damage;
                 m_iframesCurrent = m_iframesTotal;
+                if (m_health <= 0) m_plaMa.GetGameManager().PlayerDeath(m_plaMa);
                 
             }
 
