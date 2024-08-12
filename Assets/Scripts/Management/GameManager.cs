@@ -14,17 +14,23 @@ namespace ILOVEYOU
 
         public class GameManager : MonoBehaviour
         {
-            //Management
+            //Other managers
             private PlayerManager[] m_playMen = new PlayerManager[2];
             private EnemySpawner[] m_EnSper = new EnemySpawner[2];
+            private HazardManager m_hazMan;
+            private CardManager m_cardMan;
+
+            [Header("Players")]
+            [SerializeField] private Transform[] m_playerSpawns = new Transform[2];
             public bool ReadyForPlay { get { return m_playMen[0] != null && m_playMen[1] != null; } }
             private bool m_isPlaying;
-            private CardManager m_cardMan;
+
             [Header("Tasks & Cards")]
             [Tooltip("The maximum number of tasks a player can have.")]
             [SerializeField] private int m_maxTaskCount;
             [Tooltip("The number of cards shown to the player.\nPLEASE KEEP AT 3")]
             [SerializeField] private int m_numberOfCardsToGive = 3;
+
             [Header("Difficulty")]
             [SerializeField] private float m_timePerStage;
             [SerializeField] private int m_difficultyCap;
@@ -32,9 +38,9 @@ namespace ILOVEYOU
             private float[] m_spawnTimer = new float[] { 5f, 5f };
             [SerializeField] private float[] m_spawnTime = new float[] {5f, 5f};
             public int GetDifficulty { get { return (int)(m_timer / m_timePerStage); } }
-            //Hazards
-            private HazardManager m_hazMan;
-            //ui
+
+            [Header("UI")]
+            [SerializeField] private bool m_useUI = true;
             [SerializeField] private GameObject m_mainMenuUI;
             [SerializeField] private GameObject m_InGameSharedUI;
             [SerializeField] private TextMeshProUGUI m_timerText;
@@ -109,6 +115,10 @@ namespace ILOVEYOU
                     return false;
                 }
                 Debug.Log($"Player {index + 1} has joined.");
+                if (m_playerSpawns[index])
+                    m_playMen[index].transform.SetPositionAndRotation(m_playerSpawns[index].position, Quaternion.identity);
+                else
+                    m_playMen[index].transform.SetPositionAndRotation(transform.position, Quaternion.identity);
                 return true;
             }
             public PlayerManager GetPlayer(int index)
@@ -168,7 +178,8 @@ namespace ILOVEYOU
                     if(GetDifficulty < m_difficultyCap)
                     m_timer += Time.deltaTime;
 
-                    m_timerText.text = ((int)m_timer).ToString();
+                    if(m_useUI)
+                        m_timerText.text = ((int)m_timer).ToString();
 
                 Debug.Log($"Current difficulty {GetDifficulty}.");
                 }
@@ -178,8 +189,11 @@ namespace ILOVEYOU
                 if (ReadyForPlay)
                 {
                     m_isPlaying = true;
-                    m_mainMenuUI.SetActive(false);
-                    m_InGameSharedUI.SetActive(true);
+                    if (m_useUI)
+                    {
+                        m_mainMenuUI.SetActive(false);
+                        m_InGameSharedUI.SetActive(true);
+                    }
                 }
                 else
                 {
