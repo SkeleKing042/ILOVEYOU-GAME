@@ -239,6 +239,7 @@ namespace ILOVEYOU
                         break;
                 }
                 //Trigger the effects of the chosen card.
+                if(index > - 1)
                 m_cardsHeld[index].Trigger(m_manager, this);
             }
             #endregion

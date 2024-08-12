@@ -165,7 +165,7 @@ namespace ILOVEYOU
                 int playerNum = (player == m_playMen[0]) ? 1 : 0;
 
                 m_winScreen.GetComponentInChildren<TextMeshProUGUI>().text = $"Player {playerNum + 1} wins!";
-                EventSystem.current.SetSelectedGameObject(m_winScreen.transform.GetChild(1).gameObject);
+                EventSystem.current.SetSelectedGameObject(m_winScreen.transform.GetChild(2).gameObject);
 
                 StartCoroutine(_coolSlowMo());
             }
