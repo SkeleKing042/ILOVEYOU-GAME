@@ -41,7 +41,7 @@ namespace ILOVEYOU
             private float m_timer;
             private float[] m_spawnTimer = new float[] { 5f, 5f };
             [SerializeField] private float[] m_spawnTime = new float[] {5f, 5f};
-            public int GetDifficulty { get { return (int)(m_timer / m_timePerStage); } }
+            public int GetDifficulty { get { return (int)Mathf.Clamp(m_timer / m_timePerStage, 0, m_difficultyCap); } }
 
             [Header("UI")]
             [SerializeField] private bool m_useUI = true;
@@ -222,7 +222,6 @@ namespace ILOVEYOU
                             m_spawnTimer[i] -= 1f * Time.deltaTime;
                         }
                     }
-                    if(GetDifficulty < m_difficultyCap)
                     m_timer += Time.deltaTime;
 
                     if(m_useUI)
