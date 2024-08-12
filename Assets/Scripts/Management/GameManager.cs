@@ -7,7 +7,10 @@ namespace ILOVEYOU
     using ILOVEYOU.EnemySystem;
     using ILOVEYOU.Hazards;
     using Player;
+    using System.Collections;
     using TMPro;
+    using UnityEngine.EventSystems;
+    using UnityEngine.SceneManagement;
 
     namespace Management
     {
@@ -44,8 +47,10 @@ namespace ILOVEYOU
             [SerializeField] private GameObject m_mainMenuUI;
             [SerializeField] private GameObject m_InGameSharedUI;
             [SerializeField] private TextMeshProUGUI m_timerText;
+            [SerializeField] private GameObject m_winScreen;
             private void Awake()
             {
+                Time.timeScale = 1f;
                 //Make sure that the other management scripts work
                 Debug.Log("Game starting.");
                 Debug.Log("Getting CardManager");
@@ -109,7 +114,7 @@ namespace ILOVEYOU
                     Destroy(this);
                     return false;
                 }
-                if (!m_playMen[index].Startup())
+                if (!m_playMen[index].Startup(this))
                 {
                     Destroy(this);
                     return false;
@@ -140,6 +145,39 @@ namespace ILOVEYOU
                 {
                     return m_playMen[0];
                 }
+            }
+            /// <summary>
+            /// function that does the setup for when a player loses
+            /// </summary>
+            /// <param name="player">player manager of the losing player</param>
+            public void PlayerDeath(PlayerManager player)
+            {
+                m_winScreen.SetActive(true);
+
+                //winning player
+                int playerNum = (player == m_playMen[0]) ? 1 : 0;
+
+                m_winScreen.GetComponent<TextMeshProUGUI>().text = $"Player {playerNum + 1} wins!";
+                EventSystem.current.SetSelectedGameObject(m_winScreen.transform.GetChild(0).gameObject);
+
+                StartCoroutine(_coolSlowMo());
+            }
+
+            private IEnumerator _coolSlowMo()
+            {
+                while(Time.timeScale != 0)
+                {
+                    Time.timeScale = Mathf.MoveTowards(Time.timeScale, 0f, Time.unscaledDeltaTime);
+                    yield return new WaitForEndOfFrame();
+                }
+                yield return null;
+            }
+            /// <summary>
+            /// reloads the current scene
+            /// </summary>
+            public void RestartScene()
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
 
             private void Update()
