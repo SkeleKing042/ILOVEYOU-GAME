@@ -59,7 +59,11 @@ namespace ILOVEYOU
             {
                 m_health -= damage;
 
-                if (m_health <= 0) Destroy(gameObject);
+                if (m_health <= 0)
+                {
+                    m_playerTransform.GetComponent<PlayerManager>().UpdateKillTrackers(1);
+                    Destroy(gameObject);
+                }
             }
 
             public virtual void OnCollisionEnter(Collision collision)
