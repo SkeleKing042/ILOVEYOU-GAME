@@ -28,12 +28,19 @@ namespace ILOVEYOU
                 Mathf.Clamp(count, 1, m_disruptCards.Length - 1);
                 //Make a new array with the requested amount of cards
                 List<DisruptCard> cards = new List<DisruptCard>();
-
+                List<int> selectedCards = new List<int>();
                 //Iterate though each card in the array
-                for (int i = 0; i < count; i++)
+                for (int c = 0; c < count; c++)
                 {
                     //Assign it a random card
-                    cards.Add(Instantiate(m_disruptCards[Random.Range(0, m_disruptCards.Length)]));
+                    int rnd = -1;
+                    for(int i = 100; i > 0; i--)
+                    {
+                        rnd = Random.Range(0, m_disruptCards.Length);
+                        if (rnd > -1 && !selectedCards.Contains(rnd)) break;
+                    }
+                    selectedCards.Add(rnd);
+                    cards.Add(Instantiate(m_disruptCards[rnd]));
                 }
                 //Return the array
                 return cards;

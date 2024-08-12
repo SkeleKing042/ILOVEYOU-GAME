@@ -26,6 +26,7 @@ namespace ILOVEYOU
             [SerializeField] private float m_damage;
             [SerializeField] private float m_fireRate;
             private Vector3 m_aimDir;
+            private bool m_allowShooting;
             private float m_aimMagnitude { get { return m_aimDir.magnitude; } }
             [SerializeField, Range(0f, 1f)] private float m_aimDeadZone;
 
@@ -47,6 +48,7 @@ namespace ILOVEYOU
                 m_plaMa = GetComponent<PlayerManager>();
                 m_health = m_MaxHealth;
                 UpdateHealthBar();
+                m_allowShooting = true;
             }
 
 
@@ -76,7 +78,7 @@ namespace ILOVEYOU
             {
 
                 Color tmp_color = Color.blue;
-                if (m_aimMagnitude >= m_aimDeadZone)
+                if (m_aimMagnitude >= m_aimDeadZone && m_allowShooting)
                 {
                     if (m_debugging) Debug.Log($"{gameObject} is firing");
                     if (m_debugging) tmp_color = Color.red;
@@ -164,6 +166,17 @@ namespace ILOVEYOU
                     }
                 }
             }
+            public bool TempDisableShooting(float time)
+            {
+                m_allowShooting = false;
+                Invoke("ReenableShooting", time);
+                return true;
+            }
+            private void ReenableShooting()
+            {
+                m_allowShooting = true;
+            }
+
         }
     }
 }
