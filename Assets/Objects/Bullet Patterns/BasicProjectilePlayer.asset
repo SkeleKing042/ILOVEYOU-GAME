@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b89321c30b957b440a960af42175ac50, type: 3}
+  m_Name: BasicProjectilePlayer
+  m_EditorClassIdentifier: 
+  m_bulletArrays:
+  - Name: PlayerShot
+    BulletPrefab: {fileID: 453343250255440340, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
+    BulletsPerArray: 1
+    SpreadWithinArrays: 0
+    InitialAngle: 1
+    AngleOffset: 0
+    SpinFactor: 0
+    BulletDamage: 1
+    BulletPierce: 2
+    BulletSpeed: 5
+    BulletAcceleration: 0
+    SidewaysBulletAcceleration: 0
+    FireSpeed: 0.5
+    FireSpeedOffset: 0
+    BulletLifetime: 3
+    Offset: {x: 0, y: 0}
+  - Name: PlayerShot
+    BulletPrefab: {fileID: 5662109590556615802, guid: d37b78a56916df743a8402f67f34e205, type: 3}
+    BulletsPerArray: 4
+    SpreadWithinArrays: 30
+    InitialAngle: 1
+    AngleOffset: 135
+    SpinFactor: 0
+    BulletDamage: 1
+    BulletPierce: 2
+    BulletSpeed: 10
+    BulletAcceleration: 20
+    SidewaysBulletAcceleration: 0
+    FireSpeed: 1
+    FireSpeedOffset: 0
+    BulletLifetime: 5
+    Offset: {x: 0, y: 0}
