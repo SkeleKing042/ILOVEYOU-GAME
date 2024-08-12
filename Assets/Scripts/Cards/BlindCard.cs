@@ -11,7 +11,7 @@ namespace ILOVEYOU
 
         public class BlindCard : MonoBehaviour
         {
-            private float m_time = 3;
+            [SerializeField] private float m_time = 3;
             public void ExecuteEvents(object[] data)
             {
                 GameManager manager = (GameManager)data[0];

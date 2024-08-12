@@ -732,12 +732,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 213998485764028618, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_disruptCards.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 213998485764028618, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_disruptCards.Array.data[0]
       value: 
       objectReference: {fileID: 5180684187051310492, guid: c417afdaea3cc7947be07c494ef21570, type: 3}
+    - target: {fileID: 213998485764028618, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+      propertyPath: m_disruptCards.Array.data[1]
+      value: 
+      objectReference: {fileID: 6432578054958738686, guid: 0a75ce6291015ee4aa54aae78f8fdab4, type: 3}
+    - target: {fileID: 213998485764028618, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+      propertyPath: m_disruptCards.Array.data[2]
+      value: 
+      objectReference: {fileID: 2255046956262864865, guid: 6eee37eeabf47a947a324202506b5b72, type: 3}
     - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_timerUI
       value: 
@@ -763,12 +771,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1271747014}
     - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
-      propertyPath: m_numberOfCardsToGive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_taskList.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_playerSpawns.Array.data[0]
@@ -780,7 +784,7 @@ PrefabInstance:
       objectReference: {fileID: 1858480620}
     - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_taskList.Array.data[0].m_type
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_taskList.Array.data[1].m_type
@@ -792,7 +796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_taskList.Array.data[1].m_capValue
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7110859564445768984, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_Name
