@@ -12,9 +12,11 @@ namespace ILOVEYOU
         {
             private bool m_isActive = false;
             [SerializeField] private List<string> m_targetTags;
+            [SerializeField] private UnityEvent m_effectOnActive;
             [SerializeField] private UnityEvent<GameObject> m_effectsToApplyOnEnter;
             [SerializeField] private UnityEvent<GameObject> m_effectsToApplyOnStay;
             [SerializeField] private UnityEvent<GameObject> m_effectsToApplyOnExit;
+            [SerializeField] private UnityEvent m_effectOnDeactive;
       /*      void Awake()
             {
                 //Get all the colliders on this object
@@ -67,6 +69,7 @@ namespace ILOVEYOU
                 if (m_isActive == false)
                 {
                     m_isActive = true;
+                    m_effectOnActive.Invoke();
                 }
             }
             /// <summary>
@@ -77,6 +80,7 @@ namespace ILOVEYOU
                 if (m_isActive == true)
                 {
                     m_isActive = false;
+                    m_effectOnDeactive.Invoke();
                 }
             }
             #endregion
