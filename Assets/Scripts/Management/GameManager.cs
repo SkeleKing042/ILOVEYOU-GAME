@@ -195,22 +195,22 @@ namespace ILOVEYOU
                 {
                     for (int i = 0; i < m_playMen.Length; i++)
                     {
-                        if (m_playMen[i].NumberOfTasks < m_maxTaskCount)
+                        if (m_playMen[i].GetTaskManager.NumberOfTasks < m_maxTaskCount)
                         {
                             //Change for random generation
                             if(m_debugging) Debug.Log($"Giving player {i + 1} a task.");
                             int rnd = Random.Range(0, m_taskList.Length);
-                            m_playMen[i].AddTask(m_taskList[rnd]);
+                            m_playMen[i].GetTaskManager.AddTask(m_taskList[rnd]);
                         }
-                        if (m_playMen[i].TaskCompletionPoints > 0 && !m_playMen[i].CardsInHand)
+                        if (m_playMen[i].GetTaskManager.TaskCompletionPoints > 0 && !m_playMen[i].CardsInHand)
                         {
                             //hand out cards to the player
                             if(m_debugging) Debug.Log($"Player {i + 1} has completed a task, dealing cards.");
-                            m_playMen[i].TaskCompletionPoints--;
+                            m_playMen[i].GetTaskManager.TaskCompletionPoints--;
                             m_playMen[i].CollectHand(m_cardMan.DispenseCards(m_numberOfCardsToGive).ToArray());
                         }
                         //update any timer tasks
-                        m_playMen[i].UpdateTimers(false);
+                        m_playMen[i].GetTaskManager.UpdateTimers(false);
 
                         //update spawn timer
                         if (m_spawnTimer[i] <= 0)

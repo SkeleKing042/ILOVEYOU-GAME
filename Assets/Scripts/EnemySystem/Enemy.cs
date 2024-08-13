@@ -61,7 +61,7 @@ namespace ILOVEYOU
 
                 if (m_health <= 0)
                 {
-                    m_playerTransform.GetComponent<PlayerManager>().UpdateKillTrackers(1);
+                    m_playerTransform.GetComponent<PlayerManager>().GetTaskManager.UpdateKillTrackers(1);
                     Destroy(gameObject);
                 }
             }
