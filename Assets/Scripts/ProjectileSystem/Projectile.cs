@@ -2,7 +2,6 @@ using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Player;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 namespace ILOVEYOU
