@@ -122,7 +122,7 @@ namespace ILOVEYOU
                     Destroy(this);
                     return false;
                 }
-                if (!m_playMen[index].Startup(this))
+                if (!m_playMen[index].Startup(this, index))
                 {
                     Destroy(this);
                     return false;

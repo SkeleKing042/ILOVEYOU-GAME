@@ -27,15 +27,18 @@ namespace ILOVEYOU
             //private List<GameObject> m_taskUIElements = new List<GameObject>();
             //[SerializeField] private Transform m_taskUIContainer;
             [SerializeField] private Transform m_cardDisplay;
-            [SerializeField] private Slider m_healthSlider;
+            [SerializeField] private GameObject m_playerHud;
+            private Slider m_healthSlider;
             private GameManager m_manager;
-            public bool Startup(GameManager manager)
+            public bool Startup(GameManager manager, int playerNum)
             {
                 //Reset variables
                 TaskCompletionPoints = 0;
                 m_cardsHeld = new DisruptCard[0];
                 if(m_debugging) Debug.Log("PlayerManager started successfully");
                 m_manager = manager;
+                if (playerNum != 0) m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
+                m_healthSlider = m_playerHud.transform.GetChild(0).GetComponentInChildren<Slider>();
                 return true;
             }
             public GameManager GetGameManager() { return m_manager; }
