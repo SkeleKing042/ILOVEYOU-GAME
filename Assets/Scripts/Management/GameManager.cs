@@ -17,6 +17,7 @@ namespace ILOVEYOU
 
         public class GameManager : MonoBehaviour
         {
+            [SerializeField] private bool m_debugging;
             //Other managers
             private PlayerManager[] m_playMen = new PlayerManager[2];
             private EnemySpawner[] m_EnSper = new EnemySpawner[2];
@@ -53,23 +54,23 @@ namespace ILOVEYOU
             {
                 Time.timeScale = 1f;
                 //Make sure that the other management scripts work
-                Debug.Log("Game starting.");
-                Debug.Log("Getting CardManager");
+                if (m_debugging) Debug.Log("Game starting.");
+                if (m_debugging) Debug.Log("Getting CardManager");
                 m_cardMan = GetComponent<CardManager>();
                 if (m_cardMan == null)
                 {
-                    Debug.LogError($"CardManager not found, Aborting. Please add the CardManager script to {gameObject} and try again.");
+                    if (m_debugging) Debug.LogError($"CardManager not found, Aborting. Please add the CardManager script to {gameObject} and try again.");
                     Destroy(this);
                     return;
                 }
-                Debug.Log("Starting CardManager");
+              if(m_debugging) Debug.Log("Starting CardManager");
                 if (!m_cardMan.Startup())
                 {
                     Destroy(this);
                     return;
                 }
 
-                Debug.Log("Getting HazardManager");
+                if(m_debugging) Debug.Log("Getting HazardManager");
                 m_hazMan = GetComponent<HazardManager>();
                 if (m_hazMan == null)
                 {
@@ -77,7 +78,7 @@ namespace ILOVEYOU
                     Destroy(this);
                     return;
                 }
-                Debug.Log("Starting HazardManager");
+                if(m_debugging) Debug.Log("Starting HazardManager");
                 if (!m_hazMan.Startup())
                 {
                     Destroy(this);
@@ -126,7 +127,7 @@ namespace ILOVEYOU
                     Destroy(this);
                     return false;
                 }
-                Debug.Log($"Player {index + 1} has joined.");
+                if(m_debugging) Debug.Log($"Player {index + 1} has joined.");
                 if (m_playerSpawns[index])
                     m_playMen[index].transform.SetPositionAndRotation(m_playerSpawns[index].position, Quaternion.identity);
                 else
@@ -197,14 +198,14 @@ namespace ILOVEYOU
                         if (m_playMen[i].NumberOfTasks < m_maxTaskCount)
                         {
                             //Change for random generation
-                            Debug.Log($"Giving player {i + 1} a task.");
+                            if(m_debugging) Debug.Log($"Giving player {i + 1} a task.");
                             int rnd = Random.Range(0, m_taskList.Length);
                             m_playMen[i].AddTask(m_taskList[rnd]);
                         }
                         if (m_playMen[i].TaskCompletionPoints > 0 && !m_playMen[i].CardsInHand)
                         {
                             //hand out cards to the player
-                            Debug.Log($"Player {i + 1} has completed a task, dealing cards.");
+                            if(m_debugging) Debug.Log($"Player {i + 1} has completed a task, dealing cards.");
                             m_playMen[i].TaskCompletionPoints--;
                             m_playMen[i].CollectHand(m_cardMan.DispenseCards(m_numberOfCardsToGive).ToArray());
                         }
@@ -243,7 +244,7 @@ namespace ILOVEYOU
                 }
                 else
                 {
-                    Debug.Log("There aren't enough players");
+                    if(m_debugging) Debug.Log("There aren't enough players");
                 }
             }
         }

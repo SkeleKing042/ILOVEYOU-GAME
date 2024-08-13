@@ -14,6 +14,7 @@ namespace ILOVEYOU
     {
         public class PlayerManager : MonoBehaviour
         {
+            [SerializeField] private bool m_debugging;
             private List<Task> m_tasks = new List<Task>();
             public int NumberOfTasks { get { return m_tasks.Count; } }
             [HideInInspector] public int TaskCompletionPoints;
@@ -33,7 +34,7 @@ namespace ILOVEYOU
                 //Reset variables
                 TaskCompletionPoints = 0;
                 m_cardsHeld = new DisruptCard[0];
-                Debug.Log("PlayerManager started successfully");
+                if(m_debugging) Debug.Log("PlayerManager started successfully");
                 m_manager = manager;
                 return true;
             }
@@ -184,14 +185,14 @@ namespace ILOVEYOU
             /// <param name="cards"></param>
             public void CollectHand(DisruptCard[] cards)
             {
-                Debug.Log("Hand dealt, setting up cards.");
+                if(m_debugging) Debug.Log("Hand dealt, setting up cards.");
                 //Copy the given array to this hand
                 m_cardsHeld = new DisruptCard[cards.Length];
                 cards.CopyTo(m_cardsHeld, 0);
                 //Set up each card
                 foreach(DisruptCard card in m_cardsHeld)
                 {
-                    Debug.Log("Readying discard function to card.");
+                    if(m_debugging) Debug.Log("Readying discard function to card.");
                     card.transform.SetParent(m_cardDisplay, false);
                     card.transform.localScale = Vector3.one;
                     card.m_playerHandToDiscard.AddListener(delegate { DiscardHand(); });
@@ -221,7 +222,7 @@ namespace ILOVEYOU
                     return;
                 //Get the vector of the face buttons
                 Vector2 selection = value.Get<Vector2>();
-                Debug.Log($"The inputed value {selection}");
+                if(m_debugging) Debug.Log($"The inputed value {selection}");
                 //This index will be used to choose a card
                 int index = -1;
                 switch (selection)
