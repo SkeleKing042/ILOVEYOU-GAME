@@ -570,9 +570,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 86933480}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.01, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.99999994, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1933501647}
@@ -1649,7 +1649,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 408069744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4643,15 +4643,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4714795463978571960, guid: 775a1aba7df02e949bde27215f04ca8f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 50
+      value: 30.000002
       objectReference: {fileID: 0}
     - target: {fileID: 4714795463978571960, guid: 775a1aba7df02e949bde27215f04ca8f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 50
+      value: 30.000002
       objectReference: {fileID: 0}
     - target: {fileID: 4714795463978571960, guid: 775a1aba7df02e949bde27215f04ca8f, type: 3}
       propertyPath: m_LocalScale.z
-      value: -50
+      value: -30.000002
       objectReference: {fileID: 0}
     - target: {fileID: 4714795463978571960, guid: 775a1aba7df02e949bde27215f04ca8f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7792,15 +7792,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4714795463978571960, guid: 775a1aba7df02e949bde27215f04ca8f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 50
+      value: 30.000002
       objectReference: {fileID: 0}
     - target: {fileID: 4714795463978571960, guid: 775a1aba7df02e949bde27215f04ca8f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 50
+      value: 30.000002
       objectReference: {fileID: 0}
     - target: {fileID: 4714795463978571960, guid: 775a1aba7df02e949bde27215f04ca8f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 50
+      value: 30.000002
       objectReference: {fileID: 0}
     - target: {fileID: 4714795463978571960, guid: 775a1aba7df02e949bde27215f04ca8f, type: 3}
       propertyPath: m_LocalPosition.x
