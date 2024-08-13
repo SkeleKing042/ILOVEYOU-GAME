@@ -10,14 +10,14 @@ namespace ILOVEYOU
         {
             [SerializeField] private float m_lungeTime = 5f;
             [SerializeField] private float m_lungeSpeed = 3f;
-            
-            private float m_lungeCooldown = 5f;
+
+            private float m_lungeCooldown;
             private float m_tempSpeed = 0f;
 
             // Start is called before the first frame update
             void Start()
             {
-
+                m_lungeCooldown = m_lungeTime;
             }
 
             // Update is called once per frame
