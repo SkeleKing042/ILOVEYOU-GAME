@@ -8,6 +8,7 @@ namespace ILOVEYOU
     {
         public class CardManager : MonoBehaviour
         {
+            [SerializeField] private bool m_debugging;
             [SerializeField] private DisruptCard[] m_disruptCards;
 
             public bool Startup()
@@ -19,7 +20,7 @@ namespace ILOVEYOU
                         Debug.LogWarning($"This card might be missing an effect. Please make sure there is a script attached to the same object as the \"DisruptCardBase\" script, and that it has a function called \"ExecuteEvents\"");
                     }
                 }
-                Debug.Log("CardManager started successfully.");
+                if(m_debugging) Debug.Log("CardManager started successfully.");
                 return true;
             }
             public List<DisruptCard> DispenseCards(int count)

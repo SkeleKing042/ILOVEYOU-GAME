@@ -10,6 +10,7 @@ namespace ILOVEYOU
     {
         public class SimpleDamage : MonoBehaviour
         {
+            [SerializeField] private bool m_debugging;
             [SerializeField] private float m_damage;
             [SerializeField] private float m_rate;
             private float m_time;
@@ -17,7 +18,7 @@ namespace ILOVEYOU
             {
                 if (m_time <= 0)
                 {
-                    Debug.Log("Fuck");
+                    if(m_debugging) Debug.Log($"Dealing damage to {target.name}");
                     PlayerControls player = target.GetComponent<PlayerControls>();
 
                     if (player)

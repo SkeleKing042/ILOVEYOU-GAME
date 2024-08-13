@@ -10,6 +10,7 @@ namespace ILOVEYOU
 
         public class HazardObject : MonoBehaviour
         {
+            [SerializeField] private bool m_debugging;
             private bool m_isActive = false;
             [SerializeField] private List<string> m_targetTags;
             [SerializeField] private UnityEvent m_effectOnActive;
@@ -126,7 +127,7 @@ namespace ILOVEYOU
             }
             public void LogObject(GameObject go)
             {
-                Debug.Log($"{go} is causing a collision event with {gameObject}.");
+                if(m_debugging) Debug.Log($"{go} is causing a collision event with {gameObject}.");
             }
             #endregion
         }
