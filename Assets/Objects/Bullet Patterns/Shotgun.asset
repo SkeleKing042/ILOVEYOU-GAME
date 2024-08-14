@@ -12,4 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b89321c30b957b440a960af42175ac50, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  m_bulletArrays: []
+  m_bulletArrays:
+  - Name: Shotgun
+    BulletPrefab: {fileID: 453343250255440340, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
+    BulletsPerArray: 8
+    SpreadWithinArrays: 5
+    InitialAngle: 1
+    AngleOffset: -5
+    SpinFactor: 0
+    BulletDamage: 2
+    BulletPierce: 4
+    BulletSpeed: 50
+    BulletAcceleration: 0
+    SidewaysBulletAcceleration: 0
+    FireSpeed: 0.4
+    FireSpeedOffset: 0
+    BulletLifetime: 1
+    Offset: {x: 0, y: 0}
