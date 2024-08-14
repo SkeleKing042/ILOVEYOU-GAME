@@ -209,7 +209,16 @@ namespace ILOVEYOU
                         {
                             //Change for random generation
                             if (m_debugging) Debug.Log($"Giving player {i + 1} a task.");
-                            int rnd = Random.Range(0, m_taskList.Length);
+                            int rnd = 0;
+                            for (int c = 100; c > 0; c--)
+                            {
+                                rnd = Random.Range(0, m_taskList.Length);
+                                //Check for no tasks of the same type
+                                if (m_playMen[i].GetTaskManager.GetMatchingTasks(m_taskList[rnd].GetTaskType).Length == 0)
+                                {
+                                    break;
+                                }
+                            }
                             m_playMen[i].GetTaskManager.AddTask(m_taskList[rnd]);
                         }
                         if (!m_playMen[i].CardsInHand)

@@ -176,8 +176,6 @@ MonoBehaviour:
     m_threshold: 9999
     m_enemyPrefabs:
     - {fileID: 7613335133617298300, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
-    - {fileID: 6625428459995327672, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
-    - {fileID: 5426312569765723760, guid: 216d392008d35514d9f5d83766578465, type: 3}
   m_spawnRange: 10
 --- !u!135 &1076678004529756087
 SphereCollider:
@@ -1121,6 +1119,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1491347025737439886, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3386521422023062384, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_ChildForceExpandHeight
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4535958688274349151, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
