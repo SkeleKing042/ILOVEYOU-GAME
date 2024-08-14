@@ -59,7 +59,7 @@ namespace ILOVEYOU
                 foreach (Task task in completeTasks)
                 {
                     //Remove the corresponding UI
-                    Destroy(m_taskBars[m_tasks.IndexOf(task)]);
+                    Destroy(m_taskBars[m_tasks.IndexOf(task)].gameObject);
                     m_taskBars.Remove(m_taskBars[m_tasks.IndexOf(task)]);
                     //Remove the task
                     m_tasks.Remove(task);
