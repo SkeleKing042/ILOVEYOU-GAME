@@ -66,7 +66,7 @@ namespace ILOVEYOU
                 }
             }
 
-            public virtual void OnCollisionEnter(Collision collision)
+            public virtual void OnTriggerEnter(Collider collision)
             {
                 //if collided with player
                 if (collision.gameObject.GetComponent<PlayerControls>())
