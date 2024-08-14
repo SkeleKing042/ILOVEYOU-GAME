@@ -50,8 +50,9 @@ namespace ILOVEYOU
                 //ui setup
                 if (m_playerID != 0) m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
                 m_healthSlider = m_playerHud.transform.GetChild(0).GetComponentInChildren<Slider>();
+                m_cardDisplay.parent.gameObject.SetActive(false);
 
-                if(m_debugging) Debug.Log("PlayerManager started successfully");
+                if (m_debugging) Debug.Log("PlayerManager started successfully");
                 return true;
             }
             #region Card Management
@@ -72,6 +73,7 @@ namespace ILOVEYOU
                 {
                     card.transform.SetParent(m_cardDisplay, false);
                     card.transform.localScale = Vector3.one;
+                    m_cardDisplay.parent.gameObject.SetActive(true);
                     if(m_debugging) Debug.Log("Readying discard function to card.");
                     card.m_playerHandToDiscard.AddListener(delegate { DiscardHand(); });
                 }
@@ -88,6 +90,7 @@ namespace ILOVEYOU
                     Destroy(card.gameObject);
                 }
                 m_cardsHeld = new DisruptCard[0];
+                m_cardDisplay.parent.gameObject.SetActive(false);
             }
             /// <summary>
             /// Takes a player's input to select a card
