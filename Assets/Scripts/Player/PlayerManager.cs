@@ -63,7 +63,7 @@ namespace ILOVEYOU
             public void CollectHand(DisruptCard[] cards)
             {
                 if(m_debugging) Debug.Log("Hand dealt, setting up cards.");
-
+                CancelInvoke();
                 //Copy the given array to this hand
                 m_cardsHeld = new DisruptCard[cards.Length];
                 cards.CopyTo(m_cardsHeld, 0);
