@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 namespace ILOVEYOU
 {
@@ -27,6 +28,9 @@ namespace ILOVEYOU
             [SerializeField] private float m_spawnRange;
 
             private GameManager m_manager;
+
+            [Header("Events")]
+            [SerializeField] private UnityEvent m_onSpawnEnemy;
 
             /// <summary>
             /// called by GameManager to initialize the m_manager variable
@@ -72,6 +76,8 @@ namespace ILOVEYOU
 
                     enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
                         transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
+
+                    m_onSpawnEnemy.Invoke();
                 }
             }
             /// <summary>
@@ -87,6 +93,8 @@ namespace ILOVEYOU
 
                 enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
                     transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
+
+                m_onSpawnEnemy.Invoke();
             }
             /// <summary>
             /// spawns a singular specified enemy from a group
@@ -101,6 +109,8 @@ namespace ILOVEYOU
 
                 enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
                     transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
+
+                m_onSpawnEnemy.Invoke();
             }
 
             public void OnDrawGizmos()

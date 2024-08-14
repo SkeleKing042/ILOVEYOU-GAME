@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace ILOVEYOU
 {
@@ -11,6 +12,8 @@ namespace ILOVEYOU
         {
             [SerializeField] private bool m_debugging;
             private HazardObject[] m_levelHazards;
+            [SerializeField] private UnityEvent m_onGlobalHazardEnable;
+            [SerializeField] private UnityEvent m_onGlobalHazardDisable;
             // Start is called before the first frame update
             public bool Startup()
             {
@@ -26,6 +29,7 @@ namespace ILOVEYOU
                 {
                     hazardObject.EnableHazard();
                 }
+                m_onGlobalHazardEnable.Invoke();
             }
             public void EnableHazards(float time)
             {
@@ -34,6 +38,7 @@ namespace ILOVEYOU
                 {
                     hazardObject.EnableHazard(time);
                 }
+                m_onGlobalHazardEnable.Invoke();
             }
             public void DisableHazards()
             {
@@ -42,6 +47,7 @@ namespace ILOVEYOU
                 {
                     hazardObject.DisableHazard();
                 }
+                m_onGlobalHazardDisable.Invoke();
             }
         }
     }

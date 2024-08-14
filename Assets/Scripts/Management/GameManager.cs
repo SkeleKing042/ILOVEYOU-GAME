@@ -8,6 +8,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 namespace ILOVEYOU
 {
@@ -50,6 +51,12 @@ namespace ILOVEYOU
             [SerializeField] private GameObject m_InGameSharedUI;
             [SerializeField] private TextMeshProUGUI m_timerText;
             [SerializeField] private GameObject m_winScreen;
+
+            [Header("Events - mostly for visuals and sounds")]
+            [SerializeField] private UnityEvent m_onGameStart;
+            [SerializeField] private UnityEvent m_onStartError;
+            [SerializeField] private UnityEvent m_onGameEnd;
+            [SerializeField] private UnityEvent m_onTaskAssignment;
             private void Awake()
             {
                 Time.timeScale = 1f;
@@ -169,6 +176,7 @@ namespace ILOVEYOU
                 EventSystem.current.SetSelectedGameObject(m_winScreen.transform.GetChild(2).gameObject);
 
                 StartCoroutine(_coolSlowMo());
+                m_onGameEnd.Invoke();
             }
 
             private IEnumerator _coolSlowMo()
@@ -220,6 +228,7 @@ namespace ILOVEYOU
                                 }
                             }
                             m_playMen[i].GetTaskManager.AddTask(m_taskList[rnd]);
+                            m_onTaskAssignment.Invoke();
                         }
                         if (!m_playMen[i].CardsInHand)
                         {
@@ -255,11 +264,13 @@ namespace ILOVEYOU
                     {
                         m_mainMenuUI.SetActive(false);
                         m_InGameSharedUI.SetActive(true);
+                        m_onGameStart.Invoke();
                     }
                 }
                 else
                 {
                     if (m_debugging) Debug.Log("There aren't enough players");
+                    m_onStartError.Invoke();
                 }
             }
         }

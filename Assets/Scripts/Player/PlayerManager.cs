@@ -1,6 +1,7 @@
 using ILOVEYOU.Cards;
 using ILOVEYOU.Management;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -29,6 +30,13 @@ namespace ILOVEYOU
             [SerializeField] private Transform m_cardDisplay;
             [SerializeField] private GameObject m_playerHud;
             private Slider m_healthSlider;
+
+            [Header("Event - sounds and visuals")]
+            [SerializeField] private UnityEvent m_onGetCards;
+            [SerializeField] private UnityEvent m_onDiscardHand;
+            [SerializeField] private UnityEvent m_onCardSelected;
+            [SerializeField] private UnityEvent m_onBlind;
+            [SerializeField] private UnityEvent m_onUnblind;
             public bool Startup(GameManager manager, int playerNum)
             {
                 //Reset variables
@@ -64,6 +72,7 @@ namespace ILOVEYOU
             {
                 if(m_debugging) Debug.Log("Hand dealt, setting up cards.");
                 CancelInvoke();
+                m_onGetCards.Invoke();
                 //Copy the given array to this hand
                 m_cardsHeld = new DisruptCard[cards.Length];
                 cards.CopyTo(m_cardsHeld, 0);
@@ -92,6 +101,7 @@ namespace ILOVEYOU
                     Destroy(card.gameObject);
                 }
                 m_cardsHeld = new DisruptCard[0];
+                m_onDiscardHand.Invoke();
                 m_cardDisplay.parent.gameObject.SetActive(false);
             }
             /// <summary>
@@ -126,19 +136,24 @@ namespace ILOVEYOU
                 }
 
                 //Trigger the effects of the chosen card if a valid input was given.
-                if(index > - 1)
+                if(index > -1)
+                {
                 m_cardsHeld[index].Trigger(m_manager, this);
+                    m_onCardSelected.Invoke();
+                }
             }
             #endregion
             public void TriggerBlindness(float m_time)
             {
                 CancelInvoke();
                 m_blindBox.SetActive(true);
+                m_onBlind.Invoke();
                 Invoke("_disableBlindness", m_time);
             }
             private void _disableBlindness()
             {
                 m_blindBox.SetActive(false);
+                m_onUnblind.Invoke();
             }
             public void UpdateHealthBar(float value)
             {
