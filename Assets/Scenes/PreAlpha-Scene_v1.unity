@@ -618,6 +618,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1244175808}
     - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+      propertyPath: m_maxTaskCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_timerTextBox
       value: 
       objectReference: {fileID: 63398235}
@@ -647,11 +651,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_taskList.Array.data[0].m_capValue
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_taskList.Array.data[1].m_capValue
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3003967444287988106, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_debugging

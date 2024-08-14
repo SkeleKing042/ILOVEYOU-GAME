@@ -3,6 +3,7 @@ using ILOVEYOU.ProjectileSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace ILOVEYOU
@@ -41,6 +42,12 @@ namespace ILOVEYOU
             private Collider m_Collider;
             private RaycastHit m_Hit;
             private bool m_hitDetect;
+
+            [Header("Events - for sounds and visuals")]
+            [SerializeField] private UnityEvent m_onTakeDamage;
+            [SerializeField] private UnityEvent m_onDeath;
+            [SerializeField] private UnityEvent m_onShootingDisabled;
+            [SerializeField] private UnityEvent m_onShootingEnabled;
 
             private void Awake()
             {
@@ -135,7 +142,15 @@ namespace ILOVEYOU
                 m_health -= damage;
                 m_iframesCurrent = m_iframesTotal;
                 UpdateHealthBar();
-                if (m_health <= 0) m_plaMa.GetGameManager.PlayerDeath(m_plaMa);
+                if (m_health <= 0)
+                {
+                    m_plaMa.GetGameManager.PlayerDeath(m_plaMa);
+                    m_onDeath.Invoke();
+                }
+                else
+                {
+                    m_onTakeDamage.Invoke();
+                }
                 
             }
 
@@ -172,6 +187,7 @@ namespace ILOVEYOU
             public bool TempDisableShooting(float time)
             {
                 m_allowShooting = false;
+                m_onShootingDisabled.Invoke();
                 CancelInvoke();
                 Invoke("ReenableShooting", time);
                 return true;
@@ -179,6 +195,7 @@ namespace ILOVEYOU
             private void ReenableShooting()
             {
                 m_allowShooting = true;
+                m_onShootingEnabled.Invoke();
             }
 
         }

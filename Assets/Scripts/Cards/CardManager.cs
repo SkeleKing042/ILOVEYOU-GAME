@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace ILOVEYOU
 {
@@ -10,6 +11,7 @@ namespace ILOVEYOU
         {
             [SerializeField] private bool m_debugging;
             [SerializeField] private DisruptCard[] m_disruptCards;
+            [SerializeField] private UnityEvent m_onDispenseCard;
 
             public bool Startup()
             {
@@ -43,6 +45,7 @@ namespace ILOVEYOU
                     selectedCards.Add(rnd);
                     cards.Add(Instantiate(m_disruptCards[rnd]));
                 }
+                m_onDispenseCard.Invoke();
                 //Return the array
                 return cards;
             }
