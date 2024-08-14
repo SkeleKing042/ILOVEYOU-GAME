@@ -13,6 +13,7 @@ namespace ILOVEYOU
         {
             [SerializeField] private bool m_debugging;
             private PlayerManager m_plaMa;
+            private Rigidbody m_rb;
             [Header("General")]
             [SerializeField] private float m_MaxHealth = 10f;
             private float m_health;
@@ -48,6 +49,7 @@ namespace ILOVEYOU
                 m_pattern = m_patternObject.GetComponent<BulletPattern>();
                 m_Collider = GetComponent<Collider>();
                 m_plaMa = GetComponent<PlayerManager>();
+                m_rb = GetComponent<Rigidbody>();
                 m_health = m_MaxHealth;
                 UpdateHealthBar();
                 m_allowShooting = true;
@@ -98,11 +100,8 @@ namespace ILOVEYOU
                 }
                 m_iframesCurrent = Mathf.Clamp(m_iframesCurrent - Time.deltaTime, 0f, m_iframesTotal);
                 if (m_debugging) Debug.DrawRay(transform.position, m_aimDir * m_aimMagnitude * 5, tmp_color);
-            }
-            public void FixedUpdate()
-            {
                 //Apply direction to the player object
-                transform.Translate(m_moveDir * m_moveSpeed * Time.fixedDeltaTime);
+                m_rb.velocity = m_moveDir * m_moveSpeed;
             }
             public void OnMove(InputValue value)
             {
