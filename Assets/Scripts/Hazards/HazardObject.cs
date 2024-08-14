@@ -60,6 +60,7 @@ namespace ILOVEYOU
             public void EnableHazard(float time)
             {
                 EnableHazard();
+                CancelInvoke();
                 Invoke("DisableHazard", time);
             }
             /// <summary>

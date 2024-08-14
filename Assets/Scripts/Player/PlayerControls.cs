@@ -173,6 +173,7 @@ namespace ILOVEYOU
             public bool TempDisableShooting(float time)
             {
                 m_allowShooting = false;
+                CancelInvoke();
                 Invoke("ReenableShooting", time);
                 return true;
             }
