@@ -195,6 +195,7 @@ namespace ILOVEYOU
                 {
                     for (int i = 0; i < m_playMen.Length; i++)
                     {
+                        //Giving cards & tasks cannot be done while the player has cards in their hand
                         //Giving cards
                         if (m_playMen[i].GetTaskManager.TaskCompletionPoints > 0 && !m_playMen[i].CardsInHand)
                         {
@@ -211,8 +212,11 @@ namespace ILOVEYOU
                             int rnd = Random.Range(0, m_taskList.Length);
                             m_playMen[i].GetTaskManager.AddTask(m_taskList[rnd]);
                         }
-                        //update any timer tasks
-                        m_playMen[i].GetTaskManager.UpdateTimers(false);
+                        if (!m_playMen[i].CardsInHand)
+                        {
+                            //update any timer tasks
+                            m_playMen[i].GetTaskManager.UpdateTimers(false);
+                        }
 
                         //update spawn timer
                         if (m_spawnTimer[i] <= 0)

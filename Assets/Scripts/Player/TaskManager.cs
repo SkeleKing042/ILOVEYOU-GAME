@@ -29,7 +29,9 @@ namespace ILOVEYOU
             /// <returns></returns>
             public int AddTask(TaskType type, float cap)
             {
+                //makes a new task in the task list
                 m_tasks.Add(new Task(type, cap));
+                //makes a new UI element
                 Image taskUI = Instantiate(m_taskUIPrefab);
                 m_taskBars.Add(taskUI);
                 taskUI.transform.SetParent(m_taskUIContainer, false);
@@ -56,9 +58,12 @@ namespace ILOVEYOU
                 //Remove those completed tasks from the main list
                 foreach (Task task in completeTasks)
                 {
+                    //Remove the corresponding UI
                     Destroy(m_taskBars[m_tasks.IndexOf(task)]);
                     m_taskBars.Remove(m_taskBars[m_tasks.IndexOf(task)]);
+                    //Remove the task
                     m_tasks.Remove(task);
+                    //Give the player a point that will get exchanged for cards later
                     TaskCompletionPoints++;
                 }
                 return true;

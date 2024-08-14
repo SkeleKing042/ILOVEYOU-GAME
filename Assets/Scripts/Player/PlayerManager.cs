@@ -71,8 +71,10 @@ namespace ILOVEYOU
                 //Set up each card
                 foreach(DisruptCard card in m_cardsHeld)
                 {
+                    //puts the card in the card display
                     card.transform.SetParent(m_cardDisplay, false);
                     card.transform.localScale = Vector3.one;
+                    //enables the display
                     m_cardDisplay.parent.gameObject.SetActive(true);
                     if(m_debugging) Debug.Log("Readying discard function to card.");
                     card.m_playerHandToDiscard.AddListener(delegate { DiscardHand(); });
