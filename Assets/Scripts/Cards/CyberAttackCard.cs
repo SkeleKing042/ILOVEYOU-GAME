@@ -14,7 +14,7 @@ namespace ILOVEYOU
             public void ExecuteEvents(object[] data)
             {
                 PlayerManager player = (PlayerManager)data[1];
-                PlayerManager target = player.GetGameManager().GetOtherPlayer(player);
+                PlayerManager target = player.GetGameManager.GetOtherPlayer(player);
                 target.GetComponent<PlayerControls>().TempDisableShooting(m_time);
             }
         }
