@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ILOVEYOU
 {
@@ -11,7 +12,10 @@ namespace ILOVEYOU
             public int NumberOfTasks { get { return m_tasks.Count; } }
             [HideInInspector] public int TaskCompletionPoints;
             [Header("UI")]
-            [SerializeField] private GameObject m_taskUIPrefab;
+            //this should have a slider/image
+            [SerializeField] private Image m_taskUIPrefab;
+            private List<Image> m_taskBars = new List<Image>();
+            [SerializeField] private Transform m_taskUIContainer;
             public bool Startup()
             {
                 TaskCompletionPoints = 0;
@@ -26,9 +30,9 @@ namespace ILOVEYOU
             public int AddTask(TaskType type, float cap)
             {
                 m_tasks.Add(new Task(type, cap));
-                //GameObject taskUI = Instantiate(m_taskUIElementPrefab);
-                //m_taskUIElements.Add(taskUI);
-                //taskUI.transform.SetParent(m_taskUIContainer, false);
+                Image taskUI = Instantiate(m_taskUIPrefab);
+                m_taskBars.Add(taskUI);
+                taskUI.transform.SetParent(m_taskUIContainer, false);
                 _verifyTaskList();
                 return m_tasks.Count - 1;
             }
@@ -52,7 +56,8 @@ namespace ILOVEYOU
                 //Remove those completed tasks from the main list
                 foreach (Task task in completeTasks)
                 {
-                    //Destroy(m_taskUIElements[m_tasks.IndexOf(task)]);
+                    Destroy(m_taskBars[m_tasks.IndexOf(task)]);
+                    m_taskBars.Remove(m_taskBars[m_tasks.IndexOf(task)]);
                     m_tasks.Remove(task);
                     TaskCompletionPoints++;
                 }
@@ -137,22 +142,17 @@ namespace ILOVEYOU
                 _verifyTaskList();
                 return true;
             }
-            /*private void Update()
+            private void Update()
             {
-                UpdateTaskUI();
+                _updateTaskUI();
             }
-            private void UpdateTaskUI()
+            private void _updateTaskUI()
             {
                 for (int i = 0; i < m_tasks.Count; i++)
                 {
-                    Image tmp = m_taskUIElements[i].GetComponentInChildren<Image>();
-                    if (tmp != null)
-                    {
-                    tmp.fillAmount = m_tasks[i].GetPercent;
-
-                    }
+                    m_taskBars[i].fillAmount = m_tasks[i].GetPercent;
                 }
-            }*/
+            }
         }
     }
 }

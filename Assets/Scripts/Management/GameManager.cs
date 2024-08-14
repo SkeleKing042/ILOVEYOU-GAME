@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using ILOVEYOU.Cards;
+using ILOVEYOU.EnemySystem;
+using ILOVEYOU.Hazards;
+using ILOVEYOU.Player;
+using System.Collections;
+using TMPro;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 namespace ILOVEYOU
 {
-    using Cards;
-    using ILOVEYOU.EnemySystem;
-    using ILOVEYOU.Hazards;
-    using Player;
-    using System.Collections;
-    using TMPro;
-    using UnityEngine.EventSystems;
-    using UnityEngine.SceneManagement;
 
     namespace Management
     {
@@ -41,7 +41,7 @@ namespace ILOVEYOU
             [SerializeField] private int m_difficultyCap;
             private float m_timer;
             private float[] m_spawnTimer = new float[] { 5f, 5f };
-            [SerializeField] private float[] m_spawnTime = new float[] {5f, 5f};
+            [SerializeField] private float[] m_spawnTime = new float[] { 5f, 5f };
             public int GetDifficulty { get { return (int)Mathf.Clamp(m_timer / m_timePerStage, 0, m_difficultyCap); } }
 
             [Header("UI")]
@@ -63,14 +63,14 @@ namespace ILOVEYOU
                     Destroy(this);
                     return;
                 }
-              if(m_debugging) Debug.Log("Starting CardManager");
+                if (m_debugging) Debug.Log("Starting CardManager");
                 if (!m_cardMan.Startup())
                 {
                     Destroy(this);
                     return;
                 }
 
-                if(m_debugging) Debug.Log("Getting HazardManager");
+                if (m_debugging) Debug.Log("Getting HazardManager");
                 m_hazMan = GetComponent<HazardManager>();
                 if (m_hazMan == null)
                 {
@@ -78,7 +78,7 @@ namespace ILOVEYOU
                     Destroy(this);
                     return;
                 }
-                if(m_debugging) Debug.Log("Starting HazardManager");
+                if (m_debugging) Debug.Log("Starting HazardManager");
                 if (!m_hazMan.Startup())
                 {
                     Destroy(this);
@@ -92,7 +92,7 @@ namespace ILOVEYOU
                     input.DeactivateInput();
                     Destroy(input);
                     return;
-                }    
+                }
                 if (m_playMen[0] == null)
                 {
                     ReadyPlayer(0, input);
@@ -127,7 +127,7 @@ namespace ILOVEYOU
                     Destroy(this);
                     return false;
                 }
-                if(m_debugging) Debug.Log($"Player {index + 1} has joined.");
+                if (m_debugging) Debug.Log($"Player {index + 1} has joined.");
                 if (m_playerSpawns[index])
                     m_playMen[index].transform.SetPositionAndRotation(m_playerSpawns[index].position, Quaternion.identity);
                 else
@@ -173,7 +173,7 @@ namespace ILOVEYOU
 
             private IEnumerator _coolSlowMo()
             {
-                while(Time.timeScale != 0)
+                while (Time.timeScale != 0)
                 {
                     Time.timeScale = Mathf.MoveTowards(Time.timeScale, 0f, Time.unscaledDeltaTime);
                     yield return new WaitForEndOfFrame();
@@ -195,19 +195,21 @@ namespace ILOVEYOU
                 {
                     for (int i = 0; i < m_playMen.Length; i++)
                     {
-                        if (m_playMen[i].GetTaskManager.NumberOfTasks < m_maxTaskCount)
-                        {
-                            //Change for random generation
-                            if(m_debugging) Debug.Log($"Giving player {i + 1} a task.");
-                            int rnd = Random.Range(0, m_taskList.Length);
-                            m_playMen[i].GetTaskManager.AddTask(m_taskList[rnd]);
-                        }
+                        //Giving cards
                         if (m_playMen[i].GetTaskManager.TaskCompletionPoints > 0 && !m_playMen[i].CardsInHand)
                         {
                             //hand out cards to the player
-                            if(m_debugging) Debug.Log($"Player {i + 1} has completed a task, dealing cards.");
+                            if (m_debugging) Debug.Log($"Player {i + 1} has completed a task, dealing cards.");
                             m_playMen[i].GetTaskManager.TaskCompletionPoints--;
                             m_playMen[i].CollectHand(m_cardMan.DispenseCards(m_numberOfCardsToGive).ToArray());
+                        }
+                        //Giving tasks
+                        if (m_playMen[i].GetTaskManager.NumberOfTasks < m_maxTaskCount && !m_playMen[i].CardsInHand)
+                        {
+                            //Change for random generation
+                            if (m_debugging) Debug.Log($"Giving player {i + 1} a task.");
+                            int rnd = Random.Range(0, m_taskList.Length);
+                            m_playMen[i].GetTaskManager.AddTask(m_taskList[rnd]);
                         }
                         //update any timer tasks
                         m_playMen[i].GetTaskManager.UpdateTimers(false);
@@ -225,10 +227,10 @@ namespace ILOVEYOU
                     }
                     m_timer += Time.deltaTime;
 
-                    if(m_useUI)
+                    if (m_useUI)
                         m_timerText.text = ((int)m_timer).ToString();
 
-                //Debug.Log($"Current difficulty {GetDifficulty}.");
+                    //Debug.Log($"Current difficulty {GetDifficulty}.");
                 }
             }
             public void AttemptStartGame()
@@ -244,7 +246,7 @@ namespace ILOVEYOU
                 }
                 else
                 {
-                    if(m_debugging) Debug.Log("There aren't enough players");
+                    if (m_debugging) Debug.Log("There aren't enough players");
                 }
             }
         }

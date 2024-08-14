@@ -59,6 +59,7 @@ GameObject:
   - component: {fileID: 6247909786129688140}
   - component: {fileID: 1076678004529756087}
   - component: {fileID: 7506785906378424910}
+  - component: {fileID: 3938092935401869860}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -154,7 +155,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_debugging: 0
-  TaskCompletionPoints: 0
   m_cardTimeout: 5
   m_blindBox: {fileID: 7134124253779583603}
   m_cardDisplay: {fileID: 2494637358676408422}
@@ -208,6 +208,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 1
+--- !u!114 &3938092935401869860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2304864054761233360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 397e39359dc44dd4baa601e48113eb7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TaskCompletionPoints: 0
+  m_taskUIPrefab: {fileID: 5978220576250058401, guid: a6439cb31f5630e4694354e234cc39e1, type: 3}
+  m_taskUIContainer: {fileID: 6368998180057467000}
 --- !u!1 &2368601335451209403
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,6 +1115,11 @@ GameObject:
 --- !u!224 &5413478257145270146 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6797338719967900842, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+  m_PrefabInstance: {fileID: 1545990616352045864}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &6368998180057467000 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5554992640462648144, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
   m_PrefabInstance: {fileID: 1545990616352045864}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6961264007536109389
