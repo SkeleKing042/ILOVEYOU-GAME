@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using ILOVEYOU.Cards;
+using ILOVEYOU.Environment;
 using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Hazards;
 using ILOVEYOU.Player;
@@ -20,15 +21,10 @@ namespace ILOVEYOU
         {
             [SerializeField] private bool m_debugging;
             //Other managers
-            private PlayerManager[] m_playMen = new PlayerManager[2];
-            private EnemySpawner[] m_EnSper = new EnemySpawner[2];
-            private HazardManager m_hazMan;
+            private LevelManager[] m_levelManagers = new LevelManager[2];
             private CardManager m_cardMan;
-
-            [Header("Players")]
-            [SerializeField] private Transform[] m_playerSpawns = new Transform[2];
-            public bool ReadyForPlay { get { return m_playMen[0] != null && m_playMen[1] != null; } }
-            private bool m_isPlaying;
+            public bool ReadyForPlay { get { return m_levelManagers[0].hasPlayer && m_levelManagers[1].hasPlayer; } }
+            [HideInInspector] public bool isPlaying;
 
             [Header("Tasks & Cards")]
             [Tooltip("The maximum number of tasks a player can have.")]
@@ -36,13 +32,14 @@ namespace ILOVEYOU
             [Tooltip("The number of cards shown to the player.\nPLEASE KEEP AT 3")]
             [SerializeField] private int m_numberOfCardsToGive = 3;
             [SerializeField] private Task[] m_taskList;
+            public Task[] GetTasks { get { return m_taskList; } }
 
             [Header("Difficulty")]
             [SerializeField] private float m_timePerStage;
             [SerializeField] private int m_difficultyCap;
             private float m_timer;
-            private float[] m_spawnTimer = new float[] { 5f, 5f };
-            [SerializeField] private float[] m_spawnTime = new float[] { 5f, 5f };
+            private float m_spawnTimer = 5f;
+            [SerializeField] private float m_spawnTime = 5f;
             public int GetDifficulty { get { return (int)Mathf.Clamp(m_timer / m_timePerStage, 0, m_difficultyCap); } }
 
             [Header("UI")]
@@ -62,6 +59,20 @@ namespace ILOVEYOU
                 Time.timeScale = 1f;
                 //Make sure that the other management scripts work
                 if (m_debugging) Debug.Log("Game starting.");
+
+                if (m_debugging) Debug.Log("Getting level managers.");
+                m_levelManagers = FindObjectsOfType<LevelManager>();
+                if(m_levelManagers.Length < 2)
+                {
+                    if (m_debugging) Debug.LogError($"Not enough level managers found. Please ensure that there are at least 2. Currently there are {m_levelManagers.Length}.");
+                    Destroy(this);
+                    return;
+                }
+                foreach(LevelManager lMan in m_levelManagers)
+                {
+                    lMan.Startup(this);
+                }
+
                 if (m_debugging) Debug.Log("Getting CardManager");
                 m_cardMan = GetComponent<CardManager>();
                 if (m_cardMan == null)
@@ -70,6 +81,7 @@ namespace ILOVEYOU
                     Destroy(this);
                     return;
                 }
+
                 if (m_debugging) Debug.Log("Starting CardManager");
                 if (!m_cardMan.Startup())
                 {
@@ -77,67 +89,17 @@ namespace ILOVEYOU
                     return;
                 }
 
-                if (m_debugging) Debug.Log("Getting HazardManager");
-                m_hazMan = GetComponent<HazardManager>();
-                if (m_hazMan == null)
-                {
-                    Debug.LogError($"HazardManager not found, Aborting. Please add the CardManager script to {gameObject} and try again.");
-                    Destroy(this);
-                    return;
-                }
-                if (m_debugging) Debug.Log("Starting HazardManager");
-                if (!m_hazMan.Startup())
-                {
-                    Destroy(this);
-                    return;
-                }
             }
             public void OnPlayerJoined(PlayerInput input)
             {
-                if (m_playMen[0] == null)
+                if (!m_levelManagers[0].hasPlayer)
                 {
-                    ReadyPlayer(0, input);
+                    m_levelManagers[0].ReadyPlayer(0, input);
                 }
                 else
                 {
-                    ReadyPlayer(1, input);
+                    m_levelManagers[1].ReadyPlayer(1, input);
                 }
-            }
-            /// <summary>
-            /// Sets up the player and makes sure they have the correct components.
-            /// </summary>
-            /// <param name="index"></param>
-            /// <param name="input"></param>
-            /// <returns></returns>
-            private bool ReadyPlayer(int index, PlayerInput input)
-            {
-                //get PlayerManager
-                m_playMen[index] = input.GetComponent<PlayerManager>();
-                //Get and initialize EnemySpawner
-                m_EnSper[index] = input.GetComponent<EnemySpawner>();
-                m_EnSper[index].Initialize(this);
-
-                if (m_playMen[index] == null)
-                {
-                    Debug.LogError($"Invalid player loaded, no PlayerManager found for player {index + 1}, Aborting.");
-                    Destroy(this);
-                    return false;
-                }
-                if (!m_playMen[index].Startup(this, index))
-                {
-                    Destroy(this);
-                    return false;
-                }
-                if (m_debugging) Debug.Log($"Player {index + 1} has joined.");
-                if (m_playerSpawns[index])
-                    m_playMen[index].transform.SetPositionAndRotation(m_playerSpawns[index].position, Quaternion.identity);
-                else
-                    m_playMen[index].transform.SetPositionAndRotation(transform.position, Quaternion.identity);
-                return true;
-            }
-            public PlayerManager GetPlayer(int index)
-            {
-                return m_playMen[index];
             }
             /// <summary>
             /// 
@@ -146,13 +108,13 @@ namespace ILOVEYOU
             /// <returns>the opposite player</returns>
             public PlayerManager GetOtherPlayer(PlayerManager player)
             {
-                if (player == m_playMen[0])
+                if (player == m_levelManagers[0].GetPlayer)
                 {
-                    return m_playMen[1];
+                    return m_levelManagers[1].GetPlayer;
                 }
                 else
                 {
-                    return m_playMen[0];
+                    return m_levelManagers[0].GetPlayer;
                 }
             }
             /// <summary>
@@ -164,7 +126,7 @@ namespace ILOVEYOU
                 m_winScreen.SetActive(true);
 
                 //winning player
-                int playerNum = (player == m_playMen[0]) ? 1 : 0;
+                int playerNum = (player == m_levelManagers[0].GetPlayer) ? 1 : 0;
 
                 m_winScreen.GetComponentInChildren<TextMeshProUGUI>().text = $"Player {playerNum + 1} wins!";
                 EventSystem.current.SetSelectedGameObject(m_winScreen.transform.GetChild(2).gameObject);
@@ -193,54 +155,20 @@ namespace ILOVEYOU
             private void Update()
             {
                 //Give players tasks
-                if (m_isPlaying)
+                if (isPlaying)
                 {
-                    for (int i = 0; i < m_playMen.Length; i++)
+                    //update spawn timer
+                    if (m_spawnTimer <= 0)
                     {
-                        //Giving cards & tasks cannot be done while the player has cards in their hand
-                        //Giving cards
-                        if (m_playMen[i].GetTaskManager.TaskCompletionPoints > 0 && !m_playMen[i].CardsInHand)
-                        {
-                            //hand out cards to the player
-                            if (m_debugging) Debug.Log($"Player {i + 1} has completed a task, dealing cards.");
-                            m_playMen[i].GetTaskManager.TaskCompletionPoints--;
-                            m_playMen[i].CollectHand(m_cardMan.DispenseCards(m_numberOfCardsToGive).ToArray());
-                        }
-                        //Giving tasks
-                        if (m_playMen[i].GetTaskManager.NumberOfTasks < m_maxTaskCount && !m_playMen[i].CardsInHand)
-                        {
-                            //Change for random generation
-                            if (m_debugging) Debug.Log($"Giving player {i + 1} a task.");
-                            int rnd = 0;
-                            for (int c = 100; c > 0; c--)
-                            {
-                                rnd = Random.Range(0, m_taskList.Length);
-                                //Check for no tasks of the same type
-                                if (m_playMen[i].GetTaskManager.GetMatchingTasks(m_taskList[rnd].GetTaskType).Length == 0)
-                                {
-                                    break;
-                                }
-                            }
-                            m_playMen[i].GetTaskManager.AddTask(m_taskList[rnd]);
-                            m_onTaskAssignment.Invoke();
-                        }
-                        if (!m_playMen[i].CardsInHand)
-                        {
-                            //update any timer tasks
-                            m_playMen[i].GetTaskManager.UpdateTimers(false);
-                        }
-
-                        //update spawn timer
-                        if (m_spawnTimer[i] <= 0)
-                        {
-                            m_EnSper[i].SpawnEnemyWave();
-                            m_spawnTimer[i] = m_spawnTime[i]; //Possible TODO: add formula to scale spawn time with difficulty
-                        }
-                        else
-                        {
-                            m_spawnTimer[i] -= 1f * Time.deltaTime;
-                        }
+                        m_levelManagers[0].GetSpawner.SpawnEnemyWave();
+                        m_levelManagers[1].GetSpawner.SpawnEnemyWave();
+                        m_spawnTimer = m_spawnTime; //Possible TODO: add formula to scale spawn time with difficulty
                     }
+                    else
+                    {
+                        m_spawnTimer -= 1f * Time.deltaTime;
+                    }
+
                     m_timer += Time.deltaTime;
 
                     if (m_useUI)
@@ -253,7 +181,7 @@ namespace ILOVEYOU
             {
                 if (ReadyForPlay)
                 {
-                    m_isPlaying = true;
+                    isPlaying = true;
                     if (m_useUI)
                     {
                         m_mainMenuUI.SetActive(false);
@@ -265,6 +193,38 @@ namespace ILOVEYOU
                 {
                     if (m_debugging) Debug.Log("There aren't enough players");
                     m_onStartError.Invoke();
+                }
+            }
+            public void GivePlayerCards(PlayerManager player)
+            {
+                //Giving cards
+                if (player.GetTaskManager.TaskCompletionPoints > 0 && !player.CardsInHand)
+                {
+                    //hand out cards to the player
+                    if (m_debugging) Debug.Log($"Player {player.GetPlayerID} has completed a task, dealing cards.");
+                    player.GetTaskManager.TaskCompletionPoints--;
+                    player.CollectHand(m_cardMan.DispenseCards(m_numberOfCardsToGive).ToArray());
+                }
+            }
+            public void GivePlayerTasks(PlayerManager player)
+            {
+                //Giving tasks
+                if (!player.CardsInHand && player.GetTaskManager.NumberOfTasks < m_maxTaskCount)
+                {
+                    //Change for random generation
+                    if (m_debugging) Debug.Log($"Giving player {player.GetPlayerID} a task.");
+                    int rnd = 0;
+                    for (int c = 100; c > 0; c--)
+                    {
+                        rnd = Random.Range(0, m_taskList.Length);
+                        //Check for no tasks of the same type
+                        if (player.GetTaskManager.GetMatchingTasks(m_taskList[rnd].GetTaskType).Length == 0)
+                        {
+                            break;
+                        }
+                    }
+                    player.GetTaskManager.AddTask(m_taskList[rnd]);
+                    m_onTaskAssignment.Invoke();
                 }
             }
         }

@@ -1,5 +1,6 @@
 using ILOVEYOU.Hazards;
 using ILOVEYOU.Management;
+using ILOVEYOU.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,9 @@ namespace ILOVEYOU
             [SerializeField] private float m_time;
             public void ExecuteEvents(object[] data)
             {
+                PlayerManager player = (PlayerManager)data[1];
                 GameManager gm = (GameManager)data[0];
-                gm.GetComponent<HazardManager>().EnableHazards(m_time);
+                gm.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().EnableHazards(m_time);
             }
         }
     }

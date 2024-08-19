@@ -9,8 +9,18 @@ namespace ILOVEYOU
         public class TaskManager : MonoBehaviour
         {
             private Task[] m_tasks = new Task[10];
+            public int NumberOfTasks
+            {
+                get
+                {
+                    int i = 0; 
+                    foreach (Task task in m_tasks) 
+                            if(task.GetTaskType != TaskType.Invalid)
+                                i++;
+                    return i;
+                }
+            }
             [SerializeField] private uint m_taskLimit = 10;
-            public int NumberOfTasks { get { return m_tasks.Length; } }
             [HideInInspector] public int TaskCompletionPoints;
             [Header("UI")]
             //this should have a slider/image
@@ -21,6 +31,10 @@ namespace ILOVEYOU
             {
                 TaskCompletionPoints = 0;
                 m_tasks = new Task[m_taskLimit];
+                for(int i = 0; i < m_tasks.Length; i++)
+                {
+                    m_tasks[i] = new Task(TaskType.Invalid, 0);
+                }
                 m_taskBars = new Image[m_taskLimit];
                 return true;
             }
@@ -35,7 +49,7 @@ namespace ILOVEYOU
                 //Find an empty slot in the array
                 for(int i = 0; i < m_tasks.Length; i++)
                 {
-                    if (m_tasks[i].GetTaskType == TaskType.Invalid)
+                    if (m_tasks[i] == null || m_tasks[i].GetTaskType == TaskType.Invalid)
                     {
                         //Fill the slot with a new task
                         m_tasks[i] = new Task(type, cap);
@@ -71,7 +85,9 @@ namespace ILOVEYOU
                 //Find any completed tasks...
                 for (int i = 0; i < m_tasks.Length; i++)
                 {
-                    if (m_tasks[i].IsComplete)
+                    if (m_tasks[i].GetTaskType == TaskType.Invalid)
+                        continue;
+                    if (m_tasks[i].IsComplete) 
                     {
                         //..clear the task in that slot
                         m_tasks[i] = new Task(TaskType.Invalid, 0);
@@ -102,6 +118,8 @@ namespace ILOVEYOU
                 //...saved its index
                 for (int i = 0; i < m_tasks.Length; i++)
                 {
+                    if (m_tasks[i].GetTaskType == TaskType.Invalid)
+                        continue;
                     if (m_tasks[i].GetTaskType == type)
                     {
                         indexes.Add(i);
@@ -141,6 +159,8 @@ namespace ILOVEYOU
             {
                 foreach (Task task in m_tasks)
                 {
+                    if (task.GetTaskType == TaskType.Invalid)
+                        continue;
                     if (task.GetTaskType == TaskType.Kills)
                         task.UpdateTask(value);
                 }
@@ -157,6 +177,8 @@ namespace ILOVEYOU
             {
                 foreach (Task task in m_tasks)
                 {
+                    if (task.GetTaskType == TaskType.Invalid)
+                        continue;
                     if (task.GetTaskType == TaskType.Time)
                     {
                         if (doReset)

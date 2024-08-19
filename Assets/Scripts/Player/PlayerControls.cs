@@ -146,7 +146,7 @@ namespace ILOVEYOU
                 m_plaMa.GetTaskManager.UpdateTimers(true);
                 if (m_health <= 0)
                 {
-                    m_plaMa.GetGameManager.PlayerDeath(m_plaMa);
+                    m_plaMa.GetLevelManager.GetManager.PlayerDeath(m_plaMa);
                     m_onDeath.Invoke();
                 }
                 else
