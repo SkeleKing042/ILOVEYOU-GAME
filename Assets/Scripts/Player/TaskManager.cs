@@ -59,6 +59,11 @@ namespace ILOVEYOU
                         m_taskBars[i] = taskUI;
                         taskUI.transform.SetParent(m_taskUIContainer, false);
 
+                        if (m_tasks[i].GetTaskType == TaskType.Area)
+                        {
+                            GetComponent<PlayerManager>().GetLevelManager.StartControlPoint(i);
+                        }
+
                         _verifyTaskList();
                         //Return the index of the new task
                         return i;
