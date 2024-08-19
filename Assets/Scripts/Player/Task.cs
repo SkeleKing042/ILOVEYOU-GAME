@@ -9,9 +9,10 @@ namespace ILOVEYOU
     {
         public enum TaskType
         {
+            Invalid,
             Kills,
             Time,
-            Unique
+            Area
         };
         [System.Serializable]
         public class Task
@@ -25,7 +26,15 @@ namespace ILOVEYOU
             public float GetCurrentValue {  get { return m_incValue; } }
             public float GetPercent { get { return m_incValue/m_capValue; } }
 
-            public bool IsComplete { get { return m_incValue >= m_capValue; } }
+            public bool IsComplete
+            {
+                get
+                {
+                    if (m_type == TaskType.Invalid)
+                        return false;
+                    return m_incValue >= m_capValue;
+                }
+            }
 
             public Task(TaskType type, float cap)
             {

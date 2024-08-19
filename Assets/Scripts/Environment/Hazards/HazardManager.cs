@@ -17,8 +17,8 @@ namespace ILOVEYOU
             // Start is called before the first frame update
             public bool Startup()
             {
-                //Get all the hazards in the scene.
-                m_levelHazards = FindObjectsOfType<HazardObject>();
+                //Get all the hazards in the level.
+                m_levelHazards = transform.parent.GetComponentsInChildren<HazardObject>();
                 return true;
             }
 

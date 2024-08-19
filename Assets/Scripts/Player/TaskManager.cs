@@ -8,17 +8,34 @@ namespace ILOVEYOU
     {
         public class TaskManager : MonoBehaviour
         {
-            private List<Task> m_tasks = new List<Task>();
-            public int NumberOfTasks { get { return m_tasks.Count; } }
+            private Task[] m_tasks = new Task[10];
+            public int NumberOfTasks
+            {
+                get
+                {
+                    int i = 0; 
+                    foreach (Task task in m_tasks) 
+                            if(task.GetTaskType != TaskType.Invalid)
+                                i++;
+                    return i;
+                }
+            }
+            [SerializeField] private uint m_taskLimit = 10;
             [HideInInspector] public int TaskCompletionPoints;
             [Header("UI")]
             //this should have a slider/image
             [SerializeField] private Image m_taskUIPrefab;
-            private List<Image> m_taskBars = new List<Image>();
+            private Image[] m_taskBars = new Image[10];
             [SerializeField] private Transform m_taskUIContainer;
             public bool Startup()
             {
                 TaskCompletionPoints = 0;
+                m_tasks = new Task[m_taskLimit];
+                for(int i = 0; i < m_tasks.Length; i++)
+                {
+                    m_tasks[i] = new Task(TaskType.Invalid, 0);
+                }
+                m_taskBars = new Image[m_taskLimit];
                 return true;
             }
             /// <summary>
@@ -26,18 +43,35 @@ namespace ILOVEYOU
             /// </summary>
             /// <param name="type"></param>
             /// <param name="cap"></param>
-            /// <returns></returns>
+            /// <returns>The index of the task</returns>
             public int AddTask(TaskType type, float cap)
             {
-                //makes a new task in the task list
-                m_tasks.Add(new Task(type, cap));
-                //makes a new UI element
-                Image taskUI = Instantiate(m_taskUIPrefab);
-                m_taskBars.Add(taskUI);
-                taskUI.transform.SetParent(m_taskUIContainer, false);
-                _verifyTaskList();
-                return m_tasks.Count - 1;
+                //Find an empty slot in the array
+                for(int i = 0; i < m_tasks.Length; i++)
+                {
+                    if (m_tasks[i] == null || m_tasks[i].GetTaskType == TaskType.Invalid)
+                    {
+                        //Fill the slot with a new task
+                        m_tasks[i] = new Task(type, cap);
+
+                        //Create matching ui elements
+                        Image taskUI = Instantiate(m_taskUIPrefab);
+                        m_taskBars[i] = taskUI;
+                        taskUI.transform.SetParent(m_taskUIContainer, false);
+
+                        _verifyTaskList();
+                        //Return the index of the new task
+                        return i;
+                    }
+                }
+                //No empty spaces exist in the array and the task cannot be added.
+                return -1;
             }
+            /// <summary>
+            /// Creates a new class to add to the list
+            /// </summary>
+            /// <param name="task"></param>
+            /// <returns>The index of the task</returns>
             public int AddTask(Task task)
             {
                 return AddTask(task.GetTaskType, task.GetCapValue);
@@ -48,25 +82,28 @@ namespace ILOVEYOU
             /// <returns></returns>
             private bool _verifyTaskList()
             {
-                List<Task> completeTasks = new List<Task>();
-                //Get a list of all the completed tasks
-                foreach (Task task in m_tasks)
+                //Find any completed tasks...
+                for (int i = 0; i < m_tasks.Length; i++)
                 {
-                    if (task.IsComplete)
-                        completeTasks.Add(task);
-                }
-                //Remove those completed tasks from the main list
-                foreach (Task task in completeTasks)
-                {
-                    //Remove the corresponding UI
-                    Destroy(m_taskBars[m_tasks.IndexOf(task)].gameObject);
-                    m_taskBars.Remove(m_taskBars[m_tasks.IndexOf(task)]);
-                    //Remove the task
-                    m_tasks.Remove(task);
-                    //Give the player a point that will get exchanged for cards later
-                    TaskCompletionPoints++;
+                    if (m_tasks[i].GetTaskType == TaskType.Invalid)
+                        continue;
+                    if (m_tasks[i].IsComplete) 
+                    {
+                        //..clear the task in that slot
+                        m_tasks[i] = new Task(TaskType.Invalid, 0);
+
+                        //remove the UI
+                        Destroy(m_taskBars[i].gameObject);
+                        m_taskBars[i] = null;
+                        //Give the player a point that will get exchanged for cards later
+                        TaskCompletionPoints++;
+                    }
                 }
                 return true;
+            }
+            public Task GetTask(int index)
+            {
+                return m_tasks[index];
             }
             /// <summary>
             /// Returns all the indexes of tasks matching the given type
@@ -79,8 +116,10 @@ namespace ILOVEYOU
                 List<int> indexes = new List<int>();
                 //If the type of the current iteration matches the requested type...
                 //...saved its index
-                for (int i = 0; i < m_tasks.Count; i++)
+                for (int i = 0; i < m_tasks.Length; i++)
                 {
+                    if (m_tasks[i].GetTaskType == TaskType.Invalid)
+                        continue;
                     if (m_tasks[i].GetTaskType == type)
                     {
                         indexes.Add(i);
@@ -120,6 +159,8 @@ namespace ILOVEYOU
             {
                 foreach (Task task in m_tasks)
                 {
+                    if (task.GetTaskType == TaskType.Invalid)
+                        continue;
                     if (task.GetTaskType == TaskType.Kills)
                         task.UpdateTask(value);
                 }
@@ -136,6 +177,8 @@ namespace ILOVEYOU
             {
                 foreach (Task task in m_tasks)
                 {
+                    if (task.GetTaskType == TaskType.Invalid)
+                        continue;
                     if (task.GetTaskType == TaskType.Time)
                     {
                         if (doReset)
@@ -153,9 +196,10 @@ namespace ILOVEYOU
             }
             private void _updateTaskUI()
             {
-                for (int i = 0; i < m_tasks.Count; i++)
+                for (int i = 0; i < m_tasks.Length; i++)
                 {
-                    m_taskBars[i].fillAmount = m_tasks[i].GetPercent;
+                    if (m_taskBars[i] != null)
+                        m_taskBars[i].fillAmount = m_tasks[i].GetPercent;
                 }
             }
         }

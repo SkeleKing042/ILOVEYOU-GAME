@@ -1,4 +1,5 @@
 using ILOVEYOU.Cards;
+using ILOVEYOU.Environment;
 using ILOVEYOU.Management;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,8 +17,8 @@ namespace ILOVEYOU
             //player
             private int m_playerID;
             public int GetPlayerID { get { return m_playerID; } }
-            private GameManager m_manager;
-            public GameManager GetGameManager { get { return m_manager; } }
+            private LevelManager m_levelManager;
+            public LevelManager GetLevelManager { get { return m_levelManager; } }
             //tasks
             private TaskManager m_taskMan;
             public TaskManager GetTaskManager { get { return m_taskMan; } }
@@ -37,7 +38,7 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onCardSelected;
             [SerializeField] private UnityEvent m_onBlind;
             [SerializeField] private UnityEvent m_onUnblind;
-            public bool Startup(GameManager manager, int playerNum)
+            public bool Startup(LevelManager manager, int playerNum)
             {
                 //Reset variables
                 m_taskMan = GetComponent<TaskManager>();
@@ -52,7 +53,7 @@ namespace ILOVEYOU
                 }
 
                 m_cardsHeld = new DisruptCard[0];
-                m_manager = manager;
+                m_levelManager = manager;
                 m_playerID = playerNum;
 
                 //ui setup
@@ -138,8 +139,8 @@ namespace ILOVEYOU
                 //Trigger the effects of the chosen card if a valid input was given.
                 if(index > -1)
                 {
-                m_cardsHeld[index].Trigger(m_manager, this);
-                    m_onCardSelected.Invoke();
+                    m_cardsHeld[index].Trigger(m_levelManager.GetManager, this);
+                        m_onCardSelected.Invoke();
                 }
             }
             #endregion

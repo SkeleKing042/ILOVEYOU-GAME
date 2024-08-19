@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7110859564445769063}
   - component: {fileID: 1262486099391086902}
   - component: {fileID: 213998485764028618}
-  - component: {fileID: 3003967444287988106}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -91,22 +90,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 664f7477d105c9441bc913f4ce9f3b2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerSpawns:
-  - {fileID: 0}
-  - {fileID: 0}
+  m_debugging: 0
+  isPlaying: 0
   m_maxTaskCount: 1
   m_numberOfCardsToGive: 3
   m_taskList: []
   m_timePerStage: 5
   m_difficultyCap: 5
-  m_spawnTime:
-  - 1
-  - 1
+  m_spawnTime: 5
   m_useUI: 1
   m_mainMenuUI: {fileID: 0}
   m_InGameSharedUI: {fileID: 0}
   m_timerText: {fileID: 0}
   m_winScreen: {fileID: 0}
+  m_onGameStart:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onStartError:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onGameEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onTaskAssignment:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &213998485764028618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,20 +127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2037cfd9e2ad09142a97f66b52771a44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_debugging: 0
   m_disruptCards:
   - {fileID: 5180684187051310492, guid: c417afdaea3cc7947be07c494ef21570, type: 3}
   - {fileID: 6432578054958738686, guid: 0a75ce6291015ee4aa54aae78f8fdab4, type: 3}
   - {fileID: 2255046956262864865, guid: 6eee37eeabf47a947a324202506b5b72, type: 3}
---- !u!114 &3003967444287988106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7110859564445768984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99d524e60daf2b441988eaf5125908d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_debugging: 1
+  m_onDispenseCard:
+    m_PersistentCalls:
+      m_Calls: []
