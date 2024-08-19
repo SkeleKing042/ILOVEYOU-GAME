@@ -12,7 +12,8 @@ namespace ILOVEYOU
             Invalid,
             Kills,
             Time,
-            Area
+            Area,
+            Sequence
         };
         [System.Serializable]
         public class Task

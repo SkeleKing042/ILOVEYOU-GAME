@@ -26,6 +26,7 @@ namespace ILOVEYOU
             [SerializeField] private Transform m_playerSpawn;
             [Header("Environment")]
             [SerializeField] private List<AreaControlPoint> m_controlPoints;
+            [SerializeField] private List<Sequence> m_sequences;
 
             /// <summary>
             /// Setup of scripts vars
@@ -107,6 +108,12 @@ namespace ILOVEYOU
                 int rnd = Random.Range(0, m_controlPoints.Count);
 
                 return m_controlPoints[rnd].Init(taskIndex);
+            }
+            public bool StartSequence(int taskIndex)
+            {
+                int rnd = Random.Range(0, m_sequences.Count);
+
+                return m_sequences[rnd].Init(true);//taskIndex);
             }
         }
     }
