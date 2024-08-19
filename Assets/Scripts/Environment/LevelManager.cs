@@ -2,6 +2,7 @@ using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Hazards;
 using ILOVEYOU.Management;
 using ILOVEYOU.Player;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,6 +24,8 @@ namespace ILOVEYOU
             private HazardManager m_hazMan;
             [Header("Players")]
             [SerializeField] private Transform m_playerSpawn;
+            [Header("Environment")]
+            [SerializeField] private List<AreaControlPoint> m_controlPoints;
 
             /// <summary>
             /// Setup of scripts vars
@@ -98,6 +101,12 @@ namespace ILOVEYOU
                         m_playMan.GetTaskManager.UpdateTimers(false);
                     }
                 }
+            }
+            public bool StartControlPoint(int taskIndex)
+            {
+                int rnd = Random.Range(0, m_controlPoints.Count);
+
+                return m_controlPoints[rnd].Init(taskIndex);
             }
         }
     }

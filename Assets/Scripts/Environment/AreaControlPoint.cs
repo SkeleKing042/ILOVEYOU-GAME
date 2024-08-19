@@ -34,7 +34,7 @@ namespace ILOVEYOU
                 //If a task wasn't created, close
                 if(m_taskReferenceNumber == -1)
                 {
-                    CloseArea(true);
+                    CloseArea();
                 }
 
                 m_taskVerified = false;
@@ -46,14 +46,14 @@ namespace ILOVEYOU
             /// </summary>
             /// <param name="forceClose"></param>
             /// <returns></returns>
-            public bool CloseArea(bool forceClose)
+            public bool CloseArea()//bool forceClose)
             {
-                if (!forceClose)
+                /*if (!forceClose)
                 {
+                }*/
                     m_onAreaCompleted.Invoke();
-                }
 
-                Destroy(gameObject);
+                //gameObject.SetActive(false);
 
                 return true;
             }
@@ -82,7 +82,7 @@ namespace ILOVEYOU
                     else
                     {
                         Debug.LogError($"Task type mismatch! Given task index reference isn't of the Area type but has been given to {this}. {this} will now close.");
-                        CloseArea(true);
+                        CloseArea();
                         return;
                     }
                 }
@@ -93,7 +93,7 @@ namespace ILOVEYOU
                 //If the task is completed, close this area
                 if(isCompleted)
                 {
-                    CloseArea(false);
+                    CloseArea();
                     return;
                 }
 
