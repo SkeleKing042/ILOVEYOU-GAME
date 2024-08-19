@@ -94,12 +94,6 @@ namespace ILOVEYOU
             }
             public void OnPlayerJoined(PlayerInput input)
             {
-                if (input.currentControlScheme != "Gamepad")
-                {
-                    input.DeactivateInput();
-                    Destroy(input);
-                    return;
-                }
                 if (m_playMen[0] == null)
                 {
                     ReadyPlayer(0, input);
