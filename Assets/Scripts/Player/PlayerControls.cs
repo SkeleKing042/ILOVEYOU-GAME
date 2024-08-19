@@ -142,6 +142,8 @@ namespace ILOVEYOU
                 m_health -= damage;
                 m_iframesCurrent = m_iframesTotal;
                 UpdateHealthBar();
+                //reset all timed tasks when damaged
+                m_plaMa.GetTaskManager.UpdateTimers(true);
                 if (m_health <= 0)
                 {
                     m_plaMa.GetGameManager.PlayerDeath(m_plaMa);
