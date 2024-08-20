@@ -25,7 +25,10 @@ namespace ILOVEYOU
             [Header("Players")]
             [SerializeField] private Transform m_playerSpawn;
             [Header("Environment")]
+            [Header("Control points")]
             [SerializeField] private List<AreaControlPoint> m_controlPoints;
+            [Header("Sequences")]
+            [SerializeField] private List<Sequence> m_sequences;
 
             /// <summary>
             /// Setup of scripts vars
@@ -102,11 +105,27 @@ namespace ILOVEYOU
                     }
                 }
             }
-            public bool StartControlPoint(int taskIndex)
+            /// <summary>
+            /// Starts a control point
+            /// </summary>
+            /// <param name="task"></param>
+            /// <returns></returns>
+            public bool StartControlPoint(Task task)
             {
                 int rnd = Random.Range(0, m_controlPoints.Count);
 
-                return m_controlPoints[rnd].Init(taskIndex);
+                return m_controlPoints[rnd].Init(task);
+            }
+            /// <summary>
+            /// Starts a sequence
+            /// </summary>
+            /// <param name="task"></param>
+            /// <returns></returns>
+            public bool StartSequence(Task task)
+            {
+                int rnd = Random.Range(0, m_sequences.Count);
+
+                return m_sequences[rnd].Init(task);
             }
         }
     }
