@@ -142,6 +142,18 @@ MonoBehaviour:
   m_mask:
     serializedVersion: 2
     m_Bits: 64
+  m_onTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onShootingDisabled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onShootingEnabled:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1146677423907829169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +171,21 @@ MonoBehaviour:
   m_blindBox: {fileID: 7134124253779583603}
   m_cardDisplay: {fileID: 2494637358676408422}
   m_playerHud: {fileID: 1277608890983220704}
+  m_onGetCards:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onDiscardHand:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onCardSelected:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onBlind:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onUnblind:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6247909786129688140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,11 +199,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemyGroups:
+  - m_groupName: Bosses
+    m_threshold: 0
+    m_enemyPrefabs:
+    - {fileID: 6625428459995327672, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
+    - {fileID: 5426312569765723760, guid: 216d392008d35514d9f5d83766578465, type: 3}
   - m_groupName: Basic Enemies
     m_threshold: 9999
     m_enemyPrefabs:
     - {fileID: 7613335133617298300, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
   m_spawnRange: 10
+  m_onSpawnEnemy:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!135 &1076678004529756087
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -218,6 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397e39359dc44dd4baa601e48113eb7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_taskLimit: 10
   TaskCompletionPoints: 0
   m_taskUIPrefab: {fileID: 5978220576250058401, guid: a6439cb31f5630e4694354e234cc39e1, type: 3}
   m_taskUIContainer: {fileID: 6368998180057467000}

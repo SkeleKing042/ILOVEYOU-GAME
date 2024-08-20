@@ -81,6 +81,29 @@ namespace ILOVEYOU
                 }
             }
             /// <summary>
+            /// Creates enemies in a circle surrounding the player. Number of enemies depends on the what is inputted.
+            /// </summary>
+            /// <param name="groupNumber">enemy group to spawn from</param>
+            /// <param name="enemyCount">number of enemies</param>
+            public void SpawnRandomNumberOfEnemiesFromGroup(int groupNumber, int enemyCount)
+            {
+                //offset to make the enemy positions more random
+                float offset = Random.Range(0f, 1f);
+
+                for (int i = 0; i < enemyCount; i++)
+                {
+                    float angle = (i / (float)enemyCount + offset) * Mathf.PI * 2f;
+
+                    GameObject enemy = Instantiate(m_enemyGroups[groupNumber].RandomEnemyPrefab());
+                    enemy.GetComponent<Enemy>().Initialize(transform);
+
+                    enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
+                        transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
+
+                    m_onSpawnEnemy.Invoke();
+                }
+            }
+            /// <summary>
             /// Spawns a singular random enemy from a group
             /// </summary>
             /// <param name="groupNumber">enemy group to spawn from</param>
