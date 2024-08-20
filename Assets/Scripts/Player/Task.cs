@@ -12,7 +12,8 @@ namespace ILOVEYOU
             Invalid,
             Kills,
             Time,
-            Area
+            Area,
+            Sequence
         };
         [System.Serializable]
         public class Task
@@ -50,6 +51,11 @@ namespace ILOVEYOU
             public bool UpdateTask(float value)
             {
                 m_incValue += value;
+                return IsComplete;
+            }
+            public bool SetValue(float value)
+            {
+                m_incValue = value;
                 return IsComplete;
             }
             /// <summary>
