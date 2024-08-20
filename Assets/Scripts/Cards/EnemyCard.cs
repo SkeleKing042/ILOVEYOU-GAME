@@ -7,7 +7,7 @@ namespace ILOVEYOU
 { 
     namespace Cards
     {
-        public class SwarmCard : MonoBehaviour
+        public class EnemyCard : MonoBehaviour
         {
 
             [SerializeField] private int m_enemyGroup = 0;
@@ -19,7 +19,7 @@ namespace ILOVEYOU
                 PlayerManager target = manager.GetOtherPlayer(player);
 
                 target.GetLevelManager.GetSpawner.SpawnRandomNumberOfEnemiesFromGroup(m_enemyGroup, m_enemyCount);
-                target.GetLevelManager.GetSpawner.SpawnEnemyWave();
+                //target.GetLevelManager.GetSpawner.SpawnEnemyWave();
             }
         }
     }
