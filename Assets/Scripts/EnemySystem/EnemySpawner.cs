@@ -74,7 +74,7 @@ namespace ILOVEYOU
                     GameObject enemy = Instantiate(m_enemyGroups[groupNumber].RandomEnemyPrefab());
                     enemy.GetComponent<Enemy>().Initialize(transform);
 
-                    enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
+                    enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), transform.position.y,
                         transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
 
                     m_onSpawnEnemy.Invoke();
@@ -114,7 +114,7 @@ namespace ILOVEYOU
                 GameObject enemy = Instantiate(m_enemyGroups[groupNumber].RandomEnemyPrefab());
                 enemy.GetComponent<Enemy>().Initialize(transform);
 
-                enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
+                enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), transform.position.y,
                     transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
 
                 m_onSpawnEnemy.Invoke();
@@ -130,7 +130,7 @@ namespace ILOVEYOU
 
                 GameObject enemy = Instantiate(m_enemyGroups[groupNumber].EnemyPrefab(prefabIndex));
 
-                enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
+                enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), transform.position.y,
                     transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
 
                 m_onSpawnEnemy.Invoke();
