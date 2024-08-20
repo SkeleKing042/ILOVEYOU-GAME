@@ -1,7 +1,4 @@
 using ILOVEYOU.Player;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,7 +9,7 @@ namespace ILOVEYOU
 
         public class AreaControlPoint : MonoBehaviour
         {
-            private int m_taskReferenceNumber = -1;
+            private Task m_taskReference;
             private bool m_taskVerified;
 
             [Header("Events")]
@@ -24,17 +21,26 @@ namespace ILOVEYOU
             /// <summary>
             /// Object initialisation
             /// </summary>
-            /// <param name="index"></param>
+            /// <param name="task"></param>
             /// <returns></returns>
-            public bool Init(int index)
+            public bool Init(Task task)
             {
                 //Save the task ref number
-                m_taskReferenceNumber = index;
-
-                //If a task wasn't created, close
-                if(m_taskReferenceNumber == -1)
+                m_taskReference = task;
+                //If the task hasn't been verified...
+                if (!m_taskVerified)
                 {
-                    CloseArea();
+                    //..check the task type is an area type
+                    if (m_taskReference.GetTaskType == TaskType.Area)
+                    {
+                        m_taskVerified = true;
+                    }
+                    else
+                    {
+                        Debug.LogError($"Task type mismatch! Given task index reference isn't of the Area type but has been given to {this}. {this} will now close.");
+                        CloseArea();
+                        return false;
+                    }
                 }
 
                 m_taskVerified = false;
@@ -71,24 +77,8 @@ namespace ILOVEYOU
                 if (other.tag != "Player")
                     return;
 
-                //If the task hasn't been verified...
-                if (!m_taskVerified)
-                {
-                    //..check the task type is an area type
-                    if(other.GetComponent<TaskManager>().GetTask(m_taskReferenceNumber).GetTaskType == TaskType.Area)
-                    {
-                        m_taskVerified = true;
-                    }
-                    else
-                    {
-                        Debug.LogError($"Task type mismatch! Given task index reference isn't of the Area type but has been given to {this}. {this} will now close.");
-                        CloseArea();
-                        return;
-                    }
-                }
-
                 //Update the task
-                bool isCompleted = other.GetComponent<TaskManager>().UpdateTask(m_taskReferenceNumber, Time.deltaTime);
+                bool isCompleted = m_taskReference.UpdateTask(Time.deltaTime);
 
                 //If the task is completed, close this area
                 if(isCompleted)

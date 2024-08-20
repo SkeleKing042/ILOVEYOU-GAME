@@ -8,15 +8,16 @@ namespace ILOVEYOU
     {
         public class TaskManager : MonoBehaviour
         {
+            private PlayerManager m_player;
             private Task[] m_tasks = new Task[10];
             public int NumberOfTasks
             {
                 get
                 {
-                    int i = 0; 
-                    foreach (Task task in m_tasks) 
-                            if(task.GetTaskType != TaskType.Invalid)
-                                i++;
+                    int i = 0;
+                    foreach (Task task in m_tasks)
+                        if (task.GetTaskType != TaskType.Invalid)
+                            i++;
                     return i;
                 }
             }
@@ -29,11 +30,12 @@ namespace ILOVEYOU
             [SerializeField] private Transform m_taskUIContainer;
             public bool Startup()
             {
+                m_player = GetComponent<PlayerManager>();
                 TaskCompletionPoints = 0;
                 m_tasks = new Task[m_taskLimit];
-                for(int i = 0; i < m_tasks.Length; i++)
+                for (int i = 0; i < m_tasks.Length; i++)
                 {
-                    m_tasks[i] = new Task(TaskType.Invalid, 0);
+                    m_tasks[i] = new(TaskType.Invalid, 0);
                 }
                 m_taskBars = new Image[m_taskLimit];
                 return true;
@@ -47,12 +49,12 @@ namespace ILOVEYOU
             public int AddTask(TaskType type, float cap)
             {
                 //Find an empty slot in the array
-                for(int i = 0; i < m_tasks.Length; i++)
+                for (int i = 0; i < m_tasks.Length; i++)
                 {
                     if (m_tasks[i] == null || m_tasks[i].GetTaskType == TaskType.Invalid)
                     {
                         //Fill the slot with a new task
-                        m_tasks[i] = new Task(type, cap);
+                        m_tasks[i] = new(type, cap);
 
                         //Create matching ui elements
                         Image taskUI = Instantiate(m_taskUIPrefab);
@@ -61,7 +63,11 @@ namespace ILOVEYOU
 
                         if (m_tasks[i].GetTaskType == TaskType.Area)
                         {
-                            GetComponent<PlayerManager>().GetLevelManager.StartControlPoint(i);
+                            m_player.GetLevelManager.StartControlPoint(m_tasks[i]);
+                        }
+                        if (m_tasks[i].GetTaskType == TaskType.Sequence)
+                        {
+                            m_player.GetLevelManager.StartSequence(m_tasks[i]);
                         }
 
                         _verifyTaskList();
@@ -92,10 +98,10 @@ namespace ILOVEYOU
                 {
                     if (m_tasks[i].GetTaskType == TaskType.Invalid)
                         continue;
-                    if (m_tasks[i].IsComplete) 
+                    if (m_tasks[i].IsComplete)
                     {
                         //..clear the task in that slot
-                        m_tasks[i] = new Task(TaskType.Invalid, 0);
+                        m_tasks[i] = new(TaskType.Invalid, 0);
 
                         //remove the UI
                         Destroy(m_taskBars[i].gameObject);
@@ -118,7 +124,7 @@ namespace ILOVEYOU
             public int[] GetMatchingTasks(TaskType type)
             {
                 //Create a list of indexes
-                List<int> indexes = new List<int>();
+                List<int> indexes = new();
                 //If the type of the current iteration matches the requested type...
                 //...saved its index
                 for (int i = 0; i < m_tasks.Length; i++)

@@ -53,6 +53,11 @@ namespace ILOVEYOU
                 m_incValue += value;
                 return IsComplete;
             }
+            public bool SetValue(float value)
+            {
+                m_incValue = value;
+                return IsComplete;
+            }
             /// <summary>
             /// Resets this task back to 0
             /// </summary>
