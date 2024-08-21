@@ -11,7 +11,7 @@ namespace ILOVEYOU
 
         public class CyberAttackCard : MonoBehaviour
         {
-            [SerializeField] private float m_time = 1;
+            [Tooltip("How long the effect will last for.")] [SerializeField] private float m_time = 1;
             public void ExecuteEvents(object[] data)
             {
                 GameManager manager = (GameManager)data[0];

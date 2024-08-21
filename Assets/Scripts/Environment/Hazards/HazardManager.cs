@@ -28,7 +28,9 @@ namespace ILOVEYOU
                 m_levelHazards = transform.parent.GetComponentsInChildren<HazardObject>();
                 return true;
             }
-
+            /// <summary>
+            /// Enables all hazards assigned to hazard manager
+            /// </summary>
             public void EnableAllHazards()
             {
                 if (m_debugging) Debug.Log("Triggering hazards.");
@@ -38,6 +40,10 @@ namespace ILOVEYOU
                 }
                 m_onGlobalHazardEnable.Invoke();
             }
+            /// <summary>
+            /// enables all hazards assigned to hazard manager for set amount of time
+            /// </summary>
+            /// <param name="time">Amount of time hazards are active for</param>
             public void EnableAllHazards(float time)
             {
                 if (m_debugging) Debug.Log($"Triggering hazards for {time} seconds.");
@@ -47,6 +53,9 @@ namespace ILOVEYOU
                 }
                 m_onGlobalHazardEnable.Invoke();
             }
+            /// <summary>
+            /// Disables all hazards assigned to hazard manager
+            /// </summary>
             public void DisableAllHazards()
             {
                 if (m_debugging) Debug.Log("Disabling hazards.");
@@ -56,7 +65,10 @@ namespace ILOVEYOU
                 }
                 m_onGlobalHazardDisable.Invoke();
             }
-
+            /// <summary>
+            /// Enables all hazards of type assigned to hazard manager
+            /// </summary>
+            /// <param name="type">Type if hazard to enable</param>
             public void EnableTypeHazards(HazardTypes type)
             {
                 if (m_debugging) Debug.Log($"Triggering {type} hazards.");
@@ -66,7 +78,6 @@ namespace ILOVEYOU
                 }
                 //m_onGlobalHazardEnable.Invoke();
             }
-
             public void EnableTypeHazards(HazardTypes type, float time)
             {
                 if (m_debugging) Debug.Log($"Triggering {type} hazards for {time} seconds."); ;
@@ -76,6 +87,20 @@ namespace ILOVEYOU
                 }
                 //m_onGlobalHazardEnable.Invoke();
             }
+            /// <summary>
+            /// Disables all hazards of type assigned to hazard manager
+            /// </summary>
+            /// <param name="type">Type to disable</param>
+            public void DisableAllTypeHazards(HazardTypes type)
+            {
+                if (m_debugging) Debug.Log("Disabling hazards.");
+                foreach (HazardObject hazardObject in m_levelHazards)
+                {
+                    if (type == hazardObject.HazardType()) hazardObject.DisableHazard();
+                }
+                //m_onGlobalHazardDisable.Invoke();
+            }
+
         }
     }
 }

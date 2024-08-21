@@ -10,10 +10,11 @@ namespace ILOVEYOU
         public class EnemyCard : MonoBehaviour
         {
 
-            [SerializeField] private int m_enemyGroup = 0;
-            [SerializeField] private int m_enemyCount = 0;
+            [Tooltip("Which group id to spawn from")] [SerializeField] private int m_enemyGroup = 0;
+            [Tooltip("How many enemies to spawn")] [SerializeField] private int m_enemyCount = 0;
             public void ExecuteEvents(object[] data)
             {
+                //get required data
                 GameManager manager = (GameManager)data[0];
                 PlayerManager player = (PlayerManager)data[1];
                 PlayerManager target = manager.GetOtherPlayer(player);
