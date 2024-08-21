@@ -1,6 +1,8 @@
 using ILOVEYOU.Cards;
 using ILOVEYOU.Environment;
 using ILOVEYOU.Management;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -31,6 +33,8 @@ namespace ILOVEYOU
             [SerializeField] private Transform m_cardDisplay;
             [SerializeField] private GameObject m_playerHud;
             private Slider m_healthSlider;
+            private EventLogUI m_eventLog;
+            public EventLogUI GetLog { get { return m_eventLog; } }
 
             [Header("Event - sounds and visuals")]
             [SerializeField] private UnityEvent m_onGetCards;
@@ -61,6 +65,8 @@ namespace ILOVEYOU
                 m_healthSlider = m_playerHud.transform.GetChild(0).GetComponentInChildren<Slider>();
                 m_cardDisplay.parent.gameObject.SetActive(false);
 
+                m_eventLog = GetComponent<EventLogUI>();
+
                 if (m_debugging) Debug.Log("PlayerManager started successfully");
                 return true;
             }
@@ -71,7 +77,8 @@ namespace ILOVEYOU
             /// <param name="cards"></param>
             public void CollectHand(DisruptCard[] cards)
             {
-                if(m_debugging) Debug.Log("Hand dealt, setting up cards.");
+                m_eventLog.LogInput($"Reciving cards...");
+                if (m_debugging) Debug.Log("Hand dealt, setting up cards.");
                 CancelInvoke();
                 m_onGetCards.Invoke();
                 //Copy the given array to this hand
@@ -88,6 +95,8 @@ namespace ILOVEYOU
                     m_cardDisplay.parent.gameObject.SetActive(true);
                     if(m_debugging) Debug.Log("Readying discard function to card.");
                     card.m_playerHandToDiscard.AddListener(delegate { DiscardHand(); });
+
+                    //m_eventLog.LogInput($"{card.name} added.");
                 }
                 //To stop stockpiling, delete the cards after a set time
                 Invoke("DiscardHand", m_cardTimeout);
@@ -97,6 +106,9 @@ namespace ILOVEYOU
             /// </summary>
             public void DiscardHand()
             {
+                if (!CardsInHand)
+                    return;
+                m_eventLog.LogInput($"Discarding hand.");
                 foreach(DisruptCard card in m_cardsHeld)
                 {
                     Destroy(card.gameObject);
@@ -139,6 +151,23 @@ namespace ILOVEYOU
                 //Trigger the effects of the chosen card if a valid input was given.
                 if(index > -1)
                 {
+                    string s = m_cardsHeld[index].name.Remove(m_cardsHeld[index].name.Length - 7); //name with (Clone) removed
+                    List<int> chars = new();
+                    for(int i = 0; i < s.Length; i++)
+                    {
+                        if (char.IsUpper(s[i]))
+                            chars.Add(i);
+                    }
+                    chars.Remove(0);
+                    for(int i = 0; i < chars.Count; i++)
+                    {
+                        chars[i] += i;
+                    }
+                    foreach(int pos in chars)
+                    {
+                        s = s.Insert(pos, " ");
+                    }
+                    m_eventLog.LogInput($"{s} selected, triggering events.");
                     m_cardsHeld[index].Trigger(m_levelManager.GetManager, this);
                         m_onCardSelected.Invoke();
                 }
@@ -150,6 +179,7 @@ namespace ILOVEYOU
                 m_blindBox.SetActive(true);
                 m_onBlind.Invoke();
                 Invoke("_disableBlindness", m_time);
+                m_eventLog.LogInput($"Displaying window.\nDisplaying window.\nDisplaying window.\nDisplaying window.\nDisplaying window.\nDisplaying window.\nDisplaying window.\nDisplaying window.\nDisplaying window.\nDisplaying window.\nDisplaying window.\nDisplaying window.\nDisplaying window.\nDisplaying window.\nDisplaying window.");
             }
             private void _disableBlindness()
             {

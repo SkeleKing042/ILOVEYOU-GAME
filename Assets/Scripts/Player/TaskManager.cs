@@ -70,6 +70,8 @@ namespace ILOVEYOU
                             m_player.GetLevelManager.StartSequence(m_tasks[i]);
                         }
 
+                        m_player.GetLog.LogInput($"{m_tasks[i].GetTaskType} task assigned to task list.");
+
                         _verifyTaskList();
                         //Return the index of the new task
                         return i;
@@ -106,6 +108,7 @@ namespace ILOVEYOU
                         //remove the UI
                         Destroy(m_taskBars[i].gameObject);
                         m_taskBars[i] = null;
+                        m_player.GetLog.LogInput($"{m_tasks[i].GetTaskType} complete. Rewarding cards.");
                         //Give the player a point that will get exchanged for cards later
                         TaskCompletionPoints++;
                     }
@@ -194,6 +197,7 @@ namespace ILOVEYOU
                     {
                         if (doReset)
                             task.ResetTask();
+
                         else
                             task.UpdateTask(Time.deltaTime);
                     }
