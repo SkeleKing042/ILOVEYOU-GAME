@@ -199,6 +199,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemyGroups:
+  - m_groupName: Bosses
+    m_threshold: 0
+    m_enemyPrefabs:
+    - {fileID: 6625428459995327672, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
+    - {fileID: 5426312569765723760, guid: 216d392008d35514d9f5d83766578465, type: 3}
   - m_groupName: Basic Enemies
     m_threshold: 9999
     m_enemyPrefabs:
