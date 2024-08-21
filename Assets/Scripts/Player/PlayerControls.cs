@@ -15,6 +15,18 @@ namespace ILOVEYOU
             [SerializeField] private bool m_debugging;
             private PlayerManager m_plaMa;
             private Rigidbody m_rb;
+            //delegate void testing
+            public delegate void ContextPress();
+            private ContextPress m_contextPress;
+            public void AddContext(ContextPress context)
+            {
+                m_contextPress += context;
+            }
+            public void RemoveContext(ContextPress context)
+            {
+                m_contextPress -= context;
+            }
+
             [Header("General")]
             [SerializeField] private float m_MaxHealth = 10f;
             private float m_health;
@@ -132,6 +144,11 @@ namespace ILOVEYOU
                 Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
                 m_patternObject.transform.rotation = rotation;
                 m_playerModel.transform.rotation = rotation;
+            }
+            public void OnContextButton(InputValue value)
+            {
+                Debug.Log("HEwwo!!!!");
+                m_contextPress?.Invoke();
             }
             /// <summary>
             /// makes the player take the damage oh noooo this is bad
