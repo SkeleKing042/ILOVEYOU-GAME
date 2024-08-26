@@ -13,10 +13,12 @@ namespace ILOVEYOU
             [SerializeField] protected float m_damage = 1f;
             [SerializeField] protected float m_health = 1f;
             [SerializeField] protected float m_distanceCondition = 1f;
-            protected Transform m_playerTransform; //temp serialization
+            protected Transform m_playerTransform;
+            private Rigidbody m_rigidBody;
 
             public virtual void Initialize(Transform target)
             {
+                m_rigidBody = GetComponent<Rigidbody>();
                 m_playerTransform = target;
 
                 //Potential TODO: add a "modifier" value that is dependent on current difficulty/time that influences the base values
@@ -47,7 +49,9 @@ namespace ILOVEYOU
                 rotation = Quaternion.Euler(0f, Mathf.LerpAngle(transform.rotation.eulerAngles.y,rotation.eulerAngles.y, Time.deltaTime * 3f), 0f);
                 //moves and rotates the enemy
                 transform.SetPositionAndRotation(transform.position + (m_speed * Time.deltaTime * transform.forward), rotation);
-
+                //m_rigidBody.MoveRotation(rotation);
+                //m_rigidBody.MovePosition(m_rigidBody.position + (m_speed *Time.deltaTime * transform.forward));
+                //m_rigidBody.velocity = (m_speed * transform.forward);
             }
 
             public virtual void DoNearAction()
@@ -66,7 +70,7 @@ namespace ILOVEYOU
                 }
             }
 
-            public virtual void OnTriggerEnter(Collider collision)
+            public virtual void OnTriggerStay(Collider collision)
             {
                 //if collided with player
                 if (collision.gameObject.GetComponent<PlayerControls>())

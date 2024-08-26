@@ -66,9 +66,9 @@ namespace ILOVEYOU
 
                 for (int i = 0; i < enemyCount; i++)
                 {
-                    float angle = Random.Range(0f, 1f) * Mathf.PI * 2f;
+                    //float angle = Random.Range(0f, 1f) * Mathf.PI * 2f;
 
-                    if(_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab(), angle)) m_onSpawnEnemy.Invoke();
+                    if(_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab())) m_onSpawnEnemy.Invoke();
                 }
             }
             /// <summary>
@@ -81,13 +81,9 @@ namespace ILOVEYOU
 
                 for (int i = 0; i < enemyCount; i++)
                 {
-                    float angle = Random.Range(0f, 1f) * Mathf.PI * 2f;
+                    //float angle = Random.Range(0f, 1f) * Mathf.PI * 2f;
 
-                    GameObject enemy = Instantiate(m_enemyGroups[groupNumber].RandomEnemyPrefab());
-                    enemy.GetComponent<Enemy>().Initialize(transform);
-
-                    enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), 0f,
-                        transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
+                    if (_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab())) m_onSpawnEnemy.Invoke();
 
                     m_onSpawnEnemy.Invoke();
                 }
@@ -131,7 +127,7 @@ namespace ILOVEYOU
                 if (transform) Gizmos.DrawWireSphere(transform.position, m_spawnRange);
             }
 
-            private bool _SpawnEnemy(GameObject prefab, float angle)
+            private bool _SpawnEnemy(GameObject prefab)
             {
 
                 //creates enemy from given prefab
@@ -141,6 +137,7 @@ namespace ILOVEYOU
                 //attempts 100 times to spawn an enemy
                 for (int i = 0; i < 100; i++)
                 {
+                    float angle = Random.Range(0f, 1f) * Mathf.PI * 2f;
                     //sets position around circle
                     enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), transform.position.y,
                     transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
