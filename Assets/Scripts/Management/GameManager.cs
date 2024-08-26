@@ -62,44 +62,64 @@ namespace ILOVEYOU
                 if (m_debugging) Debug.Log("Game starting.");
 
                 if (m_debugging) Debug.Log("Getting level managers.");
+                //count check
                 m_levelManagers = FindObjectsOfType<LevelManager>();
+                //too small
                 if(m_levelManagers.Length < 2)
                 {
-                    if (m_debugging) Debug.LogError($"Not enough level managers found. Please ensure that there are at least 2. Currently there are {m_levelManagers.Length}.");
+                    Debug.LogError($"Not enough level managers found. Please ensure that there are at least 2. Currently there are {m_levelManagers.Length}.");
                     Destroy(this);
                     return;
                 }
+                //start managers
                 foreach(LevelManager lMan in m_levelManagers)
                 {
-                    lMan.Startup(this);
+                    if (!lMan.Startup(this))
+                    {
+                        //manager failed
+                        Debug.LogError($"{lMan} has failed, aborting...");
+                        Destroy(this);
+                        return;
+                    }
                 }
 
+                //card manager
                 if (m_debugging) Debug.Log("Getting CardManager");
                 m_cardMan = GetComponent<CardManager>();
+                //not found
                 if (m_cardMan == null)
                 {
-                    if (m_debugging) Debug.LogError($"CardManager not found, Aborting. Please add the CardManager script to {gameObject} and try again.");
+                    Debug.LogError($"CardManager not found, Aborting. Please add the CardManager script to {gameObject} and try again.");
                     Destroy(this);
                     return;
                 }
-
-                if (m_debugging) Debug.Log("Starting CardManager");
+                //startup
                 if (!m_cardMan.Startup())
                 {
+                    Debug.LogError($"{m_cardMan} has failed, aborting...");
                     Destroy(this);
                     return;
                 }
 
+                //passed
+                if (m_debugging) Debug.Log("Game started successfully! Yippee!!");
             }
             public void OnPlayerJoined(PlayerInput input)
             {
+                bool b = true;
                 if (!m_levelManagers[0].hasPlayer)
                 {
-                    m_levelManagers[0].ReadyPlayer(0, input);
+                    b = m_levelManagers[0].ReadyPlayer(0, input);
                 }
                 else
                 {
-                    m_levelManagers[1].ReadyPlayer(1, input);
+                    b = m_levelManagers[1].ReadyPlayer(1, input);
+                }
+
+                if (!b)
+                {
+                    Debug.LogError($"Player failed to join, aborting...");
+                    Destroy(this);
                 }
             }
             /// <summary>

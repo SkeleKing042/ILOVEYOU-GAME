@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3602d5baa53ef0e47b915fd73bf259bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_debugging: 0
+  m_debugging: 1
   m_MaxHealth: 10
   m_iframesTotal: 1
   m_moveSpeed: 10
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e846eb67d82e994397c8554be64a760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_debugging: 0
+  m_debugging: 1
   m_cardTimeout: 5
   m_blindBox: {fileID: 7134124253779583603}
   m_cardDisplay: {fileID: 2494637358676408422}
@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397e39359dc44dd4baa601e48113eb7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_debugging: 1
   m_taskLimit: 10
   TaskCompletionPoints: 0
   m_taskUIPrefab: {fileID: 5978220576250058401, guid: a6439cb31f5630e4694354e234cc39e1, type: 3}
