@@ -10,6 +10,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using UnityEditor;
 
 namespace ILOVEYOU
 {
@@ -246,6 +247,15 @@ namespace ILOVEYOU
                     player.GetTaskManager.AddTask(m_taskList[rnd]);
                     m_onTaskAssignment.Invoke();
                 }
+            }
+
+            public void QuitApp()
+            {
+#if UNITY_EDITOR
+                EditorApplication.ExitPlaymode();
+#else
+                Application.Quit();
+#endif
             }
         }
     }
