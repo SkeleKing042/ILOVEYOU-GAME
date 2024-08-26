@@ -11,6 +11,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using UnityEditor;
+using UnityEngine.UI;
 
 namespace ILOVEYOU
 {
@@ -49,6 +50,11 @@ namespace ILOVEYOU
             [SerializeField] private GameObject m_InGameSharedUI;
             [SerializeField] private TextMeshProUGUI m_timerText;
             [SerializeField] private GameObject m_winScreen;
+
+            [Header("Landing Menu")]
+            [SerializeField] private TextMeshProUGUI m_reporterTextBox;
+            [SerializeField] private Button m_startButton;
+            [SerializeField] private GameObject m_bkgndCam;
 
             [Header("Events - mostly for visuals and sounds")]
             [SerializeField] private UnityEvent m_onGameStart;
@@ -197,6 +203,18 @@ namespace ILOVEYOU
 
                     //Debug.Log($"Current difficulty {GetDifficulty}.");
                 }
+                else
+                {
+                    if (!ReadyForPlay)
+                    {
+                        m_reporterTextBox.text = $"Connect controllers";
+                    }
+                    else
+                    {
+                        m_startButton.interactable = true;
+                        m_reporterTextBox.text = "";
+                    }
+                }
             }
             public void AttemptStartGame()
             {
@@ -205,8 +223,13 @@ namespace ILOVEYOU
                     isPlaying = true;
                     if (m_useUI)
                     {
+                        m_bkgndCam.SetActive(false);
                         m_mainMenuUI.SetActive(false);
                         m_InGameSharedUI.SetActive(true);
+                        foreach(LevelManager manager in m_levelManagers)
+                        {
+                            manager.GetPlayer.GetControls.enabled = true;
+                        }
                         m_onGameStart.Invoke();
                     }
                 }

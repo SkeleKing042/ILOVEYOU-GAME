@@ -17,6 +17,7 @@ namespace ILOVEYOU
             [SerializeField] private bool m_debugging;
             //player
             private PlayerControls m_playerControls;
+            public PlayerControls GetControls { get { return m_playerControls; } }
             private int m_playerID;
             public int GetPlayerID { get { return m_playerID; } }
             private LevelManager m_levelManager;
@@ -50,7 +51,6 @@ namespace ILOVEYOU
                 if (m_debugging) Debug.Log($"Getting task manager.");
                 //Reset variables
                 m_taskMan = GetComponent<TaskManager>();
-                m_playerControls = GetComponent<PlayerControls>();
                 if (!m_taskMan)
                 {
                     Debug.LogError("Task manager not found! Aborting...");
@@ -67,6 +67,7 @@ namespace ILOVEYOU
                 m_cardsHeld = new DisruptCard[0];
                 m_levelManager = manager;
                 m_playerID = playerNum;
+                m_playerControls = GetComponent<PlayerControls>();
 
                 //ui setup
                 if (m_playerID != 0) m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
@@ -75,6 +76,7 @@ namespace ILOVEYOU
                 m_blindBox.SetActive(false);
                 m_cardDisplay.parent.gameObject.SetActive(false);
                 m_eventLog = GetComponent<EventLogUI>();
+                m_playerControls.enabled = false;
 
                 if (m_debugging) Debug.Log($"{this} started successfully");
                 return true;

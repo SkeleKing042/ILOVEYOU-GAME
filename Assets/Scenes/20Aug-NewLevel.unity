@@ -482,9 +482,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1271747014}
     - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+      propertyPath: m_bkgndCam
+      value: 
+      objectReference: {fileID: 1600356911}
+    - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+      propertyPath: m_startButton
+      value: 
+      objectReference: {fileID: 503626373}
+    - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_timerTextBox
       value: 
       objectReference: {fileID: 63398235}
+    - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+      propertyPath: m_reporterTextBox
+      value: 
+      objectReference: {fileID: 900331999}
     - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_taskList.Array.size
       value: 3
@@ -1598,6 +1610,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7541849866350878212, guid: c3a99db0d6835da40b3eabfffa2f8e00, type: 3}
   m_PrefabInstance: {fileID: 7541849866002524037}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &503626373 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5070089777109248966, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+  m_PrefabInstance: {fileID: 106230297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &548985946
 Mesh:
   m_ObjectHideFlags: 0
@@ -3074,6 +3097,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &900331999 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6695511660496930319, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+  m_PrefabInstance: {fileID: 106230297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &960742510
 Mesh:
   m_ObjectHideFlags: 0
@@ -5760,6 +5794,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1600356911 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2620023123695782315, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+  m_PrefabInstance: {fileID: 106230297}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1606377789
 Mesh:
   m_ObjectHideFlags: 0

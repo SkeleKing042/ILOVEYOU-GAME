@@ -75,7 +75,7 @@ namespace ILOVEYOU
                             m_player.GetLevelManager.StartSequence(m_tasks[i]);
                         }
 
-                        m_player.GetLog.LogInput($"<color=\"red\">{m_tasks[i].GetTaskType}</color> task assigned to task list.");
+                        m_player.GetLog.LogInput($"<color=\"green\">{m_tasks[i].GetTaskType}</color> task assigned to task list.");
 
                         _verifyTaskList();
                         //Return the index of the new task
