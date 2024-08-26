@@ -58,7 +58,7 @@ namespace ILOVEYOU
             private ContextPress m_contextPress;
             private int m_contextPriority; //current priority of the current context action
             /// <summary>
-            /// sets the context press to whatever calls it
+            /// Sets the context press function to whatever function is put in the ContextPress
             /// </summary>
             /// <param name="context">function for the context button to attatch to</param>
             /// <param name="priority">what priority this action has, the higher the priority, the less likely it will be overwritten</param>
@@ -75,6 +75,16 @@ namespace ILOVEYOU
             public void RemoveSetContext(ContextPress context)
             {
                 m_contextPress -= context;
+                m_contextPriority = 0;
+                m_contextText.text = "";
+            }
+            //might not need this one
+            /// <summary>
+            /// removes the all contexts provided and resets values
+            /// </summary>
+            public void RemoveAllContext()
+            {
+                m_contextPress = null;
                 m_contextPriority = 0;
                 m_contextText.text = "";
             }
@@ -165,7 +175,7 @@ namespace ILOVEYOU
             }
             public void OnContextButton(InputValue value)
             {
-                Debug.Log("HEwwo!!!!");
+                //Debug.Log("HEwwo!!!!");
                 m_contextPress?.Invoke();
             }
             /// <summary>
