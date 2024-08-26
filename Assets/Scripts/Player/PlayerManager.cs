@@ -41,16 +41,22 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onUnblind;
             public bool Startup(LevelManager manager, int playerNum)
             {
+                if (m_debugging) Debug.Log($"Starting {this}.");
+
+                if (m_debugging) Debug.Log($"Getting task manager.");
                 //Reset variables
                 m_taskMan = GetComponent<TaskManager>();
                 m_playerControls = GetComponent<PlayerControls>();
                 if (!m_taskMan)
                 {
-                    if (m_debugging) Debug.Log("Task manager not found! Please fix boss");
+                    Debug.LogError("Task manager not found! Aborting...");
+                    Destroy(gameObject);
                     return false;
                 }
                 if (!m_taskMan.Startup())
                 {
+                    Debug.LogError($"{m_taskMan} failed startup, aborting...");
+                    Destroy(gameObject);
                     return false;
                 }
 
@@ -65,7 +71,7 @@ namespace ILOVEYOU
                 m_blindBox.SetActive(false);
                 m_cardDisplay.parent.gameObject.SetActive(false);
 
-                if (m_debugging) Debug.Log("PlayerManager started successfully");
+                if (m_debugging) Debug.Log($"{this} started successfully");
                 return true;
             }
             #region Card Management

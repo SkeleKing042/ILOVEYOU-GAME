@@ -35,9 +35,10 @@ namespace ILOVEYOU
             /// <summary>
             /// called by GameManager to initialize the m_manager variable
             /// </summary>
-            public void Initialize(GameManager manager)
+            public bool Initialize(GameManager manager)
             {
                 m_manager = manager;
+                return true;
             }
             /// <summary>
             /// spawns a group of enemies around the player

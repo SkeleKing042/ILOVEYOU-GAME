@@ -24,8 +24,16 @@ namespace ILOVEYOU
             // Start is called before the first frame update
             public bool Startup()
             {
+                if (m_debugging) Debug.Log($"Starting {this}.");
                 //Get all the hazards in the level.
                 m_levelHazards = transform.parent.GetComponentsInChildren<HazardObject>();
+                if(m_levelHazards.Length == 0)
+                {
+                    if (m_debugging) Debug.LogWarning($"{this} was unable to find any hazard objects.");
+                }
+
+                //passed
+                if (m_debugging) Debug.Log($"{this} started successfully.");
                 return true;
             }
             /// <summary>
