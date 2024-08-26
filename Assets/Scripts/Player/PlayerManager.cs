@@ -15,6 +15,7 @@ namespace ILOVEYOU
         {
             [SerializeField] private bool m_debugging;
             //player
+            private PlayerControls m_playerControls;
             private int m_playerID;
             public int GetPlayerID { get { return m_playerID; } }
             private LevelManager m_levelManager;
@@ -42,6 +43,7 @@ namespace ILOVEYOU
             {
                 //Reset variables
                 m_taskMan = GetComponent<TaskManager>();
+                m_playerControls = GetComponent<PlayerControls>();
                 if (!m_taskMan)
                 {
                     if (m_debugging) Debug.Log("Task manager not found! Please fix boss");
@@ -59,6 +61,8 @@ namespace ILOVEYOU
                 //ui setup
                 if (m_playerID != 0) m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
                 m_healthSlider = m_playerHud.transform.GetChild(0).GetComponentInChildren<Slider>();
+                m_blindBox.GetComponent<PopUps>().Initialize(m_playerControls);
+                m_blindBox.SetActive(false);
                 m_cardDisplay.parent.gameObject.SetActive(false);
 
                 if (m_debugging) Debug.Log("PlayerManager started successfully");
@@ -144,18 +148,19 @@ namespace ILOVEYOU
                 }
             }
             #endregion
-            public void TriggerBlindness(float m_time)
+            public void TriggerBlindness(int count)
             {
-                CancelInvoke();
+                //CancelInvoke();
                 m_blindBox.SetActive(true);
+                m_blindBox.GetComponent<PopUps>().StartPopUps(count);
                 m_onBlind.Invoke();
-                Invoke("_disableBlindness", m_time);
+                //Invoke("_disableBlindness", m_time);
             }
-            private void _disableBlindness()
-            {
-                m_blindBox.SetActive(false);
-                m_onUnblind.Invoke();
-            }
+            //private void _disableBlindness()
+            //{
+            //    m_blindBox.SetActive(false);
+            //    m_onUnblind.Invoke();
+            //}
             public void UpdateHealthBar(float value)
             {
                 m_healthSlider.value = value;
