@@ -1,6 +1,7 @@
 using ILOVEYOU.Cards;
 using ILOVEYOU.Environment;
 using ILOVEYOU.Management;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -33,6 +34,9 @@ namespace ILOVEYOU
             [SerializeField] private GameObject m_playerHud;
             private Slider m_healthSlider;
 
+            private EventLogUI m_eventLog;
+            public EventLogUI GetLog { get { return m_eventLog; } }
+
             [Header("Event - sounds and visuals")]
             [SerializeField] private UnityEvent m_onGetCards;
             [SerializeField] private UnityEvent m_onDiscardHand;
@@ -64,6 +68,7 @@ namespace ILOVEYOU
                 m_blindBox.GetComponent<PopUps>().Initialize(m_playerControls);
                 m_blindBox.SetActive(false);
                 m_cardDisplay.parent.gameObject.SetActive(false);
+                m_eventLog = GetComponent<EventLogUI>();
 
                 if (m_debugging) Debug.Log("PlayerManager started successfully");
                 return true;
@@ -101,7 +106,11 @@ namespace ILOVEYOU
             /// </summary>
             public void DiscardHand()
             {
-                foreach(DisruptCard card in m_cardsHeld)
+                if (!CardsInHand)
+                    return;
+
+                m_eventLog.LogInput($"<i><#888888>Discarding hand.</color></i>");
+                foreach (DisruptCard card in m_cardsHeld)
                 {
                     Destroy(card.gameObject);
                 }
@@ -143,6 +152,24 @@ namespace ILOVEYOU
                 //Trigger the effects of the chosen card if a valid input was given.
                 if(index > -1)
                 {
+                    string s = m_cardsHeld[index].name.Remove(m_cardsHeld[index].name.Length - 7); //name with (Clone) removed
+                    List<int> chars = new();
+                    for (int i = 0; i < s.Length; i++)
+                    {
+                        if (char.IsUpper(s[i]))
+                            chars.Add(i);
+                    }
+                    chars.Remove(0);
+                    for (int i = 0; i < chars.Count; i++)
+                    {
+                        chars[i] += i;
+                    }
+                    foreach (int pos in chars)
+                    {
+                        s = s.Insert(pos, " ");
+                    }
+                    m_eventLog.LogInput($"{s} selected, triggering events.");
+                    
                     m_cardsHeld[index].Trigger(m_levelManager.GetManager, this);
                         m_onCardSelected.Invoke();
                 }

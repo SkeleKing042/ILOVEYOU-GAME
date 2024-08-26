@@ -2,75 +2,100 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class EventLogUI : MonoBehaviour
+namespace ILOVEYOU
 {
-    private List<string> m_buffer = new();
-    [SerializeField] private Transform m_logBox;
-    private List<TextMeshProUGUI> m_unfinishedBoxes = new();
-    [SerializeField] private TextMeshProUGUI m_textTemplate;
-    [SerializeField] private float m_textDuration;
-    [SerializeField] private float m_displayDelay;
-    [SerializeField] private float m_blinkerSpeed;
-    private float m_timer;
-    
-    public void LogInput(string text)
+    namespace Player
     {
-        //Create a new text box & assign it to the parent display box
-        TextMeshProUGUI textBox = Instantiate(m_textTemplate);
-        textBox.transform.SetParent(m_logBox, false);
 
-        //The text needs to be added so the box is unfinished.
-        m_unfinishedBoxes.Add(textBox);
-        m_buffer.Add(text);
-    }
-    private void Update()
-    {
-        //If there is text to display and the timer up
-        if (m_buffer.Count > 0 && m_timer <= 0)
+        public class EventLogUI : MonoBehaviour
         {
-            //Iterate though each letter...
-            for (int i = 0; i < m_buffer.Count; i++)
+            [SerializeField] private Transform m_logBox;
+            [SerializeField] private TextMeshProUGUI m_textTemplate;
+            [SerializeField] private float m_textDuration;
+            [SerializeField] private bool m_durationIncludesTyping;
+            [SerializeField] private float m_displayDelay;
+
+            public void LogInput(string text)
             {
-                //Add the first character in the requested log to the text box
-                m_unfinishedBoxes[i].text += m_buffer[i].ToCharArray()[0];
-                //Remove that character from the original log
-                m_buffer[i] = m_buffer[i].Remove(0 , 1);
-                //If that log is empty...
-                if (m_buffer[i].Length <= 0)
-                {
-                    //Get ready to remove the text
-                    StartCoroutine(ClearText(m_unfinishedBoxes[i]));
-                    //The box is finished and the log is empty, so remove them from their lists
-                    m_unfinishedBoxes.RemoveAt(i);
-                    m_buffer.RemoveAt(i);
-                }
+                //Create a new text box & assign it to the parent display box
+                TextMeshProUGUI textBox = Instantiate(m_textTemplate);
+                textBox.transform.SetParent(m_logBox, false);
+
+                StartCoroutine(TypeBox(textBox, text));
             }
-            //Reset timer
-            m_timer = m_displayDelay;
+
+            /// <summary>
+            /// Removes text character by character starting at the end
+            /// </summary>
+            /// <param name="box"></param>
+            /// <returns></returns>
+            private IEnumerator TypeBox(TextMeshProUGUI box, string text)
+            {
+                //while there is text to be typed
+                while (text.Length > 0)
+                {
+                    //rich text check
+                    if (text.ToCharArray()[0] == '<')
+                    {
+                        while (true)
+                        {
+                            //end of rich text
+                            if (text.ToCharArray()[0] == '>')
+                            {
+                                break;
+                            }
+
+                            //add text as normal
+                            box.text += text.ToCharArray()[0];
+                            text = text.Remove(0, 1);
+                        }
+                    }
+
+                    //add a character to the box
+                    box.text += text.ToCharArray()[0];
+                    //remove a character from the text
+                    text = text.Remove(0, 1);
+                    //wait to type the next one
+                    yield return new WaitForSecondsRealtime(m_displayDelay);
+                }
+
+                //Wait before deleting the text
+                float time = m_textDuration;
+                if (m_durationIncludesTyping)
+                {
+                    time -= m_displayDelay * box.text.Length * 2;
+                }
+                yield return new WaitForSecondsRealtime(time);
+
+                //While there is text in the box
+                while (box.text.Length > 0)
+                {
+                    //rich text check
+                    if (box.text[box.text.Length - 1] == '>')
+                    {
+                        while (true)
+                        {
+                            //end of rich text
+                            if (box.text[box.text.Length - 1] == '<')
+                            {
+                                break;
+                            }
+
+                            //remove text as normal
+                            box.text = box.text.Remove(box.text.Length - 1);
+                        }
+                    }
+                    //Remove that character
+                    box.text = box.text.Remove(box.text.Length - 1);
+                    //Wait to remove the next one
+                    yield return new WaitForSecondsRealtime(m_displayDelay);
+                }
+
+                //All characters have been removed, time is added to stop text dropping box down in layout groups.
+                Destroy(box.gameObject, 1.0f);
+            }
         }
-        //Timer tick down
-        if (m_timer > 0)
-            m_timer -= Time.deltaTime;
-    }
-    /// <summary>
-    /// Removes text character by character starting at the end
-    /// </summary>
-    /// <param name="box"></param>
-    /// <returns></returns>
-    private IEnumerator ClearText(TextMeshProUGUI box)
-    {
-        //Wait
-        yield return new WaitForSecondsRealtime(m_textDuration);
-        //Iterate though each character in the text box
-        for(int i = box.text.Length - 1; i >= 0; i--)
-        {
-            //Remove that character
-            box.text = box.text.Remove(i);
-            //Wait
-            yield return new WaitForSecondsRealtime(m_displayDelay);
-        }
-        //All characters have been removed, time is added to stop text dropping box down in layout groups.
-        Destroy(box, 1.0f);
     }
 }

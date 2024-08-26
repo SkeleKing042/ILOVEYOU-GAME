@@ -487,7 +487,7 @@ PrefabInstance:
       objectReference: {fileID: 63398235}
     - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_taskList.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_playerSpawns.Array.data[0]
@@ -502,7 +502,23 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+      propertyPath: m_taskList.Array.data[1].m_type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+      propertyPath: m_taskList.Array.data[2].m_type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_taskList.Array.data[0].m_capValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+      propertyPath: m_taskList.Array.data[1].m_capValue
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+      propertyPath: m_taskList.Array.data[2].m_capValue
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5070089777109248965, guid: 99d795f593b916345816bb6db1e53800, type: 3}
