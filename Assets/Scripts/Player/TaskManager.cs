@@ -8,6 +8,7 @@ namespace ILOVEYOU
     {
         public class TaskManager : MonoBehaviour
         {
+            [SerializeField] private bool m_debugging;
             private PlayerManager m_player;
             private Task[] m_tasks = new Task[10];
             public int NumberOfTasks
@@ -30,6 +31,8 @@ namespace ILOVEYOU
             [SerializeField] private Transform m_taskUIContainer;
             public bool Startup()
             {
+                if(m_debugging) Debug.Log($"Starting {this}");
+
                 m_player = GetComponent<PlayerManager>();
                 TaskCompletionPoints = 0;
                 m_tasks = new Task[m_taskLimit];
@@ -38,6 +41,8 @@ namespace ILOVEYOU
                     m_tasks[i] = new(TaskType.Invalid, 0);
                 }
                 m_taskBars = new Image[m_taskLimit];
+
+                if (m_debugging) Debug.Log($"{this} started successfully.");
                 return true;
             }
             /// <summary>

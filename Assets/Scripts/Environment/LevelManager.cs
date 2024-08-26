@@ -37,23 +37,30 @@ namespace ILOVEYOU
             /// <returns></returns>
             public bool Startup(GameManager gm)
             {
+                if (m_debugging) Debug.Log($"Starting {this}.");
                 m_manager = gm;
 
                 //Setup the hazard manager
                 if (m_debugging) Debug.Log("Getting HazardManager");
                 m_hazMan = GetComponent<HazardManager>();
+                //not found error
                 if (m_hazMan == null)
                 {
                     Debug.LogError($"HazardManager not found, Aborting. Please add the CardManager script to {gameObject} and try again.");
                     Destroy(this);
                     return false;
                 }
-                if (m_debugging) Debug.Log("Starting HazardManager");
+                //startup
                 if (!m_hazMan.Startup())
                 {
+                    //failure - impossible
+                    Debug.LogError($"{m_hazMan} has failed startup, aborting...");
                     Destroy(this);
                     return false;
                 }
+
+                //passed
+                if (m_debugging) Debug.Log($"{this} started successfully.");
                 return true;
             }
             /// <summary>
@@ -64,11 +71,11 @@ namespace ILOVEYOU
             /// <returns></returns>
             public bool ReadyPlayer(int index, PlayerInput input)
             {
+                if (m_debugging) Debug.Log($"A player has joined, begin preperation.");
+
+                if (m_debugging) Debug.Log($"Getting player manager.");
                 //get PlayerManager
                 m_playMan = input.GetComponent<PlayerManager>();
-                //Get and initialize EnemySpawner
-                m_enSper = input.GetComponent<EnemySpawner>();
-                m_enSper.Initialize(m_manager);
 
                 //ensure the player has loaded correctly
                 if (m_playMan == null)
@@ -79,9 +86,29 @@ namespace ILOVEYOU
                 }
                 if (!m_playMan.Startup(this, index))
                 {
+                    Debug.LogError($"{m_playMan} failed startup, aborting...");
                     Destroy(this);
                     return false;
                 }
+
+                if (m_debugging) Debug.Log("Getting enemy spawnner.");
+                //Get EnemySpawner
+                m_enSper = input.GetComponent<EnemySpawner>();
+
+                //check if found and run startup
+                if (m_enSper == null)
+                {
+                    Debug.LogError($"No enemy spawner found for player {index + 1}, Aborting.");
+                    Destroy(this);
+                    return false;
+                }
+                if (!m_enSper.Initialize(m_manager))
+                {
+                    Debug.LogError($"{m_enSper} failed startup, aborting...");
+                    Destroy(this);
+                    return false;
+                }
+
                 if (m_debugging) Debug.Log($"Player {index + 1} has joined.");
 
                 //move the player to the spawn point

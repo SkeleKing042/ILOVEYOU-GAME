@@ -15,14 +15,19 @@ namespace ILOVEYOU
 
             public bool Startup()
             {
-                foreach(DisruptCard card in m_disruptCards)
+                if (m_debugging) Debug.Log($"Starting {this}.");
+                //card the cards
+                foreach (DisruptCard card in m_disruptCards)
                 {
+                    //possible missing parts
                     if (card.GetComponents(typeof(Component)).Length < 3)
                     {
-                        Debug.LogWarning($"This card might be missing an effect. Please make sure there is a script attached to the same object as the \"DisruptCardBase\" script, and that it has a function called \"ExecuteEvents\"");
+                        if(m_debugging) Debug.LogWarning($"{card} might be missing an effect. Please make sure there is a script attached to the same object as the \"DisruptCardBase\" script, and that it has a function called \"ExecuteEvents\"");
                     }
                 }
-                if(m_debugging) Debug.Log("CardManager started successfully.");
+
+                //passed
+                if(m_debugging) Debug.Log($"{this} started successfully.");
                 return true;
             }
             public List<DisruptCard> DispenseCards(int count)
