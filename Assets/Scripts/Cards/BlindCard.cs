@@ -18,7 +18,7 @@ namespace ILOVEYOU
                 PlayerManager player = (PlayerManager)data[1];
                 PlayerManager target = manager.GetOtherPlayer(player);
 
-                target.TriggerBlindness(500);
+                target.TriggerBlindness(10);
             }
         }
     }
