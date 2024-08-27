@@ -210,7 +210,10 @@ MonoBehaviour:
     m_threshold: 9999
     m_enemyPrefabs:
     - {fileID: 4186434829523837888, guid: 8a2742483f7908c4c9c9cae83ccd0685, type: 3}
-  m_spawnRange: 10
+  m_spawnRange: 21
+  m_spawnMask:
+    serializedVersion: 2
+    m_Bits: 2048
   m_onSpawnEnemy:
     m_PersistentCalls:
       m_Calls: []
