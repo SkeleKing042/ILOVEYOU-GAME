@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_debugging: 0
-  m_cardTimeout: 5
+  m_cardTimeout: 15
   m_blindBox: {fileID: 7134124253779583603}
   m_cardDisplay: {fileID: 2494637358676408422}
   m_playerHud: {fileID: 1277608890983220704}
@@ -260,6 +260,8 @@ MonoBehaviour:
   TaskCompletionPoints: 0
   m_taskUIPrefab: {fileID: 5978220576250058401, guid: a6439cb31f5630e4694354e234cc39e1, type: 3}
   m_taskUIContainer: {fileID: 6368998180057467000}
+  m_iconDisplay: {fileID: 3308705635453047961}
+  m_iconColor: {r: 1, g: 1, b: 0, a: 1}
 --- !u!114 &4959564612519079010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +278,7 @@ MonoBehaviour:
   m_textTemplate: {fileID: 1092513611059279840, guid: 2cfa607872e48b04f84a5bb97a542463, type: 3}
   m_textDuration: 5
   m_durationIncludesTyping: 0
-  m_displayDelay: 0.01
+  m_displayDelay: 0.001
 --- !u!1 &2368601335451209403
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,7 +1116,7 @@ GameObject:
   - component: {fileID: 2494637358676408422}
   - component: {fileID: 5737868102923194219}
   m_Layer: 7
-  m_Name: GameObject
+  m_Name: CardDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1494,6 +1496,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 556849010328776328, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
   m_PrefabInstance: {fileID: 1545990616352045864}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3308705635453047961 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4079861557880893361, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+  m_PrefabInstance: {fileID: 1545990616352045864}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5036230704344542459 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5805209610669201363, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
