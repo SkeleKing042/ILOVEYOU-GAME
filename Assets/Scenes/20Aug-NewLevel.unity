@@ -458,6 +458,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+      propertyPath: m_spawnTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262486099391086902, guid: 99d795f593b916345816bb6db1e53800, type: 3}
+      propertyPath: m_timePerStage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5070089777109248965, guid: 99d795f593b916345816bb6db1e53800, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
