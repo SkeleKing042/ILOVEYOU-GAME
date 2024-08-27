@@ -12,6 +12,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using UnityEditor;
 using UnityEngine.UI;
+using UnityEngine.Rendering.Universal;
 
 namespace ILOVEYOU
 {
@@ -25,7 +26,17 @@ namespace ILOVEYOU
             //Other managers
             private LevelManager[] m_levelManagers = new LevelManager[2];
             private CardManager m_cardMan;
-            public bool ReadyForPlay { get { return m_levelManagers[0].hasPlayer && m_levelManagers[1].hasPlayer; } }
+            public int NumberOfPlayers { get
+                {
+                    int count = 0;
+                    foreach(LevelManager manager in m_levelManagers)
+                    {
+                        if (manager.hasPlayer)
+                            count++;
+                    }
+                    return count;
+                } }
+
             [HideInInspector] public bool isPlaying;
 
             [Header("Tasks & Cards")]
@@ -51,10 +62,9 @@ namespace ILOVEYOU
             [SerializeField] private TextMeshProUGUI m_timerText;
             [SerializeField] private GameObject m_winScreen;
 
-            [Header("Landing Menu")]
+            [Header("Main Menu")]
             [SerializeField] private TextMeshProUGUI m_reporterTextBox;
             [SerializeField] private Button m_startButton;
-            [SerializeField] private GameObject m_bkgndCam;
 
             [Header("Events - mostly for visuals and sounds")]
             [SerializeField] private UnityEvent m_onGameStart;
@@ -205,25 +215,22 @@ namespace ILOVEYOU
                 }
                 else
                 {
-                    if (!ReadyForPlay)
-                    {
-                        m_reporterTextBox.text = $"Connect controllers";
-                    }
-                    else
+                    string displayText = "Connect contorollers.\n";
+                    if (NumberOfPlayers >= 2)
                     {
                         m_startButton.interactable = true;
-                        m_reporterTextBox.text = "";
+                        displayText = "";
                     }
+                    m_reporterTextBox.text = $"{displayText}{NumberOfPlayers} player(s) connected.";
                 }
             }
             public void AttemptStartGame()
             {
-                if (ReadyForPlay)
+                if (NumberOfPlayers >= 2)
                 {
                     isPlaying = true;
                     if (m_useUI)
                     {
-                        m_bkgndCam.SetActive(false);
                         m_mainMenuUI.SetActive(false);
                         m_InGameSharedUI.SetActive(true);
                         foreach(LevelManager manager in m_levelManagers)
