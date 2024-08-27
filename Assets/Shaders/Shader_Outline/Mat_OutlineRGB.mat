@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-2414599912546918458
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 639247ca83abc874e893eb93af2b5e44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 0
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CircuitMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 1152021c03aaaf8429745c7261bde0e7, type: 3}
+  m_Name: Mat_OutlineRGB
+  m_Shader: {fileID: -6465566751694194690, guid: c6b5120c357788448bc63e39a87024f4, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -33,15 +20,7 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Brushed_metal:
-        m_Texture: {fileID: 2800000, guid: 2f761e7591ab01b4393dfa7b99e76b05, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Cicuit:
-        m_Texture: {fileID: 2800000, guid: 0f4deaf016cb3ab4e8d42de1b1ff5453, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _colours:
+    - _Texture2DAsset_c96be552646a4ce5befe227aed4a5cba_Out_0:
         m_Texture: {fileID: 2800000, guid: dddad56f3cba34e47b59986737d7243f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -59,20 +38,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BUILTIN_QueueControl: 0
-    - _BUILTIN_QueueOffset: 0
+    - _OutlineThicc: 0.01
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _CicuitOffset: {r: 1.23, g: 0.51, b: 0, a: 0}
-    - _CicuitTiling: {r: 0.66, g: -1.32, b: 0, a: 0}
-    - _Direction: {r: -0.02, g: 0.82, b: 0, a: 0}
-    - _Glow: {r: 0.735849, g: 0.06594872, b: 0.54035676, a: 0}
-    - _Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _Tiling: {r: 6.69, g: 0.86, b: 0, a: 0}
-    - _rgb_direction: {r: -1.05, g: -0.12, b: 0, a: 0}
+    - _OutlineColour: {r: 0, g: 0, b: 0, a: 1}
+    - _Speed: {r: 1, g: 0.1, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &4305453686587476865
+--- !u!114 &7520169132071378437
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-2109408234317277241
+--- !u!114 &-8203387038913455755
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ToonBlack
+  m_Name: Mat_ToonPurple
   m_Shader: {fileID: -6465566751694194690, guid: d64f92192c708d34f854045421bbbc37, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -33,6 +33,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture2D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -51,12 +55,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Max: 2.23
-    - _Min: -0.89
+    - _Fresnel_Threshold: 0.04
+    - _Max: 1.47
+    - _Min: 1.4
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Shade: 0.8
+    - _Shade: 0.39
     m_Colors:
-    - _Color: {r: 0.23584908, g: 0.18880557, b: 0.15241191, a: 0}
+    - _Color: {r: 0.41509432, g: 0.17426129, b: 0.38381734, a: 0}
+    - _Color_1: {r: 0, g: 0, b: 0, a: 0}
+    - _Fresnel_Power: {r: 0.64, g: 0.72, b: 0, a: 0}
     - _Vector3: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
