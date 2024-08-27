@@ -11,6 +11,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using UnityEditor;
+using UnityEngine.UI;
 
 namespace ILOVEYOU
 {
@@ -50,6 +51,11 @@ namespace ILOVEYOU
             [SerializeField] private TextMeshProUGUI m_timerText;
             [SerializeField] private GameObject m_winScreen;
 
+            [Header("Landing Menu")]
+            [SerializeField] private TextMeshProUGUI m_reporterTextBox;
+            [SerializeField] private Button m_startButton;
+            [SerializeField] private GameObject m_bkgndCam;
+
             [Header("Events - mostly for visuals and sounds")]
             [SerializeField] private UnityEvent m_onGameStart;
             [SerializeField] private UnityEvent m_onStartError;
@@ -62,44 +68,64 @@ namespace ILOVEYOU
                 if (m_debugging) Debug.Log("Game starting.");
 
                 if (m_debugging) Debug.Log("Getting level managers.");
+                //count check
                 m_levelManagers = FindObjectsOfType<LevelManager>();
+                //too small
                 if(m_levelManagers.Length < 2)
                 {
-                    if (m_debugging) Debug.LogError($"Not enough level managers found. Please ensure that there are at least 2. Currently there are {m_levelManagers.Length}.");
+                    Debug.LogError($"Not enough level managers found. Please ensure that there are at least 2. Currently there are {m_levelManagers.Length}.");
                     Destroy(this);
                     return;
                 }
+                //start managers
                 foreach(LevelManager lMan in m_levelManagers)
                 {
-                    lMan.Startup(this);
+                    if (!lMan.Startup(this))
+                    {
+                        //manager failed
+                        Debug.LogError($"{lMan} has failed, aborting...");
+                        Destroy(this);
+                        return;
+                    }
                 }
 
+                //card manager
                 if (m_debugging) Debug.Log("Getting CardManager");
                 m_cardMan = GetComponent<CardManager>();
+                //not found
                 if (m_cardMan == null)
                 {
-                    if (m_debugging) Debug.LogError($"CardManager not found, Aborting. Please add the CardManager script to {gameObject} and try again.");
+                    Debug.LogError($"CardManager not found, Aborting. Please add the CardManager script to {gameObject} and try again.");
                     Destroy(this);
                     return;
                 }
-
-                if (m_debugging) Debug.Log("Starting CardManager");
+                //startup
                 if (!m_cardMan.Startup())
                 {
+                    Debug.LogError($"{m_cardMan} has failed, aborting...");
                     Destroy(this);
                     return;
                 }
 
+                //passed
+                if (m_debugging) Debug.Log("Game started successfully! Yippee!!");
             }
             public void OnPlayerJoined(PlayerInput input)
             {
+                bool b = true;
                 if (!m_levelManagers[0].hasPlayer)
                 {
-                    m_levelManagers[0].ReadyPlayer(0, input);
+                    b = m_levelManagers[0].ReadyPlayer(0, input);
                 }
                 else
                 {
-                    m_levelManagers[1].ReadyPlayer(1, input);
+                    b = m_levelManagers[1].ReadyPlayer(1, input);
+                }
+
+                if (!b)
+                {
+                    Debug.LogError($"Player failed to join, aborting...");
+                    Destroy(this);
                 }
             }
             /// <summary>
@@ -177,6 +203,18 @@ namespace ILOVEYOU
 
                     //Debug.Log($"Current difficulty {GetDifficulty}.");
                 }
+                else
+                {
+                    if (!ReadyForPlay)
+                    {
+                        m_reporterTextBox.text = $"Connect controllers";
+                    }
+                    else
+                    {
+                        m_startButton.interactable = true;
+                        m_reporterTextBox.text = "";
+                    }
+                }
             }
             public void AttemptStartGame()
             {
@@ -185,8 +223,13 @@ namespace ILOVEYOU
                     isPlaying = true;
                     if (m_useUI)
                     {
+                        m_bkgndCam.SetActive(false);
                         m_mainMenuUI.SetActive(false);
                         m_InGameSharedUI.SetActive(true);
+                        foreach(LevelManager manager in m_levelManagers)
+                        {
+                            manager.GetPlayer.GetControls.enabled = true;
+                        }
                         m_onGameStart.Invoke();
                     }
                 }
