@@ -63,7 +63,7 @@ namespace ILOVEYOU
             public void SpawnRandomEnemiesFromGroup(int groupNumber)
             {
                 //TODO: formula for enemy count and game difficulty
-                float enemyCount = m_manager.GetDifficulty;
+                float enemyCount = m_manager.GetDifficulty + 1;
 
                 for (int i = 0; i < enemyCount; i++)
                 {

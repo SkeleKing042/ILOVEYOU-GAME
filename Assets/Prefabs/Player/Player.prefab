@@ -206,11 +206,33 @@ MonoBehaviour:
     m_enemyPrefabs:
     - {fileID: 6625428459995327672, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
     - {fileID: 5426312569765723760, guid: 216d392008d35514d9f5d83766578465, type: 3}
-  - m_groupName: Basic Enemies
-    m_threshold: 9999
+  - m_groupName: Tier 1
+    m_threshold: 1
     m_enemyPrefabs:
     - {fileID: 4186434829523837888, guid: 8a2742483f7908c4c9c9cae83ccd0685, type: 3}
-  m_spawnRange: 10
+  - m_groupName: Tier 2
+    m_threshold: 2
+    m_enemyPrefabs:
+    - {fileID: 6625428459995327672, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
+  - m_groupName: Tier 3
+    m_threshold: 3
+    m_enemyPrefabs:
+    - {fileID: 4186434829523837888, guid: 8a2742483f7908c4c9c9cae83ccd0685, type: 3}
+    - {fileID: 6625428459995327672, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
+  - m_groupName: Tier 4
+    m_threshold: 4
+    m_enemyPrefabs:
+    - {fileID: 5426312569765723760, guid: 216d392008d35514d9f5d83766578465, type: 3}
+  - m_groupName: Tier 5
+    m_threshold: 5
+    m_enemyPrefabs:
+    - {fileID: 4186434829523837888, guid: 8a2742483f7908c4c9c9cae83ccd0685, type: 3}
+    - {fileID: 6625428459995327672, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
+    - {fileID: 5426312569765723760, guid: 216d392008d35514d9f5d83766578465, type: 3}
+  m_spawnRange: 21
+  m_spawnMask:
+    serializedVersion: 2
+    m_Bits: 2048
   m_onSpawnEnemy:
     m_PersistentCalls:
       m_Calls: []
