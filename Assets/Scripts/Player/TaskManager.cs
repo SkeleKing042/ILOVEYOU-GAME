@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UI;
 
 namespace ILOVEYOU
@@ -11,6 +14,7 @@ namespace ILOVEYOU
             [SerializeField] private bool m_debugging;
             private PlayerManager m_player;
             private Task[] m_tasks = new Task[10];
+
             public int NumberOfTasks
             {
                 get
@@ -29,6 +33,8 @@ namespace ILOVEYOU
             [SerializeField] private Image m_taskUIPrefab;
             private Image[] m_taskBars = new Image[10];
             [SerializeField] private Transform m_taskUIContainer;
+            [SerializeField] private TextMeshProUGUI m_iconDisplay;
+            [SerializeField] private Color m_iconColor;
             public bool Startup()
             {
                 if(m_debugging) Debug.Log($"Starting {this}");
@@ -75,7 +81,8 @@ namespace ILOVEYOU
                             m_player.GetLevelManager.StartSequence(m_tasks[i]);
                         }
 
-                        m_player.GetLog.LogInput($"<color=\"green\">{m_tasks[i].GetTaskType}</color> task assigned to task list.");
+                        m_player.GetLog.LogInput($"<color=\"green\"><sprite=\"iconSheet\" index={(int)m_tasks[i].GetTaskType} color=#00FF00>{m_tasks[i].GetTaskType}</color> task assigned to task list.");
+                        m_iconDisplay.text = $"<#{m_iconColor.ToHexString()}><size=30%>Task</size>\n<sprite=\"iconSheet\" index={(int)m_tasks[i].GetTaskType} color=#{m_iconColor.ToHexString()}>";
 
                         _verifyTaskList();
                         //Return the index of the new task
@@ -108,6 +115,7 @@ namespace ILOVEYOU
                     if (m_tasks[i].IsComplete)
                     {
                         m_player.GetLog.LogInput($"{m_tasks[i].GetTaskType} task complete. Rewarding cards.");
+                        m_iconDisplay.text = "";
                         //..clear the task in that slot
                         m_tasks[i] = new(TaskType.Invalid, 0);
 
