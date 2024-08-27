@@ -63,7 +63,7 @@ namespace ILOVEYOU
 
                         //Create matching ui elements
                         Image taskUI = Instantiate(m_taskUIPrefab);
-                        m_taskBars[i] = taskUI;
+                        m_taskBars[i] = taskUI.transform.GetChild(0).GetComponent<Image>();
                         taskUI.transform.SetParent(m_taskUIContainer, false);
 
                         if (m_tasks[i].GetTaskType == TaskType.Area)
@@ -74,6 +74,8 @@ namespace ILOVEYOU
                         {
                             m_player.GetLevelManager.StartSequence(m_tasks[i]);
                         }
+
+                        m_player.GetLog.LogInput($"<color=\"green\">{m_tasks[i].GetTaskType}</color> task assigned to task list.");
 
                         _verifyTaskList();
                         //Return the index of the new task
@@ -105,11 +107,12 @@ namespace ILOVEYOU
                         continue;
                     if (m_tasks[i].IsComplete)
                     {
+                        m_player.GetLog.LogInput($"{m_tasks[i].GetTaskType} task complete. Rewarding cards.");
                         //..clear the task in that slot
                         m_tasks[i] = new(TaskType.Invalid, 0);
 
                         //remove the UI
-                        Destroy(m_taskBars[i].gameObject);
+                        Destroy(m_taskBars[i].transform.parent.gameObject);
                         m_taskBars[i] = null;
                         //Give the player a point that will get exchanged for cards later
                         TaskCompletionPoints++;
@@ -199,6 +202,7 @@ namespace ILOVEYOU
                     {
                         if (doReset)
                             task.ResetTask();
+
                         else
                             task.UpdateTask(Time.deltaTime);
                     }
