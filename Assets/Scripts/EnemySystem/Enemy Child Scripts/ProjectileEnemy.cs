@@ -13,7 +13,7 @@ namespace ILOVEYOU
             public override void Initialize(Transform target)
             {
                 m_playerTransform = target;
-
+                m_rigidBody = GetComponent<Rigidbody>();
                 pattern.AddTarget(m_playerTransform);
 
                 //this seems to not work in unity
