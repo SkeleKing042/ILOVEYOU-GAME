@@ -14,7 +14,9 @@ namespace ILOVEYOU
             [SerializeField] protected float m_health = 1f;
             [SerializeField] protected float m_distanceCondition = 1f;
             protected Transform m_playerTransform;
-            private Rigidbody m_rigidBody;
+            protected Rigidbody m_rigidBody;
+            //this is used for the enemy hurtbox script
+            public float GetDamage() { return m_damage; }
 
             public virtual void Initialize(Transform target)
             {
@@ -48,9 +50,9 @@ namespace ILOVEYOU
                 Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
                 rotation = Quaternion.Euler(0f, Mathf.LerpAngle(transform.rotation.eulerAngles.y,rotation.eulerAngles.y, Time.deltaTime * 3f), 0f);
                 //moves and rotates the enemy
-                transform.SetPositionAndRotation(transform.position + (m_speed * Time.deltaTime * transform.forward), rotation);
-                //m_rigidBody.MoveRotation(rotation);
-                //m_rigidBody.MovePosition(m_rigidBody.position + (m_speed *Time.deltaTime * transform.forward));
+                //transform.SetPositionAndRotation(transform.position + (m_speed * Time.deltaTime * transform.forward), rotation);
+                m_rigidBody.MoveRotation(rotation);
+                m_rigidBody.MovePosition(m_rigidBody.position + (m_speed *Time.deltaTime * transform.forward));
                 //m_rigidBody.velocity = (m_speed * transform.forward);
             }
 
@@ -70,18 +72,7 @@ namespace ILOVEYOU
                 }
             }
 
-            public virtual void OnTriggerStay(Collider collision)
-            {
-                //if collided with player
-                if (collision.gameObject.GetComponent<PlayerControls>())
-                {
-                    //Debug.Log("Player touched enemy! They took " + m_damage + " damage!");
-
-                    collision.gameObject.GetComponent<PlayerControls>().TakeDamage(m_damage);
-
-                    //damage player
-                }
-            }
+            
         }
     }
 }
