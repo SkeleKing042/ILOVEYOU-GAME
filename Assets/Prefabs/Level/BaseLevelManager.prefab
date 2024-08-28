@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 7541849866350878212}
   - component: {fileID: 7541849866350878214}
   - component: {fileID: 7541849866350878215}
+  - component: {fileID: 5971389909922092991}
   m_Layer: 0
   m_Name: BaseLevelManager
   m_TagString: Untagged
@@ -182,6 +183,18 @@ MonoBehaviour:
   m_onGlobalHazardDisable:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5971389909922092991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7541849866350878213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb8a3b6c2e39ed24b8974b2d54092659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7976684701608889156
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,6 +847,10 @@ PrefabInstance:
     - target: {fileID: 8797819346721698327, guid: 3236969eb9ca70e4ca1a555c92be5a66, type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8797819346721698327, guid: 3236969eb9ca70e4ca1a555c92be5a66, type: 3}
+      propertyPath: m_VersionIndex
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8914913279405417670, guid: 3236969eb9ca70e4ca1a555c92be5a66, type: 3}
       propertyPath: m_StaticEditorFlags
