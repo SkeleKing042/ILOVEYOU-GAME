@@ -240,7 +240,7 @@ namespace ILOVEYOU
                 m_allowShooting = false;
                 m_onShootingDisabled.Invoke();
                 CancelInvoke();
-                m_plaMa.GetLevelManager.GetParticleSpawner.SpawnParticleTime(TESTPARTICLE, transform, time);
+                m_plaMa.GetLevelManager.GetParticleSpawner.SpawnParticleTime(m_debuffParticleTemp, transform, time);
                 Invoke("ReenableShooting", time);
                 return true;
             }
