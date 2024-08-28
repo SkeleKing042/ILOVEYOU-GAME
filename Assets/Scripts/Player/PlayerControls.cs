@@ -234,6 +234,7 @@ namespace ILOVEYOU
             public bool TempDisableShooting(float time)
             {
                 m_allowShooting = false;
+                m_plaMa.GetLog.LogInput($"<color=\"red\">Debugger disabled.</color> Rebooting in {time} seconds");
                 m_onShootingDisabled.Invoke();
                 CancelInvoke();
                 Invoke("ReenableShooting", time);
@@ -242,6 +243,7 @@ namespace ILOVEYOU
             private void ReenableShooting()
             {
                 m_allowShooting = true;
+                m_plaMa.GetLog.LogInput($"Debugger rebooted, please enjoy your free trial!");
                 m_onShootingEnabled.Invoke();
             }
 
