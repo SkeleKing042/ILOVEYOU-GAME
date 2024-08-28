@@ -189,6 +189,7 @@ namespace ILOVEYOU
                 m_blindBox.SetActive(true);
                 m_blindBox.GetComponent<PopUps>().StartPopUps(count);
                 m_onBlind.Invoke();
+                m_eventLog.LogInput($"Reciving packet... running program \"areaSingles.exe\"");
                 //Invoke("_disableBlindness", m_time);
             }
             //private void _disableBlindness()

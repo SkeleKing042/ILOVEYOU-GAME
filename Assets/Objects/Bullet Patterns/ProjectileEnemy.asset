@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b89321c30b957b440a960af42175ac50, type: 3}
-  m_Name: SmallShotgun
+  m_Name: ProjectileEnemy
   m_EditorClassIdentifier: 
   m_bulletArrays:
-  - Name: Small Shotgun
+  - Name: Middle
     BulletPrefab: {fileID: 453343250255440340, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
     BulletsPerArray: 3
-    SpreadWithinArrays: 15
+    SpreadWithinArrays: 45
     InitialAngle: 1
-    AngleOffset: -5
+    AngleOffset: -45
     SpinFactor: 0
     BulletDamage: 1
     BulletPierce: 0
     BulletSpeed: 5
     BulletAcceleration: 0
     SidewaysBulletAcceleration: 0
-    FireSpeed: 1
+    FireSpeed: 3
     FireSpeedOffset: 0
-    BulletLifetime: 5
+    BulletLifetime: 8
     Offset: {x: 0, y: 0}
