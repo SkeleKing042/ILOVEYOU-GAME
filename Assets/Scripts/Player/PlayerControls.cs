@@ -16,13 +16,17 @@ namespace ILOVEYOU
         {
             [SerializeField] private bool m_debugging;
             private PlayerManager m_plaMa;
-            private Rigidbody m_rb;            
+            private Rigidbody m_rb;
 
             [Header("General")]
             [SerializeField] private float m_MaxHealth = 10f;
             private float m_health;
             [SerializeField] private float m_iframesTotal = 1f; //this is in seconds
             private float m_iframesCurrent;
+
+            [SerializeField] private GameObject m_debuffParticleTemp; //THIS IS TEMPORARY LOOK AT:
+                                                                      //https://app.hacknplan.com/p/207724/kanban?categoryId=0&boardId=573892&taskId=172&tabId=description
+
             [Header("Movement")]
             [SerializeField] private float m_moveSpeed;
             private Vector3 m_moveDir;
@@ -237,6 +241,7 @@ namespace ILOVEYOU
                 m_plaMa.GetLog.LogInput($"<color=\"red\">Debugger disabled.</color> Rebooting in {time} seconds");
                 m_onShootingDisabled.Invoke();
                 CancelInvoke();
+                m_plaMa.GetLevelManager.GetParticleSpawner.SpawnParticleTime(m_debuffParticleTemp, transform, time);
                 Invoke("ReenableShooting", time);
                 return true;
             }

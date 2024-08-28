@@ -17,8 +17,10 @@ namespace ILOVEYOU
             public GameManager GetManager { get { return m_manager; } }
             [SerializeField] private bool m_debugging;
             private PlayerManager m_playMan;
+            private ParticleSpawner m_parSper;
             public bool hasPlayer { get { return m_playMan != null; } }
             public PlayerManager GetPlayer { get { return m_playMan; } }
+            public ParticleSpawner GetParticleSpawner { get { return m_parSper; } }
             private EnemySpawner m_enSper;
             public EnemySpawner GetSpawner { get { return m_enSper; } }
             private HazardManager m_hazMan;
@@ -43,6 +45,7 @@ namespace ILOVEYOU
                 //Setup the hazard manager
                 if (m_debugging) Debug.Log("Getting HazardManager");
                 m_hazMan = GetComponent<HazardManager>();
+                m_parSper = GetComponent<ParticleSpawner>();
                 //not found error
                 if (m_hazMan == null)
                 {
