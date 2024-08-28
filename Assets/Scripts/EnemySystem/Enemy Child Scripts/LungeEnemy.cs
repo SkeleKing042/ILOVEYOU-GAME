@@ -18,6 +18,7 @@ namespace ILOVEYOU
             void Start()
             {
                 m_lungeCooldown = m_lungeTime;
+                m_rigidBody = GetComponent<Rigidbody>();
             }
 
             // Update is called once per frame
@@ -34,7 +35,8 @@ namespace ILOVEYOU
                 }
                 else
                 {
-                    transform.position += m_tempSpeed * Time.deltaTime * transform.forward;
+                    //transform.position += m_tempSpeed * Time.deltaTime * transform.forward;
+                    m_rigidBody.MovePosition(m_rigidBody.position + (m_tempSpeed * Time.deltaTime * transform.forward));
                     m_tempSpeed -= Time.deltaTime * (m_lungeSpeed / 2);
                 }
             }
