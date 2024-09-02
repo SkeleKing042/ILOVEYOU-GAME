@@ -13,18 +13,20 @@ using UnityEngine.Events;
 using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
+using System.Collections.Generic;
 
 namespace ILOVEYOU
 {
 
     namespace Management
     {
-
+        [RequireComponent(typeof(CardManager))]
         public class GameManager : MonoBehaviour
         {
             [SerializeField] private bool m_debugging;
+            [SerializeField] private LevelManager m_levelTemplate;
             //Other managers
-            private LevelManager[] m_levelManagers = new LevelManager[2];
+            private List<LevelManager> m_levelManagers = new();
             private CardManager m_cardMan;
             public int NumberOfPlayers { get
                 {
@@ -77,39 +79,9 @@ namespace ILOVEYOU
                 //Make sure that the other management scripts work
                 if (m_debugging) Debug.Log("Game starting.");
 
-                if (m_debugging) Debug.Log("Getting level managers.");
-                //count check
-                m_levelManagers = FindObjectsOfType<LevelManager>();
-                //too small
-                if(m_levelManagers.Length < 2)
-                {
-                    Debug.LogError($"Not enough level managers found. Please ensure that there are at least 2. Currently there are {m_levelManagers.Length}.");
-                    Destroy(this);
-                    return;
-                }
-                //start managers
-                foreach(LevelManager lMan in m_levelManagers)
-                {
-                    if (!lMan.Startup(this))
-                    {
-                        //manager failed
-                        Debug.LogError($"{lMan} has failed, aborting...");
-                        Destroy(this);
-                        return;
-                    }
-                }
-
                 //card manager
                 if (m_debugging) Debug.Log("Getting CardManager");
                 m_cardMan = GetComponent<CardManager>();
-                //not found
-                if (m_cardMan == null)
-                {
-                    Debug.LogError($"CardManager not found, Aborting. Please add the CardManager script to {gameObject} and try again.");
-                    Destroy(this);
-                    return;
-                }
-                //startup
                 if (!m_cardMan.Startup())
                 {
                     Debug.LogError($"{m_cardMan} has failed, aborting...");
@@ -122,20 +94,29 @@ namespace ILOVEYOU
             }
             public void OnPlayerJoined(PlayerInput input)
             {
-                bool b = true;
-                if (!m_levelManagers[0].hasPlayer)
-                {
-                    b = m_levelManagers[0].ReadyPlayer(0, input);
-                }
-                else
-                {
-                    b = m_levelManagers[1].ReadyPlayer(1, input);
-                }
+                if (m_debugging) Debug.Log("Initializing level");
+                LevelManager newLevel = Instantiate(m_levelTemplate);
+                m_levelManagers.Add(newLevel);
 
-                if (!b)
+
+                int index = m_levelManagers.Count - 1;
+                /*//too small
+                if (m_levelManagers.Length < 2)
                 {
-                    Debug.LogError($"Player failed to join, aborting...");
+                    Debug.LogError($"Not enough level managers found. Please ensure that there are at least 2. Currently there are {m_levelManagers.Length}.");
                     Destroy(this);
+                    return;
+                foreach (LevelManager lMan in m_levelManagers)
+                {
+                }
+                }*/
+                //start managers
+                if (!m_levelManagers[index].Startup(this, input, index))
+                {
+                    //manager failed
+                    Debug.LogError($"{m_levelManagers} has failed, aborting...");
+                    Destroy(this);
+                    return;
                 }
             }
             /// <summary>
@@ -221,7 +202,7 @@ namespace ILOVEYOU
                         m_startButton.interactable = true;
                         displayText = "";
                     }
-                    m_reporterTextBox.text = $"{displayText}{NumberOfPlayers} player(s) connected.";
+                    if(m_useUI) m_reporterTextBox.text = $"{displayText}{NumberOfPlayers} player(s) connected.";
                 }
             }
             public void AttemptStartGame()

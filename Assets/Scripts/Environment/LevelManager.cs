@@ -2,6 +2,7 @@ using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Hazards;
 using ILOVEYOU.Management;
 using ILOVEYOU.Player;
+//using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,7 +11,7 @@ namespace ILOVEYOU
 {
     namespace Environment
     {
-
+        [RequireComponent(typeof(HazardManager))]
         public class LevelManager : MonoBehaviour
         {
             private GameManager m_manager;
@@ -38,7 +39,7 @@ namespace ILOVEYOU
             /// </summary>
             /// <param name="gm"></param>
             /// <returns></returns>
-            public bool Startup(GameManager gm)
+            public bool Startup(GameManager gm, PlayerInput player, int index)
             {
                 if (m_debugging) Debug.Log($"Starting {this}.");
                 m_manager = gm;
@@ -46,15 +47,6 @@ namespace ILOVEYOU
                 //Setup the hazard manager
                 if (m_debugging) Debug.Log("Getting HazardManager");
                 m_hazMan = GetComponent<HazardManager>();
-                m_parSper = GetComponent<ParticleSpawner>();
-                //not found error
-                if (m_hazMan == null)
-                {
-                    Debug.LogError($"HazardManager not found, Aborting. Please add the CardManager script to {gameObject} and try again.");
-                    Destroy(this);
-                    return false;
-                }
-                //startup
                 if (!m_hazMan.Startup())
                 {
                     //failure - impossible
@@ -62,6 +54,56 @@ namespace ILOVEYOU
                     Destroy(this);
                     return false;
                 }
+                m_parSper = GetComponent<ParticleSpawner>();
+
+                //player setup
+                if (m_debugging) Debug.Log("Initalizing player.");
+                m_playMan = player.GetComponent<PlayerManager>();
+                if (!m_playMan.Startup(this, index))
+                {
+                    Debug.LogError($"{m_playMan} failed startup, aborting...");
+                    Destroy(this);
+                    return false;
+                }
+
+                //Get EnemySpawner
+                if (m_debugging) Debug.Log("Getting enemy spawnner.");
+                m_enSper = m_playMan.GetComponent<EnemySpawner>();
+                if (!m_enSper.Initialize(m_manager))
+                {
+                    Debug.LogError($"{m_enSper} failed startup, aborting...");
+                    Destroy(this);
+                    return false;
+                }
+
+                //Setup pointer arrow ai
+                if (m_debugging) Debug.Log("Getting point tracker.");
+                m_pointTracker = GetComponentInChildren<PointFollower>();
+                if (m_debugging) Debug.Log("Setting up point tracker");
+                if (m_pointTracker == null)
+                {
+                    Debug.LogWarning("AI tracker not found.");
+                }
+                else if (!m_pointTracker.Init(m_playMan.transform))
+                {
+                    Debug.LogWarning("Point tracker failed to initialize correctly");
+                }
+                else
+                {
+                    m_playMan.GetComponentInChildren<PointerArrow>().Target = m_pointTracker.transform;
+                }
+
+
+                if (m_debugging) Debug.Log($"Player has joined.");
+
+                //move this to game start
+                //m_playMan.GetTaskManager.AddTask(new(TaskType.Area, 5));
+
+                //move the player to the spawn point
+                if (m_playerSpawn)
+                    m_playMan.transform.SetPositionAndRotation(m_playerSpawn.position, Quaternion.identity);
+                else
+                    m_playMan.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
 
                 //passed
                 if (m_debugging) Debug.Log($"{this} started successfully.");
@@ -73,7 +115,7 @@ namespace ILOVEYOU
             /// <param name="index"></param>
             /// <param name="input"></param>
             /// <returns></returns>
-            public bool ReadyPlayer(int index, PlayerInput input)
+            /*public bool ReadyPlayer(int index, PlayerInput input)
             {
                 if (m_debugging) Debug.Log($"A player has joined, begin preperation.");
 
@@ -138,7 +180,7 @@ namespace ILOVEYOU
                 else
                     m_playMan.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
                 return true;
-            }
+            }*/
             private void Update()
             {
                 if (m_manager.isPlaying)

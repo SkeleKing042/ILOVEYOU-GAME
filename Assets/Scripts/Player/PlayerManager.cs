@@ -1,7 +1,9 @@
 using ILOVEYOU.Cards;
+using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Environment;
 using ILOVEYOU.Management;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -12,6 +14,8 @@ namespace ILOVEYOU
     namespace Player
     {
         [RequireComponent(typeof(TaskManager))]
+        [RequireComponent(typeof(EnemySpawner))]
+        [RequireComponent(typeof(PlayerControls))]
         public class PlayerManager : MonoBehaviour
         {
             [SerializeField] private bool m_debugging;
@@ -44,19 +48,14 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onCardSelected;
             [SerializeField] private UnityEvent m_onBlind;
             [SerializeField] private UnityEvent m_onUnblind;
-            public bool Startup(LevelManager manager, int playerNum)
+            public bool Startup(LevelManager manager, int index)
             {
                 if (m_debugging) Debug.Log($"Starting {this}.");
+                m_levelManager = manager;
 
                 if (m_debugging) Debug.Log($"Getting task manager.");
                 //Reset variables
                 m_taskMan = GetComponent<TaskManager>();
-                if (!m_taskMan)
-                {
-                    Debug.LogError("Task manager not found! Aborting...");
-                    Destroy(gameObject);
-                    return false;
-                }
                 if (!m_taskMan.Startup())
                 {
                     Debug.LogError($"{m_taskMan} failed startup, aborting...");
@@ -64,19 +63,19 @@ namespace ILOVEYOU
                     return false;
                 }
 
+                //GetComponent<PlayerInput>().;
                 m_cardsHeld = new DisruptCard[0];
-                m_levelManager = manager;
-                m_playerID = playerNum;
+                m_playerID = index;
                 m_playerControls = GetComponent<PlayerControls>();
 
                 //ui setup
-                if (m_playerID != 0) m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
+                /*if (m_playerID != 0) m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
                 m_healthSlider = m_playerHud.transform.GetChild(0).GetComponentInChildren<Slider>();
                 m_blindBox.GetComponent<PopUps>().Initialize(m_playerControls);
                 m_blindBox.SetActive(false);
                 m_cardDisplay.parent.gameObject.SetActive(false);
                 m_eventLog = GetComponent<EventLogUI>();
-                m_playerControls.enabled = false;
+                m_playerControls.enabled = false;*/
 
                 if (m_debugging) Debug.Log($"{this} started successfully");
                 return true;
