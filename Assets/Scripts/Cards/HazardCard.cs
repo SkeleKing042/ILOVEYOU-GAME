@@ -1,3 +1,4 @@
+using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Hazards;
 using ILOVEYOU.Management;
 using ILOVEYOU.Player;
@@ -12,12 +13,50 @@ namespace ILOVEYOU
 
         public class HazardCard : MonoBehaviour
         {
-            [Tooltip("How long the effect will last for. 0 seconds will enable the hazard without it turning off.")] [SerializeField] private float m_time;
+            [Tooltip("How long the effect will last for. 0 seconds will enable the hazard without it turning off.")][SerializeField] private float m_time;
             [Tooltip("What hazards will be enabled when this card is selected. If none is inputted, activate all hazards instead.")][SerializeField] private HazardTypes[] m_hazardType;
+            [Header("Temporary Hazard Creation")]
+            [Tooltip("If this hazard card should create extra hazards around the player")][SerializeField] private bool m_createObjects = false;
+            [Tooltip("How many objects to create")] [SerializeField] private int m_objectCount = 0;
+            [Tooltip("Hazard objects that will be created in the scene around the player")] [SerializeField] private GameObject[] m_hazardObjects;
+            [Tooltip("Mask that the hazards will collide with when spawning")][SerializeField] private LayerMask m_mask;
             public void ExecuteEvents(object[] data)
             {
                 PlayerManager player = (PlayerManager)data[1];
                 GameManager gm = (GameManager)data[0];
+
+                if (m_createObjects)
+                {
+                    Vector3 enemyPos = gm.GetOtherPlayer(player).transform.position;
+
+                    for (int i = 0; i < m_objectCount; i++)
+                    {
+                        GameObject obj = Instantiate(m_hazardObjects[Random.Range(0, m_hazardObjects.Length)]);
+                        bool spawnSuccess = false;
+
+                        for(int j = 0; j < 100; j++)
+                        {
+                            obj.transform.position = new(enemyPos.x + Random.Range(-10, 10), enemyPos.y, enemyPos.z + Random.Range(-10, 10));
+
+                            if (!Physics.CheckSphere(obj.transform.position, 1f, m_mask))
+                            {
+                                spawnSuccess = true;
+                                break;
+                            }
+                        }
+
+                        if (!spawnSuccess)
+                        {
+                            Destroy(obj);
+                            break;
+                        }
+                        
+
+                        gm.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().AddHazard(obj.GetComponent<HazardObject>(), m_time);
+
+                        
+                    }
+                }
 
 
                 //if there aren't any types assigned to the card, activate all hazards

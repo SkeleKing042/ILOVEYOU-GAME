@@ -11,14 +11,15 @@ namespace ILOVEYOU
         public enum HazardTypes
         {
             Overheat,
-            Stinky,
-            Smelly
+            Water,
+            Something
         }
 
         public class HazardManager : MonoBehaviour
         {
             [SerializeField] private bool m_debugging;
             private HazardObject[] m_levelHazards;
+            private List<HazardObject> m_tempLevelHazards = new();
             [SerializeField] private UnityEvent m_onGlobalHazardEnable;
             [SerializeField] private UnityEvent m_onGlobalHazardDisable;
             // Start is called before the first frame update
@@ -27,7 +28,9 @@ namespace ILOVEYOU
                 if (m_debugging) Debug.Log($"Starting {this}.");
                 //Get all the hazards in the level.
                 m_levelHazards = transform.parent.GetComponentsInChildren<HazardObject>();
-                if(m_levelHazards.Length == 0)
+
+
+                if (m_levelHazards.Length == 0)
                 {
                     if (m_debugging) Debug.LogWarning($"{this} was unable to find any hazard objects.");
                 }
@@ -36,6 +39,12 @@ namespace ILOVEYOU
                 if (m_debugging) Debug.Log($"{this} started successfully.");
                 return true;
             }
+            //TEST DELETE LATER
+            private void Update()
+            {
+                //CleanTempList();
+            }
+
             /// <summary>
             /// Enables all hazards assigned to hazard manager
             /// </summary>
@@ -107,6 +116,59 @@ namespace ILOVEYOU
                     if (type == hazardObject.HazardType()) hazardObject.DisableHazard();
                 }
                 //m_onGlobalHazardDisable.Invoke();
+            }
+            /// <summary>
+            /// Adds a new hazard to the temp list
+            /// </summary>
+            public void AddHazard(HazardObject obj)
+            {
+                m_tempLevelHazards.Add(obj);
+            }
+
+            /// <summary>
+            /// Adds a new hazard to the temp list
+            /// </summary>
+            public void AddHazard(HazardObject obj, float time)
+            {
+                m_tempLevelHazards.Add(obj);
+
+                StartCoroutine(RemoveHazardTime(obj, time));
+            }
+            public IEnumerator RemoveHazardTime(HazardObject obj, float time)
+            {
+                yield return new WaitForSeconds(time);
+                RemoveHazard(obj);
+            }
+            
+            public void RemoveHazard(HazardObject obj)
+            {
+                Destroy(obj.gameObject);
+                CleanTempList();
+            }
+
+            public void RemoveAllHazards()
+            {
+                StopAllCoroutines();
+                foreach(HazardObject obj in m_tempLevelHazards)
+                {
+                    Destroy(obj.gameObject);
+                }
+                CleanTempList();
+            }
+
+            /// <summary>
+            /// Clears out empty values from the temp hazard list
+            /// </summary>
+            public void CleanTempList()
+            {
+                List<HazardObject> tempList = new();
+                
+                foreach(HazardObject hazard in m_tempLevelHazards)
+                {
+                    if (hazard) tempList.Add(hazard);
+                }
+
+                m_tempLevelHazards = tempList;
             }
 
         }
