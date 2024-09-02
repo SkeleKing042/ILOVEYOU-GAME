@@ -29,6 +29,7 @@ namespace ILOVEYOU
             [Header("Environment")]
             [Header("Control points")]
             [SerializeField] private List<AreaControlPoint> m_controlPoints;
+            private PointFollower m_pointTracker;
             [Header("Sequences")]
             [SerializeField] private List<Sequence> m_sequences;
 
@@ -94,6 +95,7 @@ namespace ILOVEYOU
                     return false;
                 }
 
+
                 if (m_debugging) Debug.Log("Getting enemy spawnner.");
                 //Get EnemySpawner
                 m_enSper = input.GetComponent<EnemySpawner>();
@@ -112,7 +114,23 @@ namespace ILOVEYOU
                     return false;
                 }
 
+                if (m_debugging) Debug.Log("Getting point tracker.");
+                m_pointTracker = GetComponentInChildren<PointFollower>();
+
+                if (m_debugging) Debug.Log("Setting up point tracker");
+                if(m_pointTracker == null)
+                {
+                    Debug.LogWarning("AI tracker not found.");
+                }
+                else if (m_pointTracker.Init(m_playMan.transform))
+                {
+                    Debug.LogWarning("Point tracker failed to initialize correctly");
+                }
+                m_playMan.GetComponentInChildren<PointerArrow>().Target = m_pointTracker.transform;
+
                 if (m_debugging) Debug.Log($"Player {index + 1} has joined.");
+
+                m_playMan.GetTaskManager.AddTask(new(TaskType.Area, 5));
 
                 //move the player to the spawn point
                 if (m_playerSpawn)
@@ -144,6 +162,7 @@ namespace ILOVEYOU
             {
                 int rnd = Random.Range(0, m_controlPoints.Count);
 
+                //m_pointTracker.SetDestination(m_controlPoints[rnd].transform.position);
                 return m_controlPoints[rnd].Init(task);
             }
             /// <summary>
