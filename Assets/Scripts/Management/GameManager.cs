@@ -13,31 +13,47 @@ using UnityEngine.Events;
 using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
+using System.Collections.Generic;
 
 namespace ILOVEYOU
 {
 
     namespace Management
     {
-
+        [RequireComponent(typeof(CardManager))]
         public class GameManager : MonoBehaviour
         {
+            public static GameManager Instance { get; private set; }
+
             [SerializeField] private bool m_debugging;
+
             //Other managers
-            private LevelManager[] m_levelManagers = new LevelManager[2];
+            [SerializeField] private LevelManager m_levelTemplate;
+            private List<LevelManager> m_levelManagers = new();
             private CardManager m_cardMan;
-            public int NumberOfPlayers { get
+            public int NumberOfPlayers
+            {
+                get
                 {
                     int count = 0;
-                    foreach(LevelManager manager in m_levelManagers)
+                    foreach (LevelManager manager in m_levelManagers)
                     {
                         if (manager.hasPlayer)
                             count++;
                     }
                     return count;
-                } }
+                }
+            }
 
+            //Game rules
             [HideInInspector] public bool isPlaying;
+            [Header("Difficulty")]
+            [SerializeField] private float m_timePerStage;
+            [SerializeField] private int m_difficultyCap;
+            private float m_timer;
+            private float m_spawnTimer = 0;
+            [SerializeField] private float m_spawnTime = 5f;
+            public int GetDifficulty { get { return (int)Mathf.Clamp(m_timer / m_timePerStage, 0, m_difficultyCap); } }
 
             [Header("Tasks & Cards")]
             [Tooltip("The maximum number of tasks a player can have.")]
@@ -47,24 +63,20 @@ namespace ILOVEYOU
             [SerializeField] private Task[] m_taskList;
             public Task[] GetTasks { get { return m_taskList; } }
 
-            [Header("Difficulty")]
-            [SerializeField] private float m_timePerStage;
-            [SerializeField] private int m_difficultyCap;
-            private float m_timer;
-            private float m_spawnTimer = 5f;
-            [SerializeField] private float m_spawnTime = 5f;
-            public int GetDifficulty { get { return (int)Mathf.Clamp(m_timer / m_timePerStage, 0, m_difficultyCap); } }
-
             [Header("UI")]
-            [SerializeField] private bool m_useUI = true;
-            [SerializeField] private GameObject m_mainMenuUI;
-            [SerializeField] private GameObject m_InGameSharedUI;
-            [SerializeField] private TextMeshProUGUI m_timerText;
-            [SerializeField] private GameObject m_winScreen;
-
             [Header("Main Menu")]
+            [SerializeField] private GameObject m_mainMenuUI;
             [SerializeField] private TextMeshProUGUI m_reporterTextBox;
             [SerializeField] private Button m_startButton;
+
+            [Header("In-Game Menu")]
+            [SerializeField] private GameObject m_InGameSharedUI;
+            [SerializeField] private TextMeshProUGUI m_timerText;
+
+            [Header("Victory Menu")]
+            [SerializeField] private GameObject m_winScreen;
+            [SerializeField] private TextMeshProUGUI m_winText;
+            [SerializeField] private Button m_restartButton;
 
             [Header("Events - mostly for visuals and sounds")]
             [SerializeField] private UnityEvent m_onGameStart;
@@ -74,42 +86,15 @@ namespace ILOVEYOU
             private void Awake()
             {
                 Time.timeScale = 1f;
+                //Singleton setup
+                Instance = this;
+
                 //Make sure that the other management scripts work
-                if (m_debugging) Debug.Log("Game starting.");
+                if (m_debugging) Debug.Log("Game manager starting.");
 
-                if (m_debugging) Debug.Log("Getting level managers.");
-                //count check
-                m_levelManagers = FindObjectsOfType<LevelManager>();
-                //too small
-                if(m_levelManagers.Length < 2)
-                {
-                    Debug.LogError($"Not enough level managers found. Please ensure that there are at least 2. Currently there are {m_levelManagers.Length}.");
-                    Destroy(this);
-                    return;
-                }
-                //start managers
-                foreach(LevelManager lMan in m_levelManagers)
-                {
-                    if (!lMan.Startup(this))
-                    {
-                        //manager failed
-                        Debug.LogError($"{lMan} has failed, aborting...");
-                        Destroy(this);
-                        return;
-                    }
-                }
-
-                //card manager
+                //Set card manager
                 if (m_debugging) Debug.Log("Getting CardManager");
                 m_cardMan = GetComponent<CardManager>();
-                //not found
-                if (m_cardMan == null)
-                {
-                    Debug.LogError($"CardManager not found, Aborting. Please add the CardManager script to {gameObject} and try again.");
-                    Destroy(this);
-                    return;
-                }
-                //startup
                 if (!m_cardMan.Startup())
                 {
                     Debug.LogError($"{m_cardMan} has failed, aborting...");
@@ -122,20 +107,19 @@ namespace ILOVEYOU
             }
             public void OnPlayerJoined(PlayerInput input)
             {
-                bool b = true;
-                if (!m_levelManagers[0].hasPlayer)
-                {
-                    b = m_levelManagers[0].ReadyPlayer(0, input);
-                }
-                else
-                {
-                    b = m_levelManagers[1].ReadyPlayer(1, input);
-                }
+                if (m_debugging) Debug.Log("Initializing level");
+                LevelManager newLevel = Instantiate(m_levelTemplate);
+                m_levelManagers.Add(newLevel);
+                newLevel.transform.position = new Vector3(200 * (m_levelManagers.Count - 1), 0, 0);
+                int index = m_levelManagers.Count - 1;
 
-                if (!b)
+                //start level manager
+                if (!m_levelManagers[index].Startup(input, index))
                 {
-                    Debug.LogError($"Player failed to join, aborting...");
+                    //manager failed
+                    Debug.LogError($"{m_levelManagers} has failed, aborting...");
                     Destroy(this);
+                    return;
                 }
             }
             /// <summary>
@@ -165,8 +149,8 @@ namespace ILOVEYOU
                 //winning player
                 int playerNum = (player == m_levelManagers[0].GetPlayer) ? 1 : 0;
 
-                m_winScreen.GetComponentInChildren<TextMeshProUGUI>().text = $"Player {playerNum + 1} wins!";
-                EventSystem.current.SetSelectedGameObject(m_winScreen.transform.GetChild(2).gameObject);
+                m_winText.text = $"Player {playerNum + 1} wins!";
+                EventSystem.current.SetSelectedGameObject(m_restartButton.gameObject);
 
                 StartCoroutine(_coolSlowMo());
                 m_onGameEnd.Invoke();
@@ -208,8 +192,7 @@ namespace ILOVEYOU
 
                     m_timer += Time.deltaTime;
 
-                    if (m_useUI)
-                        m_timerText.text = ((int)m_timer).ToString();
+                    m_timerText.text = ((int)m_timer).ToString();
 
                     //Debug.Log($"Current difficulty {GetDifficulty}.");
                 }
@@ -226,19 +209,19 @@ namespace ILOVEYOU
             }
             public void AttemptStartGame()
             {
+                if (m_debugging) Debug.Log("Attempting to start the game.");
                 if (NumberOfPlayers >= 2)
                 {
+
+                    if (m_debugging) Debug.Log("There's enough players, starting game.");
                     isPlaying = true;
-                    if (m_useUI)
+                    m_mainMenuUI.SetActive(false);
+                    m_InGameSharedUI.SetActive(true);
+                    foreach (LevelManager manager in m_levelManagers)
                     {
-                        m_mainMenuUI.SetActive(false);
-                        m_InGameSharedUI.SetActive(true);
-                        foreach(LevelManager manager in m_levelManagers)
-                        {
-                            manager.GetPlayer.GetControls.enabled = true;
-                        }
-                        m_onGameStart.Invoke();
+                        manager.GetPlayer.GetControls.enabled = true;
                     }
+                    m_onGameStart.Invoke();
                 }
                 else
                 {

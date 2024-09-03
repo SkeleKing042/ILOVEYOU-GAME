@@ -12,6 +12,8 @@ namespace ILOVEYOU
 {
     namespace Player
     {
+        [RequireComponent(typeof(Rigidbody))]
+        [RequireComponent(typeof(Collider))]
         public class PlayerControls : MonoBehaviour
         {
             [SerializeField] private bool m_debugging;
@@ -39,8 +41,9 @@ namespace ILOVEYOU
             private float m_aimMagnitude { get { return m_aimDir.magnitude; } }
             [SerializeField, Range(0f, 1f)] private float m_aimDeadZone;
 
-            private GameObject m_playerModel;
-            private GameObject m_patternObject; //gameobject that holds the bullet pattern script
+            //private GameObject m_playerModel;
+            private Transform m_facingObject;
+            //private GameObject m_patternObject; //gameobject that holds the bullet pattern script
             private BulletPattern m_pattern;
 
             [Header("Raycasting")]
@@ -93,17 +96,20 @@ namespace ILOVEYOU
                 m_contextText.text = "";
             }
 
-            private void Awake()
+            public bool Startup()
             {
-                m_playerModel = transform.GetChild(0).gameObject;
-                m_patternObject = transform.GetChild(2).gameObject; //this is the empty gameobject with the pattern script object
-                m_pattern = m_patternObject.GetComponent<BulletPattern>();
+                if (m_debugging) Debug.Log($"Starting {this}.");
+
+                m_facingObject = transform.GetChild(0);
+                m_pattern = m_facingObject.GetComponent<BulletPattern>();
                 m_Collider = GetComponent<Collider>();
                 m_plaMa = GetComponent<PlayerManager>();
                 m_rb = GetComponent<Rigidbody>();
                 m_health = m_MaxHealth;
                 UpdateHealthBar();
                 m_allowShooting = true;
+
+                return true;
             }
 
 
@@ -139,7 +145,7 @@ namespace ILOVEYOU
                     if (m_debugging) tmp_color = Color.red;
 
                     //raycasts in front of the player for a target for the bullets
-                    m_hitDetect = Physics.BoxCast(m_Collider.bounds.center, m_boxCastSize * 0.5f, m_patternObject.transform.forward, out m_Hit, m_patternObject.transform.rotation, 200f, m_mask);
+                    m_hitDetect = Physics.BoxCast(m_Collider.bounds.center, m_boxCastSize * 0.5f, m_facingObject.transform.forward, out m_Hit, m_facingObject.transform.rotation, 200f, m_mask);
 
                     //adds target to pattern script
                     if (m_hitDetect) m_pattern.AddTarget(m_Hit.collider.transform);
@@ -174,8 +180,8 @@ namespace ILOVEYOU
                 Vector3 relativePos = (transform.position + m_aimDir) - transform.position;
                 //gets the required rotation for the shooting
                 Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-                m_patternObject.transform.rotation = rotation;
-                m_playerModel.transform.rotation = rotation;
+                m_facingObject.transform.rotation = rotation;
+                //m_playerModel.transform.rotation = rotation;
             }
             public void OnContextButton(InputValue value)
             {
@@ -195,7 +201,7 @@ namespace ILOVEYOU
                 m_plaMa.GetTaskManager.UpdateTimers(true);
                 if (m_health <= 0)
                 {
-                    m_plaMa.GetLevelManager.GetManager.PlayerDeath(m_plaMa);
+                    GameManager.Instance.PlayerDeath(m_plaMa);
                     m_onDeath.Invoke();
                 }
                 else
@@ -221,17 +227,17 @@ namespace ILOVEYOU
                     if (m_hitDetect)
                     {
                         //Draw a Ray forward from GameObject toward the hit
-                        Gizmos.DrawRay(m_patternObject.transform.position, m_patternObject.transform.forward * m_Hit.distance);
+                        Gizmos.DrawRay(m_facingObject.transform.position, m_facingObject.transform.forward * m_Hit.distance);
                         //Draw a cube that extends to where the hit exists
-                        Gizmos.DrawWireCube(m_patternObject.transform.position + m_patternObject.transform.forward * m_Hit.distance, m_boxCastSize);
+                        Gizmos.DrawWireCube(m_facingObject.transform.position + m_facingObject.transform.forward * m_Hit.distance, m_boxCastSize);
                     }
                     //If there hasn't been a hit yet, draw the ray at the maximum distance
                     else
                     {
                         //Draw a Ray forward from GameObject toward the maximum distance
-                        Gizmos.DrawRay(m_patternObject.transform.position, m_patternObject.transform.forward * 200f);
+                        Gizmos.DrawRay(m_facingObject.transform.position, m_facingObject.transform.forward * 200f);
                         //Draw a cube at the maximum distance
-                        Gizmos.DrawWireCube(m_patternObject.transform.position + m_patternObject.transform.forward * 200f, m_boxCastSize);
+                        Gizmos.DrawWireCube(m_facingObject.transform.position + m_facingObject.transform.forward * 200f, m_boxCastSize);
                     }
                 }
             }
