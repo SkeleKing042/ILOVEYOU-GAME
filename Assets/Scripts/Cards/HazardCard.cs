@@ -18,18 +18,18 @@ namespace ILOVEYOU
             [Header("Temporary Hazard Creation")]
             [Tooltip("If this hazard card should create extra hazards around the player")][SerializeField] private bool m_createObjects = false;
             [Tooltip("How many objects to create")] [SerializeField] private int m_objectCount = 0;
+            [Tooltip("How long the object will last for. 0 seconds will enable the hazard without it turning off.")][SerializeField] private float m_objectLifetime = 1f;
             [Tooltip("Hazard objects that will be created in the scene around the player")] [SerializeField] private GameObject[] m_hazardObjects;
             [Tooltip("Mask that the hazards will collide with when spawning")][SerializeField] private LayerMask m_mask;
             public void ExecuteEvents(object[] data)
             {
                 PlayerManager player = (PlayerManager)data[1];
-                GameManager gm = (GameManager)data[0];
-
+                
                 //creates the requested objects if true
                 if (m_createObjects)
                 {
                     //gets the position of the player
-                    Vector3 enemyPos = gm.GetOtherPlayer(player).transform.position;
+                    Vector3 enemyPos = GameManager.Instance.GetOtherPlayer(player).transform.position;
 
                     for (int i = 0; i < m_objectCount; i++)
                     {
@@ -53,7 +53,8 @@ namespace ILOVEYOU
                             continue;
                         }
 
-                        gm.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().AddHazard(obj.GetComponent<HazardObject>(), m_time);
+                        if (m_objectLifetime > 0) GameManager.Instance.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().AddHazard(obj.GetComponent<HazardObject>(), m_objectLifetime);
+                        else GameManager.Instance.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().AddHazard(obj.GetComponent<HazardObject>());
                     }
                 }
 
@@ -62,9 +63,9 @@ namespace ILOVEYOU
                 if (m_hazardType.Length == 0)
                 {
                     //if time is inputted, activate hazards for set amount of time
-                    if(m_time > 0) gm.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().EnableAllHazards(m_time);
+                    if(m_time > 0) GameManager.Instance.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().EnableAllHazards(m_time);
                     //else toggle all hazards on
-                    else gm.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().EnableAllHazards();
+                    else GameManager.Instance.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().EnableAllHazards();
                 }
                 else
                 {
@@ -73,7 +74,7 @@ namespace ILOVEYOU
                     {
                         foreach (HazardTypes type in m_hazardType)
                         {
-                            gm.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().EnableTypeHazards(type, m_time);
+                            GameManager.Instance.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().EnableTypeHazards(type, m_time);
                         }
                     }
                     //else toggle all hazards on
@@ -81,7 +82,7 @@ namespace ILOVEYOU
                     {
                         foreach (HazardTypes type in m_hazardType)
                         {
-                            gm.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().EnableTypeHazards(type);
+                            GameManager.Instance.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().EnableTypeHazards(type);
                         }
                     }
                 }

@@ -64,7 +64,6 @@ namespace ILOVEYOU
 
                 for (int i = 0; i < enemyCount; i++)
                 {
-                    //float angle = Random.Range(0f, 1f) * Mathf.PI * 2f;
 
                     if(_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab())) m_onSpawnEnemy.Invoke();
                 }
@@ -79,11 +78,7 @@ namespace ILOVEYOU
 
                 for (int i = 0; i < enemyCount; i++)
                 {
-                    //float angle = Random.Range(0f, 1f) * Mathf.PI * 2f;
-
                     if (_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab())) m_onSpawnEnemy.Invoke();
-
-                    m_onSpawnEnemy.Invoke();
                 }
             }
             /// <summary>
@@ -92,15 +87,7 @@ namespace ILOVEYOU
             /// <param name="groupNumber">enemy group to spawn from</param>
             public void SpawnRandomEnemyFromGroup(int groupNumber)
             {
-                float angle = Random.Range(0f,1f) * Mathf.PI * 2f;
-
-                GameObject enemy = Instantiate(m_enemyGroups[groupNumber].RandomEnemyPrefab());
-                enemy.GetComponent<Enemy>().Initialize(transform);
-
-                enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), transform.position.y,
-                    transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
-
-                m_onSpawnEnemy.Invoke();
+                if (_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab())) m_onSpawnEnemy.Invoke();
             }
             /// <summary>
             /// spawns a singular specified enemy from a group
@@ -109,14 +96,7 @@ namespace ILOVEYOU
             /// <param name="prefabIndex">which enemy from the array to spawn</param>
             public void SpawnEnemyFromGroup(int groupNumber, int prefabIndex)
             {
-                float angle = Random.Range(0f, 1f) * Mathf.PI * 2f;
-
-                GameObject enemy = Instantiate(m_enemyGroups[groupNumber].EnemyPrefab(prefabIndex));
-
-                enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), transform.position.y,
-                    transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
-
-                m_onSpawnEnemy.Invoke();
+                if(_SpawnEnemy(m_enemyGroups[groupNumber].EnemyPrefab(prefabIndex))) m_onSpawnEnemy.Invoke();
             }
 
             public void OnDrawGizmos()
