@@ -28,7 +28,7 @@ namespace ILOVEYOU
             {
                 if (m_debugging) Debug.Log($"Starting {this}.");
                 //Get all the hazards in the level.
-                m_levelHazards = transform.parent.GetComponentsInChildren<HazardObject>();
+                m_levelHazards = m_hazardContainer.GetComponentsInChildren<HazardObject>();
 
 
                 if (m_levelHazards.Length == 0)
