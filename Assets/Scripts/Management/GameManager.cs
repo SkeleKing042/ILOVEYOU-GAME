@@ -23,6 +23,8 @@ namespace ILOVEYOU
         [RequireComponent(typeof(CardManager))]
         public class GameManager : MonoBehaviour
         {
+            public static GameManager Instance { get; private set; }
+
             [SerializeField] private bool m_debugging;
             [SerializeField] private LevelManager m_levelTemplate;
             //Other managers
