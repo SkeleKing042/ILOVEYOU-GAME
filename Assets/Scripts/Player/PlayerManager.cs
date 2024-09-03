@@ -37,7 +37,7 @@ namespace ILOVEYOU
             //ui
             [SerializeField] private Transform m_cardDisplay;
             [SerializeField] private GameObject m_playerHud;
-            private Slider m_healthSlider;
+            [SerializeField] private Slider m_healthSlider;
 
             private EventLogUI m_eventLog;
             public EventLogUI GetLog { get { return m_eventLog; } }
@@ -51,10 +51,11 @@ namespace ILOVEYOU
             public bool Startup(LevelManager manager, int index)
             {
                 if (m_debugging) Debug.Log($"Starting {this}.");
+                m_cardsHeld = new DisruptCard[0];
+                m_playerID = index;
                 m_levelManager = manager;
 
                 if (m_debugging) Debug.Log($"Getting task manager.");
-                //Reset variables
                 m_taskMan = GetComponent<TaskManager>();
                 if (!m_taskMan.Startup())
                 {
@@ -63,19 +64,24 @@ namespace ILOVEYOU
                     return false;
                 }
 
-                //GetComponent<PlayerInput>().;
-                m_cardsHeld = new DisruptCard[0];
-                m_playerID = index;
+
+                if (m_debugging) Debug.Log($"Getting player controls");
                 m_playerControls = GetComponent<PlayerControls>();
+                if (!m_playerControls.Startup())
+                {
+                    Debug.LogError($"{m_playerControls} failed startup, aborting...");
+                    Destroy(gameObject);
+                    return false;
+                }
 
                 //ui setup
-                /*if (m_playerID != 0) m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
-                m_healthSlider = m_playerHud.transform.GetChild(0).GetComponentInChildren<Slider>();
+                if (m_playerID != 0) m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
+                //m_healthSlider = m_playerHud.transform.GetChild(0).GetComponentInChildren<Slider>();
                 m_blindBox.GetComponent<PopUps>().Initialize(m_playerControls);
                 m_blindBox.SetActive(false);
                 m_cardDisplay.parent.gameObject.SetActive(false);
                 m_eventLog = GetComponent<EventLogUI>();
-                m_playerControls.enabled = false;*/
+                m_playerControls.enabled = false;
 
                 if (m_debugging) Debug.Log($"{this} started successfully");
                 return true;
@@ -177,7 +183,7 @@ namespace ILOVEYOU
                     }
                     m_eventLog.LogInput($"{s} selected, triggering events.");
                     
-                    m_cardsHeld[index].Trigger(m_levelManager.GetManager, this);
+                    m_cardsHeld[index].Trigger(GameManager.Instance, this);
                         m_onCardSelected.Invoke();
                 }
             }

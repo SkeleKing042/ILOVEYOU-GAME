@@ -96,10 +96,11 @@ namespace ILOVEYOU
                 m_contextText.text = "";
             }
 
-            private void Awake()
+            public bool Startup()
             {
+                if (m_debugging) Debug.Log($"Starting {this}.");
+
                 m_facingObject = transform.GetChild(0);
-                //m_patternObject = transform.GetChild(2).gameObject; //this is the empty gameobject with the pattern script object
                 m_pattern = m_facingObject.GetComponent<BulletPattern>();
                 m_Collider = GetComponent<Collider>();
                 m_plaMa = GetComponent<PlayerManager>();
@@ -107,6 +108,8 @@ namespace ILOVEYOU
                 m_health = m_MaxHealth;
                 UpdateHealthBar();
                 m_allowShooting = true;
+
+                return true;
             }
 
 
@@ -198,7 +201,7 @@ namespace ILOVEYOU
                 m_plaMa.GetTaskManager.UpdateTimers(true);
                 if (m_health <= 0)
                 {
-                    m_plaMa.GetLevelManager.GetManager.PlayerDeath(m_plaMa);
+                    GameManager.Instance.PlayerDeath(m_plaMa);
                     m_onDeath.Invoke();
                 }
                 else

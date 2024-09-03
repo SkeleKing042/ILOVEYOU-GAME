@@ -14,8 +14,8 @@ namespace ILOVEYOU
         [RequireComponent(typeof(HazardManager))]
         public class LevelManager : MonoBehaviour
         {
-            private GameManager m_manager;
-            public GameManager GetManager { get { return m_manager; } }
+            //private GameManager m_manager;
+            //public GameManager GetManager { get { return m_manager; } }
             [SerializeField] private bool m_debugging;
             private PlayerManager m_playMan;
             private ParticleSpawner m_parSper;
@@ -25,6 +25,8 @@ namespace ILOVEYOU
             private EnemySpawner m_enSper;
             public EnemySpawner GetSpawner { get { return m_enSper; } }
             private HazardManager m_hazMan;
+
+            private bool m_usingAIPointer;
             [Header("Players")]
             [SerializeField] private Transform m_playerSpawn;
             [Header("Environment")]
@@ -39,10 +41,9 @@ namespace ILOVEYOU
             /// </summary>
             /// <param name="gm"></param>
             /// <returns></returns>
-            public bool Startup(GameManager gm, PlayerInput player, int index)
+            public bool Startup(PlayerInput player, int index)
             {
                 if (m_debugging) Debug.Log($"Starting {this}.");
-                m_manager = gm;
 
                 //Setup the hazard manager
                 if (m_debugging) Debug.Log("Getting HazardManager");
@@ -54,6 +55,7 @@ namespace ILOVEYOU
                     Destroy(this);
                     return false;
                 }
+                //Get particle spawner
                 m_parSper = GetComponent<ParticleSpawner>();
 
                 //player setup
@@ -69,12 +71,14 @@ namespace ILOVEYOU
                 //Get EnemySpawner
                 if (m_debugging) Debug.Log("Getting enemy spawnner.");
                 m_enSper = m_playMan.GetComponent<EnemySpawner>();
-                if (!m_enSper.Initialize(m_manager))
+                if (!m_enSper.Initialize())
                 {
                     Debug.LogError($"{m_enSper} failed startup, aborting...");
                     Destroy(this);
                     return false;
                 }
+
+                m_parSper = GetComponent<ParticleSpawner>();
 
                 //Setup pointer arrow ai
                 if (m_debugging) Debug.Log("Getting point tracker.");
@@ -83,14 +87,17 @@ namespace ILOVEYOU
                 if (m_pointTracker == null)
                 {
                     Debug.LogWarning("AI tracker not found.");
+                    m_usingAIPointer = false;
                 }
                 else if (!m_pointTracker.Init(m_playMan.transform))
                 {
                     Debug.LogWarning("Point tracker failed to initialize correctly");
+                    m_usingAIPointer = false;
                 }
                 else
                 {
                     m_playMan.GetComponentInChildren<PointerArrow>().Target = m_pointTracker.transform;
+                    m_usingAIPointer = true;
                 }
 
 
@@ -183,11 +190,11 @@ namespace ILOVEYOU
             }*/
             private void Update()
             {
-                if (m_manager.isPlaying)
+                if (GameManager.Instance.isPlaying)
                 {
                     //Giving cards & tasks cannot be done while the player has cards in their hand
-                    m_manager.GivePlayerCards(m_playMan);
-                    m_manager.GivePlayerTasks(m_playMan);
+                    GameManager.Instance.GivePlayerCards(m_playMan);
+                    GameManager.Instance.GivePlayerTasks(m_playMan);
                     if (!m_playMan.CardsInHand)
                     {
                         //update any timer tasks

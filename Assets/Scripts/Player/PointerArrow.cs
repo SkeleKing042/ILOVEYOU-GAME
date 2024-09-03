@@ -15,6 +15,11 @@ namespace ILOVEYOU
             // Update is called once per frame
             void Update()
             {
+                if (!Target)
+                {
+                    ToggleRenderer(false);
+                    return;
+                }
                 if (Target.gameObject.activeSelf)
                 {
                     if (!m_isRenderering)
