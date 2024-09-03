@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 19bc6be7f8699ee45816dec0ca00be6b
+guid: 362aad4e826de0346935dad34acd1cb4
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,8 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MAT_Moth
-    second: {fileID: 2100000, guid: 905d7c2b8e8394243896bbbca514d6f9, type: 2}
+      name: MAT_ScorpionTorso
+    second: {fileID: 2100000, guid: c40b7deafc115624bbfe49ecee2627f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_Scorpion_Claws
+    second: {fileID: 2100000, guid: b79a7948dc0c8234cabb5301a4eaa0ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_Scorpion_Legs
+    second: {fileID: 2100000, guid: 3428b265cdd626446ad576dd8cbc6d3d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_Scorpion_Tail
+    second: {fileID: 2100000, guid: 31b9a3f0d9cff0348aa8cb5d5bbb981d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
