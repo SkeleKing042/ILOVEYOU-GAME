@@ -25,8 +25,10 @@ namespace ILOVEYOU
                 PlayerManager player = (PlayerManager)data[1];
                 GameManager gm = (GameManager)data[0];
 
+                //creates the requested objects if true
                 if (m_createObjects)
                 {
+                    //gets the position of the player
                     Vector3 enemyPos = gm.GetOtherPlayer(player).transform.position;
 
                     for (int i = 0; i < m_objectCount; i++)
@@ -38,7 +40,7 @@ namespace ILOVEYOU
                         {
                             obj.transform.position = new(enemyPos.x + Random.Range(-10, 10), enemyPos.y, enemyPos.z + Random.Range(-10, 10));
 
-                            if (!Physics.CheckSphere(obj.transform.position, 1f, m_mask))
+                            if (!Physics.CheckSphere(obj.transform.position + new Vector3 (0f, 1f), 1f, m_mask))
                             {
                                 spawnSuccess = true;
                                 break;
@@ -48,13 +50,10 @@ namespace ILOVEYOU
                         if (!spawnSuccess)
                         {
                             Destroy(obj);
-                            break;
+                            continue;
                         }
-                        
 
                         gm.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().AddHazard(obj.GetComponent<HazardObject>(), m_time);
-
-                        
                     }
                 }
 

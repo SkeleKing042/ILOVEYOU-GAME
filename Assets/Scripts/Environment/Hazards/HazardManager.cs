@@ -55,6 +55,10 @@ namespace ILOVEYOU
                 {
                     hazardObject.EnableHazard();
                 }
+                foreach (HazardObject hazardObject in m_tempLevelHazards)
+                {
+                    hazardObject.EnableHazard();
+                }
                 m_onGlobalHazardEnable.Invoke();
             }
             /// <summary>
@@ -68,6 +72,10 @@ namespace ILOVEYOU
                 {
                     hazardObject.EnableHazard(time);
                 }
+                foreach (HazardObject hazardObject in m_tempLevelHazards)
+                {
+                    hazardObject.EnableHazard(time);
+                }
                 m_onGlobalHazardEnable.Invoke();
             }
             /// <summary>
@@ -77,6 +85,10 @@ namespace ILOVEYOU
             {
                 if (m_debugging) Debug.Log("Disabling hazards.");
                 foreach (HazardObject hazardObject in m_levelHazards)
+                {
+                    hazardObject.DisableHazard();
+                }
+                foreach (HazardObject hazardObject in m_tempLevelHazards)
                 {
                     hazardObject.DisableHazard();
                 }
@@ -93,12 +105,20 @@ namespace ILOVEYOU
                 {
                     if (type == hazardObject.HazardType()) hazardObject.EnableHazard();
                 }
+                foreach (HazardObject hazardObject in m_tempLevelHazards)
+                {
+                    if (type == hazardObject.HazardType()) hazardObject.EnableHazard();
+                }
                 //m_onGlobalHazardEnable.Invoke();
             }
             public void EnableTypeHazards(HazardTypes type, float time)
             {
                 if (m_debugging) Debug.Log($"Triggering {type} hazards for {time} seconds."); ;
                 foreach (HazardObject hazardObject in m_levelHazards)
+                {
+                    if (type == hazardObject.HazardType()) hazardObject.EnableHazard(time);
+                }
+                foreach (HazardObject hazardObject in m_tempLevelHazards)
                 {
                     if (type == hazardObject.HazardType()) hazardObject.EnableHazard(time);
                 }
@@ -112,6 +132,10 @@ namespace ILOVEYOU
             {
                 if (m_debugging) Debug.Log("Disabling hazards.");
                 foreach (HazardObject hazardObject in m_levelHazards)
+                {
+                    if (type == hazardObject.HazardType()) hazardObject.DisableHazard();
+                }
+                foreach (HazardObject hazardObject in m_tempLevelHazards)
                 {
                     if (type == hazardObject.HazardType()) hazardObject.DisableHazard();
                 }
@@ -137,7 +161,9 @@ namespace ILOVEYOU
             public IEnumerator RemoveHazardTime(HazardObject obj, float time)
             {
                 yield return new WaitForSeconds(time);
-                RemoveHazard(obj);
+                Destroy(obj.gameObject);
+                yield return new WaitForEndOfFrame();
+                CleanTempList();
             }
             
             public void RemoveHazard(HazardObject obj)
