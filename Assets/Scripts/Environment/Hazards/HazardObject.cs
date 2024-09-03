@@ -13,6 +13,8 @@ namespace ILOVEYOU
         {
             [SerializeField] private bool m_debugging;
             private bool m_isActive = false;
+            private bool m_triggerOnce = false;
+            private bool m_triggered = false;
             [SerializeField] private HazardTypes m_hazardType; 
             [SerializeField] private List<string> m_targetTags;
             [SerializeField] private UnityEvent m_effectOnActive;
@@ -22,6 +24,7 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_effectOnDeactive;
 
             public HazardTypes HazardType() { return m_hazardType; }
+            public void SetTrigger() { m_triggerOnce = true; }
 
             #region Toggling
             /// <summary>
@@ -30,6 +33,10 @@ namespace ILOVEYOU
             /// <param name="time"></param>
             public void EnableHazard(float time)
             {
+                if (m_triggered) return;
+
+                m_triggered = m_triggerOnce;
+
                 EnableHazard();
                 CancelInvoke();
                 Invoke("DisableHazard", time);
@@ -39,6 +46,8 @@ namespace ILOVEYOU
             /// </summary>
             public void EnableHazard()
             {
+                //possible TODO: add what ive done to other enable hazard to this
+
                 if (m_isActive == false)
                 {
                     m_isActive = true;

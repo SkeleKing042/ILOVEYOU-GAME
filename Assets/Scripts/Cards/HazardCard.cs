@@ -53,6 +53,8 @@ namespace ILOVEYOU
                             continue;
                         }
 
+                        obj.GetComponent<HazardObject>().SetTrigger();
+
                         if (m_objectLifetime > 0) GameManager.Instance.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().AddHazard(obj.GetComponent<HazardObject>(), m_objectLifetime);
                         else GameManager.Instance.GetOtherPlayer(player).GetLevelManager.GetComponent<HazardManager>().AddHazard(obj.GetComponent<HazardObject>());
                     }
