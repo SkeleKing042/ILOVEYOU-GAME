@@ -22,6 +22,8 @@ namespace ILOVEYOU
 
         public class GameManager : MonoBehaviour
         {
+            public static GameManager Instance { get; private set; }
+
             [SerializeField] private bool m_debugging;
             //Other managers
             private LevelManager[] m_levelManagers = new LevelManager[2];
