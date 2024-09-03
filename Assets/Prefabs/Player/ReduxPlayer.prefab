@@ -267,6 +267,7 @@ MonoBehaviour:
   m_debugging: 0
   m_cardTimeout: 15
   m_blindBox: {fileID: 8072263690345638045}
+  m_pointer: {fileID: 5689148573369562515}
   m_cardDisplay: {fileID: 1993777671954888590}
   m_playerHud: {fileID: 1277608890983220704}
   m_healthSlider: {fileID: 2789693895771436249}
@@ -778,6 +779,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8626781114240087876}
+  - component: {fileID: 7190632905153375346}
   - component: {fileID: 5689148573369562515}
   m_Layer: 7
   m_Name: Arrow
@@ -802,6 +804,28 @@ Transform:
   m_Father: {fileID: 4875622312694227661}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &7190632905153375346
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7554037229398041792}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 0
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &5689148573369562515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -814,7 +838,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70bcc898ba735d548acd2ebff3aa6ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
+  m_isDebugging: 0
+  m_turnSpeed: 0.05
 --- !u!1 &9194455715243603868
 GameObject:
   m_ObjectHideFlags: 0
