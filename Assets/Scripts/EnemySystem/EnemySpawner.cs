@@ -26,17 +26,14 @@ namespace ILOVEYOU
             [SerializeField] private float m_spawnRange;
             [SerializeField] private LayerMask m_spawnMask;
 
-            private GameManager m_manager;
-
             [Header("Events")]
             [SerializeField] private UnityEvent m_onSpawnEnemy;
 
             /// <summary>
             /// called by GameManager to initialize the m_manager variable
             /// </summary>
-            public bool Initialize(GameManager manager)
+            public bool Initialize()
             {
-                m_manager = manager;
                 return true;
             }
             /// <summary>
@@ -48,7 +45,7 @@ namespace ILOVEYOU
                 for (int i = 0; i < m_enemyGroups.Length; i++)
                 {
                     //ignores list if threshold is 0 or the current difficulty is larger than the threshold assigned to the group
-                    if (m_manager.GetDifficulty > m_enemyGroups[i].Threshold() || m_enemyGroups[i].Threshold() == 0) continue;
+                    if (GameManager.Instance.GetDifficulty > m_enemyGroups[i].Threshold() || m_enemyGroups[i].Threshold() == 0) continue;
 
                     SpawnRandomEnemiesFromGroup(i);
 
@@ -63,11 +60,10 @@ namespace ILOVEYOU
             public void SpawnRandomEnemiesFromGroup(int groupNumber)
             {
                 //TODO: formula for enemy count and game difficulty
-                float enemyCount = m_manager.GetDifficulty + 1;
+                float enemyCount = GameManager.Instance.GetDifficulty + 1;
 
                 for (int i = 0; i < enemyCount; i++)
                 {
-                    //float angle = Random.Range(0f, 1f) * Mathf.PI * 2f;
 
                     if(_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab())) m_onSpawnEnemy.Invoke();
                 }
@@ -82,11 +78,7 @@ namespace ILOVEYOU
 
                 for (int i = 0; i < enemyCount; i++)
                 {
-                    //float angle = Random.Range(0f, 1f) * Mathf.PI * 2f;
-
                     if (_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab())) m_onSpawnEnemy.Invoke();
-
-                    m_onSpawnEnemy.Invoke();
                 }
             }
             /// <summary>
@@ -95,15 +87,7 @@ namespace ILOVEYOU
             /// <param name="groupNumber">enemy group to spawn from</param>
             public void SpawnRandomEnemyFromGroup(int groupNumber)
             {
-                float angle = Random.Range(0f,1f) * Mathf.PI * 2f;
-
-                GameObject enemy = Instantiate(m_enemyGroups[groupNumber].RandomEnemyPrefab());
-                enemy.GetComponent<Enemy>().Initialize(transform);
-
-                enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), transform.position.y,
-                    transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
-
-                m_onSpawnEnemy.Invoke();
+                if (_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab())) m_onSpawnEnemy.Invoke();
             }
             /// <summary>
             /// spawns a singular specified enemy from a group
@@ -112,14 +96,7 @@ namespace ILOVEYOU
             /// <param name="prefabIndex">which enemy from the array to spawn</param>
             public void SpawnEnemyFromGroup(int groupNumber, int prefabIndex)
             {
-                float angle = Random.Range(0f, 1f) * Mathf.PI * 2f;
-
-                GameObject enemy = Instantiate(m_enemyGroups[groupNumber].EnemyPrefab(prefabIndex));
-
-                enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), transform.position.y,
-                    transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
-
-                m_onSpawnEnemy.Invoke();
+                if(_SpawnEnemy(m_enemyGroups[groupNumber].EnemyPrefab(prefabIndex))) m_onSpawnEnemy.Invoke();
             }
 
             public void OnDrawGizmos()
@@ -133,8 +110,6 @@ namespace ILOVEYOU
 
                 //creates enemy from given prefab
                 GameObject enemy = Instantiate(prefab);
-                //intializes enemy script
-                enemy.GetComponent<Enemy>().Initialize(transform);
                 //attempts 100 times to spawn an enemy
                 for (int i = 0; i < 100; i++)
                 {
@@ -145,6 +120,8 @@ namespace ILOVEYOU
                     //checks if the enemy is colliding with anything
                     if(!Physics.CheckSphere(enemy.transform.position, 1f, m_spawnMask))
                     {
+                        //intializes enemy script
+                        enemy.GetComponent<Enemy>().Initialize(transform);
                         return true;
                     }
                 }
