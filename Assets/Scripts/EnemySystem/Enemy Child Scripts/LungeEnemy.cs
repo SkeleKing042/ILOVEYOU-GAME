@@ -47,7 +47,7 @@ namespace ILOVEYOU
                 Vector3 relativePos = m_playerTransform.position - transform.position;
                 //looks at the player (removing x, and z rotation)
                 Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-                rotation = Quaternion.Euler(0f, Mathf.LerpAngle(transform.rotation.eulerAngles.y, rotation.eulerAngles.y, Time.deltaTime), 0f);
+                rotation = Quaternion.Euler(0f, Mathf.LerpAngle(transform.rotation.eulerAngles.y, rotation.eulerAngles.y, Time.deltaTime * m_turnSpeed), 0f);
 
                 transform.rotation = rotation;
 

@@ -110,8 +110,6 @@ namespace ILOVEYOU
 
                 //creates enemy from given prefab
                 GameObject enemy = Instantiate(prefab);
-                //intializes enemy script
-                enemy.GetComponent<Enemy>().Initialize(transform);
                 //attempts 100 times to spawn an enemy
                 for (int i = 0; i < 100; i++)
                 {
@@ -122,6 +120,8 @@ namespace ILOVEYOU
                     //checks if the enemy is colliding with anything
                     if(!Physics.CheckSphere(enemy.transform.position, 1f, m_spawnMask))
                     {
+                        //intializes enemy script
+                        enemy.GetComponent<Enemy>().Initialize(transform);
                         return true;
                     }
                 }
