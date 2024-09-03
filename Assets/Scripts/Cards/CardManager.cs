@@ -13,10 +13,14 @@ namespace ILOVEYOU
             [SerializeField] private DisruptCard[] m_disruptCards;
             [SerializeField] private UnityEvent m_onDispenseCard;
 
+            /// <summary>
+            /// Sets up this script
+            /// </summary>
+            /// <returns></returns>
             public bool Startup()
             {
                 if (m_debugging) Debug.Log($"Starting {this}.");
-                //card the cards
+                //Check the cards for issues
                 foreach (DisruptCard card in m_disruptCards)
                 {
                     //possible missing parts

@@ -2,6 +2,7 @@ using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Hazards;
 using ILOVEYOU.Management;
 using ILOVEYOU.Player;
+//using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,11 +11,11 @@ namespace ILOVEYOU
 {
     namespace Environment
     {
-
+        [RequireComponent(typeof(HazardManager))]
         public class LevelManager : MonoBehaviour
         {
-            private GameManager m_manager;
-            public GameManager GetManager { get { return m_manager; } }
+            //private GameManager m_manager;
+            //public GameManager GetManager { get { return m_manager; } }
             [SerializeField] private bool m_debugging;
             private PlayerManager m_playMan;
             private ParticleSpawner m_parSper;
@@ -24,6 +25,8 @@ namespace ILOVEYOU
             private EnemySpawner m_enSper;
             public EnemySpawner GetSpawner { get { return m_enSper; } }
             private HazardManager m_hazMan;
+
+            private bool m_usingAIPointer;
             [Header("Players")]
             [SerializeField] private Transform m_playerSpawn;
             [Header("Environment")]
@@ -38,23 +41,13 @@ namespace ILOVEYOU
             /// </summary>
             /// <param name="gm"></param>
             /// <returns></returns>
-            public bool Startup(GameManager gm)
+            public bool Startup(PlayerInput player, int index)
             {
                 if (m_debugging) Debug.Log($"Starting {this}.");
-                m_manager = gm;
 
                 //Setup the hazard manager
                 if (m_debugging) Debug.Log("Getting HazardManager");
                 m_hazMan = GetComponent<HazardManager>();
-                m_parSper = GetComponent<ParticleSpawner>();
-                //not found error
-                if (m_hazMan == null)
-                {
-                    Debug.LogError($"HazardManager not found, Aborting. Please add the CardManager script to {gameObject} and try again.");
-                    Destroy(this);
-                    return false;
-                }
-                //startup
                 if (!m_hazMan.Startup())
                 {
                     //failure - impossible
@@ -62,6 +55,62 @@ namespace ILOVEYOU
                     Destroy(this);
                     return false;
                 }
+                //Get particle spawner
+                m_parSper = GetComponent<ParticleSpawner>();
+
+                //player setup
+                if (m_debugging) Debug.Log("Initalizing player.");
+                m_playMan = player.GetComponent<PlayerManager>();
+                if (!m_playMan.Startup(this, index))
+                {
+                    Debug.LogError($"{m_playMan} failed startup, aborting...");
+                    Destroy(this);
+                    return false;
+                }
+
+                //Get EnemySpawner
+                if (m_debugging) Debug.Log("Getting enemy spawnner.");
+                m_enSper = m_playMan.GetComponent<EnemySpawner>();
+                if (!m_enSper.Initialize())
+                {
+                    Debug.LogError($"{m_enSper} failed startup, aborting...");
+                    Destroy(this);
+                    return false;
+                }
+
+                m_parSper = GetComponent<ParticleSpawner>();
+
+                //Setup pointer arrow ai
+                if (m_debugging) Debug.Log("Getting point tracker.");
+                m_pointTracker = GetComponentInChildren<PointFollower>();
+                if (m_debugging) Debug.Log("Setting up point tracker");
+                if (m_pointTracker == null)
+                {
+                    Debug.LogWarning("AI tracker not found.");
+                    m_usingAIPointer = false;
+                }
+                else if (!m_pointTracker.Init(m_playMan.transform))
+                {
+                    Debug.LogWarning("Point tracker failed to initialize correctly");
+                    m_usingAIPointer = false;
+                }
+                else
+                {
+                    m_playMan.GetComponentInChildren<PointerArrow>().Target = m_pointTracker.transform;
+                    m_usingAIPointer = true;
+                }
+
+
+                if (m_debugging) Debug.Log($"Player has joined.");
+
+                //move this to game start
+                //m_playMan.GetTaskManager.AddTask(new(TaskType.Area, 5));
+
+                //move the player to the spawn point
+                if (m_playerSpawn)
+                    m_playMan.transform.SetPositionAndRotation(m_playerSpawn.position, Quaternion.identity);
+                else
+                    m_playMan.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
 
                 //passed
                 if (m_debugging) Debug.Log($"{this} started successfully.");
@@ -73,7 +122,7 @@ namespace ILOVEYOU
             /// <param name="index"></param>
             /// <param name="input"></param>
             /// <returns></returns>
-            public bool ReadyPlayer(int index, PlayerInput input)
+            /*public bool ReadyPlayer(int index, PlayerInput input)
             {
                 if (m_debugging) Debug.Log($"A player has joined, begin preperation.");
 
@@ -138,14 +187,14 @@ namespace ILOVEYOU
                 else
                     m_playMan.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
                 return true;
-            }
+            }*/
             private void Update()
             {
-                if (m_manager.isPlaying)
+                if (GameManager.Instance.isPlaying)
                 {
                     //Giving cards & tasks cannot be done while the player has cards in their hand
-                    m_manager.GivePlayerCards(m_playMan);
-                    m_manager.GivePlayerTasks(m_playMan);
+                    GameManager.Instance.GivePlayerCards(m_playMan);
+                    GameManager.Instance.GivePlayerTasks(m_playMan);
                     if (!m_playMan.CardsInHand)
                     {
                         //update any timer tasks

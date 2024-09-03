@@ -18,6 +18,7 @@ namespace ILOVEYOU
         public class HazardManager : MonoBehaviour
         {
             [SerializeField] private bool m_debugging;
+            [SerializeField] private Transform m_hazardContainer;
             private HazardObject[] m_levelHazards;
             private List<HazardObject> m_tempLevelHazards = new();
             [SerializeField] private UnityEvent m_onGlobalHazardEnable;
@@ -39,12 +40,6 @@ namespace ILOVEYOU
                 if (m_debugging) Debug.Log($"{this} started successfully.");
                 return true;
             }
-            //TEST DELETE LATER
-            private void Update()
-            {
-                //CleanTempList();
-            }
-
             /// <summary>
             /// Enables all hazards assigned to hazard manager
             /// </summary>

@@ -26,17 +26,14 @@ namespace ILOVEYOU
             [SerializeField] private float m_spawnRange;
             [SerializeField] private LayerMask m_spawnMask;
 
-            private GameManager m_manager;
-
             [Header("Events")]
             [SerializeField] private UnityEvent m_onSpawnEnemy;
 
             /// <summary>
             /// called by GameManager to initialize the m_manager variable
             /// </summary>
-            public bool Initialize(GameManager manager)
+            public bool Initialize()
             {
-                m_manager = manager;
                 return true;
             }
             /// <summary>
@@ -48,7 +45,7 @@ namespace ILOVEYOU
                 for (int i = 0; i < m_enemyGroups.Length; i++)
                 {
                     //ignores list if threshold is 0 or the current difficulty is larger than the threshold assigned to the group
-                    if (m_manager.GetDifficulty > m_enemyGroups[i].Threshold() || m_enemyGroups[i].Threshold() == 0) continue;
+                    if (GameManager.Instance.GetDifficulty > m_enemyGroups[i].Threshold() || m_enemyGroups[i].Threshold() == 0) continue;
 
                     SpawnRandomEnemiesFromGroup(i);
 
@@ -63,7 +60,7 @@ namespace ILOVEYOU
             public void SpawnRandomEnemiesFromGroup(int groupNumber)
             {
                 //TODO: formula for enemy count and game difficulty
-                float enemyCount = m_manager.GetDifficulty + 1;
+                float enemyCount = GameManager.Instance.GetDifficulty + 1;
 
                 for (int i = 0; i < enemyCount; i++)
                 {
