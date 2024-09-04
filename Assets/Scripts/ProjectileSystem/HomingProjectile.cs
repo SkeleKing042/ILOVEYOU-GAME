@@ -12,16 +12,15 @@ namespace ILOVEYOU
             [SerializeField] private float m_checkRadius = 5f;
             [SerializeField] private LayerMask m_mask;
 
-            // Start is called before the first frame update
             void Awake()
             {
                 StartCoroutine(_waitFrame());
             }
 
-            public override void InitializeProjectile(float speed, float accelValue, float sideaccelValue, Transform target, float damage, int pierce, float lifeTime, bool isFriendly)
-            {
-                base.InitializeProjectile(speed, accelValue, sideaccelValue, target, damage, pierce, lifeTime, isFriendly);
-            }
+            //public override void InitializeProjectile(float speed, float accelValue, float sideaccelValue, Transform target, float damage, int pierce, float lifeTime, bool isFriendly)
+            //{
+            //    base.InitializeProjectile(speed, accelValue, sideaccelValue, target, damage, pierce, lifeTime, isFriendly);
+            //}
 
             // Update is called once per frame
             void FixedUpdate()
@@ -31,11 +30,11 @@ namespace ILOVEYOU
                     //gets relative position between the player and enemy
                     Vector3 relativePos = m_target.position - transform.position;
                     //looks in the direction of current velocity (removing x, and z rotation)
-                    Quaternion rotation = Quaternion.LookRotation(transform.position + m_velocity - transform.position, Vector3.up);
+                    Quaternion rotation = Quaternion.LookRotation(m_velocity, Vector3.up);
                     //apply speed based on direction of target
-                    m_velocity += m_fwdaccelValue * Time.deltaTime * relativePos.normalized;
+                    m_velocity += m_fwdaccelValue * Time.fixedDeltaTime * relativePos.normalized;
                     //move and rotate bullet
-                    transform.position += m_velocity * Time.deltaTime;
+                    transform.position += m_velocity * Time.fixedDeltaTime;
                     transform.rotation = rotation;
 
                 }
@@ -48,7 +47,7 @@ namespace ILOVEYOU
                 //othewise just move with current velocity
                 else
                 {
-                    transform.position += m_velocity * Time.deltaTime;
+                    transform.position += m_velocity * Time.fixedDeltaTime;
                 }
 
                 
