@@ -14,17 +14,22 @@ namespace ILOVEYOU
             [SerializeField] private bool m_isDebugging;
             private NavMeshPath m_path;
             private NavMeshAgent m_agent;
-            private Vector3 m_targetPosition;
+            private Transform m_targetPosition;
             [SerializeField, Range(0.0f, 1.0f)] private float m_turnSpeed;
 
             public void Awake()
             {
                 m_path = new();
                 m_agent = GetComponent<NavMeshAgent>();
-                GeneratePath(new Vector3(40, 1, 10));
             }
             public void Update()
             {
+                if(!m_targetPosition.parent.gameObject.activeSelf)
+                {
+                    gameObject.SetActive(false);
+                    return;
+                }
+
                 for (int i = m_path.corners.Length - 1; i >= 1; i--)
                 {
                     //get the distance of this corner
@@ -48,24 +53,20 @@ namespace ILOVEYOU
             {
                 return new Vector3(m_path.corners[index].x, m_path.corners[index].y + 1, m_path.corners[index].z);
             }
-            public void GeneratePath(Vector3 pos)
+            public void GeneratePath(Transform pos)
             {
                 gameObject.SetActive(true);
                 m_targetPosition = pos;
-                m_agent.CalculatePath(m_targetPosition, m_path);
-            }
-            public void GeneratePath(Transform target)
-            {
-                GeneratePath(target.position);
+                m_agent.CalculatePath(m_targetPosition.position, m_path);
             }
             public void RegeneratePath()
             {
-                m_agent.CalculatePath(m_targetPosition, m_path);
+                m_agent.CalculatePath(m_targetPosition.position, m_path);
             }
-            private void OnEnable()
+            /*private void OnEnable()
             {
                 RegeneratePath();
-            }
+            }*/
             private void OnDrawGizmos()
             {
                 Gizmos.color = Color.blue;

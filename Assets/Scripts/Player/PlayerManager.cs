@@ -33,7 +33,7 @@ namespace ILOVEYOU
             private DisruptCard[] m_cardsHeld;
             public bool CardsInHand { get { return m_cardsHeld.Length > 0; } }
             [SerializeField] private float m_cardTimeout;
-            [SerializeField] private GameObject m_blindBox;
+            [SerializeField] private PopUps m_blindBox;
             //ui
             [SerializeField] private PointerArrow m_pointer;
             public PointerArrow GetPointer { get { return m_pointer; } }
@@ -86,8 +86,7 @@ namespace ILOVEYOU
 
                 if (m_playerID != 0) m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
                 //m_healthSlider = m_playerHud.transform.GetChild(0).GetComponentInChildren<Slider>();
-                m_blindBox.GetComponent<PopUps>().Initialize(m_playerControls);
-                m_blindBox.SetActive(false);
+                m_blindBox.Initialize(m_playerControls);
                 m_cardDisplay.parent.gameObject.SetActive(false);
                 m_eventLog = GetComponent<EventLogUI>();
                 m_playerControls.enabled = false;
@@ -200,8 +199,7 @@ namespace ILOVEYOU
             public void TriggerBlindness(int count)
             {
                 //CancelInvoke();
-                m_blindBox.SetActive(true);
-                m_blindBox.GetComponent<PopUps>().StartPopUps(count);
+                m_blindBox.StartPopUps(count);
                 m_onBlind.Invoke();
                 m_eventLog.LogInput($"Reciving packet... running program \"areaSingles.exe\"");
                 //Invoke("_disableBlindness", m_time);
