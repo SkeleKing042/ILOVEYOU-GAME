@@ -110,8 +110,9 @@ namespace ILOVEYOU
                 if (m_debugging) Debug.Log("Initializing level");
                 LevelManager newLevel = Instantiate(m_levelTemplate);
                 m_levelManagers.Add(newLevel);
-                newLevel.transform.position = new Vector3(200 * (m_levelManagers.Count - 1), 0, 0);
                 int index = m_levelManagers.Count - 1;
+                newLevel.name = $"Level {index}";
+                newLevel.transform.position = new Vector3(200 * (index), 0, 0);
 
                 //start level manager
                 if (!m_levelManagers[index].Startup(input, index))

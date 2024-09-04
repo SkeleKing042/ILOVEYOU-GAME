@@ -35,6 +35,8 @@ namespace ILOVEYOU
             [SerializeField] private float m_cardTimeout;
             [SerializeField] private GameObject m_blindBox;
             //ui
+            [SerializeField] private PointerArrow m_pointer;
+            public PointerArrow GetPointer { get { return m_pointer; } }
             [SerializeField] private Transform m_cardDisplay;
             [SerializeField] private GameObject m_playerHud;
             [SerializeField] private Slider m_healthSlider;
@@ -75,6 +77,13 @@ namespace ILOVEYOU
                 }
 
                 //ui setup
+                //Setup pointer arrow ai
+                if (m_debugging) Debug.Log("Setting up point tracker");
+                if (m_pointer != null)
+                {
+                    m_pointer.gameObject.SetActive(false);
+                }
+
                 if (m_playerID != 0) m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
                 //m_healthSlider = m_playerHud.transform.GetChild(0).GetComponentInChildren<Slider>();
                 m_blindBox.GetComponent<PopUps>().Initialize(m_playerControls);

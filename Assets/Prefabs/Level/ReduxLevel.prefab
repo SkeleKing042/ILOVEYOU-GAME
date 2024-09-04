@@ -230,6 +230,7 @@ GameObject:
   - component: {fileID: 7541849866350878214}
   - component: {fileID: 7541849866350878215}
   - component: {fileID: 5971389909922092991}
+  - component: {fileID: 2452242363054508297}
   m_Layer: 0
   m_Name: ReduxLevel
   m_TagString: Untagged
@@ -251,7 +252,6 @@ Transform:
   m_Children:
   - {fileID: 1862015079432858463}
   - {fileID: 4180887726688364828}
-  - {fileID: 3929521649745914501}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -307,77 +307,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8a3b6c2e39ed24b8974b2d54092659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &7680489821973423302
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3929521649745914501}
-  - component: {fileID: 90737773150341117}
-  - component: {fileID: 6244944213999668996}
-  m_Layer: 0
-  m_Name: PointTracker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &3929521649745914501
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7680489821973423302}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.73, y: 1, z: -8.56}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7541849866350878212}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!195 &90737773150341117
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7680489821973423302}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 99
-  m_Acceleration: 999
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &6244944213999668996
+--- !u!114 &2452242363054508297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7680489821973423302}
-  m_Enabled: 0
+  m_GameObject: {fileID: 7541849866350878213}
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 215825a4667b561478e5349547d3e1ad, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_obscureMask:
+  m_AgentTypeID: 0
+  m_CollectObjects: 2
+  m_Size: {x: 115.07238, y: 10, z: 88.034485}
+  m_Center: {x: -5.3034706, y: 2, z: 1.4665985}
+  m_LayerMask:
     serializedVersion: 2
     m_Bits: 2048
-  m_playerMinDistance: 2
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!1 &7976684701608889156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,6 +1038,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5602234461901973350, guid: 3236969eb9ca70e4ca1a555c92be5a66, type: 3}
+      propertyPath: m_VersionIndex
+      value: 1888
+      objectReference: {fileID: 0}
     - target: {fileID: 5725312518325405674, guid: 3236969eb9ca70e4ca1a555c92be5a66, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1404,11 +1367,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 832009582942142286, guid: 3236969eb9ca70e4ca1a555c92be5a66, type: 3}
   m_PrefabInstance: {fileID: 1033799285302726298}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2160368447311860355 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1415222446410816537, guid: 3236969eb9ca70e4ca1a555c92be5a66, type: 3}
-  m_PrefabInstance: {fileID: 1033799285302726298}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3048255598794971224 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2600088435913955010, guid: 3236969eb9ca70e4ca1a555c92be5a66, type: 3}
@@ -1441,51 +1399,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 6244944213999668996}
-        m_TargetAssemblyTypeName: ILOVEYOU.Player.PointFollower, Assembly-CSharp
-        m_MethodName: SetDestination
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8360201535187663001}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
   m_onAreaStarted:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6244944213999668996}
-        m_TargetAssemblyTypeName: ILOVEYOU.Player.PointFollower, Assembly-CSharp
-        m_MethodName: DisableTracker
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_onAreaProgressed:
     m_PersistentCalls:
       m_Calls: []
   m_onAreaStopped:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6244944213999668996}
-        m_TargetAssemblyTypeName: ILOVEYOU.Player.PointFollower, Assembly-CSharp
-        m_MethodName: SetDestination
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8360201535187663001}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_onAreaCompleted:
     m_PersistentCalls:
       m_Calls:
@@ -1533,51 +1455,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 6244944213999668996}
-        m_TargetAssemblyTypeName: ILOVEYOU.Player.PointFollower, Assembly-CSharp
-        m_MethodName: SetDestination
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2160368447311860355}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
   m_onAreaStarted:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6244944213999668996}
-        m_TargetAssemblyTypeName: ILOVEYOU.Player.PointFollower, Assembly-CSharp
-        m_MethodName: DisableTracker
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_onAreaProgressed:
     m_PersistentCalls:
       m_Calls: []
   m_onAreaStopped:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6244944213999668996}
-        m_TargetAssemblyTypeName: ILOVEYOU.Player.PointFollower, Assembly-CSharp
-        m_MethodName: SetDestination
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2160368447311860355}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_onAreaCompleted:
     m_PersistentCalls:
       m_Calls:
@@ -1618,24 +1504,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6768022891481356652, guid: 3236969eb9ca70e4ca1a555c92be5a66, type: 3}
   m_PrefabInstance: {fileID: 1033799285302726298}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6616189987662402163 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6163641477086354665, guid: 3236969eb9ca70e4ca1a555c92be5a66, type: 3}
-  m_PrefabInstance: {fileID: 1033799285302726298}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &7727904655625202759 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7307022973299663581, guid: 3236969eb9ca70e4ca1a555c92be5a66, type: 3}
-  m_PrefabInstance: {fileID: 1033799285302726298}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8023123946881127959 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6993833217631590541, guid: 3236969eb9ca70e4ca1a555c92be5a66, type: 3}
-  m_PrefabInstance: {fileID: 1033799285302726298}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8360201535187663001 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8817394932601632259, guid: 3236969eb9ca70e4ca1a555c92be5a66, type: 3}
   m_PrefabInstance: {fileID: 1033799285302726298}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8588657897205165717 stripped
@@ -1670,51 +1541,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 6244944213999668996}
-        m_TargetAssemblyTypeName: ILOVEYOU.Player.PointFollower, Assembly-CSharp
-        m_MethodName: SetDestination
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 6616189987662402163}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
   m_onAreaStarted:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6244944213999668996}
-        m_TargetAssemblyTypeName: ILOVEYOU.Player.PointFollower, Assembly-CSharp
-        m_MethodName: DisableTracker
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_onAreaProgressed:
     m_PersistentCalls:
       m_Calls: []
   m_onAreaStopped:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6244944213999668996}
-        m_TargetAssemblyTypeName: ILOVEYOU.Player.PointFollower, Assembly-CSharp
-        m_MethodName: SetDestination
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 6616189987662402163}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_onAreaCompleted:
     m_PersistentCalls:
       m_Calls:
@@ -1762,51 +1597,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 6244944213999668996}
-        m_TargetAssemblyTypeName: ILOVEYOU.Player.PointFollower, Assembly-CSharp
-        m_MethodName: SetDestination
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 7727904655625202759}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
   m_onAreaStarted:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6244944213999668996}
-        m_TargetAssemblyTypeName: ILOVEYOU.Player.PointFollower, Assembly-CSharp
-        m_MethodName: DisableTracker
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_onAreaProgressed:
     m_PersistentCalls:
       m_Calls: []
   m_onAreaStopped:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6244944213999668996}
-        m_TargetAssemblyTypeName: ILOVEYOU.Player.PointFollower, Assembly-CSharp
-        m_MethodName: SetDestination
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 7727904655625202759}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_onAreaCompleted:
     m_PersistentCalls:
       m_Calls:

@@ -4,6 +4,7 @@ using ILOVEYOU.Management;
 using ILOVEYOU.Player;
 //using System;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,13 +27,10 @@ namespace ILOVEYOU
             public EnemySpawner GetSpawner { get { return m_enSper; } }
             private HazardManager m_hazMan;
 
-            private bool m_usingAIPointer;
             [Header("Players")]
             [SerializeField] private Transform m_playerSpawn;
-            [Header("Environment")]
             [Header("Control points")]
             [SerializeField] private List<AreaControlPoint> m_controlPoints;
-            private PointFollower m_pointTracker;
             [Header("Sequences")]
             [SerializeField] private List<Sequence> m_sequences;
 
@@ -44,6 +42,8 @@ namespace ILOVEYOU
             public bool Startup(PlayerInput player, int index)
             {
                 if (m_debugging) Debug.Log($"Starting {this}.");
+
+                GetComponent<NavMeshSurface>().BuildNavMesh();
 
                 //Setup the hazard manager
                 if (m_debugging) Debug.Log("Getting HazardManager");
@@ -79,27 +79,6 @@ namespace ILOVEYOU
                 }
 
                 m_parSper = GetComponent<ParticleSpawner>();
-
-                //Setup pointer arrow ai
-                if (m_debugging) Debug.Log("Getting point tracker.");
-                m_pointTracker = GetComponentInChildren<PointFollower>();
-                if (m_debugging) Debug.Log("Setting up point tracker");
-                if (m_pointTracker == null)
-                {
-                    Debug.LogWarning("AI tracker not found.");
-                    m_usingAIPointer = false;
-                }
-                else if (!m_pointTracker.Init(m_playMan.transform))
-                {
-                    Debug.LogWarning("Point tracker failed to initialize correctly");
-                    m_usingAIPointer = false;
-                }
-                else
-                {
-                    m_playMan.GetComponentInChildren<PointerArrow>().Target = m_pointTracker.transform;
-                    m_usingAIPointer = true;
-                }
-
 
                 if (m_debugging) Debug.Log($"Player has joined.");
 
@@ -211,7 +190,7 @@ namespace ILOVEYOU
             {
                 int rnd = Random.Range(0, m_controlPoints.Count);
 
-                //m_pointTracker.SetDestination(m_controlPoints[rnd].transform.position);
+                m_playMan.GetPointer.GeneratePath(m_controlPoints[rnd].transform.position);
                 return m_controlPoints[rnd].Init(task);
             }
             /// <summary>
