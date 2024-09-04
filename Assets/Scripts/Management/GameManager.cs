@@ -48,12 +48,13 @@ namespace ILOVEYOU
             //Game rules
             [HideInInspector] public bool isPlaying;
             [Header("Difficulty")]
-            [SerializeField] private float m_timePerStage;
+            //[SerializeField] private float m_timePerStage;
             [SerializeField] private int m_difficultyCap;
             private float m_timer;
             private float m_spawnTimer = 0;
-            [SerializeField] private float m_spawnTime = 5f;
-            public int GetDifficulty { get { return (int)Mathf.Clamp(m_timer / m_timePerStage, 0, m_difficultyCap); } }
+            [SerializeField] private AnimationCurve m_spawnTime;
+            public int GetDifficulty { get { return (int)m_timer; } }
+            public float PercentToMaxDiff { get { return (float)GetDifficulty / (float)m_difficultyCap; } }
 
             [Header("Tasks & Cards")]
             [Tooltip("The maximum number of tasks a player can have.")]
@@ -184,7 +185,7 @@ namespace ILOVEYOU
                     {
                         m_levelManagers[0].GetSpawner.SpawnEnemyWave();
                         m_levelManagers[1].GetSpawner.SpawnEnemyWave();
-                        m_spawnTimer = m_spawnTime; //Possible TODO: add formula to scale spawn time with difficulty
+                        m_spawnTimer = m_spawnTime.Evaluate(m_timer / m_difficultyCap);
                     }
                     else
                     {
@@ -192,9 +193,8 @@ namespace ILOVEYOU
                     }
 
                     m_timer += Time.deltaTime;
-
-                    m_timerText.text = ((int)m_timer).ToString();
-
+                    Color timeColor = new(1.0f, 1.0f, 1.0f - Mathf.Clamp(PercentToMaxDiff, 0, 1));
+                    m_timerText.text = $"<color=#{ColorUtility.ToHtmlStringRGB(timeColor)}> {(int)m_timer}</color>";
                     //Debug.Log($"Current difficulty {GetDifficulty}.");
                 }
                 else
