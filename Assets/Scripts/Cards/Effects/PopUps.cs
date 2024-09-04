@@ -28,6 +28,7 @@ namespace ILOVEYOU
                 m_playerControls = controls;
                 m_currentPopups = new();
                 m_canvasDimensions = new(GetComponent<RectTransform>().rect.width, GetComponent<RectTransform>().rect.height);
+                gameObject.SetActive(false);
             }
             /// <summary>
             /// 
@@ -35,13 +36,15 @@ namespace ILOVEYOU
             /// <param name="count"></param>
             public void StartPopUps(int count)
             {
+                gameObject.SetActive(true);
                 //creates popups with count
                 for (int i = 0; i < count; i++)
                 {
                     //creates instance from prefab list
                     GameObject popup = Instantiate(m_popUpPrefabs[Random.Range(0, m_popUpPrefabs.Length)], gameObject.transform);
                     //randomises position
-                    popup.transform.localPosition = new(Random.Range(-m_canvasDimensions.x / 2, m_canvasDimensions.x / 2), Random.Range(-m_canvasDimensions.y / 2, m_canvasDimensions.y / 2));
+                    Vector2 pos = new(Random.Range(-m_canvasDimensions.x / 2, m_canvasDimensions.x / 2), Random.Range(-m_canvasDimensions.y / 2, m_canvasDimensions.y / 2));
+                    popup.GetComponent<RectTransform>().anchoredPosition = pos; 
                     //add gameobject to list for future reference
                     m_currentPopups.Add(popup);
 

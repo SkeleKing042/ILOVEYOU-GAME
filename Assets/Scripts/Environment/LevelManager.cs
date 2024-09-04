@@ -190,7 +190,7 @@ namespace ILOVEYOU
             {
                 int rnd = Random.Range(0, m_controlPoints.Count);
 
-                m_playMan.GetPointer.GeneratePath(m_controlPoints[rnd].transform.position);
+                m_playMan.GetPointer.GeneratePath(m_controlPoints[rnd].transform);
                 return m_controlPoints[rnd].Init(task);
             }
             /// <summary>
