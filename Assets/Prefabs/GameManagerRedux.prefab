@@ -677,6 +677,10 @@ MonoBehaviour:
   m_taskList:
   - m_type: 2
     m_capValue: 5
+  - m_type: 1
+    m_capValue: 10
+  - m_type: 3
+    m_capValue: 7
   m_mainMenuUI: {fileID: 3313635825198114888}
   m_reporterTextBox: {fileID: 59794462908170238}
   m_startButton: {fileID: 3313635827094131134}
@@ -711,9 +715,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_debugging: 1
   m_disruptCards:
+  - {fileID: 2255046956262864865, guid: 6eee37eeabf47a947a324202506b5b72, type: 3}
+  - {fileID: 5180684187051310492, guid: c417afdaea3cc7947be07c494ef21570, type: 3}
   - {fileID: 6432578054958738686, guid: 0a75ce6291015ee4aa54aae78f8fdab4, type: 3}
-  - {fileID: 6432578054958738686, guid: 0a75ce6291015ee4aa54aae78f8fdab4, type: 3}
-  - {fileID: 6432578054958738686, guid: 0a75ce6291015ee4aa54aae78f8fdab4, type: 3}
+  - {fileID: 7536772021414428902, guid: f675df7ac294fb64881b7f74d5b28d4a, type: 3}
   m_onDispenseCard:
     m_PersistentCalls:
       m_Calls: []
@@ -786,6 +791,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1904836434026894223}
     m_Modifications:
+    - target: {fileID: 7110861238238188009, guid: 376225d21a04e8f44a4b29146f9559e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1904836434026894222}
     - target: {fileID: 7110861238805249281, guid: 376225d21a04e8f44a4b29146f9559e3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
