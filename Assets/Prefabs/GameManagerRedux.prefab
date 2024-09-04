@@ -669,9 +669,40 @@ MonoBehaviour:
   m_debugging: 1
   m_levelTemplate: {fileID: 7541849866350878214, guid: 385d856711731a544bc4934c66233e58, type: 3}
   isPlaying: 0
-  m_timePerStage: 5
-  m_difficultyCap: 5
-  m_spawnTime: 5
+  m_difficultyCap: 60
+  m_spawnTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.030422688
+    - serializedVersion: 3
+      time: 5
+      value: 0.5
+      inSlope: -1.028624
+      outSlope: 0
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.04356432
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   m_maxTaskCount: 1
   m_numberOfCardsToGive: 3
   m_taskList:
