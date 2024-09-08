@@ -2,7 +2,9 @@ using ILOVEYOU.Cards;
 using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Environment;
 using ILOVEYOU.Management;
+using ILOVEYOU.UI;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -37,7 +39,7 @@ namespace ILOVEYOU
             //ui
             [SerializeField] private PointerArrow m_pointer;
             public PointerArrow GetPointer { get { return m_pointer; } }
-            [SerializeField] private Transform m_cardDisplay;
+            [SerializeField] private CardDisplay m_cardDisplay;
             [SerializeField] private GameObject m_playerHud;
             [SerializeField] private Slider m_healthSlider;
 
@@ -87,7 +89,7 @@ namespace ILOVEYOU
                 if (m_playerID != 0) m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
                 //m_healthSlider = m_playerHud.transform.GetChild(0).GetComponentInChildren<Slider>();
                 m_blindBox.Initialize(m_playerControls);
-                m_cardDisplay.parent.gameObject.SetActive(false);
+                m_cardDisplay.gameObject.SetActive(false);
                 m_eventLog = GetComponent<EventLogUI>();
                 m_playerControls.enabled = false;
 
@@ -101,26 +103,21 @@ namespace ILOVEYOU
             /// <param name="cards"></param>
             public void CollectHand(DisruptCard[] cards)
             {
-                if(m_debugging) Debug.Log("Hand dealt, setting up cards.");
+                if (m_debugging) Debug.Log("Hand dealt, setting up cards.");
                 CancelInvoke();
                 m_onGetCards.Invoke();
                 //Copy the given array to this hand
                 m_cardsHeld = new DisruptCard[cards.Length];
                 cards.CopyTo(m_cardsHeld, 0);
 
-                //Set up each card
-                foreach(DisruptCard card in m_cardsHeld)
-                {
-                    //puts the card in the card display
-                    card.transform.SetParent(m_cardDisplay, false);
-                    card.transform.localScale = Vector3.one;
-                    //enables the display
-                    m_cardDisplay.parent.gameObject.SetActive(true);
-                    if(m_debugging) Debug.Log("Readying discard function to card.");
-                    card.m_playerHandToDiscard.AddListener(delegate { DiscardHand(); });
-                }
+                m_cardDisplay.DisplayCards(m_cardsHeld);
+
                 //To stop stockpiling, delete the cards after a set time
-                Invoke("DiscardHand", m_cardTimeout);
+                Invoke("_autoSelectCard", m_cardTimeout);
+            }
+            private void _autoSelectCard()
+            {
+                _executeSelectedCard(1);
             }
             /// <summary>
             /// Destroys the player's hand card objects
@@ -130,14 +127,9 @@ namespace ILOVEYOU
                 if (!CardsInHand)
                     return;
 
-                m_eventLog.LogInput($"<i><#888888>Discarding hand.</color></i>");
-                foreach (DisruptCard card in m_cardsHeld)
-                {
-                    Destroy(card.gameObject);
-                }
                 m_cardsHeld = new DisruptCard[0];
-                m_onDiscardHand.Invoke();
-                m_cardDisplay.parent.gameObject.SetActive(false);
+                CancelInvoke();
+                m_eventLog.LogInput($"<i><#888888>Discarding hand.</color></i>");
             }
             /// <summary>
             /// Takes a player's input to select a card
@@ -151,7 +143,7 @@ namespace ILOVEYOU
 
                 //Get the vector of the face buttons
                 Vector2 selection = value.Get<Vector2>();
-                if(m_debugging) Debug.Log($"The inputed value {selection}");
+                if (m_debugging) Debug.Log($"The inputed value {selection}");
                 //This index will be used to choose a card
                 int index = -1;
                 switch (selection)
@@ -169,11 +161,14 @@ namespace ILOVEYOU
                         index = 2;
                         break;
                 }
-
+                _executeSelectedCard(index);
+            }
+            private void _executeSelectedCard(int value)
+            {
                 //Trigger the effects of the chosen card if a valid input was given.
-                if(index > -1)
+                if (value > -1)
                 {
-                    string s = m_cardsHeld[index].name.Remove(m_cardsHeld[index].name.Length - 7); //name with (Clone) removed
+                    string s = m_cardsHeld[value].name.Remove(m_cardsHeld[value].name.Length - 7); //name with (Clone) removed
                     List<int> chars = new();
                     for (int i = 0; i < s.Length; i++)
                     {
@@ -190,9 +185,10 @@ namespace ILOVEYOU
                         s = s.Insert(pos, " ");
                     }
                     m_eventLog.LogInput($"{s} selected, triggering events.");
-                    
-                    m_cardsHeld[index].Trigger(GameManager.Instance, this);
-                        m_onCardSelected.Invoke();
+
+                    m_cardsHeld[value].Trigger(GameManager.Instance, this);
+                    m_cardDisplay.SelectCard(value);
+                    DiscardHand();
                 }
             }
             #endregion

@@ -50,7 +50,7 @@ namespace ILOVEYOU
 
                 }
                 //sets the context button to WindowClosed() to allow for closing of the window
-                m_playerControls.SetContext(WindowClosed, 2, "Press A to close Popups!");
+                m_playerControls.SetContext(WindowClosed, 2, "Mash \'A\' to close Popups!");
             }
             /// <summary>
             /// Destroys and resets required variables. Disables gameobject
