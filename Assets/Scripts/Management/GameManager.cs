@@ -194,7 +194,7 @@ namespace ILOVEYOU
 
                     m_timer += Time.deltaTime;
                     Color timeColor = new(1.0f - Mathf.Clamp(PercentToMaxDiff, 0, 1), 1.0f, 1.0f - Mathf.Clamp(PercentToMaxDiff, 0, 1));
-                    m_timerText.text = $"<color=#{ColorUtility.ToHtmlStringRGB(timeColor)}> {(int)m_timer}</color>";
+                    m_timerText.text = $"<color=#{ColorUtility.ToHtmlStringRGB(timeColor)}>{(int)m_timer}</color>";
                     //Debug.Log($"Current difficulty {GetDifficulty}.");
                 }
                 else
