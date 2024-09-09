@@ -17,6 +17,8 @@ namespace ILOVEYOU
             
             protected Transform m_playerTransform;
             protected Rigidbody m_rigidBody;
+
+            private DamageBlink m_blinkScript;
             //this is used for the enemy hurtbox script
             public float GetDamage() { return m_damage; }
 
@@ -24,6 +26,7 @@ namespace ILOVEYOU
             {
                 m_rigidBody = GetComponent<Rigidbody>();
                 m_playerTransform = target;
+                m_blinkScript = GetComponent<DamageBlink>();
 
                 //Potential TODO: add a "modifier" value that is dependent on current difficulty/time that influences the base values
             }
@@ -65,6 +68,7 @@ namespace ILOVEYOU
 
             public void TakeDamage(float damage)
             {
+                m_blinkScript.StartBlink();
                 m_health -= damage;
 
                 if (m_health <= 0)
