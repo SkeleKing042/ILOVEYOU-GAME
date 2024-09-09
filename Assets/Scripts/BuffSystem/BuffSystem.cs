@@ -23,7 +23,7 @@ public class BuffSystem : MonoBehaviour
         public void SetTime(float time) => m_time = time;
     }
 
-    [SerializeField] private BuffData[] m_buffData = new BuffData[1];
+    [SerializeField] private BuffData[] m_buffData = new BuffData[2];
 
     public BuffData[] GetData { get { return m_buffData; } }
 
