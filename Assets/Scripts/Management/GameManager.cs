@@ -221,6 +221,7 @@ namespace ILOVEYOU
                     foreach (LevelManager manager in m_levelManagers)
                     {
                         manager.GetPlayer.GetControls.enabled = true;
+                        manager.GetPlayer.GetTaskManager.AddTask(m_taskList[0]);
                     }
                     m_onGameStart.Invoke();
                 }
@@ -251,7 +252,7 @@ namespace ILOVEYOU
                     int rnd = 0;
                     for (int c = 100; c > 0; c--)
                     {
-                        rnd = Random.Range(0, m_taskList.Length);
+                        rnd = Random.Range(1, m_taskList.Length);
                         //Check for no tasks of the same type
                         if (player.GetTaskManager.GetMatchingTasks(m_taskList[rnd].GetTaskType).Length == 0)
                         {

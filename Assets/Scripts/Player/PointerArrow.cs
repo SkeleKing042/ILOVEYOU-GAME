@@ -16,9 +16,12 @@ namespace ILOVEYOU
             private NavMeshAgent m_agent;
             private Transform m_targetPosition;
             [SerializeField, Range(0.0f, 1.0f)] private float m_turnSpeed;
+            private LineRenderer m_trail;
+            [SerializeField] private Vector3 m_trailOffset;
 
             public void Awake()
             {
+                m_trail = GetComponent<LineRenderer>();
                 m_path = new();
                 m_agent = GetComponent<NavMeshAgent>();
             }
@@ -58,15 +61,22 @@ namespace ILOVEYOU
                 gameObject.SetActive(true);
                 m_targetPosition = pos;
                 m_agent.CalculatePath(m_targetPosition.position, m_path);
+                _setupLine();
             }
             public void RegeneratePath()
             {
                 m_agent.CalculatePath(m_targetPosition.position, m_path);
+                _setupLine();
             }
-            /*private void OnEnable()
+            private void _setupLine()
             {
-                RegeneratePath();
-            }*/
+                m_trail.positionCount = m_path.corners.Length;
+                for(int i = 0; i < m_path.corners.Length; i++)
+                {
+                    m_trail.SetPosition(i, m_path.corners[i] + m_trailOffset);
+                }
+            }
+
             private void OnDrawGizmos()
             {
                 Gizmos.color = Color.blue;
