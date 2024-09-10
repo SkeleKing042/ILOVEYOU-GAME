@@ -15,7 +15,7 @@ namespace ILOVEYOU
         [CustomEditor(typeof(BuffSystem))]
         public class BuffSystemEditor : Editor
         {
-            private readonly string[] m_effectNames = new string[] { "Stat Change", "Bullet Change", "Unity Event", "Blah blah blah" };
+            private readonly string[] m_effectNames = new string[] { "Stat Change", "Bullet Change", "Unity Event" };
             private bool[] m_foldOuts;
             private BuffSystem m_system;
 
@@ -77,6 +77,7 @@ namespace ILOVEYOU
                         switch (buffType)
                         {
                             case 0://Stat Change
+                                EditorGUILayout.LabelField("Player Stats");
                                 maxHealthValue = EditorGUILayout.FloatField("Max Health Add: ", maxHealthValue);
                                 moveSpeedValue = EditorGUILayout.FloatField("Move speed Add: ", moveSpeedValue);
                                 shootSpeedValue = EditorGUILayout.FloatField("Shoot Speed Multiplier Add: ", shootSpeedValue);
@@ -85,6 +86,7 @@ namespace ILOVEYOU
                             case 1://Bullet change
                                 SerializedProperty bulletObject = serializedObject.FindProperty("m_buffData").GetArrayElementAtIndex(i).FindPropertyRelative("m_pattern");
 
+                                EditorGUILayout.LabelField("Bullet Object");
                                 EditorGUILayout.PropertyField(bulletObject, new GUIContent("New Bullet Pattern: "));
                                 break;
 
@@ -92,7 +94,7 @@ namespace ILOVEYOU
 
                                 SerializedProperty onActivate = serializedObject.FindProperty("m_buffData").GetArrayElementAtIndex(i).FindPropertyRelative("m_onActivate");
                                 SerializedProperty onExpire = serializedObject.FindProperty("m_buffData").GetArrayElementAtIndex(i).FindPropertyRelative("m_onExpire");
-
+                                EditorGUILayout.LabelField("Unity Events");
                                 EditorGUILayout.PropertyField(onActivate);
                                 if (!isPermanent) EditorGUILayout.PropertyField(onExpire);
                                 break;
