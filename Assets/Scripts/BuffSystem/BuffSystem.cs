@@ -65,9 +65,6 @@ namespace ILOVEYOU
 
             public BuffData[] GetData { get { return m_buffData; } }
 
-
-
-
             #region DataEditing
 #if UNITY_EDITOR
             public void ChangeData(BuffData[] data)
