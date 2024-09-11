@@ -82,6 +82,7 @@ namespace ILOVEYOU
                 private GameObject m_buffParticleEffect;
 
                 public BuffData GetData { get { return m_data; } }
+                public GameObject GetParticle { get { return m_buffParticleEffect; } }
                 public float CurrentTime { get { return m_currentTime; } }
                 /// <summary>
                 /// subtracts time according to deltatime
@@ -90,6 +91,7 @@ namespace ILOVEYOU
                 public void SubtractTime(float time) { m_currentTime -= time * Time.deltaTime; }
                 public void AddTime(float time) { m_currentTime += time; }
                 public void SetBuffParticle(GameObject obj) { m_buffParticleEffect = obj; }
+                public void DestroyBuffParticle() { Destroy(m_buffParticleEffect); }
 
                 public ActiveBuff(BuffData data, float time)
                 {
@@ -135,6 +137,13 @@ namespace ILOVEYOU
                 if (dataClone.GetParticleEffect) buff.SetBuffParticle(GetComponent<PlayerManager>().GetLevelManager.GetParticleSpawner.SpawnParticle(dataClone.GetParticleEffect, transform));
 
                 m_activeBuffs.Add(buff);
+            }
+
+            public void RemoveBuff(int listCount)
+            {
+                if (m_activeBuffs[listCount].GetParticle) m_activeBuffs[listCount].DestroyBuffParticle();
+
+                _DeactivateBuff(m_activeBuffs[listCount].GetData);
             }
             private void _ActivateBuff(BuffData data)
             {
@@ -237,7 +246,7 @@ namespace ILOVEYOU
 
                     if (m_activeBuffs[i].CurrentTime <= 0) 
                     {
-                        _DeactivateBuff(m_activeBuffs[i].GetData);
+                        //_DeactivateBuff(m_activeBuffs[i].GetData);
                         
                         m_activeBuffs[i] = null;
 
@@ -253,7 +262,7 @@ namespace ILOVEYOU
             }
 
             /// <summary>
-            /// Clears out empty values from the  list
+            /// Clears out empty values from the list
             /// </summary>
             private void _CleanList()
             {
