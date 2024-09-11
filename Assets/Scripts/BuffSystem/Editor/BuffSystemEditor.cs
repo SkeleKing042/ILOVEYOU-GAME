@@ -16,6 +16,7 @@ namespace ILOVEYOU
         public class BuffSystemEditor : Editor
         {
             private readonly string[] m_effectNames = new string[] { "Stat Change", "Bullet Change", "Unity Event" };
+            private readonly string[] m_stackNames = new string[] { "Don't Stack", "Extend Current", "Stack" };
             private bool[] m_foldOuts;
             private BuffSystem m_system;
 
@@ -54,6 +55,8 @@ namespace ILOVEYOU
                         BuffSystem.BuffData current = m_system.GetData[i];
 
                         string name = current.GetName;
+                        int buffID = current.GetBuffID;
+                        int isStackable = current.GetIsStackable;
                         int buffType = current.GetBuffType;
                         bool isPermanent = current.GetPermanent;
                         float time = current.GetTime;
@@ -64,13 +67,16 @@ namespace ILOVEYOU
                         float shootSpeedValue = current.GetShootSpeed;
                         float damageValue = current.GetDamage;
 
-                        name = EditorGUILayout.TextField("Status Name: ", name);
-                        buffType = EditorGUILayout.Popup("Buff Type:", buffType, m_effectNames);
+                        name = EditorGUILayout.TextField("Name: ", name);
+                        buffID = EditorGUILayout.IntField("ID: ", buffID);
+                        EditorGUILayout.Space();
+                        isStackable = EditorGUILayout.Popup("Does stack: ", isStackable, m_stackNames);
                         isPermanent = EditorGUILayout.Toggle("Is Permanent:", isPermanent);
-                        if (!isPermanent) time = EditorGUILayout.FloatField("Buff Time:", time);
+                        if (!isPermanent) time = EditorGUILayout.FloatField("Time:", time);
+                        EditorGUILayout.Space();
                         EditorGUILayout.PropertyField(particleEffect, new GUIContent("Particle Effect: "));
-
-                        
+                        EditorGUILayout.Space();
+                        buffType = EditorGUILayout.Popup("Buff Type:", buffType, m_effectNames);
 
                         EditorGUILayout.Space();
 
@@ -110,6 +116,8 @@ namespace ILOVEYOU
                             Undo.RecordObject(target, "Changed Status Effect " + i);
 
                             current.SetName(name);
+                            current.SetBuffID(buffID);
+                            current.SetIsStackable(isStackable);
                             current.SetBuffType(buffType);
                             current.SetPermanent(isPermanent);
                             if (!isPermanent) current.SetTime(time);

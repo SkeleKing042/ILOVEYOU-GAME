@@ -3,6 +3,7 @@ using ILOVEYOU.ProjectileSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -119,7 +120,7 @@ namespace ILOVEYOU
             /// <param name="index"></param>
             /// <param name="value"></param>
             /// <returns></returns>
-            public bool ChangeState(int index, float value)
+            public bool ChangeStat(int index, float value)
             {
                 switch (index)
                 {
@@ -127,13 +128,21 @@ namespace ILOVEYOU
                         m_moveSpeed += value;
                         break;
                     case 1:
-                        m_pattern.AddDamage(value);
+                        m_MaxHealth += value;
                         break;
                     case 2:
+                        m_pattern.AddDamage(value);
+                        break;
+                    case 3:
                         m_pattern.AddFireSpeed(value);
                         break;
                 }
                 return true;
+            }
+
+            public void ChangeWeapon(BulletPatternObject obj)
+            {
+                m_pattern.ChangePattern(obj);
             }
             public void Update()
             {

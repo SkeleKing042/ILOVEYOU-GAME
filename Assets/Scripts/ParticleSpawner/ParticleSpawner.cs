@@ -14,21 +14,23 @@ public class ParticleSpawner : MonoBehaviour
     /// </summary>
     /// <param name="particle">particle prefab to spawn</param>
     /// <param name="position">global position to spawn at</param>
-    public void SpawnParticle(GameObject particle, Vector3 position)
+    public GameObject SpawnParticle(GameObject particle, Vector3 position)
     {
         GameObject newParticle = Instantiate(particle);
         newParticle.transform.position = position;
+        return newParticle;
     }
     /// <summary>
     /// creates a particle prefab at specified position and destroys itself after it has reached its duration
     /// </summary>
     /// <param name="particle">particle prefab to spawn</param>
     /// <param name="position">global position to spawn at</param>
-    public void SpawnParticleTemp(GameObject particle, Vector3 position)
+    public GameObject SpawnParticleTemp(GameObject particle, Vector3 position)
     {
         GameObject newParticle = Instantiate(particle);
         newParticle.transform.position = position;
         Destroy(newParticle, newParticle.GetComponent<ParticleSystem>().main.duration);
+        return newParticle;
     }
     /// <summary>
     /// creates a particle prefab at specified position and destroys itself after a set amount of time
@@ -36,11 +38,12 @@ public class ParticleSpawner : MonoBehaviour
     /// <param name="particle">particle prefab to spawn</param>
     /// <param name="position">global position to spawn at</param>
     /// <param name="time">time before the particle effect is destroyed</param>
-    public void SpawnParticleTime(GameObject particle, Vector3 position, float time)
+    public GameObject SpawnParticleTime(GameObject particle, Vector3 position, float time)
     {
         GameObject newParticle = Instantiate(particle);
         newParticle.transform.position = position;
         Destroy(newParticle, time);
+        return newParticle;
     }
 
     #endregion
@@ -51,9 +54,10 @@ public class ParticleSpawner : MonoBehaviour
     /// </summary>
     /// <param name="particle">particle prefab to spawn</param>
     /// <param name="parent">parent object for the particle to attach to</param>
-    public void SpawnParticle(GameObject particle, Transform parent)
+    public GameObject SpawnParticle(GameObject particle, Transform parent)
     {
         GameObject newParticle = Instantiate(particle, parent);
+        return newParticle;
     }
     /// <summary>
     /// creates a particle prefab parented to a specific object with an offset
@@ -61,20 +65,22 @@ public class ParticleSpawner : MonoBehaviour
     /// <param name="particle">particle prefab to spawn</param>
     /// <param name="parent">parent object for the particle to attach to</param>
     /// <param name="localPosition">offset for particle object</param>
-    public void SpawnParticle(GameObject particle, Transform parent, Vector3 localPosition)
+    public GameObject SpawnParticle(GameObject particle, Transform parent, Vector3 localPosition)
     {
         GameObject newParticle = Instantiate(particle, parent);
         newParticle.transform.localPosition = localPosition;
+        return newParticle;
     }
     /// <summary>
     /// creates a particle prefab parented to a specific object and destroys itself after it has reached its duration
     /// </summary>
     /// <param name="particle">particle prefab to spawn</param>
     /// <param name="parent">parent object for the particle to attach to</param>
-    public void SpawnParticleTemp(GameObject particle, Transform parent)
+    public GameObject SpawnParticleTemp(GameObject particle, Transform parent)
     {
         GameObject newParticle = Instantiate(particle, parent);
         Destroy(newParticle, newParticle.GetComponent<ParticleSystem>().main.duration);
+        return newParticle;
     }
     /// <summary>
     /// creates a particle prefab parented to a specific object with an offset and destroys itself after it has reached its duration
@@ -82,11 +88,12 @@ public class ParticleSpawner : MonoBehaviour
     /// <param name="particle">particle prefab to spawn</param>
     /// <param name="parent">parent object for the particle to attach to</param>
     /// <param name="localPosition">offset for particle object</param>
-    public void SpawnParticleTemp(GameObject particle, Transform parent, Vector3 localPosition)
+    public GameObject SpawnParticleTemp(GameObject particle, Transform parent, Vector3 localPosition)
     {
         GameObject newParticle = Instantiate(particle, parent);
         newParticle.transform.localPosition = localPosition;
         Destroy(newParticle, newParticle.GetComponent<ParticleSystem>().main.duration);
+        return newParticle;
     }
     /// <summary>
     /// creates a particle prefab parented to a specific object and destroys itself after a set amount of time
@@ -94,10 +101,11 @@ public class ParticleSpawner : MonoBehaviour
     /// <param name="particle">particle prefab to spawn</param>
     /// <param name="parent">parent object for the particle to attach to</param>
     /// <param name="time">time before object destroys itself</param>
-    public void SpawnParticleTime(GameObject particle, Transform parent, float time)
+    public GameObject SpawnParticleTime(GameObject particle, Transform parent, float time)
     {
         GameObject newParticle = Instantiate(particle,parent);
         Destroy(newParticle, time);
+        return newParticle;
     }
     /// <summary>
     /// creates a particle prefab parented to a specific object with an offset and destroys itself after a set amount of time
@@ -106,11 +114,12 @@ public class ParticleSpawner : MonoBehaviour
     /// <param name="parent">parent object for the particle to attach to</param>
     /// <param name="localPosition">offset for particle object</param>
     /// <param name="time">time before object destroys itself</param>
-    public void SpawnParticleTime(GameObject particle, Transform parent, Vector3 localPosition, float time)
+    public GameObject SpawnParticleTime(GameObject particle, Transform parent, Vector3 localPosition, float time)
     {
         GameObject newParticle = Instantiate(particle, parent);
         newParticle.transform.localPosition = localPosition;
         Destroy(newParticle, time);
+        return newParticle;
     }
 
     #endregion
