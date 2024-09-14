@@ -75,7 +75,7 @@ namespace ILOVEYOU
 
             }
 
-            private class ActiveBuff
+            public class ActiveBuff
             {
                 private BuffData m_data;
                 private float m_currentTime;
@@ -105,6 +105,8 @@ namespace ILOVEYOU
             public BuffData[] GetData { get { return m_buffData; } }
 
             private List<ActiveBuff> m_activeBuffs;
+
+            public List<ActiveBuff> GetActiveBuffs { get { return m_activeBuffs; } }
 
             private PlayerControls m_playerControls;
 
@@ -179,7 +181,7 @@ namespace ILOVEYOU
 
                         break;
                     case 1:
-                        //m_playerControls.ChangeWeapon(data.GetPatternObject);
+                        m_playerControls.ChangeWeapon(data.GetPatternObject);
                         break;
                     case 2:
                         data.InvokeExpire();
@@ -234,20 +236,31 @@ namespace ILOVEYOU
             {
                 m_playerControls = GetComponent<PlayerControls>();
                 m_activeBuffs = new();
+
+                GiveBuff(0);
+                GiveBuff(0);
+
             }
 
             private void Update()
             {
+                if (m_activeBuffs.Count == 0) return;
+                
                 bool markForDeletion = false;
 
                 for (int i = 0; i < m_activeBuffs.Count; i++)
                 {
                     if (m_activeBuffs[i].GetData.GetPermanent) continue;
 
+                    //Debug.Log(m_activeBuffs[i].GetData.GetName + " Buff (" + i + ") Time Remaining: " + m_activeBuffs[i].CurrentTime);
+
+                    //if buff time has ran out;
                     if (m_activeBuffs[i].CurrentTime <= 0) 
                     {
                         //_DeactivateBuff(m_activeBuffs[i].GetData);
-                        
+
+                        //Debug.Log(m_activeBuffs[i].GetData.GetName + " Buff (" + i + ") Finished");
+
                         m_activeBuffs[i] = null;
 
                         markForDeletion = true;
