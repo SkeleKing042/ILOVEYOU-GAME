@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace ILOVEYOU
@@ -13,9 +14,29 @@ namespace ILOVEYOU
         public class MainMenuScene : MonoBehaviour
         {
             [SerializeField] private string m_sceneName;
+            private int m_lastPlayerCount = 0;
+            [SerializeField] private string m_stringToPassOnJoin;
+            [SerializeField] private UnityEvent<string, float> m_onPlayerJoined;
+            [SerializeField] private string m_stringToPassOnLeave;
+            [SerializeField] private UnityEvent<string, float> m_onPlayerLeft;
+
             public void Awake()
             {
                 GameManager.ResetScore();
+            }
+            private void Update()
+            {
+                if(ControllerManager.Instance.ControllerCount > m_lastPlayerCount)
+                {
+                    //controller added
+                    m_onPlayerJoined.Invoke(m_stringToPassOnJoin, (int)ControllerManager.Instance.MostRecentID);
+                }
+                else if(ControllerManager.Instance.ControllerCount < m_lastPlayerCount)
+                {
+                    //controller removed
+                    m_onPlayerLeft.Invoke(m_stringToPassOnLeave, (int)ControllerManager.Instance.MostRecentID);
+                }
+                m_lastPlayerCount = (int)ControllerManager.Instance.ControllerCount;
             }
             public void TriggerSceneChange()
             {

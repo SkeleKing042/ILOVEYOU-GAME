@@ -17,6 +17,7 @@ namespace ILOVEYOU
             [SerializeField] private uint m_maxControllers;
             private Controller[] m_controllers;
             public uint ControllerCount => (uint)transform.childCount;
+            public uint MostRecentID => transform.GetChild(transform.childCount - 1).GetComponent<Controller>().ID;
             [SerializeField] private GameObject m_playerPrefab;
             public static ControllerManager Instance { get; private set; }
             private void Awake()

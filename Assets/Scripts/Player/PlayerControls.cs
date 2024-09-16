@@ -24,7 +24,6 @@ namespace ILOVEYOU
             [Header("General")]
             [SerializeField] private float m_MaxHealth = 10f;
             private float m_health;
-            private DamageBlink m_damageBlink;
             [SerializeField] private float m_iframesTotal = 1f; //this is in seconds
             private float m_iframesCurrent;
 
@@ -102,7 +101,6 @@ namespace ILOVEYOU
             {
                 if (m_debugging) Debug.Log($"Starting {this}.");
 
-                m_damageBlink = GetComponent<DamageBlink>();
                 m_facingObject = transform.GetChild(0);
                 m_pattern = m_facingObject.GetComponent<BulletPattern>();
                 m_Collider = GetComponent<Collider>();
@@ -197,7 +195,6 @@ namespace ILOVEYOU
             public void TakeDamage(float damage)
             {
                 if (m_iframesCurrent > 0) return;
-                m_damageBlink.StartBlink();
                 m_health -= damage;
                 m_iframesCurrent = m_iframesTotal;
                 UpdateHealthBar();
