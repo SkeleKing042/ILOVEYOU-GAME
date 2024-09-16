@@ -31,9 +31,6 @@ namespace ILOVEYOU
                 {
                     target.GetComponent<BuffDataSystem>().GiveBuff(m_effectsToGive[i]);
                 }
-
-
-                //else target.GetComponent<BuffDataSystem>().GiveBuff(m_effectsToGive);
             }
         }
     }
