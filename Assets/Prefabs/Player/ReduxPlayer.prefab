@@ -302,22 +302,22 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.19
+        time: 0.199
         value: 1
         inSlope: -0
-        outSlope: -99.99995
-        tangentMode: 69
+        outSlope: -41.470524
+        tangentMode: 5
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.65251106
       - serializedVersion: 3
         time: 0.2
         value: 0
-        inSlope: -99.99995
+        inSlope: -Infinity
         outSlope: 5
-        tangentMode: 69
+        tangentMode: 65
         weightedMode: 0
-        inWeight: 1
+        inWeight: 0
         outWeight: 0.17821781
       - serializedVersion: 3
         time: 0.4
@@ -454,6 +454,39 @@ MonoBehaviour:
   m_spawnMask:
     serializedVersion: 2
     m_Bits: 2048
+  m_enemyCap:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 50
+      inSlope: 0
+      outSlope: Infinity
+      tangentMode: 97
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 50
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 5
+      value: 100
+      inSlope: 40.5543
+      outSlope: 40.5543
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.059833884
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   m_onSpawnEnemy:
     m_PersistentCalls:
       m_Calls: []
