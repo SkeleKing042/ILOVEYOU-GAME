@@ -248,6 +248,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManagerRedux
       objectReference: {fileID: 0}
+    - target: {fileID: 1904836434026894222, guid: 3b1a4d8db83d0444cad6624dfa81cdf1, type: 3}
+      propertyPath: m_taskList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1904836434026894222, guid: 3b1a4d8db83d0444cad6624dfa81cdf1, type: 3}
+      propertyPath: m_taskList.Array.data[0].m_type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1904836434026894222, guid: 3b1a4d8db83d0444cad6624dfa81cdf1, type: 3}
+      propertyPath: m_taskList.Array.data[1].m_type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1904836434026894222, guid: 3b1a4d8db83d0444cad6624dfa81cdf1, type: 3}
+      propertyPath: m_taskList.Array.data[2].m_type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1904836434026894222, guid: 3b1a4d8db83d0444cad6624dfa81cdf1, type: 3}
+      propertyPath: m_taskList.Array.data[3].m_type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1904836434026894222, guid: 3b1a4d8db83d0444cad6624dfa81cdf1, type: 3}
+      propertyPath: m_taskList.Array.data[0].m_capValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1904836434026894222, guid: 3b1a4d8db83d0444cad6624dfa81cdf1, type: 3}
+      propertyPath: m_taskList.Array.data[1].m_capValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1904836434026894222, guid: 3b1a4d8db83d0444cad6624dfa81cdf1, type: 3}
+      propertyPath: m_taskList.Array.data[2].m_capValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1904836434026894222, guid: 3b1a4d8db83d0444cad6624dfa81cdf1, type: 3}
+      propertyPath: m_taskList.Array.data[3].m_capValue
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1904836434026894223, guid: 3b1a4d8db83d0444cad6624dfa81cdf1, type: 3}
       propertyPath: m_RootOrder
       value: 0
