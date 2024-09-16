@@ -36,6 +36,7 @@ namespace ILOVEYOU
             public bool CardsInHand { get { return m_cardsHeld.Length > 0; } }
             [SerializeField] private float m_cardTimeout;
             [SerializeField] private PopUps m_blindBox;
+            [SerializeField] private DamageArea m_damDaniel;
             //ui
             [SerializeField] private PointerArrow m_pointer;
             public PointerArrow GetPointer { get { return m_pointer; } }
@@ -211,6 +212,20 @@ namespace ILOVEYOU
             public void UpdateHealthBar(float value)
             {
                 m_healthSlider.value = value;
+            }
+            /// <summary>
+            /// enables the damaging circle aroind the player
+            /// </summary>
+            public void EnableDamageCircle()
+            {
+
+            }
+            /// <summary>
+            /// disables the damaging circle around the player
+            /// </summary>
+            public void DisableDamageCircle()
+            {
+
             }
         }
     }
