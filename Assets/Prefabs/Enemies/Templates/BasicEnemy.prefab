@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 7613335133617298294}
   - component: {fileID: 183515926821657586}
   - component: {fileID: 6302020764854501118}
+  - component: {fileID: 6571689930070751659}
   m_Layer: 6
   m_Name: BasicEnemy
   m_TagString: Untagged
@@ -204,6 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_speed: 1
+  m_turnSpeed: 3
   m_damage: 1
   m_health: 10
   m_distanceCondition: 1
@@ -236,3 +238,17 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6571689930070751659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7613335133617298300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6b17dc8a6d55047bfea276695b2c6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_blinkMat: {fileID: 2100000, guid: a14212e056224f44286aa5a5b1c7f125, type: 2}
+  m_activeTime: 0.05

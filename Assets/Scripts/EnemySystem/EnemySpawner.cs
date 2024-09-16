@@ -1,5 +1,6 @@
 using ILOVEYOU.Management;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -27,6 +28,9 @@ namespace ILOVEYOU
             [SerializeField] private EnemyPrefabs[] m_enemyGroups;
             [SerializeField] private float m_spawnRange;
             [SerializeField] private LayerMask m_spawnMask;
+
+            [SerializeField] private AnimationCurve m_enemyCap;
+            private List<GameObject> m_enemyObjects = new();
 
             [Header("Events")]
             [SerializeField] private UnityEvent m_onSpawnEnemy;
@@ -107,7 +111,11 @@ namespace ILOVEYOU
 
             private bool _SpawnEnemy(GameObject prefab)
             {
-
+                if (m_enemyObjects.Count >= m_enemyCap.Evaluate(GameManager.Instance.PercentToMaxDiff))
+                {
+                    Debug.Log("Max number of enemies reached!");
+                    return false;
+                }
                 //creates enemy from given prefab
                 GameObject enemy = Instantiate(prefab);
                 //attempts 100 times to spawn an enemy
@@ -122,6 +130,7 @@ namespace ILOVEYOU
                     {
                         //intializes enemy script
                         enemy.GetComponent<Enemy>().Initialize(transform);
+                        m_enemyObjects.Add(enemy);
                         return true;
                     }
                 }
@@ -129,6 +138,19 @@ namespace ILOVEYOU
                 //destroys if no attempts work
                 Destroy(enemy);
                 return false;
+            }
+
+            private void Update()
+            {
+                //empty out the list
+                for(int i = 0; i < m_enemyObjects.Count; i++)
+                {
+                    if (!m_enemyObjects[i])
+                    {
+                        m_enemyObjects.RemoveAt(i);
+                        i--;
+                    }
+                }
             }
         }
     }

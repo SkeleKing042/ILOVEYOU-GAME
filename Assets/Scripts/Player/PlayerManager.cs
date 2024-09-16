@@ -24,8 +24,8 @@ namespace ILOVEYOU
             //player
             private PlayerControls m_playerControls;
             public PlayerControls GetControls { get { return m_playerControls; } }
-            private int m_playerID;
-            public int GetPlayerID { get { return m_playerID; } }
+            private uint m_playerID;
+            public uint GetPlayerID { get { return m_playerID; } }
             private LevelManager m_levelManager;
             public LevelManager GetLevelManager { get { return m_levelManager; } }
             //tasks
@@ -52,12 +52,18 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onCardSelected;
             [SerializeField] private UnityEvent m_onBlind;
             [SerializeField] private UnityEvent m_onUnblind;
-            public bool Startup(LevelManager manager, int index)
+            public bool Startup(LevelManager manager, uint index)
             {
                 if (m_debugging) Debug.Log($"Starting {this}.");
+                //clear cards
                 m_cardsHeld = new DisruptCard[0];
+                //set id
                 m_playerID = index;
+                //save manager
                 m_levelManager = manager;
+                //camera setup
+                Camera cam = GetComponentInChildren<Camera>();
+                    cam.rect = new(0.5f * index, 0, 0.5f, 1);
 
                 if (m_debugging) Debug.Log($"Getting task manager.");
                 m_taskMan = GetComponent<TaskManager>();
@@ -68,7 +74,6 @@ namespace ILOVEYOU
                     return false;
                 }
 
-
                 if (m_debugging) Debug.Log($"Getting player controls");
                 m_playerControls = GetComponent<PlayerControls>();
                 if (!m_playerControls.Startup())
@@ -78,20 +83,18 @@ namespace ILOVEYOU
                     return false;
                 }
 
-                //ui setup
-                //Setup pointer arrow ai
                 if (m_debugging) Debug.Log("Setting up point tracker");
                 if (m_pointer != null)
                 {
                     m_pointer.gameObject.SetActive(false);
                 }
 
+                //UI setup
+                //flip hud - needs tweaking
                 if (m_playerID != 0) m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
-                //m_healthSlider = m_playerHud.transform.GetChild(0).GetComponentInChildren<Slider>();
                 m_blindBox.Initialize(m_playerControls);
                 m_cardDisplay.gameObject.SetActive(false);
                 m_eventLog = GetComponent<EventLogUI>();
-                m_playerControls.enabled = false;
 
                 if (m_debugging) Debug.Log($"{this} started successfully");
                 return true;
