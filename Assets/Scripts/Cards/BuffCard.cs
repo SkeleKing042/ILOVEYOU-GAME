@@ -1,24 +1,29 @@
+using ILOVEYOU.BuffSystem;
 using ILOVEYOU.Management;
 using ILOVEYOU.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-namespace ILOVEYOU
-{
+namespace ILOVEYOU 
+{ 
     namespace Cards
     {
-
-        public class CyberAttackCard : MonoBehaviour
+        public class BuffCard : MonoBehaviour
         {
-            [Tooltip("How long the effect will last for.")] [SerializeField] private float m_time = 1;
+            [SerializeField] private bool m_targetSelf;
+            [SerializeField] private int m_effectToGive;
+
             public void ExecuteEvents(object[] data)
             {
+                //get required data
                 GameManager manager = (GameManager)data[0];
                 PlayerManager player = (PlayerManager)data[1];
                 PlayerManager target = manager.GetOtherPlayer(player);
-                target.GetComponent<PlayerControls>().DisableShooting(m_time);
+
+                if (m_targetSelf) player.GetComponent<BuffDataSystem>().GiveBuff(m_effectToGive);
+                else target.GetComponent<BuffDataSystem>().GiveBuff(m_effectToGive);
             }
         }
     }
+
 }

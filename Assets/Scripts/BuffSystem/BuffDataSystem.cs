@@ -16,7 +16,7 @@ namespace ILOVEYOU
 {
     namespace BuffSystem
     {
-        public class BuffSystem : MonoBehaviour
+        public class BuffDataSystem : MonoBehaviour
         {
             [Serializable]
             public class BuffData
@@ -37,7 +37,7 @@ namespace ILOVEYOU
                 [SerializeField] private float m_damageValue = 0f;
                 
                 //values for bullet change
-                [SerializeField] private BulletPatternObject m_pattern;
+                //[SerializeField] private BulletPatternObject m_pattern;
 
                 //Events for Event Type
                 [SerializeField] private UnityEvent m_onActivate;
@@ -56,7 +56,7 @@ namespace ILOVEYOU
                 public float GetDamage { get { return m_damageValue; } }
 
                 public GameObject GetParticleEffect { get { return m_particleEffect; } }
-                public BulletPatternObject GetPatternObject { get { return m_pattern; } }
+                //public BulletPatternObject GetPatternObject { get { return m_pattern; } }
 
                 public void SetName(string name) => m_name = name;
                 public void SetBuffID(int id) => m_buffID = id;
@@ -80,6 +80,7 @@ namespace ILOVEYOU
                 private BuffData m_data;
                 private float m_currentTime;
                 private GameObject m_buffParticleEffect;
+                //private bulle
 
                 public BuffData GetData { get { return m_data; } }
                 public GameObject GetParticle { get { return m_buffParticleEffect; } }
@@ -114,8 +115,11 @@ namespace ILOVEYOU
             {
                 BuffData dataClone = m_buffData[buffID];
 
+                bool spawnParticle = true;
+
+
                 //if conflicting data IDs in already applied buffs
-                if (_CheckID(dataClone.GetBuffID))
+                if (_CheckID(dataClone.GetBuffID, out int conflictPos))
                 {
                     switch (dataClone.GetIsStackable)
                     {
@@ -125,9 +129,17 @@ namespace ILOVEYOU
                         case 1:
                             //if extending timer add time to already existing buff
                             _AddTime(dataClone.GetBuffID, dataClone.GetTime);
+                            return;
+                        case 2:
+                            //if the buff is meant to override, remove the current one
+                            RemoveBuff(conflictPos, true);
+                            m_activeBuffs[conflictPos] = null;
+                            _CleanList();
                             break;
                         default:
                             //do nothing lol
+                            //prevents particles from stacking
+                            spawnParticle = false;
                             break;
                     }
                 }
@@ -136,16 +148,58 @@ namespace ILOVEYOU
 
                 _ActivateBuff(dataClone);
 
-                if (dataClone.GetParticleEffect) buff.SetBuffParticle(GetComponent<PlayerManager>().GetLevelManager.GetParticleSpawner.SpawnParticle(dataClone.GetParticleEffect, transform));
+                if (dataClone.GetParticleEffect && spawnParticle) buff.SetBuffParticle(GetComponent<PlayerManager>().GetLevelManager.GetParticleSpawner.SpawnParticle(dataClone.GetParticleEffect, transform));
 
                 m_activeBuffs.Add(buff);
             }
 
-            public void RemoveBuff(int listCount)
+            public void GiveBuff(int buffID, float time)
+            {
+                BuffData dataClone = m_buffData[buffID];
+
+                bool spawnParticle = true;
+
+
+                //if conflicting data IDs in already applied buffs
+                if (_CheckID(dataClone.GetBuffID, out int conflictPos))
+                {
+                    switch (dataClone.GetIsStackable)
+                    {
+                        case 0:
+                            //if it can't stack stop adding buff
+                            return;
+                        case 1:
+                            //if extending timer add time to already existing buff
+                            _AddTime(dataClone.GetBuffID, time);
+                            return;
+                        case 2:
+                            //if the buff is meant to override, remove the current one
+                            RemoveBuff(conflictPos, true);
+                            m_activeBuffs[conflictPos] = null;
+                            _CleanList();
+                            break;
+                        default:
+                            //do nothing lol
+                            //prevents particles from stacking
+                            spawnParticle = false;
+                            break;
+                    }
+                }
+
+                ActiveBuff buff = new ActiveBuff(dataClone, time);
+
+                _ActivateBuff(dataClone);
+
+                if (dataClone.GetParticleEffect && spawnParticle) buff.SetBuffParticle(GetComponent<PlayerManager>().GetLevelManager.GetParticleSpawner.SpawnParticle(dataClone.GetParticleEffect, transform));
+
+                m_activeBuffs.Add(buff);
+            }
+
+            public void RemoveBuff(int listCount, bool deactivate)
             {
                 if (m_activeBuffs[listCount].GetParticle) m_activeBuffs[listCount].DestroyBuffParticle();
 
-                _DeactivateBuff(m_activeBuffs[listCount].GetData);
+                if (deactivate) _DeactivateBuff(m_activeBuffs[listCount].GetData);
             }
             private void _ActivateBuff(BuffData data)
             {
@@ -155,13 +209,10 @@ namespace ILOVEYOU
                         m_playerControls.ChangeStat(0, data.GetMoveSpeed);
                         m_playerControls.ChangeStat(1, data.GetMaxHealth);
                         m_playerControls.ChangeStat(2, data.GetDamage);
-                        m_playerControls.ChangeStat(3, data.GetMoveSpeed);
+                        m_playerControls.ChangeStat(3, data.GetShootSpeed);
 
                         break;
                     case 1:
-                        m_playerControls.ChangeWeapon(data.GetPatternObject);
-                            break;
-                    case 2:
                         data.InvokeActivate();
                         break;
                 }
@@ -177,13 +228,9 @@ namespace ILOVEYOU
                         m_playerControls.ChangeStat(0, -data.GetMoveSpeed);
                         m_playerControls.ChangeStat(1, -data.GetMaxHealth);
                         m_playerControls.ChangeStat(2, -data.GetDamage);
-                        m_playerControls.ChangeStat(3, -data.GetMoveSpeed);
-
+                        m_playerControls.ChangeStat(3, -data.GetShootSpeed);
                         break;
                     case 1:
-                        m_playerControls.ChangeWeapon(data.GetPatternObject);
-                        break;
-                    case 2:
                         data.InvokeExpire();
                         break;
                 }
@@ -210,6 +257,27 @@ namespace ILOVEYOU
                 return false;
             }
 
+            private bool _CheckID(int ID, out int pos)
+            {
+                int count = 0;
+                pos = 0;
+
+                foreach (ActiveBuff activeBuff in m_activeBuffs)
+                {
+                    //buff with same ID found
+                    if (activeBuff.GetData.GetBuffID == ID)
+                    {
+                         
+                        return true;
+                    }
+
+                    pos = count;
+                    count++;
+
+                }
+                return false;
+            }
+
             /// <summary>
             /// Clears all buffs, including permanent buffs
             /// </summary>
@@ -218,7 +286,21 @@ namespace ILOVEYOU
             {
                 if (deactivate)
                 {
+                    if (m_activeBuffs.Count == 0) return;
 
+                    bool markForDeletion = false;
+
+                    for (int i = 0; i < m_activeBuffs.Count; i++)
+                    {
+
+                            RemoveBuff(i, true);
+
+                            m_activeBuffs[i] = null;
+
+                            markForDeletion = true;
+                    }
+
+                    if (markForDeletion) _CleanList();
                 }
 
                 m_activeBuffs.Clear();
@@ -229,7 +311,22 @@ namespace ILOVEYOU
             /// <param name="deactivate">if the deactivate function should also be called</param>
             public void ClearBuffs(bool deactivate)
             {
-                
+                if (m_activeBuffs.Count == 0) return;
+
+                bool markForDeletion = false;
+
+                for (int i = 0; i < m_activeBuffs.Count; i++)
+                {
+                    if (m_activeBuffs[i].GetData.GetPermanent) continue;
+
+                    RemoveBuff(i, true);
+
+                    m_activeBuffs[i] = null;
+
+                    markForDeletion = true;
+                }
+
+                if (markForDeletion) _CleanList();
             }
 
             private void Awake()
@@ -237,8 +334,9 @@ namespace ILOVEYOU
                 m_playerControls = GetComponent<PlayerControls>();
                 m_activeBuffs = new();
 
-                GiveBuff(0);
-                GiveBuff(0);
+                //GiveBuff(0);
+                //GiveBuff(1);
+                //ClearAllBuffs(true);
 
             }
 
@@ -260,6 +358,8 @@ namespace ILOVEYOU
                         //_DeactivateBuff(m_activeBuffs[i].GetData);
 
                         //Debug.Log(m_activeBuffs[i].GetData.GetName + " Buff (" + i + ") Finished");
+
+                        RemoveBuff(i, true);
 
                         m_activeBuffs[i] = null;
 

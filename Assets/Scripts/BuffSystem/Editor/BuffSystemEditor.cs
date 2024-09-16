@@ -12,22 +12,22 @@ namespace ILOVEYOU
 {
     namespace BuffSystem
     {
-        [CustomEditor(typeof(BuffSystem))]
+        [CustomEditor(typeof(BuffDataSystem))]
         public class BuffSystemEditor : Editor
         {
             private bool DebugMode = true;
 
-            private readonly string[] m_effectNames = new string[] { "Stat Change", "Bullet Change", "Unity Event" };
-            private readonly string[] m_stackNames = new string[] { "Don't Stack", "Extend Current", "Stack" };
+            private readonly string[] m_effectNames = new string[] { "Stat Change", "Unity Event" };
+            private readonly string[] m_stackNames = new string[] { "Don't Stack", "Extend Current", "Override", "Stack" };
             private bool[] m_foldOuts;
             private bool[] m_foldOutDebugs;
-            private BuffSystem m_system;
+            private BuffDataSystem m_system;
 
 
             public override void OnInspectorGUI()
             {
                 //gets the main script (the reason this isn't called on OnEnable() is cause there is an error or two caused by it for some reason IDK why but yeah
-                m_system = target as BuffSystem; //<-- this aint getting called in the game build so *shrugs*
+                m_system = target as BuffDataSystem; //<-- this aint getting called in the game build so *shrugs*
                 Array.Resize(ref m_foldOuts, m_system.GetData.Length);
                 //enable or disable debug mode, by default its on
                 DebugMode = EditorGUILayout.Toggle("Debug Mode: ", DebugMode);
@@ -63,7 +63,7 @@ namespace ILOVEYOU
 
                         EditorGUI.BeginChangeCheck();
 
-                        BuffSystem.BuffData current = m_system.GetData[i];
+                        BuffDataSystem.BuffData current = m_system.GetData[i];
 
                         string name = current.GetName;
                         int buffID = current.GetBuffID;
@@ -100,14 +100,8 @@ namespace ILOVEYOU
                                 shootSpeedValue = EditorGUILayout.FloatField("Shoot Speed Multiplier Add: ", shootSpeedValue);
                                 damageValue = EditorGUILayout.FloatField("Damage Multiplier Add: ", damageValue);
                                 break;
-                            case 1://Bullet change
-                                SerializedProperty bulletObject = serializedObject.FindProperty("m_buffData").GetArrayElementAtIndex(i).FindPropertyRelative("m_pattern");
 
-                                EditorGUILayout.LabelField("Bullet Object");
-                                EditorGUILayout.PropertyField(bulletObject, new GUIContent("New Bullet Pattern: "));
-                                break;
-
-                            case 2://unity event
+                            case 1://unity event
 
                                 SerializedProperty onActivate = serializedObject.FindProperty("m_buffData").GetArrayElementAtIndex(i).FindPropertyRelative("m_onActivate");
                                 SerializedProperty onExpire = serializedObject.FindProperty("m_buffData").GetArrayElementAtIndex(i).FindPropertyRelative("m_onExpire");
@@ -162,7 +156,7 @@ namespace ILOVEYOU
             private void _Delete(int dataToRemove)
             {
 
-                BuffSystem.BuffData[] newData = new BuffSystem.BuffData[m_system.GetData.Length - 1];
+                BuffDataSystem.BuffData[] newData = new BuffDataSystem.BuffData[m_system.GetData.Length - 1];
                 int count = 0;
 
                 for (int i = 0; i < m_system.GetData.Length; i++)
@@ -191,10 +185,16 @@ namespace ILOVEYOU
                 {
                     //replaces title with a default name if no name is present
                     string title = (m_system.GetActiveBuffs[i].GetData.GetName == "") ? "Status Effect " + i + ":" : m_system.GetActiveBuffs[i].GetData.GetName + " (" + i + "):";
+
+                    EditorGUILayout.BeginHorizontal();
+
                     m_foldOutDebugs[i] = EditorGUILayout.Foldout(m_foldOutDebugs[i], title);
-                    //cause resizing is false by default I made it so it appears on false. Jank I know
-                    if (!m_foldOutDebugs[i])
+                    if (m_foldOutDebugs[i])
                     {
+                        EditorGUILayout.EndHorizontal();
+
+                        EditorGUILayout.LabelField("ID: " + m_system.GetActiveBuffs[i].GetData.GetBuffID);
+
                         if (!m_system.GetActiveBuffs[i].GetData.GetPermanent) EditorGUILayout.LabelField("Buff time remaining: " + m_system.GetActiveBuffs[i].CurrentTime);
                         else EditorGUILayout.LabelField("Buff time remaining: N/A");
 
@@ -202,24 +202,28 @@ namespace ILOVEYOU
                         {
                             case 0:
                                 EditorGUILayout.LabelField("Buff Type: Change Player Stats");
+                                EditorGUILayout.Space();
+                                EditorGUILayout.LabelField("Max Health Add: " + m_system.GetActiveBuffs[i].GetData.GetMaxHealth);
+                                EditorGUILayout.LabelField("Move speed Add: " + m_system.GetActiveBuffs[i].GetData.GetMoveSpeed);
+                                EditorGUILayout.LabelField("Shoot Speed Multiplier Add: " + m_system.GetActiveBuffs[i].GetData.GetShootSpeed);
+                                EditorGUILayout.LabelField("Damage Multiplier Add: " + m_system.GetActiveBuffs[i].GetData.GetDamage);
                                 break;
                             case 1:
-                                EditorGUILayout.LabelField("Buff Type: Change Player Weapon");
-                                break;
-                            case 2:
                                 EditorGUILayout.LabelField("Buff Type: Invoke Unity Events");
                                 break;
                             default:
                                 EditorGUILayout.LabelField("Buff Type: Uhhh this is brokeden :(((");
                                 break;
                         }
+
+                        EditorGUILayout.Space();
+                    }
+                    else
+                    {
+                        if (!m_system.GetActiveBuffs[i].GetData.GetPermanent) EditorGUILayout.LabelField("Time: " + m_system.GetActiveBuffs[i].CurrentTime);
+                        EditorGUILayout.EndHorizontal();
                     }
                 }
-            }
-
-            private void OnEnable()
-            {
-
             }
 
             
