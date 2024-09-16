@@ -39,11 +39,31 @@ namespace ILOVEYOU
             /// </summary>
             /// <param name="gm"></param>
             /// <returns></returns>
-            public bool Startup(PlayerInput player, int index)
+            public bool Startup(GameObject player, uint index)
             {
                 if (m_debugging) Debug.Log($"Starting {this}.");
 
+                //setup name and position
+                gameObject.name = $"Level {index}";
+                gameObject.transform.position = new Vector3(500 * (index), 0, 0);
+                //build navmesh
                 GetComponent<NavMeshSurface>().BuildNavMesh();
+
+                //player setup
+                if (m_debugging) Debug.Log("Initalizing player.");
+                m_playMan = player.GetComponent<PlayerManager>();
+                if (!player.GetComponent<PlayerManager>().Startup(this, index))
+                {
+                    Debug.LogError($"{player} failed startup, aborting...");
+                    Destroy(this);
+                    return false;
+                }
+                //move the player to the spawn point
+                if (m_playerSpawn)
+                    m_playMan.transform.SetPositionAndRotation(m_playerSpawn.position, Quaternion.identity);
+                else
+                    m_playMan.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+                m_playMan.transform.SetParent(transform);
 
                 //Setup the hazard manager
                 if (m_debugging) Debug.Log("Getting HazardManager");
@@ -55,18 +75,9 @@ namespace ILOVEYOU
                     Destroy(this);
                     return false;
                 }
+
                 //Get particle spawner
                 m_parSper = GetComponent<ParticleSpawner>();
-
-                //player setup
-                if (m_debugging) Debug.Log("Initalizing player.");
-                m_playMan = player.GetComponent<PlayerManager>();
-                if (!m_playMan.Startup(this, index))
-                {
-                    Debug.LogError($"{m_playMan} failed startup, aborting...");
-                    Destroy(this);
-                    return false;
-                }
 
                 //Get EnemySpawner
                 if (m_debugging) Debug.Log("Getting enemy spawnner.");
@@ -77,19 +88,6 @@ namespace ILOVEYOU
                     Destroy(this);
                     return false;
                 }
-
-                m_parSper = GetComponent<ParticleSpawner>();
-
-                if (m_debugging) Debug.Log($"Player has joined.");
-
-                //move this to game start
-                //m_playMan.GetTaskManager.AddTask(new(TaskType.Area, 5));
-
-                //move the player to the spawn point
-                if (m_playerSpawn)
-                    m_playMan.transform.SetPositionAndRotation(m_playerSpawn.position, Quaternion.identity);
-                else
-                    m_playMan.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
 
                 //passed
                 if (m_debugging) Debug.Log($"{this} started successfully.");
@@ -190,8 +188,13 @@ namespace ILOVEYOU
             {
                 int rnd = Random.Range(0, m_controlPoints.Count);
 
-                m_playMan.GetPointer.GeneratePath(m_controlPoints[rnd].transform);
-                return m_controlPoints[rnd].Init(task);
+                if (m_controlPoints[rnd].Init(task))
+                {
+                    m_playMan.GetPointer.GeneratePath(m_controlPoints[rnd].transform);
+                    return true;
+                }
+                else
+                    return false;
             }
             /// <summary>
             /// Starts a sequence
