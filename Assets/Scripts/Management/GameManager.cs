@@ -24,8 +24,12 @@ namespace ILOVEYOU
         public class GameManager : MonoBehaviour
         {
             public static GameManager Instance { get; private set; }
+            private static Vector2 m_score;
+            public Vector2 GetScore { get { return m_score; } }
+            public static void ResetScore() { m_score = Vector2.zero; }
 
             [SerializeField] private bool m_debugging;
+            public bool isPlaying { get { return enabled; } }
 
             //Other managers
             [SerializeField] private LevelManager m_levelTemplate;
@@ -46,7 +50,6 @@ namespace ILOVEYOU
             }
 
             //Game rules
-            [HideInInspector] public bool isPlaying;
             [Header("Difficulty")]
             //[SerializeField] private float m_timePerStage;
             [SerializeField] private int m_difficultyCap;
@@ -103,27 +106,50 @@ namespace ILOVEYOU
                     return;
                 }
 
+                if (m_debugging) Debug.Log("Attempting to start the game.");
+                GameObject[] players = ControllerManager.Instance.JoinPlayers();
+                for (int i = 0; i < players.Length; i++)
+                {
+                    //camera setup
+                    //spawn a new level
+                    if (m_debugging) Debug.Log("Initializing level");
+                    LevelManager newLevel = Instantiate(m_levelTemplate);
+                    //start level manager
+                    if (!newLevel.Startup(players[i], (uint)i))
+                    {
+                        //manager failed
+                        Debug.LogError($"{m_levelManagers[i]} has failed, aborting...");
+                        Destroy(this);
+                        return;
+                    }
+                    m_levelManagers.Add(newLevel);
+                    //give players the first task in the list to start with
+                    newLevel.GetPlayer.GetTaskManager.AddTask(m_taskList[0]);
+                }
+                m_onGameStart.Invoke();
+
                 //passed
                 if (m_debugging) Debug.Log("Game started successfully! Yippee!!");
             }
-            public void OnPlayerJoined(PlayerInput input)
+/*            public void AttemptStartGame()
             {
-                if (m_debugging) Debug.Log("Initializing level");
-                LevelManager newLevel = Instantiate(m_levelTemplate);
-                m_levelManagers.Add(newLevel);
-                int index = m_levelManagers.Count - 1;
-                newLevel.name = $"Level {index}";
-                newLevel.transform.position = new Vector3(200 * (index), 0, 0);
-
-                //start level manager
-                if (!m_levelManagers[index].Startup(input, index))
+                if (NumberOfPlayers >= 2)
                 {
-                    //manager failed
-                    Debug.LogError($"{m_levelManagers} has failed, aborting...");
-                    Destroy(this);
-                    return;
+
+                    if (m_debugging) Debug.Log("There's enough players, starting game.");
+                    m_mainMenuUI.SetActive(false);
+                    m_InGameSharedUI.SetActive(true);
+                    foreach (LevelManager manager in m_levelManagers)
+                    {
+                        manager.GetPlayer.GetControls.enabled = true;
+                    }
                 }
-            }
+                else
+                {
+                    if (m_debugging) Debug.Log("There aren't enough players");
+                    m_onStartError.Invoke();
+                }
+            }*/
             /// <summary>
             /// 
             /// </summary>
@@ -150,8 +176,16 @@ namespace ILOVEYOU
 
                 //winning player
                 int playerNum = (player == m_levelManagers[0].GetPlayer) ? 1 : 0;
-
-                m_winText.text = $"Player {playerNum + 1} wins!";
+                switch (playerNum)
+                {
+                    case 0:
+                        m_score.x++;
+                        break;
+                    case 1:
+                        m_score.y++;
+                        break;
+                }
+                m_winText.text = $"Player {playerNum + 1} wins!\nScore: {m_score.x} - {m_score.y}";
                 EventSystem.current.SetSelectedGameObject(m_restartButton.gameObject);
 
                 StartCoroutine(_coolSlowMo());
@@ -170,66 +204,29 @@ namespace ILOVEYOU
             /// <summary>
             /// reloads the current scene
             /// </summary>
-            public void RestartScene()
+            public void LoadScene(string sceneName)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                SceneManager.LoadSceneAsync(sceneName);
             }
 
             private void Update()
             {
-                //Give players tasks
-                if (isPlaying)
+                //update spawn timer
+                if (m_spawnTimer <= 0)
                 {
-                    //update spawn timer
-                    if (m_spawnTimer <= 0)
-                    {
-                        m_levelManagers[0].GetSpawner.SpawnEnemyWave();
-                        m_levelManagers[1].GetSpawner.SpawnEnemyWave();
-                        m_spawnTimer = m_spawnTime.Evaluate(m_timer / m_difficultyCap);
-                    }
-                    else
-                    {
-                        m_spawnTimer -= 1f * Time.deltaTime;
-                    }
-
-                    m_timer += Time.deltaTime;
-                    Color timeColor = new(1.0f - Mathf.Clamp(PercentToMaxDiff, 0, 1), 1.0f, 1.0f - Mathf.Clamp(PercentToMaxDiff, 0, 1));
-                    m_timerText.text = $"<color=#{ColorUtility.ToHtmlStringRGB(timeColor)}>{(int)m_timer}</color>";
-                    //Debug.Log($"Current difficulty {GetDifficulty}.");
+                    m_levelManagers[0].GetSpawner.SpawnEnemyWave();
+                    m_levelManagers[1].GetSpawner.SpawnEnemyWave();
+                    m_spawnTimer = m_spawnTime.Evaluate(m_timer / m_difficultyCap);
                 }
                 else
                 {
-                    string displayText = "Connect contorollers.\n";
-                    if (NumberOfPlayers >= 2)
-                    {
-                        m_startButton.interactable = true;
-                        displayText = "";
-                    }
-                    m_reporterTextBox.text = $"{displayText}{NumberOfPlayers} player(s) connected.";
+                    m_spawnTimer -= 1f * Time.deltaTime;
                 }
-            }
-            public void AttemptStartGame()
-            {
-                if (m_debugging) Debug.Log("Attempting to start the game.");
-                if (NumberOfPlayers >= 2)
-                {
 
-                    if (m_debugging) Debug.Log("There's enough players, starting game.");
-                    isPlaying = true;
-                    m_mainMenuUI.SetActive(false);
-                    m_InGameSharedUI.SetActive(true);
-                    foreach (LevelManager manager in m_levelManagers)
-                    {
-                        manager.GetPlayer.GetControls.enabled = true;
-                        manager.GetPlayer.GetTaskManager.AddTask(m_taskList[0]);
-                    }
-                    m_onGameStart.Invoke();
-                }
-                else
-                {
-                    if (m_debugging) Debug.Log("There aren't enough players");
-                    m_onStartError.Invoke();
-                }
+                m_timer += Time.deltaTime;
+                Color timeColor = new(1.0f - Mathf.Clamp(PercentToMaxDiff, 0, 1), 1.0f, 1.0f - Mathf.Clamp(PercentToMaxDiff, 0, 1));
+                m_timerText.text = $"<color=#{ColorUtility.ToHtmlStringRGB(timeColor)}>{(int)m_timer}</color>";
+                //Debug.Log($"Current difficulty {GetDifficulty}.");
             }
             public void GivePlayerCards(PlayerManager player)
             {
