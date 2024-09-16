@@ -17,7 +17,7 @@ namespace ILOVEYOU
                 GameManager manager = (GameManager)data[0];
                 PlayerManager player = (PlayerManager)data[1];
                 PlayerManager target = manager.GetOtherPlayer(player);
-                target.GetComponent<PlayerControls>().TempDisableShooting(m_time);
+                target.GetComponent<PlayerControls>().DisableShooting(m_time);
             }
         }
     }

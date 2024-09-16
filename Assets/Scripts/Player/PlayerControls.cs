@@ -28,7 +28,7 @@ namespace ILOVEYOU
             [SerializeField] private float m_iframesTotal = 1f; //this is in seconds
             private float m_iframesCurrent;
 
-            [SerializeField] private GameObject m_debuffParticleTemp; //THIS IS TEMPORARY LOOK AT:
+            //[SerializeField] private GameObject m_debuffParticleTemp; //THIS IS TEMPORARY LOOK AT:
                                                                       //https://app.hacknplan.com/p/207724/kanban?categoryId=0&boardId=573892&taskId=172&tabId=description
 
             [Header("Movement")]
@@ -122,7 +122,7 @@ namespace ILOVEYOU
             /// <param name="index"></param>
             /// <param name="value"></param>
             /// <returns></returns>
-            public bool ChangeState(int index, float value)
+            public bool ChangeStat(int index, float value)
             {
                 switch (index)
                 {
@@ -130,13 +130,21 @@ namespace ILOVEYOU
                         m_moveSpeed += value;
                         break;
                     case 1:
-                        m_pattern.AddDamage(value);
+                        m_MaxHealth += value;
                         break;
                     case 2:
+                        m_pattern.AddDamage(value);
+                        break;
+                    case 3:
                         m_pattern.AddFireSpeed(value);
                         break;
                 }
                 return true;
+            }
+
+            public void ChangeWeapon(BulletPatternObject obj)
+            {
+                m_pattern.ChangePattern(obj);
             }
             public void Update()
             {
@@ -245,17 +253,17 @@ namespace ILOVEYOU
                     }
                 }
             }
-            public bool TempDisableShooting(float time)
+            public void DisableShooting(float time)
             {
                 m_allowShooting = false;
                 m_plaMa.GetLog.LogInput($"<color=\"red\">Debugger disabled.</color> Rebooting in {time} seconds");
                 m_onShootingDisabled.Invoke();
-                CancelInvoke();
-                m_plaMa.GetLevelManager.GetParticleSpawner.SpawnParticleTime(m_debuffParticleTemp, transform, time);
-                Invoke("ReenableShooting", time);
-                return true;
+                //CancelInvoke();
+                //m_plaMa.GetLevelManager.GetParticleSpawner.SpawnParticleTime(m_debuffParticleTemp, transform, time);
+                //Invoke("ReenableShooting", time);
+                //return true;
             }
-            private void ReenableShooting()
+            public void ReenableShooting()
             {
                 m_allowShooting = true;
                 m_plaMa.GetLog.LogInput($"Debugger rebooted, please enjoy your free trial!");
