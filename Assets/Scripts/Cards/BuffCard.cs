@@ -10,9 +10,12 @@ namespace ILOVEYOU
     {
         public class BuffCard : MonoBehaviour
         {
-            //[SerializeField] private bool m_targetSelf;
             [SerializeField] private int[] m_effectsToGive = new int[0];
+            //[SerializeField] private float[] m_time = new float[0];
             [SerializeField] private int[] m_effectsToGiveSelf = new int[0];
+            //[SerializeField] private float[] m_timeSelf = new float[0];
+
+            //TODO: CUSTOM EDITOR SCRIPT THIS WILL BE SO FUN
 
             public void ExecuteEvents(object[] data)
             {
@@ -31,6 +34,7 @@ namespace ILOVEYOU
                 {
                     target.GetComponent<BuffDataSystem>().GiveBuff(m_effectsToGive[i]);
                 }
+
             }
         }
     }
