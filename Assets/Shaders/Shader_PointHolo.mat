@@ -1,19 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7991857650788984337
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 639247ca83abc874e893eb93af2b5e44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 0
---- !u!114 &-4244684505096762106
+--- !u!114 &-1792884057660215411
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -33,20 +20,27 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader_Water
-  m_Shader: {fileID: -6465566751694194690, guid: 0fc1ba7c56300654088ae60a7e2d722b, type: 3}
-  m_ValidKeywords: []
+  m_Name: Shader_PointHolo
+  m_Shader: {fileID: -6465566751694194690, guid: a027e816aabd6b2419c933b9aa99ad63, type: 3}
+  m_ValidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - DepthOnly
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Texture2D:
+    - _SampleTexture2DLOD_d70ebf9ce7b14ade9d3c9b4c1cd0766c_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 3183b86ad38d02048bc22d913cc140d8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanline:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -64,17 +58,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Absorbtion_Coefficient: 2.63
-    - _Alpha: 0.56
-    - _BUILTIN_QueueControl: 0
-    - _BUILTIN_QueueOffset: 0
-    - _Depth: 0.7
+    - _Alpha: 0.84
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _CastShadows: 1
+    - _Cull: 0
+    - _DstBlend: 10
+    - _Power: 6.27
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scale: 1
-    - _Speed: 0.6
+    - _SrcBlend: 5
+    - _Surface: 1
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
     m_Colors:
-    - _Absorbtion_Colour: {r: 0.8396226, g: 0.1544589, b: 0.78746146, a: 0}
-    - _Water_Colour: {r: 0.7877358, g: 1, b: 0.9893868, a: 0.12941177}
-    - _waterhighlights: {r: 0, g: 0.23773581, b: 0.7924528, a: 0.31764707}
+    - _Color: {r: 0.025490196, g: 0.20294118, b: 0.006862745, a: 0.9372549}
+    - _voronoispeed: {r: 0, g: 12.5, b: 0, a: 0}
   m_BuildTextureStacks: []
