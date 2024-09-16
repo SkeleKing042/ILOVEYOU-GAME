@@ -12,12 +12,8 @@ namespace ILOVEYOU
 
             public override void Initialize(Transform target)
             {
-                m_playerTransform = target;
-                m_rigidBody = GetComponent<Rigidbody>();
+                base.Initialize(target);
                 pattern.AddTarget(m_playerTransform);
-
-                //this seems to not work in unity
-                //base.Initialize(target);
             }
             void Awake()
             {

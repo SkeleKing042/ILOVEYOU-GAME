@@ -15,10 +15,10 @@ namespace ILOVEYOU
             private float m_tempSpeed = 0f;
 
             // Start is called before the first frame update
-            void Start()
+            public override void Initialize(Transform target)
             {
                 m_lungeCooldown = m_lungeTime;
-                m_rigidBody = GetComponent<Rigidbody>();
+                base.Initialize(target);
             }
 
             // Update is called once per frame
