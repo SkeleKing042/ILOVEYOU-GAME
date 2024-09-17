@@ -55,7 +55,7 @@ namespace ILOVEYOU
                 //SceneManager.UnloadSceneAsync(gameObject.scene);
                 //load the next scene
                 SceneManager.LoadSceneAsync(m_sceneName);
-                return null;
+                yield return 0;
             }
             public void QuitApp()
             {
