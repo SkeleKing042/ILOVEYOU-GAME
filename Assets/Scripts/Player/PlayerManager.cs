@@ -91,7 +91,11 @@ namespace ILOVEYOU
 
                 //UI setup
                 //flip hud - needs tweaking
-                if (m_playerID != 0) m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
+                if (m_playerID != 0)
+                {
+                    m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
+                    GetComponent<Animator>().SetBool("Flip", true);
+                }
                 m_blindBox.Initialize(m_playerControls);
                 m_cardDisplay.gameObject.SetActive(false);
                 m_eventLog = GetComponent<EventLogUI>();
