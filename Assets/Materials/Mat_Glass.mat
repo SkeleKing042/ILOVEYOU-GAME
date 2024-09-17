@@ -10,9 +10,10 @@ Material:
   m_Name: Mat_Glass
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ValidKeywords:
-  - _ALPHAPREMULTIPLY_ON
+  - _SPECULARHIGHLIGHTS_OFF
   - _SURFACE_TYPE_TRANSPARENT
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _SPECULAR_COLOR
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -30,6 +31,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Cube:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -84,7 +89,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _Blend: 1
+    - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -96,26 +101,31 @@ Material:
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.705
+    - _GlossinessSource: 0
     - _GlossyReflections: 1
-    - _Metallic: 0.446
-    - _Mode: 3
+    - _Metallic: 0.706
+    - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.705
+    - _Shininess: 0.078125
+    - _Smoothness: 0.793
+    - _SmoothnessSource: 1
     - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
-    - _SrcBlend: 1
+    - _SpecSource: 0
+    - _SpecularHighlights: 0
+    - _SrcBlend: 5
     - _Surface: 1
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.22745098}
-    - _Color: {r: 1, g: 1, b: 1, a: 0.22745098}
+    - _BaseColor: {r: 0.620194, g: 0.7264151, b: 0.6363581, a: 0.54509807}
+    - _Color: {r: 0.620194, g: 0.7264151, b: 0.6363581, a: 0.54509807}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
+    - _SpecColor: {r: 0.6132076, g: 0.4541207, b: 0.4541207, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5582814459658797057
 MonoBehaviour:
