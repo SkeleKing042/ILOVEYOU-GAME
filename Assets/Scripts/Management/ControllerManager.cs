@@ -17,7 +17,8 @@ namespace ILOVEYOU
             [SerializeField] private uint m_maxControllers;
             private Controller[] m_controllers;
             public uint ControllerCount => (uint)transform.childCount;
-            public uint MostRecentID => transform.GetChild(transform.childCount - 1).GetComponent<Controller>().ID;
+            private uint m_recentID;
+            public uint MostRecentID => m_recentID;
             [SerializeField] private GameObject m_playerPrefab;
             public static ControllerManager Instance { get; private set; }
             private void Awake()
@@ -32,15 +33,18 @@ namespace ILOVEYOU
                 if (!m_ignoreJoin)
                 {
                     //made child so not destroyed on scene change
-                    input.transform.SetParent(transform);
 
                     //save controller to array
                     for (uint i = 0; i < m_controllers.Length; i++)
                     {
                         if (m_controllers[i] == null)
                         {
+                            input.transform.SetParent(transform);
+                            input.transform.SetSiblingIndex((int)i);
                             m_controllers[i] = input.GetComponent<Controller>();
+                            m_controllers[i].name = $"{input.currentControlScheme} - {i}";
                             m_controllers[i].ID = i;
+                            m_recentID = i;
                             break;
                         }
                     }
@@ -62,6 +66,11 @@ namespace ILOVEYOU
                 }
                 m_ignoreJoin = false;
                 return players;
+            }
+            //a player has left
+            public void PlayerLeft(uint id)
+            {
+                m_recentID = id;
             }
         }
     }
