@@ -20,7 +20,7 @@ public class CopyPaste : MonoBehaviour
 
     private void Update()
     {
-        m_cloneTargets.Add(new GameObject(), m_targetObject);
+        m_cloneTargets.Add(new GameObject());
         Debug.Break();
 
         if (m_cloneTargets.Count > 0)
