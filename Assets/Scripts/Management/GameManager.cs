@@ -14,6 +14,7 @@ using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
 using System.Collections.Generic;
+using ILOVEYOU.UI;
 
 namespace ILOVEYOU
 {
@@ -26,7 +27,7 @@ namespace ILOVEYOU
             //static stuff
             public static GameManager Instance { get; private set; }
             private static Vector2 m_score;
-            public Vector2 GetScore { get { return m_score; } }
+            public static Vector2 GetScore { get { return m_score; } }
             public static void ResetScore() { m_score = Vector2.zero; }
 
             [SerializeField] private bool m_debugging;
@@ -71,20 +72,7 @@ namespace ILOVEYOU
             [SerializeField] private Task[] m_taskList;
             public Task[] GetTasks { get { return m_taskList; } }
 
-            [Header("UI")]
-            [Header("Main Menu")]
-            [SerializeField] private GameObject m_mainMenuUI;
-            [SerializeField] private TextMeshProUGUI m_reporterTextBox;
-            [SerializeField] private Button m_startButton;
-
-            [Header("In-Game Menu")]
-            [SerializeField] private GameObject m_InGameSharedUI;
-            [SerializeField] private TextMeshProUGUI m_timerText;
-
-            [Header("Victory Menu")]
-            [SerializeField] private GameObject m_winScreen;
-            [SerializeField] private TextMeshProUGUI m_winText;
-            [SerializeField] private Button m_restartButton;
+            [SerializeField] private GameUI m_gameUI;
 
             [Header("Events - mostly for visuals and sounds")]
             [SerializeField] private UnityEvent m_onGameStart;
@@ -194,7 +182,6 @@ namespace ILOVEYOU
             /// <param name="player">player manager of the losing player</param>
             public void PlayerDeath(PlayerManager player)
             {
-                m_winScreen.SetActive(true);
 
                 //winning player
                 int playerNum = (player == m_levelManagers[0].GetPlayer) ? 1 : 0;
@@ -207,8 +194,7 @@ namespace ILOVEYOU
                         m_score.y++;
                         break;
                 }
-                m_winText.text = $"Player {playerNum + 1} wins!\nScore: {m_score.x} - {m_score.y}";
-                EventSystem.current.SetSelectedGameObject(m_restartButton.gameObject);
+                m_gameUI.DisplayWinScreen(playerNum + 1);
 
                 StartCoroutine(_coolSlowMo());
                 m_onGameEnd.Invoke();
@@ -248,8 +234,7 @@ namespace ILOVEYOU
                 }
 
                 m_timer += Time.deltaTime;
-                Color timeColor = new(1.0f - Mathf.Clamp(PercentToMaxDiff, 0, 1), 1.0f, 1.0f - Mathf.Clamp(PercentToMaxDiff, 0, 1));
-                m_timerText.text = $"<color=#{ColorUtility.ToHtmlStringRGB(timeColor)}>{(int)m_timer}</color>";
+                m_gameUI.UpdateTimer(m_timer);
                 //Debug.Log($"Current difficulty {GetDifficulty}.");
             }
             public void GivePlayerCards(PlayerManager player)
