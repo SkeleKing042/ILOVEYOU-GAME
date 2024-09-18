@@ -23,13 +23,13 @@ namespace ILOVEYOU
         [RequireComponent(typeof(CardManager))]
         public class GameManager : MonoBehaviour
         {
+            //static stuff
             public static GameManager Instance { get; private set; }
             private static Vector2 m_score;
             public Vector2 GetScore { get { return m_score; } }
             public static void ResetScore() { m_score = Vector2.zero; }
 
             [SerializeField] private bool m_debugging;
-            public bool isPlaying { get { return enabled; } }
 
             //Other managers
             [SerializeField] private LevelManager m_levelTemplate;
@@ -49,6 +49,10 @@ namespace ILOVEYOU
                 }
             }
 
+            //Game settings
+            [Header("Settings")]
+            [SerializeField] private float m_roundStartCountdown;
+            public bool isPlaying { get { return enabled; } }
             //Game rules
             [Header("Difficulty")]
             //[SerializeField] private float m_timePerStage;
@@ -88,6 +92,11 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onGameEnd;
             [SerializeField] private UnityEvent m_onTaskAssignment;
             private void Awake()
+            {
+                if(!m_debugging)
+                BeginSetup();
+            }
+            public void BeginSetup()
             {
                 Time.timeScale = 1f;
                 //Singleton setup
@@ -129,7 +138,20 @@ namespace ILOVEYOU
                 m_onGameStart.Invoke();
 
                 //passed
-                if (m_debugging) Debug.Log("Game started successfully! Yippee!!");
+                if (m_debugging) Debug.Log($"Game started successfully!\nStarting game in {m_roundStartCountdown}.");
+                if (!enabled)
+                {
+                    StartCoroutine(_startGame());
+                }
+            }
+            private IEnumerator _startGame()
+            {
+                yield return new WaitForSecondsRealtime(m_roundStartCountdown);
+                enabled = true;
+                foreach(var player in m_levelManagers)
+                {
+                    player.GetPlayer.GetControls.enabled = true;
+                }
             }
 /*            public void AttemptStartGame()
             {
@@ -214,8 +236,10 @@ namespace ILOVEYOU
                 //update spawn timer
                 if (m_spawnTimer <= 0)
                 {
-                    m_levelManagers[0].GetSpawner.SpawnEnemyWave();
-                    m_levelManagers[1].GetSpawner.SpawnEnemyWave();
+                    foreach(var level in m_levelManagers)
+                    {
+                        level.GetSpawner.SpawnEnemyWave();
+                    }
                     m_spawnTimer = m_spawnTime.Evaluate(m_timer / m_difficultyCap);
                 }
                 else

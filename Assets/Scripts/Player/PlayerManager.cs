@@ -62,8 +62,10 @@ namespace ILOVEYOU
                 //save manager
                 m_levelManager = manager;
                 //camera setup
+                float plyrCount = ControllerManager.Instance.NumberOfActivePlayers;
+                float spacing = 1 / plyrCount;
                 Camera cam = GetComponentInChildren<Camera>();
-                    cam.rect = new(0.5f * index, 0, 0.5f, 1);
+                    cam.rect = new(spacing * index, 0, spacing, 1);
 
                 if (m_debugging) Debug.Log($"Getting task manager.");
                 m_taskMan = GetComponent<TaskManager>();
@@ -91,8 +93,12 @@ namespace ILOVEYOU
 
                 //UI setup
                 //flip hud - needs tweaking
-                if (m_playerID != 0) m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
-                m_blindBox.Initialize(m_playerControls);
+                if (m_playerID != 0)
+                {
+                    m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
+                    GetComponent<Animator>().SetBool("Flip", true);
+                }
+                m_blindBox.Initialize();
                 m_cardDisplay.gameObject.SetActive(false);
                 m_eventLog = GetComponent<EventLogUI>();
 

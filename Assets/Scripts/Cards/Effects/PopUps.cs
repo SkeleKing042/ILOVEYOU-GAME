@@ -11,21 +11,20 @@ namespace ILOVEYOU
         {
             [SerializeField] GameObject[] m_popUpPrefabs;
             private List<GameObject> m_currentPopups;
-            private PlayerControls m_playerControls;
+            [SerializeField] private PlayerControls m_playerControls;
             private Vector2 m_canvasDimensions;
 
             private void Update()
             {
                 //this is to ensure that the player can close the windows again just in case it gets overriden
-                m_playerControls.SetContext(WindowClosed, 2, $"Press <sprite=\"buttonSpriteSheet\" index=1> to close Popups!");
+                m_playerControls.SetContext(WindowClosed, 2, $"Press <sprite=\"buttonSpriteSheet\" index=3> to close Popups!");
             }
             /// <summary>
             /// sets up variables in order for this script to work
             /// </summary>
             /// <param name="controls">player controls for the script to access</param>
-            public void Initialize(PlayerControls controls)
+            public void Initialize()
             {
-                m_playerControls = controls;
                 m_currentPopups = new();
                 m_canvasDimensions = new(GetComponent<RectTransform>().rect.width, GetComponent<RectTransform>().rect.height);
                 gameObject.SetActive(false);
@@ -50,7 +49,7 @@ namespace ILOVEYOU
 
                 }
                 //sets the context button to WindowClosed() to allow for closing of the window
-                m_playerControls.SetContext(WindowClosed, 2, "Mash <sprite=\"buttonSpriteSheet\" index=1> to close Popups!");
+                m_playerControls.SetContext(WindowClosed, 2, "Mash <sprite=\"buttonSpriteSheet\" index=3> to close Popups!");
             }
             /// <summary>
             /// Destroys and resets required variables. Disables gameobject
