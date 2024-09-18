@@ -45,7 +45,10 @@ namespace ILOVEYOU
             public void OnLeave()
             {
                 if (!IsAssigned)
+                {
                     Destroy(gameObject);
+                    ControllerManager.Instance.PlayerLeft(ID);
+                }
             }
         }
     }
