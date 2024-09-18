@@ -11,7 +11,7 @@ namespace ILOVEYOU
         {
             [SerializeField] GameObject[] m_popUpPrefabs;
             private List<GameObject> m_currentPopups;
-            private PlayerControls m_playerControls;
+            [SerializeField] private PlayerControls m_playerControls;
             private Vector2 m_canvasDimensions;
 
             private void Update()
@@ -23,9 +23,8 @@ namespace ILOVEYOU
             /// sets up variables in order for this script to work
             /// </summary>
             /// <param name="controls">player controls for the script to access</param>
-            public void Initialize(PlayerControls controls)
+            public void Initialize()
             {
-                m_playerControls = controls;
                 m_currentPopups = new();
                 m_canvasDimensions = new(GetComponent<RectTransform>().rect.width, GetComponent<RectTransform>().rect.height);
                 gameObject.SetActive(false);

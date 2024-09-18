@@ -93,6 +93,11 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onTaskAssignment;
             private void Awake()
             {
+                if(!m_debugging)
+                BeginSetup();
+            }
+            public void BeginSetup()
+            {
                 Time.timeScale = 1f;
                 //Singleton setup
                 Instance = this;
@@ -231,8 +236,10 @@ namespace ILOVEYOU
                 //update spawn timer
                 if (m_spawnTimer <= 0)
                 {
-                    m_levelManagers[0].GetSpawner.SpawnEnemyWave();
-                    m_levelManagers[1].GetSpawner.SpawnEnemyWave();
+                    foreach(var level in m_levelManagers)
+                    {
+                        level.GetSpawner.SpawnEnemyWave();
+                    }
                     m_spawnTimer = m_spawnTime.Evaluate(m_timer / m_difficultyCap);
                 }
                 else

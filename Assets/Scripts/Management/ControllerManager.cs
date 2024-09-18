@@ -15,15 +15,24 @@ namespace ILOVEYOU
         {
             bool m_ignoreJoin = false;
             [SerializeField] private uint m_maxControllers;
-            private Controller[] m_controllers;
+            [SerializeField] private List<Controller> m_controllers = new();
+            public List<Controller> GetControllers => m_controllers;
             public uint ControllerCount => (uint)transform.childCount;
+            public uint NumberOfActivePlayers { get
+                {
+                    uint count = 0;
+                    foreach(var controller in m_controllers)
+                        if (controller.IsAssigned)
+                            count++;
+                    return count;
+                } }
             private uint m_recentID;
             public uint MostRecentID => m_recentID;
             [SerializeField] private GameObject m_playerPrefab;
             public static ControllerManager Instance { get; private set; }
             private void Awake()
             {
-                m_controllers = new Controller[m_maxControllers];
+                //m_controllers = new Controller[m_maxControllers];
                 DontDestroyOnLoad(this);
                 Instance = this;
             }
@@ -33,22 +42,36 @@ namespace ILOVEYOU
                 if (!m_ignoreJoin)
                 {
                     //made child so not destroyed on scene change
+                    input.transform.SetParent(transform);
 
-                    //save controller to array
-                    for (uint i = 0; i < m_controllers.Length; i++)
+                    if (m_controllers.Count == 0)
                     {
-                        if (m_controllers[i] == null)
+                        _setID(0, input);
+                        return;
+                    }
+                    //go through each id
+                    for (int i = 0; i < m_controllers.Count; i++)
+                    {
+                        //compare id
+                        if (m_controllers[i].ID > i)
                         {
-                            input.transform.SetParent(transform);
-                            input.transform.SetSiblingIndex((int)i);
-                            m_controllers[i] = input.GetComponent<Controller>();
-                            m_controllers[i].name = $"{input.currentControlScheme} - {i}";
-                            m_controllers[i].ID = i;
-                            m_recentID = i;
-                            break;
+                            _setID(i, input);
+                            return;
                         }
                     }
+                    //this input is added to the end of the list
+                    _setID(m_controllers.Count, input);
+                    return;
                 }
+            }
+            private void _setID(int index, PlayerInput input)
+            {
+                input.transform.SetSiblingIndex(index);
+                m_controllers.Insert(index, input.GetComponent<Controller>());
+                m_controllers[index].name = $"{input.currentControlScheme} - {index}";
+                m_controllers[index].ID = (uint)index;
+                m_recentID = (uint)index;
+
             }
             //instances player objects - for scene start
             public GameObject[] JoinPlayers()
@@ -68,9 +91,12 @@ namespace ILOVEYOU
                 return players;
             }
             //a player has left
-            public void PlayerLeft(uint id)
+            public void PlayerLeft(Controller caller)
             {
-                m_recentID = id;
+                int index = m_controllers.IndexOf(caller);
+                m_recentID = caller.ID;
+                Destroy(caller.gameObject);
+                m_controllers.RemoveAt(index);
             }
         }
     }

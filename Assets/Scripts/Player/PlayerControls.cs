@@ -96,11 +96,8 @@ namespace ILOVEYOU
                 m_contextPriority = 0;
                 m_contextText.text = "";
             }
-
-            public bool Startup()
+            private void Awake()
             {
-                if (m_debugging) Debug.Log($"Starting {this}.");
-
                 m_facingObject = transform.GetChild(0);
                 m_pattern = m_facingObject.GetComponent<BulletPattern>();
                 m_Collider = GetComponent<Collider>();
@@ -109,6 +106,11 @@ namespace ILOVEYOU
                 m_health = m_MaxHealth;
                 UpdateHealthBar();
                 m_allowShooting = true;
+            }
+            public bool Startup()
+            {
+                if (m_debugging) Debug.Log($"There's nothing to start in {this}. It was all done in Awake.");
+
 
                 return true;
             }
