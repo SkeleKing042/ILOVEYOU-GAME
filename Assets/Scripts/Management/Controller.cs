@@ -7,11 +7,11 @@ namespace ILOVEYOU
 {
     namespace Management
     {
-
+        [System.Serializable]
         public class Controller : MonoBehaviour
         {
             //The devices on the controller
-            private uint m_id;
+            [SerializeField] private uint m_id;
             public uint ID { get { return m_id; } set { m_id = value; } }
             private InputDevice[] m_devices;
             public InputDevice[] GetDevice => m_devices;
@@ -45,7 +45,9 @@ namespace ILOVEYOU
             public void OnLeave()
             {
                 if (!IsAssigned)
-                    Destroy(gameObject);
+                {
+                    ControllerManager.Instance.PlayerLeft(this);
+                }
             }
         }
     }

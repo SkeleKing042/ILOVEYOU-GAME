@@ -14,6 +14,7 @@ using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
 using System.Collections.Generic;
+using ILOVEYOU.UI;
 
 namespace ILOVEYOU
 {
@@ -23,13 +24,13 @@ namespace ILOVEYOU
         [RequireComponent(typeof(CardManager))]
         public class GameManager : MonoBehaviour
         {
+            //static stuff
             public static GameManager Instance { get; private set; }
             private static Vector2 m_score;
-            public Vector2 GetScore { get { return m_score; } }
+            public static Vector2 GetScore { get { return m_score; } }
             public static void ResetScore() { m_score = Vector2.zero; }
 
             [SerializeField] private bool m_debugging;
-            public bool isPlaying { get { return enabled; } }
 
             //Other managers
             [SerializeField] private LevelManager m_levelTemplate;
@@ -49,6 +50,10 @@ namespace ILOVEYOU
                 }
             }
 
+            //Game settings
+            [Header("Settings")]
+            [SerializeField] private float m_roundStartCountdown;
+            public bool isPlaying { get { return enabled; } }
             //Game rules
             [Header("Difficulty")]
             //[SerializeField] private float m_timePerStage;
@@ -67,20 +72,7 @@ namespace ILOVEYOU
             [SerializeField] private Task[] m_taskList;
             public Task[] GetTasks { get { return m_taskList; } }
 
-            [Header("UI")]
-            [Header("Main Menu")]
-            [SerializeField] private GameObject m_mainMenuUI;
-            [SerializeField] private TextMeshProUGUI m_reporterTextBox;
-            [SerializeField] private Button m_startButton;
-
-            [Header("In-Game Menu")]
-            [SerializeField] private GameObject m_InGameSharedUI;
-            [SerializeField] private TextMeshProUGUI m_timerText;
-
-            [Header("Victory Menu")]
-            [SerializeField] private GameObject m_winScreen;
-            [SerializeField] private TextMeshProUGUI m_winText;
-            [SerializeField] private Button m_restartButton;
+            [SerializeField] private GameUI m_gameUI;
 
             [Header("Events - mostly for visuals and sounds")]
             [SerializeField] private UnityEvent m_onGameStart;
@@ -88,6 +80,11 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onGameEnd;
             [SerializeField] private UnityEvent m_onTaskAssignment;
             private void Awake()
+            {
+                if(!m_debugging)
+                BeginSetup();
+            }
+            public void BeginSetup()
             {
                 Time.timeScale = 1f;
                 //Singleton setup
@@ -129,7 +126,20 @@ namespace ILOVEYOU
                 m_onGameStart.Invoke();
 
                 //passed
-                if (m_debugging) Debug.Log("Game started successfully! Yippee!!");
+                if (m_debugging) Debug.Log($"Game started successfully!\nStarting game in {m_roundStartCountdown}.");
+                if (!enabled)
+                {
+                    StartCoroutine(_startGame());
+                }
+            }
+            private IEnumerator _startGame()
+            {
+                yield return new WaitForSecondsRealtime(m_roundStartCountdown);
+                enabled = true;
+                foreach(var player in m_levelManagers)
+                {
+                    player.GetPlayer.GetControls.enabled = true;
+                }
             }
 /*            public void AttemptStartGame()
             {
@@ -172,7 +182,6 @@ namespace ILOVEYOU
             /// <param name="player">player manager of the losing player</param>
             public void PlayerDeath(PlayerManager player)
             {
-                m_winScreen.SetActive(true);
 
                 //winning player
                 int playerNum = (player == m_levelManagers[0].GetPlayer) ? 1 : 0;
@@ -185,8 +194,7 @@ namespace ILOVEYOU
                         m_score.y++;
                         break;
                 }
-                m_winText.text = $"Player {playerNum + 1} wins!\nScore: {m_score.x} - {m_score.y}";
-                EventSystem.current.SetSelectedGameObject(m_restartButton.gameObject);
+                m_gameUI.DisplayWinScreen(playerNum + 1);
 
                 StartCoroutine(_coolSlowMo());
                 m_onGameEnd.Invoke();
@@ -214,8 +222,10 @@ namespace ILOVEYOU
                 //update spawn timer
                 if (m_spawnTimer <= 0)
                 {
-                    m_levelManagers[0].GetSpawner.SpawnEnemyWave();
-                    m_levelManagers[1].GetSpawner.SpawnEnemyWave();
+                    foreach(var level in m_levelManagers)
+                    {
+                        level.GetSpawner.SpawnEnemyWave();
+                    }
                     m_spawnTimer = m_spawnTime.Evaluate(m_timer / m_difficultyCap);
                 }
                 else
@@ -224,8 +234,7 @@ namespace ILOVEYOU
                 }
 
                 m_timer += Time.deltaTime;
-                Color timeColor = new(1.0f - Mathf.Clamp(PercentToMaxDiff, 0, 1), 1.0f, 1.0f - Mathf.Clamp(PercentToMaxDiff, 0, 1));
-                m_timerText.text = $"<color=#{ColorUtility.ToHtmlStringRGB(timeColor)}>{(int)m_timer}</color>";
+                m_gameUI.UpdateTimer(m_timer);
                 //Debug.Log($"Current difficulty {GetDifficulty}.");
             }
             public void GivePlayerCards(PlayerManager player)
