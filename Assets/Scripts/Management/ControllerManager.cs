@@ -41,6 +41,7 @@ namespace ILOVEYOU
             {
                 if (!m_ignoreJoin)
                 {
+                    Debug.Log($"Player joined with {input.devices[0]}.");
                     //made child so not destroyed on scene change
                     input.transform.SetParent(transform);
 
@@ -76,6 +77,7 @@ namespace ILOVEYOU
             //instances player objects - for scene start
             public GameObject[] JoinPlayers()
             {
+                Debug.Log("Instancing players...");
                 m_ignoreJoin = true;
                 GameObject[] players = new GameObject[transform.childCount];
                 for (int i = 0; i < transform.childCount; i++)
@@ -88,6 +90,7 @@ namespace ILOVEYOU
                     }
                 }
                 m_ignoreJoin = false;
+                Debug.Log("Players instanced...");
                 return players;
             }
             //a player has left
