@@ -1,5 +1,6 @@
 using ILOVEYOU.Management;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -13,18 +14,23 @@ namespace ILOVEYOU
             class EnemyPrefabs
             {
                 [SerializeField] private string m_groupName;
-                [SerializeField][Tooltip("When difficulty/time is below this value, use this spawn group, values with 0 are ignored in the wave spawner")] private float m_threshold;
+                //[SerializeField][Tooltip("When difficulty/time is below this value, use this spawn group, values with 0 are ignored in the wave spawner"), Min(-1)] private Vector2 m_threshold;
+                [Tooltip("When the enemy group spawns in. The X axis is the difficulty and Y is the likelyness of the enemy group spawning.")]
+                [SerializeField] private AnimationCurve m_spawnRate;
                 [SerializeField] private GameObject[] m_enemyPrefabs;
 
                 public GameObject EnemyPrefab(int i) { return m_enemyPrefabs[i]; }
                 public GameObject RandomEnemyPrefab() { return m_enemyPrefabs[Random.Range(0, m_enemyPrefabs.Length)]; }
-                public float Threshold() { return m_threshold; }
+                public AnimationCurve Threshold() { return m_spawnRate; }
 
             }
 
             [SerializeField] private EnemyPrefabs[] m_enemyGroups;
             [SerializeField] private float m_spawnRange;
             [SerializeField] private LayerMask m_spawnMask;
+
+            [SerializeField] private AnimationCurve m_enemyCap;
+            private List<GameObject> m_enemyObjects = new();
 
             [Header("Events")]
             [SerializeField] private UnityEvent m_onSpawnEnemy;
@@ -44,13 +50,11 @@ namespace ILOVEYOU
                 //goes through each prefab list
                 for (int i = 0; i < m_enemyGroups.Length; i++)
                 {
+                    float rnd = Random.Range(0.0f, 1.0f);
                     //ignores list if threshold is 0 or the current difficulty is larger than the threshold assigned to the group
-                    if (GameManager.Instance.GetDifficulty > m_enemyGroups[i].Threshold() || m_enemyGroups[i].Threshold() == 0) continue;
+                    if (m_enemyGroups[i].Threshold().Evaluate(Mathf.Clamp(GameManager.Instance.PercentToMaxDiff, 0 , 1)) <= rnd) continue;
 
-                    SpawnRandomEnemiesFromGroup(i);
-
-                    //terminates function to prevent further enemy spawn functions from being called
-                    return;
+                    if (_SpawnEnemy(m_enemyGroups[i].RandomEnemyPrefab())) m_onSpawnEnemy.Invoke();
                 }
             }
             /// <summary>
@@ -107,7 +111,11 @@ namespace ILOVEYOU
 
             private bool _SpawnEnemy(GameObject prefab)
             {
-
+                if (m_enemyObjects.Count >= m_enemyCap.Evaluate(GameManager.Instance.PercentToMaxDiff))
+                {
+                    Debug.Log("Max number of enemies reached!");
+                    return false;
+                }
                 //creates enemy from given prefab
                 GameObject enemy = Instantiate(prefab);
                 //attempts 100 times to spawn an enemy
@@ -122,6 +130,7 @@ namespace ILOVEYOU
                     {
                         //intializes enemy script
                         enemy.GetComponent<Enemy>().Initialize(transform);
+                        m_enemyObjects.Add(enemy);
                         return true;
                     }
                 }
@@ -129,6 +138,19 @@ namespace ILOVEYOU
                 //destroys if no attempts work
                 Destroy(enemy);
                 return false;
+            }
+
+            private void Update()
+            {
+                //empty out the list
+                for(int i = 0; i < m_enemyObjects.Count; i++)
+                {
+                    if (!m_enemyObjects[i])
+                    {
+                        m_enemyObjects.RemoveAt(i);
+                        i--;
+                    }
+                }
             }
         }
     }

@@ -4,6 +4,7 @@ using ILOVEYOU.Management;
 using ILOVEYOU.Player;
 //using System;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,13 +27,10 @@ namespace ILOVEYOU
             public EnemySpawner GetSpawner { get { return m_enSper; } }
             private HazardManager m_hazMan;
 
-            private bool m_usingAIPointer;
             [Header("Players")]
             [SerializeField] private Transform m_playerSpawn;
-            [Header("Environment")]
             [Header("Control points")]
             [SerializeField] private List<AreaControlPoint> m_controlPoints;
-            private PointFollower m_pointTracker;
             [Header("Sequences")]
             [SerializeField] private List<Sequence> m_sequences;
 
@@ -41,9 +39,31 @@ namespace ILOVEYOU
             /// </summary>
             /// <param name="gm"></param>
             /// <returns></returns>
-            public bool Startup(PlayerInput player, int index)
+            public bool Startup(GameObject player, uint index)
             {
                 if (m_debugging) Debug.Log($"Starting {this}.");
+
+                //setup name and position
+                gameObject.name = $"Level {index}";
+                gameObject.transform.position = new Vector3(500 * (index), 0, 0);
+                //build navmesh
+                GetComponent<NavMeshSurface>().BuildNavMesh();
+
+                //player setup
+                if (m_debugging) Debug.Log("Initalizing player.");
+                m_playMan = player.GetComponent<PlayerManager>();
+                if (!player.GetComponent<PlayerManager>().Startup(this, index))
+                {
+                    Debug.LogError($"{player} failed startup, aborting...");
+                    Destroy(this);
+                    return false;
+                }
+                //move the player to the spawn point
+                if (m_playerSpawn)
+                    m_playMan.transform.SetPositionAndRotation(m_playerSpawn.position, Quaternion.identity);
+                else
+                    m_playMan.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+                m_playMan.transform.SetParent(transform);
 
                 //Setup the hazard manager
                 if (m_debugging) Debug.Log("Getting HazardManager");
@@ -55,18 +75,9 @@ namespace ILOVEYOU
                     Destroy(this);
                     return false;
                 }
+
                 //Get particle spawner
                 m_parSper = GetComponent<ParticleSpawner>();
-
-                //player setup
-                if (m_debugging) Debug.Log("Initalizing player.");
-                m_playMan = player.GetComponent<PlayerManager>();
-                if (!m_playMan.Startup(this, index))
-                {
-                    Debug.LogError($"{m_playMan} failed startup, aborting...");
-                    Destroy(this);
-                    return false;
-                }
 
                 //Get EnemySpawner
                 if (m_debugging) Debug.Log("Getting enemy spawnner.");
@@ -77,40 +88,6 @@ namespace ILOVEYOU
                     Destroy(this);
                     return false;
                 }
-
-                m_parSper = GetComponent<ParticleSpawner>();
-
-                //Setup pointer arrow ai
-                if (m_debugging) Debug.Log("Getting point tracker.");
-                m_pointTracker = GetComponentInChildren<PointFollower>();
-                if (m_debugging) Debug.Log("Setting up point tracker");
-                if (m_pointTracker == null)
-                {
-                    Debug.LogWarning("AI tracker not found.");
-                    m_usingAIPointer = false;
-                }
-                else if (!m_pointTracker.Init(m_playMan.transform))
-                {
-                    Debug.LogWarning("Point tracker failed to initialize correctly");
-                    m_usingAIPointer = false;
-                }
-                else
-                {
-                    m_playMan.GetComponentInChildren<PointerArrow>().Target = m_pointTracker.transform;
-                    m_usingAIPointer = true;
-                }
-
-
-                if (m_debugging) Debug.Log($"Player has joined.");
-
-                //move this to game start
-                //m_playMan.GetTaskManager.AddTask(new(TaskType.Area, 5));
-
-                //move the player to the spawn point
-                if (m_playerSpawn)
-                    m_playMan.transform.SetPositionAndRotation(m_playerSpawn.position, Quaternion.identity);
-                else
-                    m_playMan.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
 
                 //passed
                 if (m_debugging) Debug.Log($"{this} started successfully.");
@@ -211,8 +188,13 @@ namespace ILOVEYOU
             {
                 int rnd = Random.Range(0, m_controlPoints.Count);
 
-                //m_pointTracker.SetDestination(m_controlPoints[rnd].transform.position);
-                return m_controlPoints[rnd].Init(task);
+                if (m_controlPoints[rnd].Init(task))
+                {
+                    m_playMan.GetPointer.GeneratePath(m_controlPoints[rnd].transform);
+                    return true;
+                }
+                else
+                    return false;
             }
             /// <summary>
             /// Starts a sequence

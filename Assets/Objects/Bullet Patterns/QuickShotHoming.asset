@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b89321c30b957b440a960af42175ac50, type: 3}
+  m_Name: QuickShotHoming
+  m_EditorClassIdentifier: 
+  m_bulletArrays:
+  - Name: Main
+    BulletPrefab: {fileID: 5662109590556615802, guid: e51270fce3b530a448da689ee4583a4d, type: 3}
+    BulletsPerArray: 1
+    SpreadWithinArrays: 0
+    InitialAngle: 1
+    AngleOffset: 0
+    SpinFactor: 0
+    BulletDamage: 5
+    BulletPierce: 0
+    BulletSpeed: 20
+    BulletAcceleration: 0
+    SidewaysBulletAcceleration: 100
+    FireSpeed: 0.1
+    FireSpeedOffset: 0
+    BulletLifetime: 1
+    Offset: {x: 0, y: 0}

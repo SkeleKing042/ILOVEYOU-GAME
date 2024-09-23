@@ -25,11 +25,11 @@ namespace ILOVEYOU
             {
                 //bug: if initial m_speed is 0, any acceleration applied to the bullet makes it move all whacky
                 //basic movement
-                transform.position += m_speed * Time.deltaTime * transform.forward + m_sideSpeed * Time.deltaTime * transform.right;
+                transform.position += m_speed * Time.fixedDeltaTime * transform.forward + m_sideSpeed * Time.fixedDeltaTime * transform.right;
                 //accelerates speed linearly
-                m_speed += m_fwdaccelValue * Time.deltaTime;
+                m_speed += m_fwdaccelValue * Time.fixedDeltaTime;
                 //accelerates side speed linearly
-                m_sideSpeed += m_sideaccelValue * Time.deltaTime;
+                m_sideSpeed += m_sideaccelValue * Time.fixedDeltaTime;
 
             }
 

@@ -11,13 +11,10 @@ namespace ILOVEYOU
     {
         public class DisruptCard : MonoBehaviour
         {
-            [HideInInspector]
-            public UnityEvent m_playerHandToDiscard;
             public void Trigger(GameManager manager, PlayerManager player)
             {
                 //This function is called by a button on click event, a script with this function should be attached to the same gameobject as this script
                 SendMessage("ExecuteEvents", new object[] { manager, player });
-                m_playerHandToDiscard.Invoke();
             }
         }
     }

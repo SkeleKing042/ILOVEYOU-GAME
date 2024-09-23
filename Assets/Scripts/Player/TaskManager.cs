@@ -1,3 +1,5 @@
+using ILOVEYOU.UI;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -15,6 +17,8 @@ namespace ILOVEYOU
             private PlayerManager m_player;
             private Task[] m_tasks = new Task[10];
 
+           //[SerializeField] private string[] m_taskDescriptions = new string[5];
+
             public int NumberOfTasks
             {
                 get
@@ -30,11 +34,12 @@ namespace ILOVEYOU
             [HideInInspector] public int TaskCompletionPoints;
             [Header("UI")]
             //this should have a slider/image
-            [SerializeField] private Image m_taskUIPrefab;
+            /*[SerializeField] private Image m_taskUIPrefab;
             private Image[] m_taskBars = new Image[10];
             [SerializeField] private Transform m_taskUIContainer;
             [SerializeField] private TextMeshProUGUI m_iconDisplay;
-            [SerializeField] private Color m_iconColor;
+            [SerializeField] private Color m_iconColor;*/
+            [SerializeField] private TaskDisplay m_taskDisplay;
             public bool Startup()
             {
                 if(m_debugging) Debug.Log($"Starting {this}");
@@ -46,7 +51,7 @@ namespace ILOVEYOU
                 {
                     m_tasks[i] = new(TaskType.Invalid, 0);
                 }
-                m_taskBars = new Image[m_taskLimit];
+                //m_taskBars = new Image[m_taskLimit];
 
                 if (m_debugging) Debug.Log($"{this} started successfully.");
                 return true;
@@ -67,10 +72,8 @@ namespace ILOVEYOU
                         //Fill the slot with a new task
                         m_tasks[i] = new(type, cap);
 
-                        //Create matching ui elements
-                        Image taskUI = Instantiate(m_taskUIPrefab);
-                        m_taskBars[i] = taskUI.transform.GetChild(0).GetComponent<Image>();
-                        taskUI.transform.SetParent(m_taskUIContainer, false);
+                        //Set up ui element
+                        if (m_taskDisplay) m_taskDisplay.SetTask(ref m_tasks[i]);
 
                         if (m_tasks[i].GetTaskType == TaskType.Area)
                         {
@@ -82,7 +85,6 @@ namespace ILOVEYOU
                         }
 
                         m_player.GetLog.LogInput($"<color=\"green\"><sprite=\"iconSheet\" index={(int)m_tasks[i].GetTaskType} color=#00FF00>{m_tasks[i].GetTaskType}</color> task assigned to task list.");
-                        m_iconDisplay.text = $"<#{m_iconColor.ToHexString()}><size=30%>Task</size>\n<sprite=\"iconSheet\" index={(int)m_tasks[i].GetTaskType} color=#{m_iconColor.ToHexString()}>";
 
                         _verifyTaskList();
                         //Return the index of the new task
@@ -115,13 +117,9 @@ namespace ILOVEYOU
                     if (m_tasks[i].IsComplete)
                     {
                         m_player.GetLog.LogInput($"{m_tasks[i].GetTaskType} task complete. Rewarding cards.");
-                        m_iconDisplay.text = "";
                         //..clear the task in that slot
                         m_tasks[i] = new(TaskType.Invalid, 0);
 
-                        //remove the UI
-                        Destroy(m_taskBars[i].transform.parent.gameObject);
-                        m_taskBars[i] = null;
                         //Give the player a point that will get exchanged for cards later
                         TaskCompletionPoints++;
                     }
@@ -218,18 +216,18 @@ namespace ILOVEYOU
                 _verifyTaskList();
                 return true;
             }
-            private void Update()
+            /*private void Update()
             {
                 _updateTaskUI();
-            }
-            private void _updateTaskUI()
+            }*/
+            /*private void _updateTaskUI()
             {
                 for (int i = 0; i < m_tasks.Length; i++)
                 {
                     if (m_taskBars[i] != null)
                         m_taskBars[i].fillAmount = m_tasks[i].GetPercent;
                 }
-            }
+            }*/
         }
     }
 }

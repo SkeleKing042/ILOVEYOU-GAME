@@ -7,6 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2682175057650438265, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_text
+      value: Spawns a swarm
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323591372523980615, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323591372523980615, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -890836882, guid: f92ec7a5f6fd979488842a844e78f246, type: 3}
+    - target: {fileID: 5323591372523980615, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5323591372800690837, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_Name
       value: SwarmCard
@@ -14,6 +30,18 @@ PrefabInstance:
     - target: {fileID: 5323591373018342659, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_text
       value: Straight up swarming it
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323591373018342659, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_fontSize
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323591373018342659, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323591373018342717, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5824060672530148152, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_Pivot.x
@@ -29,27 +57,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5824060672530148152, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5824060672530148152, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5824060672530148152, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5824060672530148152, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5824060672530148152, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5824060672530148152, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5824060672530148152, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -119,4 +147,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemyGroup: 0
-  m_enemyCount: 20
+  m_enemyCount: 7
