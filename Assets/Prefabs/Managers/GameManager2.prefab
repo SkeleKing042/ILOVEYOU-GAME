@@ -91,14 +91,7 @@ MonoBehaviour:
     m_capValue: 10
   - m_type: 1
     m_capValue: 7
-  m_mainMenuUI: {fileID: 0}
-  m_reporterTextBox: {fileID: 0}
-  m_startButton: {fileID: 0}
-  m_InGameSharedUI: {fileID: 0}
-  m_timerText: {fileID: 0}
-  m_winScreen: {fileID: 0}
-  m_winText: {fileID: 0}
-  m_restartButton: {fileID: 0}
+  m_gameUI: {fileID: 0}
   m_onGameStart:
     m_PersistentCalls:
       m_Calls: []
@@ -127,8 +120,11 @@ MonoBehaviour:
   m_disruptCards:
   - {fileID: 2255046956262864865, guid: 6eee37eeabf47a947a324202506b5b72, type: 3}
   - {fileID: 5180684187051310492, guid: c417afdaea3cc7947be07c494ef21570, type: 3}
-  - {fileID: 6432578054958738686, guid: 0a75ce6291015ee4aa54aae78f8fdab4, type: 3}
+  - {fileID: 6432578054958738686, guid: 70dce7f37c6ec5a4495b8298d93b36fc, type: 3}
   - {fileID: 7536772021414428902, guid: f675df7ac294fb64881b7f74d5b28d4a, type: 3}
+  - {fileID: 3994002374922476513, guid: f6208203fbdd81a489ae373e42b721c9, type: 3}
+  - {fileID: 3994002374922476513, guid: 63db7129f4a43214bb70518e0b8ced69, type: 3}
+  - {fileID: 3994002374922476513, guid: 6738cd636793a634899e13ad63cebebc, type: 3}
   m_onDispenseCard:
     m_PersistentCalls:
       m_Calls: []
