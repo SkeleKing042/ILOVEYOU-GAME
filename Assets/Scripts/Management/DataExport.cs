@@ -12,7 +12,7 @@ namespace DataExporter
     public static class DataExport
     {
         //The data that will be saved then exported
-        static Dictionary<string, int[]> m_dataSet = new Dictionary<string, int[]>();
+        static Dictionary<string, object[]> m_dataSet = new Dictionary<string, object[]>();
         public enum Operation
         {
             Add,
@@ -55,67 +55,36 @@ namespace DataExporter
             }
         }
         /// <summary>
-        /// Modifies the value at the given index and key.
+        /// Creates the dictonary refence if not already created.
+        /// </summary>
+        /// <param name="target"></param>
+        private static void _validateTarget(string target)
+        {
+            if (!m_dataSet.ContainsKey(target))
+            {
+                m_dataSet.TryAdd(target, new object[m_arraySize]);
+            }
+        }
+        /// <summary>
+        /// Returns a value at the given index and key.
         /// </summary>
         /// <param name="target"></param>
         /// <param name="value"></param>
         /// <param name="index"></param>
         /// <param name="oper"></param>
-        public static void UpdateValue(string target, int value, int index, Operation oper)
+        public static ref object GetValue(string target, int index)
         {
-            //Debug.Log($"Adding {value} to {target}.");
-            if (!m_dataSet.ContainsKey(target))
-            {
-                m_dataSet.TryAdd(target, new int[m_arraySize]);
-            }
-
-            switch (oper)
-            {
-                case Operation.Add:
-                    m_dataSet[target][index] += value;
-                    break;
-                case Operation.Multiply:
-                    m_dataSet[target][index] *= value;
-                    break;
-                case Operation.Set:
-                    m_dataSet[target][index] = value;
-                    break;
-                case Operation.Reset:
-                    m_dataSet[target][index] = 0;
-                    break;
-            }
-        }
-        /// <summary>
-        /// Returns the value at the given index from a key
-        /// </summary>
-        /// <param name="target"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        public static int ReadValue(string target, int index)
-        {
-            int[] outval = new int[m_arraySize];
-            if (m_dataSet.TryGetValue(target, out outval))
-            {
-                Debug.Log($"{outval[index]} read from {target}.");
-                return outval[index];
-            }
-            else
-            {
-                Debug.Log($"{target} has not yet been made.");
-                return 0;
-            }
+            _validateTarget(target);
+            return ref m_dataSet[target][index];
         }
         /// <summary>
         /// Returns all the values from a key
         /// </summary>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int[] ReadValues(string target)
+        public static object[] ReadValues(string target)
         {
-            int[] outval = new int[m_arraySize];
-            m_dataSet.TryGetValue(target, out outval);
-            Debug.Log($"Read from {target}.");
-            return outval;
+            return m_dataSet[target];
         }
         /// <summary>
         /// Exports the data out as an CSV file
@@ -149,7 +118,7 @@ namespace DataExporter
                 //go through each key - the x
                 foreach (var key in m_dataSet.Keys)
                 {
-                    output += $"{ReadValue(key, i)}, ";
+                    output += $"{GetValue(key, i)}, ";
                 }
                 tw.WriteLine($"{output}");
             }
