@@ -13,6 +13,7 @@ namespace ILOVEYOU
         {
 
             [SerializeField] private BulletPatternObject m_patternObj;
+            public BulletPatternObject GetBulletPatternObject { get { return m_patternObj; } }
             [SerializeField] private bool m_isPlayer;
 
             private BulletPatternArray _getBulletPattern(int i) { return m_patternObj.GetBulletArray(i); }
@@ -52,7 +53,7 @@ namespace ILOVEYOU
 
             private void Start()
             {
-                PatternInitialize();
+                if (m_patternObj) PatternInitialize();
             }
 
             /*private void Update()
