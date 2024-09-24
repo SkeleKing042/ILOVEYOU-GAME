@@ -24,7 +24,36 @@ namespace DataExporter
         private static uint m_arraySize = 256;
         public static int ReadArraySize => (int)m_arraySize;
 
-        private static string m_fileName = $"ILOVEYOU - {DateTime.Now.ToFileTime()}.csv";
+        private static string m_fileName = $"Untitled - {DateTime.Now.ToFileTime()}.csv";
+        private static string m_fileDirectory = $".\\";
+        private static string m_configPath = $".\\config.txt";
+
+        public static void Init()
+        {
+            //check for the config
+            if (!File.Exists(m_configPath))
+            {
+                //create default config
+                TextWriter tw = new StreamWriter(m_configPath, false);
+                tw.WriteLine("Untitled");
+                tw.WriteLine(".\\");
+                tw.WriteLine("256");
+                tw.Close();
+            }
+
+            //read the config file
+            string[] lines = File.ReadAllLines(m_configPath);
+            m_fileName = $"{lines[0]} - {DateTime.Now.ToFileTime()}.csv";
+            m_fileDirectory = $"{lines[1]}";
+            m_arraySize = Convert.ToUInt32(lines[2]);
+
+            //check if the output path exists
+            FileInfo fi = new FileInfo(m_fileDirectory);
+            if (!fi.Directory.Exists)
+            {
+                System.IO.Directory.CreateDirectory(fi.DirectoryName);
+            }
+        }
         /// <summary>
         /// Modifies the value at the given index and key.
         /// </summary>
@@ -92,10 +121,10 @@ namespace DataExporter
         /// Exports the data out as an CSV file
         /// </summary>
         /// <param name="path"></param>
-        public static void ExportCSV(string path)
+        public static void ExportCSV()
         {
             //set the path
-            var csvPath = path + m_fileName;
+            var csvPath = m_fileDirectory + m_fileName;
             Debug.Log($"Exporting csv file to {csvPath}.");
 
             //create and clear the file
