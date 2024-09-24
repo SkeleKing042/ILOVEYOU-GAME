@@ -74,7 +74,7 @@ namespace ILOVEYOU
             private void OnTriggerStay(Collider other)
             {
                 //Don't do anything if other isn't the player
-                if (other.tag != "Player")
+                if (other.tag != "Player" || m_taskReference == null)
                     return;
 
                 //Update the task

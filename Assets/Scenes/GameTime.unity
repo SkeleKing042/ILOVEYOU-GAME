@@ -188,28 +188,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 171689937432891551, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 171689937432891551, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 840833165}
-    - target: {fileID: 171689937432891551, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 171689937432891551, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: MainMenu
-      objectReference: {fileID: 0}
     - target: {fileID: 5104232827307362640, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
       propertyPath: m_Name
       value: GameManager2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5104232827307362646, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
-      propertyPath: m_debugging
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5104232827307362647, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
       propertyPath: m_RootOrder
