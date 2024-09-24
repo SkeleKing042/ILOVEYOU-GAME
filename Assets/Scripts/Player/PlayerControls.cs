@@ -163,6 +163,13 @@ namespace ILOVEYOU
                     //updates cooldowns
                     m_pattern.PatternUpdate();
 
+                    //update animator
+                    m_anim.SetBool("Shooting", true);
+                }
+                else
+                {
+                    //update animator
+                    m_anim.SetBool("Shooting", false);
                 }
                 m_iframesCurrent = Mathf.Clamp(m_iframesCurrent - Time.deltaTime, 0f, m_iframesTotal);
                 if (m_debugging) Debug.DrawRay(transform.position, 5 * m_aimMagnitude * m_aimDir, tmp_color);
