@@ -11,7 +11,7 @@ namespace ILOVEYOU
 
         public class BlindCard : MonoBehaviour
         {
-            [Tooltip("How long the effect will last for.")] [SerializeField] private float m_time = 3;
+            //[Tooltip("How long the effect will last for.")] [SerializeField] private float m_time = 3;
             [SerializeField] private int m_popupAmount;
             public void ExecuteEvents(object[] data)
             {

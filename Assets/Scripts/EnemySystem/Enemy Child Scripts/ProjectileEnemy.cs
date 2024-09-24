@@ -8,16 +8,16 @@ namespace ILOVEYOU
     {
         public class ProjectileEnemy : Enemy
         {
-            BulletPattern pattern;
+            BulletPattern m_pattern;
 
             public override void Initialize(Transform target)
             {
                 base.Initialize(target);
-                pattern.AddTarget(m_playerTransform);
+                m_pattern.AddTarget(m_playerTransform);
             }
             void Awake()
             {
-                pattern = GetComponent<BulletPattern>();
+                m_pattern = GetComponent<BulletPattern>();
           
             }
 
@@ -36,7 +36,7 @@ namespace ILOVEYOU
 
             public override void DoNearAction()
             {
-                pattern.PatternUpdate();
+                m_pattern.PatternUpdate();
                 //gets relative position between the player and enemy
                 Vector3 relativePos = m_playerTransform.position - transform.position;
                 //looks at the player (removing x, and z rotation)
