@@ -317,7 +317,6 @@ GameObject:
   - component: {fileID: 3938092935401869860}
   - component: {fileID: 4959564612519079010}
   - component: {fileID: -4732492361604711822}
-  - component: {fileID: 4173121192149103275}
   - component: {fileID: 6695779224707933300}
   m_Layer: 7
   m_Name: ReduxPlayer
@@ -394,6 +393,7 @@ MonoBehaviour:
   m_debugging: 0
   m_MaxHealth: 200000
   m_iframesTotal: 1
+  m_anim: {fileID: 3623012174040595777}
   m_moveSpeed: 10
   m_damage: 0
   m_fireRate: 0
@@ -744,27 +744,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_blinkMat: {fileID: 2100000, guid: a14212e056224f44286aa5a5b1c7f125, type: 2}
   m_activeTime: 0.1
---- !u!95 &4173121192149103275
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2304864054761233360}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7061d0e3a71bf3649933d99072bd1902, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6695779224707933300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2365,7 +2344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1778394902116943767, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -419.99994
+      value: -420
       objectReference: {fileID: 0}
     - target: {fileID: 2108812793524716012, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_IsActive
@@ -2501,7 +2480,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4850376945507884156, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -299.99994
+      value: -300
       objectReference: {fileID: 0}
     - target: {fileID: 5715371356237877210, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2509,7 +2488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5715371356237877210, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 499.99994
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 6122181987106447691, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_ChildControlHeight
@@ -2833,6 +2812,11 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 7061d0e3a71bf3649933d99072bd1902, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
+--- !u!95 &3623012174040595777 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
+  m_PrefabInstance: {fileID: 7146389940020592848}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7252953419133429563 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
