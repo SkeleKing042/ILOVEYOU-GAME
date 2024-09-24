@@ -31,7 +31,7 @@ namespace ILOVEYOU
             public static void ResetScore() { m_score = Vector2.zero; }
 
             [SerializeField] private bool m_debugging;
-
+            [SerializeField] private ControllerManager m_controllerManagerPrefab;
             //Other managers
             [SerializeField] private LevelManager m_levelTemplate;
             private List<LevelManager> m_levelManagers = new();
@@ -81,6 +81,12 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onTaskAssignment;
             private void Awake()
             {
+                //check for the input manager
+                if (!ControllerManager.Instance)
+                {
+                    Debug.Log("Instancing controller manager");
+                    Instantiate(m_controllerManagerPrefab);
+                }
                 if(!m_debugging)
                 BeginSetup();
             }

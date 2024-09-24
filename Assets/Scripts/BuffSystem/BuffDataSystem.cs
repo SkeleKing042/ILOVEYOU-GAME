@@ -35,7 +35,7 @@ namespace ILOVEYOU
                 [SerializeField] private float m_moveSpeedValue = 0f;
                 [SerializeField] private float m_shootSpeedValue = 0f;
                 [SerializeField] private float m_damageValue = 0f;
-                
+
                 //values for bullet change
                 //[SerializeField] private BulletPatternObject m_pattern;
 
@@ -72,6 +72,20 @@ namespace ILOVEYOU
 
                 public void InvokeActivate() => m_onActivate.Invoke();
                 public void InvokeExpire() => m_onExpire.Invoke();
+
+                //can only make custom buffs that influence player stats
+                public BuffData(string name, int buffID, int canStack, bool isPermanent, float time, float maxHealth, float moveSpeed, float shootSpeed, float damage)
+                {
+                    m_name = name;
+                    m_buffID = buffID;
+                    m_isStackable = canStack;
+                    m_isPermanent = isPermanent;
+                    m_time = time;
+                    m_maxHealthValue = maxHealth;
+                    m_moveSpeedValue = moveSpeed;
+                    m_shootSpeedValue = shootSpeed;
+                    m_damageValue = damage;
+                }
 
             }
 
@@ -191,6 +205,45 @@ namespace ILOVEYOU
                 _ActivateBuff(dataClone);
 
                 if (dataClone.GetParticleEffect && spawnParticle) buff.SetBuffParticle(GetComponent<PlayerManager>().GetLevelManager.GetParticleSpawner.SpawnParticle(dataClone.GetParticleEffect, transform));
+
+                m_activeBuffs.Add(buff);
+            }
+
+            public void GiveBuff(BuffData customData)
+            {
+                bool spawnParticle = true;
+
+                //if conflicting data IDs in already applied buffs
+                if (_CheckID(customData.GetBuffID, out int conflictPos))
+                {
+                    switch (customData.GetIsStackable)
+                    {
+                        case 0:
+                            //if it can't stack stop adding buff
+                            return;
+                        case 1:
+                            //if extending timer add time to already existing buff
+                            _AddTime(customData.GetBuffID, customData.GetTime);
+                            return;
+                        case 2:
+                            //if the buff is meant to override, remove the current one
+                            RemoveBuff(conflictPos, true);
+                            m_activeBuffs[conflictPos] = null;
+                            _CleanList();
+                            break;
+                        default:
+                            //do nothing lol
+                            //prevents particles from stacking
+                            spawnParticle = false;
+                            break;
+                    }
+                }
+
+                ActiveBuff buff = new ActiveBuff(customData, customData.GetTime);
+
+                _ActivateBuff(customData);
+
+                if (customData.GetParticleEffect && spawnParticle) buff.SetBuffParticle(GetComponent<PlayerManager>().GetLevelManager.GetParticleSpawner.SpawnParticle(customData.GetParticleEffect, transform));
 
                 m_activeBuffs.Add(buff);
             }
