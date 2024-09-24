@@ -25,7 +25,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 453343250255440340, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
       propertyPath: m_Name
-      value: HomingProjectile 1
+      value: HomingProjectile
       objectReference: {fileID: 0}
     - target: {fileID: 3187435212823482503, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
       propertyPath: m_Mesh
@@ -75,10 +75,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8665598788305268870, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     m_RemovedComponents:
     - {fileID: 460170962185792090, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
@@ -87,7 +83,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 453343250255440340, guid: 3537a73c55335b64584ad4d285b0b0e7, type: 3}
   m_PrefabInstance: {fileID: 5249301490039672238}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-9144343157397706218
+--- !u!114 &5037053887736345710
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,7 +92,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5662109590556615802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 413ad56c93322194483d8e43301ca894, type: 3}
+  m_Script: {fileID: 11500000, guid: 1702a94f4fc6a364686bace3e81cbc63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_checkRadius: 5
