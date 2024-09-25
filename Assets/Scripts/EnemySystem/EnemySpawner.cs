@@ -103,7 +103,7 @@ namespace ILOVEYOU
                 if(_SpawnEnemy(m_enemyGroups[groupNumber].EnemyPrefab(prefabIndex))) m_onSpawnEnemy.Invoke();
             }
 
-            public void OnDrawGizmos()
+            public void OnDrawGizmosSelected()
             {
                 //this is just to make it easier to visualise where enemies will spawn
                 if (transform) Gizmos.DrawWireSphere(transform.position, m_spawnRange);

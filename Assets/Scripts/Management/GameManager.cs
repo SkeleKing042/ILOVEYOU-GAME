@@ -227,6 +227,14 @@ namespace ILOVEYOU
                 SceneManager.LoadSceneAsync(sceneName);
             }
 
+            /// <summary>
+            /// reloads the current scene
+            /// </summary>
+            public void LoadScene(int scene)
+            {
+                SceneManager.LoadSceneAsync(scene);
+            }
+
             private void Update()
             {
                 //update spawn timer
