@@ -1,6 +1,7 @@
 using ILOVEYOU.EnemySystem;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,6 +36,14 @@ namespace ILOVEYOU
             public void Initialize(int index)
             {
                 Instances[index] = this;
+
+                if (!File.Exists($".\\names.txt"))
+                {
+                    //create default config
+                    TextWriter tw = new StreamWriter($".\\names.txt", false);
+                    tw.WriteLine("Put Names Here:");;
+                    tw.Close();
+                }
             }
 
             public void InitializeHealthBar(string text, float maxHealth)
@@ -89,6 +98,24 @@ namespace ILOVEYOU
             {
                 m_active = false;
                 transform.GetChild(0).gameObject.SetActive(false);
+            }
+
+
+            private string GenerateName()
+            {
+                StreamReader test = new StreamReader("");
+
+                switch(Random.Range(0, 2)) 
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
+
+                return "ERROR";
             }
         }
     }
