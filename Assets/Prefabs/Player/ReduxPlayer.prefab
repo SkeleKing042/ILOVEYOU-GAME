@@ -318,6 +318,7 @@ GameObject:
   - component: {fileID: 4959564612519079010}
   - component: {fileID: -4732492361604711822}
   - component: {fileID: 6695779224707933300}
+  - component: {fileID: 1408310284185479664}
   m_Layer: 7
   m_Name: ReduxPlayer
   m_TagString: Player
@@ -474,7 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemyGroups:
-  - m_groupName: Bosses
+  - m_groupName: SwarmCard
     m_spawnRate:
       serializedVersion: 2
       m_Curve: []
@@ -484,6 +485,24 @@ MonoBehaviour:
     m_enemyPrefabs:
     - {fileID: 291654530562668115, guid: 1e6a3e7b31e14aa4b801981ef3044904, type: 3}
     - {fileID: 1923789606412629652, guid: 5376137f086b2b5429f2512e47f7b803, type: 3}
+  - m_groupName: Boss
+    m_spawnRate:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_enemyPrefabs:
+    - {fileID: 4970928481276679482, guid: c19bc291bb2e3e24c9717d55867875d9, type: 3}
   - m_groupName: Just moths
     m_spawnRate:
       serializedVersion: 2
@@ -956,6 +975,27 @@ MonoBehaviour:
     m_onExpire:
       m_PersistentCalls:
         m_Calls: []
+--- !u!95 &1408310284185479664
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2304864054761233360}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d7f0873a8a692c54fb77a3255e201f51, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2313846247829714107
 GameObject:
   m_ObjectHideFlags: 0
