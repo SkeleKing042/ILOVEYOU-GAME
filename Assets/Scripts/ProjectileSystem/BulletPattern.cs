@@ -25,6 +25,10 @@ namespace ILOVEYOU
             [SerializeField] private float m_damageMulti = 1f; //changes how much damage things do
 
             private Transform m_target;
+
+            [Header("Visuals")]
+            [SerializeField] private GameObject m_muzzleFlash;
+            [SerializeField] private float m_flashTime;
             /// <summary>
             /// Goes through each array and adjusts cooldowns for each. If a cooldown for an array has reached 0, the specified array will fire.
             /// </summary>
@@ -133,6 +137,16 @@ namespace ILOVEYOU
                     //increase rotation offset for future loops
                     rotOffset += pattern.SpreadWithinArrays;
                 }
+
+                if (m_muzzleFlash)
+                {
+                    m_muzzleFlash.SetActive(true);
+                    Invoke(nameof(_disableMuzzleFlash), m_flashTime);
+                }
+            }
+            private void _disableMuzzleFlash()
+            {
+                m_muzzleFlash.SetActive(false);
             }
             //voids for changing or setting fire speed multiplier
             public void SetFireSpeed(float speed)
