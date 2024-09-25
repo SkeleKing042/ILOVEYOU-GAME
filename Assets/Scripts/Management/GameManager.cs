@@ -215,8 +215,12 @@ namespace ILOVEYOU
                 }
                 yield return null;
             }
+            public void RestartScene()
+            {
+                SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+            }
             /// <summary>
-            /// reloads the current scene
+            /// loads the set scene
             /// </summary>
             public void LoadScene(string sceneName)
             {

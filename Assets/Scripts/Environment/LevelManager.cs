@@ -191,6 +191,8 @@ namespace ILOVEYOU
                 if (m_controlPoints[rnd].Init(task))
                 {
                     m_playMan.GetPointer.GeneratePath(m_controlPoints[rnd].transform);
+                    m_controlPoints[rnd].AttachFunctionToStarted(() => m_playMan.GetPointer.gameObject.SetActive(false));
+                    m_controlPoints[rnd].AttachFunctionToStopped(() => m_playMan.GetPointer.gameObject.SetActive(true));
                     return true;
                 }
                 else

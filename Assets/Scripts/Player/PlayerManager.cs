@@ -143,6 +143,7 @@ namespace ILOVEYOU
 
                 m_cardsHeld = new DisruptCard[0];
                 CancelInvoke();
+                m_onDiscardHand.Invoke();
                 m_eventLog.LogInput($"<i><#888888>Discarding hand.</color></i>");
             }
             /// <summary>
@@ -176,6 +177,7 @@ namespace ILOVEYOU
                         break;
                 }
                 _executeSelectedCard(index);
+                m_onCardSelected.Invoke();
             }
             private void _executeSelectedCard(int value)
             {
