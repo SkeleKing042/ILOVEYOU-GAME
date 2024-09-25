@@ -74,7 +74,7 @@ namespace ILOVEYOU
             private void OnTriggerStay(Collider other)
             {
                 //Don't do anything if other isn't the player
-                if (other.tag != "Player")
+                if (other.tag != "Player" || m_taskReference == null)
                     return;
 
                 //Update the task
@@ -96,6 +96,14 @@ namespace ILOVEYOU
                     return;
 
                 m_onAreaStopped.Invoke();
+            }
+            public void AttachFunctionToStarted(UnityAction func)
+            {
+                m_onAreaStarted.AddListener(func);// () => { Example(); });
+            }
+            public void AttachFunctionToStopped(UnityAction func)
+            {
+                m_onAreaStopped.AddListener(func);
             }
         }
     }

@@ -19,7 +19,6 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent<string, float> m_onPlayerJoined;
             [SerializeField] private string m_stringToPassOnLeave;
             [SerializeField] private UnityEvent<string, float> m_onPlayerLeft;
-
             [SerializeField] private Animator[] m_playerIndis;
 
             public void Awake()
@@ -37,11 +36,13 @@ namespace ILOVEYOU
                 {
                     //controller added
                     m_playerIndis[ControllerManager.Instance.MostRecentID].SetTrigger(m_stringToPassOnJoin);
+                    m_onPlayerJoined.Invoke("", 0);
                 }
                 else if(ControllerManager.Instance.ControllerCount < m_lastPlayerCount)
                 {
                     //controller removed
                     m_playerIndis[ControllerManager.Instance.MostRecentID].SetTrigger(m_stringToPassOnLeave);
+                    m_onPlayerLeft.Invoke("", 0);
                 }
                 m_lastPlayerCount = (int)ControllerManager.Instance.ControllerCount;
             }
