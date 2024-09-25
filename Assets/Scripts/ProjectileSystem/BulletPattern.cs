@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using static ILOVEYOU.ProjectileSystem.BulletPatternObject;
 
 namespace ILOVEYOU
@@ -26,9 +27,10 @@ namespace ILOVEYOU
 
             private Transform m_target;
 
-            [Header("Visuals")]
+            [Header("Audio & Visuals")]
             [SerializeField] private GameObject m_muzzleFlash;
             [SerializeField] private float m_flashTime;
+            [SerializeField] private UnityEvent m_onBulletFire;
             /// <summary>
             /// Goes through each array and adjusts cooldowns for each. If a cooldown for an array has reached 0, the specified array will fire.
             /// </summary>
@@ -142,6 +144,7 @@ namespace ILOVEYOU
                 {
                     m_muzzleFlash.SetActive(true);
                     Invoke(nameof(_disableMuzzleFlash), m_flashTime);
+                    m_onBulletFire.Invoke();
                 }
             }
             private void _disableMuzzleFlash()

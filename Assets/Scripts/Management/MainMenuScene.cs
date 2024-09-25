@@ -19,6 +19,8 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent<string, float> m_onPlayerJoined;
             [SerializeField] private string m_stringToPassOnLeave;
             [SerializeField] private UnityEvent<string, float> m_onPlayerLeft;
+            [SerializeField] private UnityEvent m_menuMoveAction;
+            [SerializeField] private UnityEvent m_menuSelection;
 
             [SerializeField] private Animator[] m_playerIndis;
 
