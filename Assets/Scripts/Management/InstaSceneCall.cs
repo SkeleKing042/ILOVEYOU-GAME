@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DataExporter;
 
 namespace ILOVEYOU
 {
@@ -14,6 +15,7 @@ namespace ILOVEYOU
             void Start()
             {
                 SceneManager.LoadScene(TargetScene);
+                DataExport.Init();
             }
         }
     }

@@ -3,6 +3,7 @@ using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Environment;
 using ILOVEYOU.Management;
 using ILOVEYOU.UI;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
@@ -36,6 +37,8 @@ namespace ILOVEYOU
             public bool CardsInHand { get { return m_cardsHeld.Length > 0; } }
             [SerializeField] private float m_cardTimeout;
             [SerializeField] private PopUps m_blindBox;
+            private int m_numberOfCardsSelected = 0;
+            private float m_cardWaitTime = 0;
             //[SerializeField] private DamageArea m_damDaniel;
             //ui
             [SerializeField] private PointerArrow m_pointer;
@@ -119,6 +122,7 @@ namespace ILOVEYOU
                 if (m_debugging) Debug.Log("Hand dealt, setting up cards.");
                 CancelInvoke();
                 m_onGetCards.Invoke();
+                m_cardWaitTime = 0;
                 //Copy the given array to this hand
                 m_cardsHeld = new DisruptCard[cards.Length];
                 cards.CopyTo(m_cardsHeld, 0);
@@ -206,6 +210,13 @@ namespace ILOVEYOU
 
                     m_cardsHeld[value].Trigger(GameManager.Instance, this);
                     m_cardDisplay.SelectCard(value);
+                    int readValue = Convert.ToInt32(DataExporter.DataExport.GetValue($"{m_playerID + 1} {m_cardsHeld[value].name} used", 0));
+                    readValue++;
+                    string cardname = m_cardsHeld[value].name;
+                    cardname = cardname.Remove(cardname.Length - 7, 7);
+                    DataExporter.DataExport.GetValue($"Player {m_playerID + 1} {cardname} uses", 0) = readValue;
+                    DataExporter.DataExport.GetValue($"Player {m_playerID + 1} card choose delta", m_numberOfCardsSelected) = m_cardWaitTime;
+                    m_numberOfCardsSelected++;
                     DiscardHand();
                 }
             }
@@ -226,6 +237,11 @@ namespace ILOVEYOU
             public void UpdateHealthBar(float value)
             {
                 m_healthSlider.value = value;
+            }
+            private void Update()
+            {
+                if (CardsInHand)
+                    m_cardWaitTime += Time.deltaTime;
             }
         }
     }

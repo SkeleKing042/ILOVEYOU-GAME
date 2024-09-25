@@ -16,6 +16,8 @@ namespace ILOVEYOU
             [SerializeField] private bool m_debugging;
             private PlayerManager m_player;
             private Task[] m_tasks = new Task[10];
+            private int m_tasksCompleted;
+            private float m_taskWaitTime;
 
            //[SerializeField] private string[] m_taskDescriptions = new string[5];
 
@@ -86,6 +88,7 @@ namespace ILOVEYOU
 
                         m_player.GetLog.LogInput($"<color=\"green\"><sprite=\"iconSheet\" index={(int)m_tasks[i].GetTaskType} color=#00FF00>{m_tasks[i].GetTaskType}</color> task assigned to task list.");
 
+                        m_taskWaitTime = 0;
                         _verifyTaskList();
                         //Return the index of the new task
                         return i;
@@ -122,6 +125,8 @@ namespace ILOVEYOU
 
                         //Give the player a point that will get exchanged for cards later
                         TaskCompletionPoints++;
+                        DataExporter.DataExport.GetValue($"Player {m_player.GetPlayerID + 1} task time", m_tasksCompleted) = m_taskWaitTime;
+                        m_tasksCompleted++;
                     }
                 }
                 return true;

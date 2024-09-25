@@ -131,6 +131,9 @@ namespace ILOVEYOU
                 }
                 m_onGameStart.Invoke();
 
+                //data export start
+                DataExporter.DataExport.GetValue($"Player 1 task time", 0);
+                DataExporter.DataExport.GetValue($"Player 2 task time", 0);
                 //passed
                 if (m_debugging) Debug.Log($"Game started successfully!\nStarting game in {m_roundStartCountdown}.");
                 if (!enabled)
@@ -203,6 +206,10 @@ namespace ILOVEYOU
                 m_gameUI.DisplayWinScreen(playerNum + 1);
 
                 StartCoroutine(_coolSlowMo());
+                DataExporter.DataExport.GetValue("Round time", 0) = m_timer;
+                DataExporter.DataExport.GetValue("P1 Score", 0) = m_score.x;
+                DataExporter.DataExport.GetValue("P2 Score", 0) = m_score.y;
+                DataExporter.DataExport.ExportCSV();
                 m_onGameEnd.Invoke();
             }
 

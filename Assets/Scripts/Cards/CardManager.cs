@@ -30,8 +30,19 @@ namespace ILOVEYOU
                     }
                 }
 
-                //passed
-                if(m_debugging) Debug.Log($"{this} started successfully.");
+                //setup for data export
+                for (int i = 1; i <= 2; i++)
+                {
+                    DataExporter.DataExport.GetValue($"Player {i} card choose delta", 0);
+                    foreach (DisruptCard card in m_disruptCards)
+                    {
+                        string cardName = card.name;
+                        DataExporter.DataExport.GetValue($"Player {i} {cardName} used", 0);
+                    }
+                }
+
+                    //passed
+                    if (m_debugging) Debug.Log($"{this} started successfully.");
                 return true;
             }
             public List<DisruptCard> DispenseCards(int count)
