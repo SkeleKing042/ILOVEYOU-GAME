@@ -37,13 +37,7 @@ namespace ILOVEYOU
             {
                 Instances[index] = this;
 
-                if (!File.Exists($".\\names.txt"))
-                {
-                    //create default config
-                    TextWriter tw = new StreamWriter($".\\names.txt", false);
-                    tw.WriteLine("Put Names Here:");;
-                    tw.Close();
-                }
+                _InitializeCustomText();
             }
 
             public void InitializeHealthBar(string text, float maxHealth)
@@ -51,7 +45,7 @@ namespace ILOVEYOU
                 CancelInvoke();
                 StopAllCoroutines();
                 transform.GetChild(0).gameObject.SetActive(true);
-                transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
+                transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = GenerateName();
 
                 m_lag.maxValue = maxHealth;
                 m_lag.value = 0f;
@@ -101,21 +95,65 @@ namespace ILOVEYOU
             }
 
 
-            private string GenerateName()
+            private void _InitializeCustomText()
             {
-                StreamReader test = new StreamReader("");
-
-                switch(Random.Range(0, 2)) 
+                if (!Directory.Exists($".\\CustomNames"))
                 {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
+                    Directory.CreateDirectory($".\\CustomNames");
                 }
 
-                return "ERROR";
+                if (!File.Exists($".\\CustomNames\\names.txt"))
+                {
+                    TextWriter tw = new StreamWriter($".\\CustomNames\\names.txt", false);
+                    tw.WriteLine("Put Names Here: (Line Break to seperate, this line isn't read)"); ;
+                    tw.Close();
+                }
+
+                if (!File.Exists($".\\CustomNames\\titles.txt"))
+                {
+                    TextWriter tw = new StreamWriter($".\\CustomNames\\titles.txt", false);
+                    tw.WriteLine("Put Titles Here: (Line Break to seperate, this line isn't read)"); ;
+                    tw.Close();
+                }
+
+                if (!File.Exists($".\\CustomNames\\adjectives.txt"))
+                {
+                    TextWriter tw = new StreamWriter($".\\CustomNames\\adjectives.txt", false);
+                    tw.WriteLine("Put Adjectives Here: (Line Break to seperate, this line isn't read)"); ;
+                    tw.Close();
+                }
+
+                if (!File.Exists($".\\CustomNames\\places.txt"))
+                {
+                    TextWriter tw = new StreamWriter($".\\CustomNames\\places.txt", false);
+                    tw.WriteLine("Put Places Here: (Line Break to seperate, this line isn't read)"); ;
+                    tw.Close();
+                }
+            }
+
+            private string GenerateName()
+            {
+                string[] names = File.ReadAllLines($".\\CustomNames\\names.txt");
+                string[] titles = File.ReadAllLines($".\\CustomNames\\titles.txt");
+                string[] adjectives = File.ReadAllLines($".\\CustomNames\\adjectives.txt");
+                string[] places = File.ReadAllLines($".\\CustomNames\\places.txt");
+
+                return Random.Range(0, 1) switch
+                {
+                    //NAME
+                    0 => names[Random.Range(1, names.Length)],
+                    //ADJCECTIVE NAME
+                    1 => adjectives[Random.Range(1, adjectives.Length)] + " " + names[Random.Range(1, names.Length)],
+                    //TITLE NAME
+                    2 => titles[Random.Range(1, titles.Length)] + " " + names[Random.Range(1, names.Length)],
+                    //TITLE NAME the ADJECTIVE
+                    3 => titles[Random.Range(1, titles.Length)] + " " + names[Random.Range(1, names.Length)] + " the " + adjectives[Random.Range(1, adjectives.Length)],
+                    //NAME of PLACE
+                    4 => names[Random.Range(1, names.Length)] + " of " + places[Random.Range(1, places.Length)],
+                    //TITLE NAME of PLACE
+                    5 => titles[Random.Range(1, titles.Length)] + " " + names[Random.Range(1, names.Length)] + " of " + places[Random.Range(1, places.Length)],
+                    _ => "ERROR",
+                };
             }
         }
     }
