@@ -97,6 +97,14 @@ namespace ILOVEYOU
 
                 m_onAreaStopped.Invoke();
             }
+            public void AttachFunctionToStarted(UnityAction func)
+            {
+                m_onAreaStarted.AddListener(func);// () => { Example(); });
+            }
+            public void AttachFunctionToStopped(UnityAction func)
+            {
+                m_onAreaStopped.AddListener(func);
+            }
         }
     }
 }
