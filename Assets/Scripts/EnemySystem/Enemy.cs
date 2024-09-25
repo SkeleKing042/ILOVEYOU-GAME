@@ -67,7 +67,7 @@ namespace ILOVEYOU
                 
             }
 
-            public void TakeDamage(float damage)
+            public virtual void TakeDamage(float damage)
             {
                 m_blinkScript.StartBlink();
                 m_health -= damage;
