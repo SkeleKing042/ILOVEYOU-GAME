@@ -103,6 +103,9 @@ namespace ILOVEYOU
                 m_cardDisplay.gameObject.SetActive(false);
                 m_eventLog = GetComponent<EventLogUI>();
 
+                //bosshud setup
+                transform.GetComponentInChildren<BossBar>().Initialize((int)m_playerID);
+
                 if (m_debugging) Debug.Log($"{this} started successfully");
                 return true;
             }

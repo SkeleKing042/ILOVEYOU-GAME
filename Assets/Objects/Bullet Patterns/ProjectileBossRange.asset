@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: ProjectileBossRange
   m_EditorClassIdentifier: 
   m_bulletArrays:
-  - Name: Circle
+  - Name: Range
     BulletPrefab: {fileID: 453343250255440340, guid: 35b495ff8b5c67a45896c396c69f6c6e, type: 3}
-    BulletsPerArray: 4
-    SpreadWithinArrays: 5
+    BulletsPerArray: 1
+    SpreadWithinArrays: 0
     InitialAngle: 1
-    AngleOffset: -10
+    AngleOffset: 0
     SpinFactor: 0
     BulletDamage: 2
     BulletPierce: 0
-    BulletSpeed: 1
-    BulletAcceleration: 5
+    BulletSpeed: 10
+    BulletAcceleration: 0
     SidewaysBulletAcceleration: 0
-    FireSpeed: 3
+    FireSpeed: 0.7
     FireSpeedOffset: 0
     BulletLifetime: 8
     Offset: {x: 0, y: 0}
