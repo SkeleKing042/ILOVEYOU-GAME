@@ -55,6 +55,10 @@ namespace ILOVEYOU
                 }
                 //m_taskBars = new Image[m_taskLimit];
 
+                //Data exporter
+                DataExporter.DataExport.GetValue($"Player {m_player.GetPlayerID + 1} task type", 0);
+                DataExporter.DataExport.GetValue($"Player {m_player.GetPlayerID + 1} task time", 0);
+
                 if (m_debugging) Debug.Log($"{this} started successfully.");
                 return true;
             }
@@ -120,6 +124,7 @@ namespace ILOVEYOU
                     if (m_tasks[i].IsComplete)
                     {
                         m_player.GetLog.LogInput($"{m_tasks[i].GetTaskType} task complete. Rewarding cards.");
+                        DataExporter.DataExport.GetValue($"Player {m_player.GetPlayerID + 1} task type", m_tasksCompleted) = m_tasks[i].GetTaskType;
                         //..clear the task in that slot
                         m_tasks[i] = new(TaskType.Invalid, 0);
 
@@ -221,10 +226,17 @@ namespace ILOVEYOU
                 _verifyTaskList();
                 return true;
             }
-            /*private void Update()
+            public void Update()
             {
-                _updateTaskUI();
-            }*/
+                foreach(Task task in m_tasks)
+                {
+                    if(task != null)
+                    {
+                        m_taskWaitTime += Time.deltaTime;
+                        break;
+                    }
+                }
+            }
             /*private void _updateTaskUI()
             {
                 for (int i = 0; i < m_tasks.Length; i++)

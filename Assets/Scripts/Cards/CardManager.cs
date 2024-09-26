@@ -28,19 +28,11 @@ namespace ILOVEYOU
                     {
                         if(m_debugging) Debug.LogWarning($"{card} might be missing an effect. Please make sure there is a script attached to the same object as the \"DisruptCardBase\" script, and that it has a function called \"ExecuteEvents\"");
                     }
-                }
 
-                //setup for data export
-                for (int i = 1; i <= 2; i++)
-                {
-                    DataExporter.DataExport.GetValue($"Player {i} card choose delta", 0);
-                    foreach (DisruptCard card in m_disruptCards)
-                    {
-                        string cardName = card.name;
-                        DataExporter.DataExport.GetValue($"Player {i} {cardName} used", 0);
-                    }
+                    //Data export
+                    DataExporter.DataExport.GetValue($"{card.name} uses", 0);
                 }
-
+                
                     //passed
                     if (m_debugging) Debug.Log($"{this} started successfully.");
                 return true;

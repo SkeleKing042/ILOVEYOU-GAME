@@ -36,6 +36,8 @@ namespace ILOVEYOU
             private DisruptCard[] m_cardsHeld;
             public bool CardsInHand { get { return m_cardsHeld.Length > 0; } }
             [SerializeField] private float m_cardTimeout;
+            private int m_cardsChosen;
+            private float m_cardChoiceDelta;
             [SerializeField] private PopUps m_blindBox;
             private int m_numberOfCardsSelected = 0;
             private float m_cardWaitTime = 0;
@@ -109,6 +111,8 @@ namespace ILOVEYOU
                 //bosshud setup
                 transform.GetComponentInChildren<BossBar>().Initialize((int)m_playerID);
 
+                //data export
+                DataExporter.DataExport.GetValue($"Player {m_playerID + 1} card choice time", 0);
                 if (m_debugging) Debug.Log($"{this} started successfully");
                 return true;
             }
@@ -210,13 +214,22 @@ namespace ILOVEYOU
 
                     m_cardsHeld[value].Trigger(GameManager.Instance, this);
                     m_cardDisplay.SelectCard(value);
-                    int readValue = Convert.ToInt32(DataExporter.DataExport.GetValue($"{m_playerID + 1} {m_cardsHeld[value].name} used", 0));
-                    readValue++;
-                    string cardname = m_cardsHeld[value].name;
-                    cardname = cardname.Remove(cardname.Length - 7, 7);
-                    DataExporter.DataExport.GetValue($"Player {m_playerID + 1} {cardname} uses", 0) = readValue;
-                    DataExporter.DataExport.GetValue($"Player {m_playerID + 1} card choose delta", m_numberOfCardsSelected) = m_cardWaitTime;
-                    m_numberOfCardsSelected++;
+
+                    //Data export
+                    //get card name
+                    string cardName = m_cardsHeld[value].name;
+                    //remove clone from the end
+                    cardName = cardName.Remove(cardName.Length - 7, 7);
+                    //get the dictonary value
+                    int uses = Convert.ToInt32(DataExporter.DataExport.GetValue($"{cardName} uses", (int)m_playerID));
+                    //apply to dictonary
+                    uses++;
+                    DataExporter.DataExport.GetValue($"{cardName} uses", (int)m_playerID) = uses;
+                    //get time taken to choose
+                    DataExporter.DataExport.GetValue($"Player {m_playerID + 1} card choice time", m_cardsChosen) = m_cardChoiceDelta;
+                    m_cardChoiceDelta = 0;
+                    m_cardsChosen++;
+                    
                     DiscardHand();
                 }
             }
@@ -238,10 +251,12 @@ namespace ILOVEYOU
             {
                 m_healthSlider.value = value;
             }
-            private void Update()
+            public void Update()
             {
-                if (CardsInHand)
-                    m_cardWaitTime += Time.deltaTime;
+                if(CardsInHand)
+                {
+                    m_cardChoiceDelta += Time.deltaTime;
+                }
             }
         }
     }

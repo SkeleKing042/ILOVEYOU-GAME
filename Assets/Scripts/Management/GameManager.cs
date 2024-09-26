@@ -206,11 +206,14 @@ namespace ILOVEYOU
                 m_gameUI.DisplayWinScreen(playerNum + 1);
 
                 StartCoroutine(_coolSlowMo());
+                m_onGameEnd.Invoke();
+
+                //Data export stuff
+                //export the round time and score
                 DataExporter.DataExport.GetValue("Round time", 0) = m_timer;
                 DataExporter.DataExport.GetValue("P1 Score", 0) = m_score.x;
                 DataExporter.DataExport.GetValue("P2 Score", 0) = m_score.y;
                 DataExporter.DataExport.ExportCSV();
-                m_onGameEnd.Invoke();
             }
 
             private IEnumerator _coolSlowMo()
