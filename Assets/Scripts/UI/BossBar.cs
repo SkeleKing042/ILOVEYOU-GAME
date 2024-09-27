@@ -138,7 +138,7 @@ namespace ILOVEYOU
                 string[] adjectives = File.ReadAllLines($".\\CustomNames\\adjectives.txt");
                 string[] places = File.ReadAllLines($".\\CustomNames\\places.txt");
 
-                return Random.Range(0, 1) switch
+                return Random.Range(0, 7) switch
                 {
                     //NAME
                     0 => names[Random.Range(1, names.Length)],
@@ -152,6 +152,8 @@ namespace ILOVEYOU
                     4 => names[Random.Range(1, names.Length)] + " of " + places[Random.Range(1, places.Length)],
                     //TITLE NAME of PLACE
                     5 => titles[Random.Range(1, titles.Length)] + " " + names[Random.Range(1, names.Length)] + " of " + places[Random.Range(1, places.Length)],
+                    //NAME THE ADJECTIVE
+                    6 => names[Random.Range(1, names.Length)] + " the " + adjectives[Random.Range(1, adjectives.Length)],
                     _ => "ERROR",
                 };
             }
