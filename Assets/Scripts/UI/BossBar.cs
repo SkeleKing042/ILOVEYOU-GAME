@@ -105,28 +105,28 @@ namespace ILOVEYOU
                 if (!File.Exists($".\\CustomNames\\names.txt"))
                 {
                     TextWriter tw = new StreamWriter($".\\CustomNames\\names.txt", false);
-                    tw.WriteLine("Put Names Here: (Line Break to seperate, this line isn't read)"); ;
+                    tw.WriteLine("Put Names Here: (Line Break to separate, this line isn't read)"); ;
                     tw.Close();
                 }
 
                 if (!File.Exists($".\\CustomNames\\titles.txt"))
                 {
                     TextWriter tw = new StreamWriter($".\\CustomNames\\titles.txt", false);
-                    tw.WriteLine("Put Titles Here: (Line Break to seperate, this line isn't read)"); ;
+                    tw.WriteLine("Put Titles Here: (Line Break to separate, this line isn't read)"); ;
                     tw.Close();
                 }
 
                 if (!File.Exists($".\\CustomNames\\adjectives.txt"))
                 {
                     TextWriter tw = new StreamWriter($".\\CustomNames\\adjectives.txt", false);
-                    tw.WriteLine("Put Adjectives Here: (Line Break to seperate, this line isn't read)"); ;
+                    tw.WriteLine("Put Adjectives Here: (Line Break to separate, this line isn't read)"); ;
                     tw.Close();
                 }
 
                 if (!File.Exists($".\\CustomNames\\places.txt"))
                 {
                     TextWriter tw = new StreamWriter($".\\CustomNames\\places.txt", false);
-                    tw.WriteLine("Put Places Here: (Line Break to seperate, this line isn't read)"); ;
+                    tw.WriteLine("Put Places Here: (Line Break to separate, this line isn't read)"); ;
                     tw.Close();
                 }
             }
