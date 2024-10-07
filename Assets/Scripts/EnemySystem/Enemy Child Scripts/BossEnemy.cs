@@ -35,9 +35,8 @@ namespace ILOVEYOU
 
                 if (Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID])
                 {
-                    Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].m_health = 
-                        Mathf.Clamp(Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].m_health + 200, 0, m_maxHealth);
-                    BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].m_health);
+                    Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].m_health = m_maxHealth;
+                    //BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].m_health);
                     Destroy(gameObject);
                 }
                 else
