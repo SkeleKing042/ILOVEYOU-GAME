@@ -16,6 +16,7 @@ namespace ILOVEYOU
             private int m_index = 0;
             private bool m_active = false;
             private float m_timer = 0f;
+            private float m_lagDamage = 0f;
 
             [SerializeField] private Slider m_lag;
             [SerializeField] private Slider m_current;
@@ -28,6 +29,8 @@ namespace ILOVEYOU
 
                     if (m_timer <= 0f)
                     {
+                        m_lagDamage = 0f;
+                        transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
                         m_lag.value = Mathf.MoveTowards(m_lag.value, m_current.value, Time.deltaTime * m_current.maxValue / 2f);
                     }
                 }
@@ -78,8 +81,16 @@ namespace ILOVEYOU
             {
                 if (m_active)
                 {
+
+                    m_lagDamage += m_current.value - value;
+                    transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+                    transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + m_lagDamage; //lazy i know
+
+
+
                     m_timer = 0.3f;
                     m_current.value = value;
+
 
                     if (value <= 0f)
                     {
