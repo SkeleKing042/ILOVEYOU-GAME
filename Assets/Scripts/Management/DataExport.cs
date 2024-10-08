@@ -43,7 +43,7 @@ namespace DataExporter
 
             //read the config file
             string[] lines = File.ReadAllLines(m_configPath);
-            m_fileName = $"{lines[0]} - {DateTime.Now.ToFileTime()}.csv";
+            m_fileName = $"{lines[0]}";
             m_fileDirectory = $"{lines[1]}";
             m_arraySize = Convert.ToUInt32(lines[2]);
 
@@ -93,7 +93,7 @@ namespace DataExporter
         public static void ExportCSV()
         {
             //set the path
-            var csvPath = m_fileDirectory + m_fileName;
+            var csvPath = m_fileDirectory + m_fileName + " - {DateTime.Now.ToFileTime()}.csv";
             Debug.Log($"Exporting csv file to {csvPath}.");
 
             //create and clear the file
