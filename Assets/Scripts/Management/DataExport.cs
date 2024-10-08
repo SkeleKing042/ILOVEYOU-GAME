@@ -93,7 +93,7 @@ namespace DataExporter
         public static void ExportCSV()
         {
             //set the path
-            var csvPath = m_fileDirectory + m_fileName + " - {DateTime.Now.ToFileTime()}.csv";
+            var csvPath = m_fileDirectory + m_fileName + $" - {DateTime.Now.ToFileTime()}.csv";
             Debug.Log($"Exporting csv file to {csvPath}.");
 
             //create and clear the file
@@ -125,6 +125,8 @@ namespace DataExporter
             tw.Close();
 
             Debug.Log("CSV exported!!");
+
+            m_dataSet = new();
         }
     }
 }
