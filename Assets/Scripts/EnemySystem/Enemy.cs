@@ -64,10 +64,10 @@ namespace ILOVEYOU
 
             public virtual void DoNearAction()
             {
-                //Debug.Log("xoxoxoxoxo");
+                
             }
 
-            public void TakeDamage(float damage)
+            public virtual void TakeDamage(float damage)
             {
                 m_blinkScript.StartBlink();
                 m_health -= damage;
