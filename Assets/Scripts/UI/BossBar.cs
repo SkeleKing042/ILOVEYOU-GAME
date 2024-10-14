@@ -12,7 +12,7 @@ namespace ILOVEYOU
     {
         public class BossBar : MonoBehaviour
         {
-            public static BossBar[] Instances = new BossBar[2];
+            public static BossBar[] Instances = new BossBar[1];
             private int m_index = 0;
             private bool m_active = false;
             private float m_timer = 0f;

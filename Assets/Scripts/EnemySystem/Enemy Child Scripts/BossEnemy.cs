@@ -9,7 +9,7 @@ namespace ILOVEYOU
     {
         public class BossEnemy : Enemy
         {
-            public static BossEnemy[] Instances = new BossEnemy[2];
+            public static BossEnemy[] Instances = new BossEnemy[1];
 
             BulletPattern m_pattern;
             [SerializeField] private float m_lungeTime = .3f;

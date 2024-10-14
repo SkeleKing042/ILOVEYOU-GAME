@@ -61,6 +61,7 @@ namespace ILOVEYOU
                 m_cardsHeld = new DisruptCard[0];
                 //set id
                 m_playerID = index;
+                gameObject.name = $"Player {index}";
                 //save manager
                 m_levelManager = manager;
                 //camera setup
