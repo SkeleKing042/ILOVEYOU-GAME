@@ -30,7 +30,7 @@ namespace ILOVEYOU
             [SerializeField] private float m_flashReductionRate;
             [SerializeField] private float m_sizeBurst;
             [SerializeField] private float m_sizeReductionRate;
-            private EventLogUI m_eventLog;
+            [SerializeField] private EventLogUI m_eventLog;
             public EventLogUI GetLog { get { return m_eventLog; } }
 
             // Start is called before the first frame update
@@ -53,7 +53,6 @@ namespace ILOVEYOU
                 }
                 m_blindBox.Initialize();
                 m_cardDisplay.gameObject.SetActive(false);
-                m_eventLog = GetComponent<EventLogUI>();
 
                 //bosshud setup
                 transform.GetComponentInChildren<BossBar>().Initialize(id);
