@@ -93,6 +93,11 @@ MonoBehaviour:
   m_isPlayer: 1
   m_fireSpeedMulti: 1
   m_damageMulti: 1
+  m_muzzleFlash: {fileID: 0}
+  m_flashTime: 0
+  m_onBulletFire:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1875468708762642109
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100,6 +105,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 992792324822094881}
     m_Modifications:
+    - target: {fileID: -8757596927058965132, guid: 722fd576afba6c84c896ad89a16f1542, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c6e2c7a07a67deb4aad849f2f069f778, type: 2}
     - target: {fileID: -8679921383154817045, guid: 722fd576afba6c84c896ad89a16f1542, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -148,6 +157,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MOD_PlayerCharacter_GEO
       objectReference: {fileID: 0}
+    - target: {fileID: 8008523361638283269, guid: 722fd576afba6c84c896ad89a16f1542, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c6e2c7a07a67deb4aad849f2f069f778, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 722fd576afba6c84c896ad89a16f1542, type: 3}
 --- !u!4 &2129562329544982870 stripped

@@ -103,6 +103,9 @@ namespace ILOVEYOU
                 m_cardDisplay.gameObject.SetActive(false);
                 m_eventLog = GetComponent<EventLogUI>();
 
+                //bosshud setup
+                transform.GetComponentInChildren<BossBar>().Initialize((int)m_playerID);
+
                 if (m_debugging) Debug.Log($"{this} started successfully");
                 return true;
             }
@@ -127,6 +130,7 @@ namespace ILOVEYOU
             }
             private void _autoSelectCard()
             {
+                if(CardsInHand)
                 _executeSelectedCard(1);
             }
             /// <summary>
@@ -139,6 +143,7 @@ namespace ILOVEYOU
 
                 m_cardsHeld = new DisruptCard[0];
                 CancelInvoke();
+                m_onDiscardHand.Invoke();
                 m_eventLog.LogInput($"<i><#888888>Discarding hand.</color></i>");
             }
             /// <summary>
@@ -172,9 +177,12 @@ namespace ILOVEYOU
                         break;
                 }
                 _executeSelectedCard(index);
+                m_onCardSelected.Invoke();
             }
             private void _executeSelectedCard(int value)
             {
+                if (!CardsInHand)
+                    return;
                 //Trigger the effects of the chosen card if a valid input was given.
                 if (value > -1)
                 {
