@@ -20,21 +20,21 @@ namespace ILOVEYOU
             public void ExecuteEvents(object[] data)
             {
                 //get required data
-                GameManager manager = (GameManager)data[0];
                 PlayerManager player = (PlayerManager)data[1];
-                PlayerManager target = manager.GetOtherPlayer(player);
 
                 //gives effects to self
                 for (int i = 0; i < m_effectsToGiveSelf.Length; i++)
                 {
                     player.GetComponent<BuffDataSystem>().GiveBuff(m_effectsToGiveSelf[i]);
                 }
-                //gives effects to enemy
-                for (int i = 0; i < m_effectsToGive.Length; i++)
+                foreach (PlayerManager target in GameManager.Instance.GetOtherPlayers(player))
                 {
-                    target.GetComponent<BuffDataSystem>().GiveBuff(m_effectsToGive[i]);
+                    //gives effects to enemy
+                    for (int i = 0; i < m_effectsToGive.Length; i++)
+                    {
+                        target.GetComponent<BuffDataSystem>().GiveBuff(m_effectsToGive[i]);
+                    }
                 }
-
             }
         }
     }
