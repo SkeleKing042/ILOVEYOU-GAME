@@ -44,7 +44,7 @@ namespace ILOVEYOU
                     Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID] = this;
                 }
 
-                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].InitializeHealthBar("Legendary Big Boss", m_maxHealth);
+                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].InitializeHealthBar(m_maxHealth);
             }
 
 
