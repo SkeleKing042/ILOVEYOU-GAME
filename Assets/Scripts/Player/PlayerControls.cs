@@ -25,6 +25,7 @@ namespace ILOVEYOU
             [Header("General")]
             [SerializeField] private float m_MaxHealth = 10f;
             private float m_health;
+            public float GetHealthPercent => m_health / m_MaxHealth;
             [SerializeField] private float m_iframesTotal = 1f; //this is in seconds
             private float m_iframesCurrent;
             [SerializeField] private Animator m_anim; //animator should be located on the player model

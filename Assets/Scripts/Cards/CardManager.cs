@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Management;
 using ILOVEYOU.Player;
 using UnityEngine;
@@ -20,17 +21,41 @@ namespace ILOVEYOU
                 public DisruptCard DisruptCard;
                 public AnimationCurve ChanceOverTime;
                 public AnimationCurve ChanceOverEnemyCount;
-                //public AnimationCurve ChanceOverHealth;
-                //public bool AllowWithBoss = true;
+                public AnimationCurve ChanceOverHealthDelta;
+                public bool AllowWithBoss = true;
                 [HideInInspector] public float CurrentChance;
 
-                public void GenerateChance(PlayerManager player)
+                public float GenerateChance(PlayerManager player)
                 {
-                    float[] chances = new float[2]; 
+                    //Check if this card can be used with a boss while its active...
+                    if (BossEnemy.Instances[player.GetPlayerID] != null && !AllowWithBoss)
+                    {
+                        //...if not, set the chance to 0
+                        return CurrentChance = 0;
+                    }
+
+                    //Create an array for the values used to find the chance.
+                    float[] chances = new float[3]; 
+                    //Get the game time compared to max diffculty
                     chances[0] = ChanceOverTime.Evaluate(GameManager.Instance.PercentToMaxDiff);
+                    //Get the percent of enemies on this players side
                     chances[1] = ChanceOverEnemyCount.Evaluate(player.GetLevelManager.GetSpawner.PercentToMaxEnemies);
-                    //chances[2] = player.GetControls.
-                    CurrentChance = chances.Average();
+                    //Get the health difference between this and the other player.
+                    float averageHealth = 0;
+                    //Average the other players' health values
+                    PlayerManager[] others = GameManager.Instance.GetOtherPlayers(player);
+                    for (int i = 0; i < others.Length; i++)
+                    {
+                        averageHealth += others[i].GetControls.GetHealthPercent;
+                        if (i == others.Length - 1)
+                        {
+                            averageHealth /= others.Length;
+                        }
+                    }
+                    chances[2] = Mathf.Clamp(averageHealth - player.GetControls.GetHealthPercent, 0 ,1);
+
+                    //Average all the chance values for the final result
+                    return CurrentChance = chances.Average();
                 }
             }
             [SerializeField] private CardData[] m_cardData;
@@ -63,8 +88,7 @@ namespace ILOVEYOU
                 float chanceSum = 0;
                 foreach(CardData card in m_cardData)
                 {
-                    card.GenerateChance(player);
-                    chanceSum += card.CurrentChance;
+                    chanceSum += card.GenerateChance(player);
                 }
                 //Clamp the number of possible cards
                 Mathf.Clamp(count, 1, m_cardData.Length - 1);
