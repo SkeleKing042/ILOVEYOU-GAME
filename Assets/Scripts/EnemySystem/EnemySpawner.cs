@@ -31,6 +31,7 @@ namespace ILOVEYOU
 
             [SerializeField] private AnimationCurve m_enemyCap;
             private List<GameObject> m_enemyObjects = new();
+            public float PercentToMaxEnemies => m_enemyObjects.Count / m_enemyCap.Evaluate(GameManager.Instance.PercentToMaxDiff);
 
             [Header("Events")]
             [SerializeField] private UnityEvent m_onSpawnEnemy;

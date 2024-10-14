@@ -174,6 +174,10 @@ namespace ILOVEYOU
                     m_onStartError.Invoke();
                 }
             }*/
+            public PlayerManager GetPlayer(int index)
+            {
+                return m_levelManagers[index].GetPlayer;
+            }
             /// <summary>
             /// 
             /// </summary>
@@ -273,7 +277,7 @@ namespace ILOVEYOU
                     //hand out cards to the player
                     if (m_debugging) Debug.Log($"Player {player.GetPlayerID} has completed a task, dealing cards.");
                     player.GetTaskManager.TaskCompletionPoints--;
-                    player.CollectHand(m_cardMan.DispenseCards(m_numberOfCardsToGive).ToArray());
+                    player.CollectHand(m_cardMan.DispenseCards(m_numberOfCardsToGive, player).ToArray());
                 }
             }
             public void GivePlayerTasks(PlayerManager player)
