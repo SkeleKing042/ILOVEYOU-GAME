@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: 19bc6be7f8699ee45816dec0ca00be6b
+guid: d9e923f35364c514e846cdaab9c07a77
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MAT_Moth
-    second: {fileID: 2100000, guid: 905d7c2b8e8394243896bbbca514d6f9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MothBind_MAT_Moth
-    second: {fileID: 2100000, guid: 905d7c2b8e8394243896bbbca514d6f9, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -107,7 +97,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
