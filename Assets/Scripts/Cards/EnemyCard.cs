@@ -16,15 +16,15 @@ namespace ILOVEYOU
             public void ExecuteEvents(object[] data)
             {
                 //get required data
-                GameManager manager = (GameManager)data[0];
                 PlayerManager player = (PlayerManager)data[1];
-                PlayerManager target = manager.GetOtherPlayer(player);
 
 
-
-                if (m_scale) target.GetLevelManager.GetSpawner.SpawnRandomNumberOfEnemiesFromGroup(m_enemyGroup, m_enemyCount * (int)Mathf.Ceil(GameManager.Instance.PercentToMaxDiff));
-                else target.GetLevelManager.GetSpawner.SpawnRandomNumberOfEnemiesFromGroup(m_enemyGroup, m_enemyCount);
-                //target.GetLevelManager.GetSpawner.SpawnEnemyWave();
+                foreach (PlayerManager target in GameManager.Instance.GetOtherPlayers(player))
+                {
+                    if (m_scale) target.GetLevelManager.GetSpawner.SpawnRandomNumberOfEnemiesFromGroup(m_enemyGroup, m_enemyCount * (int)Mathf.Ceil(GameManager.Instance.PercentToMaxDiff));
+                    else target.GetLevelManager.GetSpawner.SpawnRandomNumberOfEnemiesFromGroup(m_enemyGroup, m_enemyCount);
+                    //target.GetLevelManager.GetSpawner.SpawnEnemyWave();
+                }
             }
         }
     }

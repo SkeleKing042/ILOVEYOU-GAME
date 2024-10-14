@@ -171,16 +171,18 @@ namespace ILOVEYOU
             /// </summary>
             /// <param name="player"></param>
             /// <returns>the opposite player</returns>
-            public PlayerManager GetOtherPlayer(PlayerManager player)
+            public PlayerManager[] GetOtherPlayers(PlayerManager player)
             {
-                if (player == m_levelManagers[0].GetPlayer)
+                List<PlayerManager> players = new();
+                foreach(LevelManager level in m_levelManagers)
                 {
-                    return m_levelManagers[1].GetPlayer;
+                    if (level.GetPlayer != player)
+                    {
+                        players.Add(level.GetPlayer);
+                    }
                 }
-                else
-                {
-                    return m_levelManagers[0].GetPlayer;
-                }
+
+                return players.ToArray();
             }
             /// <summary>
             /// function that does the setup for when a player loses
