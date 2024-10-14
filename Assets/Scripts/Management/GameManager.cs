@@ -99,6 +99,7 @@ namespace ILOVEYOU
                 //Make sure that the other management scripts work
                 if (m_debugging) Debug.Log("Game manager starting.");
 
+
                 //Set card manager
                 if (m_debugging) Debug.Log("Getting CardManager");
                 m_cardMan = GetComponent<CardManager>();
@@ -111,6 +112,11 @@ namespace ILOVEYOU
 
                 if (m_debugging) Debug.Log("Attempting to start the game.");
                 GameObject[] players = ControllerManager.Instance.JoinPlayers();
+
+                //Boss data setup
+                BossBar.Instances = new BossBar[players.Length];
+                BossEnemy.Instances = new BossEnemy[players.Length];
+
                 for (int i = 0; i < players.Length; i++)
                 {
                     //camera setup
@@ -129,6 +135,8 @@ namespace ILOVEYOU
                     //give players the first task in the list to start with
                     newLevel.GetPlayer.GetTaskManager.AddTask(m_taskList[0]);
                 }
+
+                //Boss setup
                 m_onGameStart.Invoke();
 
                 //passed
@@ -175,16 +183,18 @@ namespace ILOVEYOU
             /// </summary>
             /// <param name="player"></param>
             /// <returns>the opposite player</returns>
-            public PlayerManager GetOtherPlayer(PlayerManager player)
+            public PlayerManager[] GetOtherPlayers(PlayerManager player)
             {
-                if (player == m_levelManagers[0].GetPlayer)
+                List<PlayerManager> players = new();
+                foreach(LevelManager level in m_levelManagers)
                 {
-                    return m_levelManagers[1].GetPlayer;
+                    if (level.GetPlayer != player)
+                    {
+                        players.Add(level.GetPlayer);
+                    }
                 }
-                else
-                {
-                    return m_levelManagers[0].GetPlayer;
-                }
+
+                return players.ToArray();
             }
             /// <summary>
             /// function that does the setup for when a player loses

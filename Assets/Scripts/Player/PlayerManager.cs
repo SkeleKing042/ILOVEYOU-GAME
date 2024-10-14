@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 namespace ILOVEYOU
@@ -60,13 +61,17 @@ namespace ILOVEYOU
                 m_cardsHeld = new DisruptCard[0];
                 //set id
                 m_playerID = index;
+                gameObject.name = $"Player {index}";
                 //save manager
                 m_levelManager = manager;
                 //camera setup
                 float plyrCount = ControllerManager.Instance.NumberOfActivePlayers;
                 float spacing = 1 / plyrCount;
+                //set camera scale on screen space
                 Camera cam = GetComponentInChildren<Camera>();
                     cam.rect = new(spacing * index, 0, spacing, 1);
+                //dodgy??
+                cam.GetUniversalAdditionalCameraData().cameraStack[0].rect = cam.rect;
 
                 if (m_debugging) Debug.Log($"Getting task manager.");
                 m_taskMan = GetComponent<TaskManager>();
