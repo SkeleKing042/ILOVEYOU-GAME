@@ -35,17 +35,9 @@ namespace ILOVEYOU
             private DisruptCard[] m_cardsHeld;
             public bool CardsInHand { get { return m_cardsHeld.Length > 0; } }
             [SerializeField] private float m_cardTimeout;
-            [SerializeField] private PopUps m_blindBox;
-            //[SerializeField] private DamageArea m_damDaniel;
-            //ui
-            [SerializeField] private PointerArrow m_pointer;
-            public PointerArrow GetPointer { get { return m_pointer; } }
-            [SerializeField] private CardDisplay m_cardDisplay;
-            [SerializeField] private GameObject m_playerHud;
-            [SerializeField] private Slider m_healthSlider;
 
-            private EventLogUI m_eventLog;
-            public EventLogUI GetLog { get { return m_eventLog; } }
+            [SerializeField] private PlayerUI m_playerUI;
+            public PlayerUI GetUI => m_playerUI;
 
             [Header("Event - sounds and visuals")]
             [SerializeField] private UnityEvent m_onGetCards;
@@ -86,25 +78,12 @@ namespace ILOVEYOU
                     return false;
                 }
 
-                if (m_debugging) Debug.Log("Setting up point tracker");
-                if (m_pointer != null)
+                if (!m_playerUI.Startup((int)m_playerID))
                 {
-                    m_pointer.gameObject.SetActive(false);
+                    Debug.LogError($"{m_playerUI} failed startup, aborting...");
+                    Destroy(gameObject);
+                    return false;
                 }
-
-                //UI setup
-                //flip hud - needs tweaking
-                if (m_playerID != 0)
-                {
-                    m_playerHud.transform.GetChild(0).localScale = new(-1, 1, 1);
-                    GetComponent<Animator>().SetBool("Flip", true);
-                }
-                m_blindBox.Initialize();
-                m_cardDisplay.gameObject.SetActive(false);
-                m_eventLog = GetComponent<EventLogUI>();
-
-                //bosshud setup
-                transform.GetComponentInChildren<BossBar>().Initialize((int)m_playerID);
 
                 if (m_debugging) Debug.Log($"{this} started successfully");
                 return true;
@@ -123,7 +102,7 @@ namespace ILOVEYOU
                 m_cardsHeld = new DisruptCard[cards.Length];
                 cards.CopyTo(m_cardsHeld, 0);
 
-                m_cardDisplay.DisplayCards(m_cardsHeld);
+                m_playerUI.GetCardDisplay.DisplayCards(m_cardsHeld);
 
                 //To stop stockpiling, delete the cards after a set time
                 Invoke("_autoSelectCard", m_cardTimeout);
@@ -144,7 +123,7 @@ namespace ILOVEYOU
                 m_cardsHeld = new DisruptCard[0];
                 CancelInvoke();
                 m_onDiscardHand.Invoke();
-                m_eventLog.LogInput($"<i><#888888>Discarding hand.</color></i>");
+                m_playerUI.GetLog.LogInput($"<i><#888888>Discarding hand.</color></i>");
             }
             /// <summary>
             /// Takes a player's input to select a card
@@ -202,10 +181,10 @@ namespace ILOVEYOU
                     {
                         s = s.Insert(pos, " ");
                     }
-                    m_eventLog.LogInput($"{s} selected, triggering events.");
+                    m_playerUI.GetLog.LogInput($"{s} selected, triggering events.");
 
                     m_cardsHeld[value].Trigger(GameManager.Instance, this);
-                    m_cardDisplay.SelectCard(value);
+                    m_playerUI.GetCardDisplay.SelectCard(value);
                     DiscardHand();
                 }
             }
@@ -213,9 +192,9 @@ namespace ILOVEYOU
             public void TriggerBlindness(int count)
             {
                 //CancelInvoke();
-                m_blindBox.StartPopUps(count);
+                m_playerUI.GetBlindBox.StartPopUps(count);
                 m_onBlind.Invoke();
-                m_eventLog.LogInput($"Reciving packet... running program \"areaSingles.exe\"");
+                m_playerUI.GetLog.LogInput($"Reciving packet... running program \"areaSingles.exe\"");
                 //Invoke("_disableBlindness", m_time);
             }
             //private void _disableBlindness()
@@ -223,10 +202,6 @@ namespace ILOVEYOU
             //    m_blindBox.SetActive(false);
             //    m_onUnblind.Invoke();
             //}
-            public void UpdateHealthBar(float value)
-            {
-                m_healthSlider.value = value;
-            }
         }
     }
 }
