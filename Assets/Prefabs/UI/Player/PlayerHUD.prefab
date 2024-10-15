@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 602626317425277415}
   - component: {fileID: 851706745675115605}
   - component: {fileID: 5241137100244076823}
+  - component: {fileID: 5778093747351416810}
   m_Layer: 5
   m_Name: PlayerHUD
   m_TagString: Untagged
@@ -348,8 +349,31 @@ MonoBehaviour:
   m_blindBox: {fileID: 3221515562550018329}
   m_cardDisplay: {fileID: 8836863041727132697}
   m_pointer: {fileID: 0}
+  m_mirroredUIContainer: {fileID: 985648400498203073}
   m_healthSlider: {fileID: 3729699121368928241}
   m_healthFill: {fileID: 3202648140768492349}
+  m_eventLog: {fileID: 0}
+  m_flashTick: 0.01
+  m_flashReductionRate: 0.05
+  m_sizeBurst: -50
+  m_sizeReductionRate: -1
+--- !u!114 &5778093747351416810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346368986829536968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a2f25fe8112e24bbdfeb0b3f60612b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_logBox: {fileID: 556849010328776328}
+  m_textTemplate: {fileID: 1092513611059279840, guid: 2cfa607872e48b04f84a5bb97a542463, type: 3}
+  m_textDuration: 5
+  m_durationIncludesTyping: 0
+  m_displayDelay: 0.001
 --- !u!1 &461466290057205742
 GameObject:
   m_ObjectHideFlags: 0

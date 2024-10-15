@@ -58,7 +58,7 @@ namespace ILOVEYOU
                 float plyrCount = ControllerManager.Instance.NumberOfActivePlayers;
                 float spacing = 1 / plyrCount;
                 Camera cam = GetComponentInChildren<Camera>();
-                    cam.rect = new(spacing * index, 0, spacing, 1);
+                cam.rect = new(spacing * index, 0, spacing, 1);
 
                 if (m_debugging) Debug.Log($"Getting task manager.");
                 m_taskMan = GetComponent<TaskManager>();
@@ -76,6 +76,12 @@ namespace ILOVEYOU
                     Debug.LogError($"{m_playerControls} failed startup, aborting...");
                     Destroy(gameObject);
                     return false;
+                }
+
+                //flip the starting animation if the id is odd.
+                if(m_playerID % 2 == 1)
+                {
+                    GetComponent<Animator>().SetBool("Flip", true);
                 }
 
                 if (!m_playerUI.Startup((int)m_playerID))

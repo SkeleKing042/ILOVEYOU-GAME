@@ -23,15 +23,17 @@ namespace ILOVEYOU
             [SerializeField] private PointerArrow m_pointer;
             public PointerArrow GetPointer { get { return m_pointer; } }
             [Header("HUD elements")]
+            [SerializeField] private Transform m_mirroredUIContainer;
             [SerializeField] private Slider m_healthSlider;
             [SerializeField] private Image m_healthFill;
+            [SerializeField] private EventLogUI m_eventLog;
+            public EventLogUI GetLog { get { return m_eventLog; } }
             [Header("Health Flash settings")]
             [SerializeField] private float m_flashTick;
             [SerializeField] private float m_flashReductionRate;
             [SerializeField] private float m_sizeBurst;
             [SerializeField] private float m_sizeReductionRate;
-            [SerializeField] private EventLogUI m_eventLog;
-            public EventLogUI GetLog { get { return m_eventLog; } }
+            private bool m_eStop;
 
             // Start is called before the first frame update
             public bool Startup(int id)
@@ -45,11 +47,10 @@ namespace ILOVEYOU
                 }
 
                 //UI setup
-                //flip hud - needs tweaking
-                if (id != 0)
+                //flip hud if odd - needs tweaking
+                if (id % 2 == 1)
                 {
-                    transform.GetChild(0).localScale = new(-1, 1, 1);
-                    GetComponent<Animator>().SetBool("Flip", true);
+                    m_mirroredUIContainer.localScale = new(-1, 1, 1);
                 }
                 m_blindBox.Initialize();
                 m_cardDisplay.gameObject.SetActive(false);
@@ -62,32 +63,43 @@ namespace ILOVEYOU
             }
             public void UpdateHealthBar(float value)
             {
+                m_eStop = true;
                 StartCoroutine(FadeHealthBar());
                 m_healthSlider.value = value;
             }
             private IEnumerator FadeHealthBar()
             {
+                m_eStop = false;
+
                 Color current = m_healthFill.color;
                 m_healthFill.color = Color.white;
                 Color flipped = new Color(1 - current.r, 1 - current.g, 1 - current.b, 0);
 
-                //float currentPosition = m_healthFill.rectTransform.offsetMin.x;
-                //m_healthFill.rectTransform.offsetMin += new Vector2(m_sizeBurst, 0);
+                float currentPosition = m_healthFill.rectTransform.offsetMin.x;
+                m_healthFill.rectTransform.offsetMin += new Vector2(m_sizeBurst, 0);
                 while (true)
                 {
+                    if(m_eStop)
+                    {
+                        m_healthFill.color = current;
+                        m_healthFill.rectTransform.offsetMin = new Vector2(currentPosition, m_healthFill.rectTransform.offsetMin.y);
+                        break;
+                    }
                     bool doBreak = true;
                     if (m_healthFill.color != current)
                     {
                         doBreak = false;
                         m_healthFill.color -= flipped * m_flashReductionRate;
                     }
-                    /*if (m_healthFill.rectTransform.offsetMin.x < currentPosition)
+                    if (m_healthFill.rectTransform.offsetMin.x != currentPosition)
                     {
                         doBreak = false;
                         m_healthFill.rectTransform.offsetMin -= new Vector2(m_sizeReductionRate, 0);
-                    }*/
+                    }
                     if (doBreak)
+                    {
                         break;
+                    }
                     yield return new WaitForSeconds(m_flashTick);
                 }
             }
