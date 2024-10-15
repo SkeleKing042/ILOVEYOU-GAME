@@ -15,11 +15,12 @@ namespace ILOVEYOU
             [SerializeField] private int m_popupAmount;
             public void ExecuteEvents(object[] data)
             {
-                GameManager manager = (GameManager)data[0];
                 PlayerManager player = (PlayerManager)data[1];
-                PlayerManager target = manager.GetOtherPlayer(player);
 
-                target.TriggerBlindness(m_popupAmount);
+                foreach(PlayerManager target in GameManager.Instance.GetOtherPlayers(player))
+                {
+                    target.TriggerBlindness(m_popupAmount);
+                }
             }
         }
     }
