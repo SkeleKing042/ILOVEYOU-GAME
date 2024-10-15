@@ -173,6 +173,7 @@ namespace ILOVEYOU
                 }
                 _executeSelectedCard(index);
                 m_onCardSelected.Invoke();
+                CardEffectTargetIndecator.Castout(GameManager.Instance.GetOtherPlayers(this));
             }
             private void _executeSelectedCard(int value)
             {
