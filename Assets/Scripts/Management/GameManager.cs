@@ -99,7 +99,6 @@ namespace ILOVEYOU
                 //Make sure that the other management scripts work
                 if (m_debugging) Debug.Log("Game manager starting.");
 
-
                 //Set card manager
                 if (m_debugging) Debug.Log("Getting CardManager");
                 m_cardMan = GetComponent<CardManager>();
@@ -112,11 +111,6 @@ namespace ILOVEYOU
 
                 if (m_debugging) Debug.Log("Attempting to start the game.");
                 GameObject[] players = ControllerManager.Instance.JoinPlayers();
-
-                //Boss data setup
-                BossBar.Instances = new BossBar[players.Length];
-                BossEnemy.Instances = new BossEnemy[players.Length];
-
                 for (int i = 0; i < players.Length; i++)
                 {
                     //camera setup
@@ -135,8 +129,6 @@ namespace ILOVEYOU
                     //give players the first task in the list to start with
                     newLevel.GetPlayer.GetTaskManager.AddTask(m_taskList[0]);
                 }
-
-                //Boss setup
                 m_onGameStart.Invoke();
 
                 //passed
@@ -174,27 +166,21 @@ namespace ILOVEYOU
                     m_onStartError.Invoke();
                 }
             }*/
-            public PlayerManager GetPlayer(int index)
-            {
-                return m_levelManagers[index].GetPlayer;
-            }
             /// <summary>
             /// 
             /// </summary>
             /// <param name="player"></param>
             /// <returns>the opposite player</returns>
-            public PlayerManager[] GetOtherPlayers(PlayerManager player)
+            public PlayerManager GetOtherPlayer(PlayerManager player)
             {
-                List<PlayerManager> players = new();
-                foreach(LevelManager level in m_levelManagers)
+                if (player == m_levelManagers[0].GetPlayer)
                 {
-                    if (level.GetPlayer != player)
-                    {
-                        players.Add(level.GetPlayer);
-                    }
+                    return m_levelManagers[1].GetPlayer;
                 }
-
-                return players.ToArray();
+                else
+                {
+                    return m_levelManagers[0].GetPlayer;
+                }
             }
             /// <summary>
             /// function that does the setup for when a player loses
@@ -277,7 +263,7 @@ namespace ILOVEYOU
                     //hand out cards to the player
                     if (m_debugging) Debug.Log($"Player {player.GetPlayerID} has completed a task, dealing cards.");
                     player.GetTaskManager.TaskCompletionPoints--;
-                    player.CollectHand(m_cardMan.DispenseCards(m_numberOfCardsToGive, player).ToArray());
+                    player.CollectHand(m_cardMan.DispenseCards(m_numberOfCardsToGive).ToArray());
                 }
             }
             public void GivePlayerTasks(PlayerManager player)

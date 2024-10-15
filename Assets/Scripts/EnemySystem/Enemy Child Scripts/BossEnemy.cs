@@ -9,7 +9,7 @@ namespace ILOVEYOU
     {
         public class BossEnemy : Enemy
         {
-            public static BossEnemy[] Instances = new BossEnemy[1];
+            public static BossEnemy[] Instances = new BossEnemy[2];
 
             BulletPattern m_pattern;
             [SerializeField] private float m_lungeTime = .3f;
@@ -44,7 +44,7 @@ namespace ILOVEYOU
                     Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID] = this;
                 }
 
-                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].InitializeHealthBar(m_maxHealth);
+                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].InitializeHealthBar("Legendary Big Boss", m_maxHealth);
             }
 
 
