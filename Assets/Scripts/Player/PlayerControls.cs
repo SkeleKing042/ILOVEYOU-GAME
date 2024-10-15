@@ -25,6 +25,7 @@ namespace ILOVEYOU
             [Header("General")]
             [SerializeField] private float m_MaxHealth = 10f;
             private float m_health;
+            public float GetHealthPercent => m_health / m_MaxHealth;
             [SerializeField] private float m_iframesTotal = 1f; //this is in seconds
             private float m_iframesCurrent;
             [SerializeField] private Animator m_anim; //animator should be located on the player model
@@ -187,10 +188,10 @@ namespace ILOVEYOU
                 float moveAngle = Mathf.Rad2Deg * Mathf.Atan2(m_moveDir.x, m_moveDir.z);
                 //gets quaternions to convert to vectors
                 Quaternion moveQ = Quaternion.Euler(0f, moveAngle, 0f);
-                Quaternion shütQ = m_facingObject.rotation;
+                Quaternion shotQ = m_facingObject.rotation;
                 //sets required animation variables
-                m_anim.SetFloat("moveX", (moveQ * Quaternion.Inverse(shütQ) * Vector3.forward * m_moveDir.magnitude).x);
-                m_anim.SetFloat("moveZ", (moveQ * Quaternion.Inverse(shütQ) * Vector3.forward * m_moveDir.magnitude).z);
+                m_anim.SetFloat("moveX", (moveQ * Quaternion.Inverse(shotQ) * Vector3.forward * m_moveDir.magnitude).x);
+                m_anim.SetFloat("moveZ", (moveQ * Quaternion.Inverse(shotQ) * Vector3.forward * m_moveDir.magnitude).z);
             }
             public void OnFire(InputValue value)
             {
