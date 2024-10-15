@@ -27,6 +27,8 @@ namespace ILOVEYOU
             [SerializeField] private Slider m_healthSlider;
             [SerializeField] private Image m_healthFill;
             [SerializeField] private EventLogUI m_eventLog;
+            [SerializeField] private CardVignette m_cardVin;
+            public CardVignette GetCardVin => m_cardVin;
             public EventLogUI GetLog { get { return m_eventLog; } }
             [Header("Health Flash settings")]
             [SerializeField] private float m_flashTick;

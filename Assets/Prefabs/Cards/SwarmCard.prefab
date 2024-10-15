@@ -27,6 +27,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwarmCard
       objectReference: {fileID: 0}
+    - target: {fileID: 5323591372800690842, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323591372800690842, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323591372800690842, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323591372800690842, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5323591373018342659, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_text
       value: Straight up swarming it
@@ -148,3 +164,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enemyGroup: 0
   m_enemyCount: 7
+  m_scale: 1
+  m_ignoreCap: 0
