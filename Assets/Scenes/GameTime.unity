@@ -271,10 +271,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager2
       objectReference: {fileID: 0}
-    - target: {fileID: 5104232827307362646, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
-      propertyPath: m_debugging
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5104232827307362647, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -843,7 +839,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.5
+  m_fontSize: 31.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -902,7 +898,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
+  m_AnchoredPosition: {x: 0, y: -50.000015}
   m_SizeDelta: {x: -200, y: -325}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5762364304942291982
