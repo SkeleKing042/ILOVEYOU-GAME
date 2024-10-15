@@ -14,9 +14,10 @@ namespace ILOVEYOU
             [Tooltip("How long the effect will last for.")] [SerializeField] private float m_time = 1;
             public void ExecuteEvents(object[] data)
             {
+                GameManager manager = (GameManager)data[0];
                 PlayerManager player = (PlayerManager)data[1];
-                foreach(PlayerManager target in GameManager.Instance.GetOtherPlayers(player))
-                    target.GetComponent<PlayerControls>().DisableShooting(m_time);
+                PlayerManager target = manager.GetOtherPlayer(player);
+                target.GetComponent<PlayerControls>().DisableShooting(m_time);
             }
         }
     }
