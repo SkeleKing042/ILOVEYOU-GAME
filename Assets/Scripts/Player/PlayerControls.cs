@@ -240,7 +240,7 @@ namespace ILOVEYOU
             public void UpdateHealthBar()
             {
                 float current = m_health / m_MaxHealth;
-                m_plaMa.UpdateHealthBar(current);
+                m_plaMa.GetUI.UpdateHealthBar(current);
             }
 
             private void OnDrawGizmos()
@@ -270,7 +270,7 @@ namespace ILOVEYOU
             public void DisableShooting(float time)
             {
                 m_allowShooting = false;
-                m_plaMa.GetLog.LogInput($"<color=\"red\">Debugger disabled.</color> Rebooting in {time} seconds");
+                m_plaMa.GetUI.GetLog.LogInput($"<color=\"red\">Debugger disabled.</color> Rebooting in {time} seconds");
                 m_onShootingDisabled.Invoke();
                 //CancelInvoke();
                 //m_plaMa.GetLevelManager.GetParticleSpawner.SpawnParticleTime(m_debuffParticleTemp, transform, time);
@@ -280,7 +280,7 @@ namespace ILOVEYOU
             public void ReenableShooting()
             {
                 m_allowShooting = true;
-                m_plaMa.GetLog.LogInput($"Debugger rebooted, please enjoy your free trial!");
+                m_plaMa.GetUI.GetLog.LogInput($"Debugger rebooted, please enjoy your free trial!");
                 m_onShootingEnabled.Invoke();
             }
 

@@ -235,6 +235,8 @@ GameObject:
   - component: {fileID: 6317720234434829636}
   - component: {fileID: 602626317425277415}
   - component: {fileID: 851706745675115605}
+  - component: {fileID: 5241137100244076823}
+  - component: {fileID: 5778093747351416810}
   m_Layer: 5
   m_Name: PlayerHUD
   m_TagString: Untagged
@@ -331,6 +333,47 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5241137100244076823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346368986829536968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39eb6ed382a58c54f859dce474ca6f46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_debugging: 0
+  m_blindBox: {fileID: 3221515562550018329}
+  m_cardDisplay: {fileID: 8836863041727132697}
+  m_pointer: {fileID: 0}
+  m_mirroredUIContainer: {fileID: 985648400498203073}
+  m_healthSlider: {fileID: 3729699121368928241}
+  m_healthFill: {fileID: 3202648140768492349}
+  m_eventLog: {fileID: 0}
+  m_flashTick: 0.01
+  m_flashReductionRate: 0.05
+  m_sizeBurst: -50
+  m_sizeReductionRate: -1
+--- !u!114 &5778093747351416810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346368986829536968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a2f25fe8112e24bbdfeb0b3f60612b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_logBox: {fileID: 556849010328776328}
+  m_textTemplate: {fileID: 1092513611059279840, guid: 2cfa607872e48b04f84a5bb97a542463, type: 3}
+  m_textDuration: 5
+  m_durationIncludesTyping: 0
+  m_displayDelay: 0.001
 --- !u!1 &461466290057205742
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,9 +1089,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
   m_MinWidth: -1
-  m_MinHeight: 300
+  m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: -1
+  m_PreferredHeight: 300
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -2549,3 +2592,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3104207348060024278, guid: 343e8ca286ea9244a8189e59fab998e1, type: 3}
   m_PrefabInstance: {fileID: 3727428665442413121}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8836863041727132697 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5267140645610446424, guid: 343e8ca286ea9244a8189e59fab998e1, type: 3}
+  m_PrefabInstance: {fileID: 3727428665442413121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a728893ced20d044a9661d6c03bceb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
