@@ -29,6 +29,14 @@ namespace ILOVEYOU
                 m_playerTransform = target;
                 m_blinkScript = GetComponent<DamageBlink>();
 
+                //gets relative position between the player and enemy
+                Vector3 relativePos = m_playerTransform.position - transform.position;
+                //looks at the player (removing x, and z rotation)
+                Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+                rotation = Quaternion.Euler(0f, rotation.eulerAngles.y, 0f);
+                //sets rotation
+                transform.rotation = rotation;
+
                 //Potential TODO: add a "modifier" value that is dependent on current difficulty/time that influences the base values
             }
 
