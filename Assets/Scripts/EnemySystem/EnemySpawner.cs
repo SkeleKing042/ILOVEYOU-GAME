@@ -26,7 +26,9 @@ namespace ILOVEYOU
             }
 
             [SerializeField] private EnemyPrefabs[] m_enemyGroups;
-            [SerializeField] private float m_spawnRange;
+            [SerializeField] private float m_spawnRangeMin;
+            [SerializeField] private float m_spawnRangeMax;
+            private float m_spawnRange { get { return Random.Range(m_spawnRangeMin, m_spawnRangeMax); } }
             [SerializeField] private LayerMask m_spawnMask;
 
             [SerializeField] private AnimationCurve m_enemyCap;
@@ -106,7 +108,8 @@ namespace ILOVEYOU
             public void OnDrawGizmosSelected()
             {
                 //this is just to make it easier to visualise where enemies will spawn
-                if (transform) Gizmos.DrawWireSphere(transform.position, m_spawnRange);
+                if (transform) Gizmos.DrawWireSphere(transform.position, m_spawnRangeMin);
+                if (transform) Gizmos.DrawWireSphere(transform.position, m_spawnRangeMax);
             }
 
             private bool _SpawnEnemy(GameObject prefab, bool ignoreCap)
@@ -125,6 +128,7 @@ namespace ILOVEYOU
                     //sets position around circle
                     enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), transform.position.y,
                     transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
+                    
                     //checks if the enemy is colliding with anything
                     if(!Physics.CheckSphere(enemy.transform.position, 1f, m_spawnMask))
                     {
