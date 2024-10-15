@@ -26,11 +26,14 @@ namespace ILOVEYOU
             }
 
             [SerializeField] private EnemyPrefabs[] m_enemyGroups;
-            [SerializeField] private float m_spawnRange;
+            [SerializeField] private float m_spawnRangeMin;
+            [SerializeField] private float m_spawnRangeMax;
+            private float m_spawnRange { get { return Random.Range(m_spawnRangeMin, m_spawnRangeMax); } }
             [SerializeField] private LayerMask m_spawnMask;
 
             [SerializeField] private AnimationCurve m_enemyCap;
             private List<GameObject> m_enemyObjects = new();
+            public float PercentToMaxEnemies => m_enemyObjects.Count / m_enemyCap.Evaluate(GameManager.Instance.PercentToMaxDiff);
 
             [Header("Events")]
             [SerializeField] private UnityEvent m_onSpawnEnemy;
@@ -54,7 +57,7 @@ namespace ILOVEYOU
                     //ignores list if threshold is 0 or the current difficulty is larger than the threshold assigned to the group
                     if (m_enemyGroups[i].Threshold().Evaluate(Mathf.Clamp(GameManager.Instance.PercentToMaxDiff, 0 , 1)) <= rnd) continue;
 
-                    if (_SpawnEnemy(m_enemyGroups[i].RandomEnemyPrefab())) m_onSpawnEnemy.Invoke();
+                    if (_SpawnEnemy(m_enemyGroups[i].RandomEnemyPrefab(), false)) m_onSpawnEnemy.Invoke();
                 }
             }
             /// <summary>
@@ -63,13 +66,12 @@ namespace ILOVEYOU
             /// <param name="groupNumber">enemy group to spawn from</param>
             public void SpawnRandomEnemiesFromGroup(int groupNumber)
             {
-                //TODO: formula for enemy count and game difficulty
                 float enemyCount = GameManager.Instance.GetDifficulty + 1;
 
                 for (int i = 0; i < enemyCount; i++)
                 {
 
-                    if(_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab())) m_onSpawnEnemy.Invoke();
+                    if(_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab(), false)) m_onSpawnEnemy.Invoke();
                 }
             }
             /// <summary>
@@ -77,12 +79,12 @@ namespace ILOVEYOU
             /// </summary>
             /// <param name="groupNumber">enemy group to spawn from</param>
             /// <param name="enemyCount">number of enemies</param>
-            public void SpawnRandomNumberOfEnemiesFromGroup(int groupNumber, int enemyCount)
+            public void SpawnRandomNumberOfEnemiesFromGroup(int groupNumber, int enemyCount, bool ignoreCap)
             {
 
                 for (int i = 0; i < enemyCount; i++)
                 {
-                    if (_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab())) m_onSpawnEnemy.Invoke();
+                    if (_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab(), ignoreCap)) m_onSpawnEnemy.Invoke();
                 }
             }
             /// <summary>
@@ -91,7 +93,7 @@ namespace ILOVEYOU
             /// <param name="groupNumber">enemy group to spawn from</param>
             public void SpawnRandomEnemyFromGroup(int groupNumber)
             {
-                if (_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab())) m_onSpawnEnemy.Invoke();
+                if (_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab(), false)) m_onSpawnEnemy.Invoke();
             }
             /// <summary>
             /// spawns a singular specified enemy from a group
@@ -100,18 +102,19 @@ namespace ILOVEYOU
             /// <param name="prefabIndex">which enemy from the array to spawn</param>
             public void SpawnEnemyFromGroup(int groupNumber, int prefabIndex)
             {
-                if(_SpawnEnemy(m_enemyGroups[groupNumber].EnemyPrefab(prefabIndex))) m_onSpawnEnemy.Invoke();
+                if(_SpawnEnemy(m_enemyGroups[groupNumber].EnemyPrefab(prefabIndex), false)) m_onSpawnEnemy.Invoke();
             }
 
             public void OnDrawGizmosSelected()
             {
                 //this is just to make it easier to visualise where enemies will spawn
-                if (transform) Gizmos.DrawWireSphere(transform.position, m_spawnRange);
+                if (transform) Gizmos.DrawWireSphere(transform.position, m_spawnRangeMin);
+                if (transform) Gizmos.DrawWireSphere(transform.position, m_spawnRangeMax);
             }
 
-            private bool _SpawnEnemy(GameObject prefab)
+            private bool _SpawnEnemy(GameObject prefab, bool ignoreCap)
             {
-                if (m_enemyObjects.Count >= m_enemyCap.Evaluate(GameManager.Instance.PercentToMaxDiff))
+                if (!ignoreCap && m_enemyObjects.Count >= m_enemyCap.Evaluate(GameManager.Instance.PercentToMaxDiff))
                 {
                     Debug.Log("Max number of enemies reached!");
                     return false;
@@ -125,6 +128,7 @@ namespace ILOVEYOU
                     //sets position around circle
                     enemy.transform.position = new(transform.position.x + (Mathf.Cos(angle) * m_spawnRange), transform.position.y,
                     transform.position.z + (Mathf.Sin(angle) * m_spawnRange));
+                    
                     //checks if the enemy is colliding with anything
                     if(!Physics.CheckSphere(enemy.transform.position, 1f, m_spawnMask))
                     {

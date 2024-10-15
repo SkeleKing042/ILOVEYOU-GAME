@@ -29,6 +29,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossCard
       objectReference: {fileID: 0}
+    - target: {fileID: 5323591372800690842, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323591372800690842, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323591372800690842, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323591372800690842, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5323591373018342659, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_text
       value: Spawn Boss
@@ -151,3 +167,4 @@ MonoBehaviour:
   m_enemyGroup: 1
   m_enemyCount: 1
   m_scale: 0
+  m_ignoreCap: 1

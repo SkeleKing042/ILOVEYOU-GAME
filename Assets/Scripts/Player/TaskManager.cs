@@ -90,7 +90,7 @@ namespace ILOVEYOU
                             m_player.GetLevelManager.StartSequence(m_tasks[i]);
                         }
 
-                        m_player.GetLog.LogInput($"<color=\"green\"><sprite=\"iconSheet\" index={(int)m_tasks[i].GetTaskType} color=#00FF00>{m_tasks[i].GetTaskType}</color> task assigned to task list.");
+                        m_player.GetUI.GetLog.LogInput($"<color=\"green\"><sprite=\"iconSheet\" index={(int)m_tasks[i].GetTaskType} color=#00FF00>{m_tasks[i].GetTaskType}</color> task assigned to task list.");
 
                         m_taskWaitTime = 0;
                         _verifyTaskList();
@@ -123,8 +123,8 @@ namespace ILOVEYOU
                         continue;
                     if (m_tasks[i].IsComplete)
                     {
-                        m_player.GetLog.LogInput($"{m_tasks[i].GetTaskType} task complete. Rewarding cards.");
                         DataExporter.DataExport.GetValue($"Player {m_player.GetPlayerID + 1} task type", m_tasksCompleted) = m_tasks[i].GetTaskType;
+                        m_player.GetUI.GetLog.LogInput($"{m_tasks[i].GetTaskType} task complete. Rewarding cards.");
                         //..clear the task in that slot
                         m_tasks[i] = new(TaskType.Invalid, 0);
 
