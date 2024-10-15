@@ -91,6 +91,13 @@ namespace ILOVEYOU
                     GetComponent<Animator>().SetBool("Flip", true);
                 }
 
+                if (!m_playerUI.Startup((int)m_playerID))
+                {
+                    Debug.LogError($"{m_playerUI} failed startup, aborting...");
+                    Destroy(gameObject);
+                    return false;
+                }
+
                 //bosshud setup
                 transform.GetComponentInChildren<BossBar>().Initialize((int)m_playerID);
 
