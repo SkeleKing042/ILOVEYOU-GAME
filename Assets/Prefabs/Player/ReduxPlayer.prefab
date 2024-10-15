@@ -583,7 +583,8 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_enemyPrefabs:
     - {fileID: 1923789606412629652, guid: 5376137f086b2b5429f2512e47f7b803, type: 3}
-  m_spawnRange: 21
+  m_spawnRangeMin: 0
+  m_spawnRangeMax: 0
   m_spawnMask:
     serializedVersion: 2
     m_Bits: 2048
