@@ -217,7 +217,7 @@ namespace ILOVEYOU
                         DataExporter.DataExport.GetValue($"Card choice {i + 1}", m_cardsChosen) = n;
                     }
                     string cardName = m_cardsHeld[value].name;
-                    cardName = cardName.Remove(cardName.Length - 8, 8);
+                    cardName = cardName.Remove(cardName.Length - 7, 7);
                     DataExporter.DataExport.GetValue("Chosen card", m_cardsChosen) = cardName;
                     //get time taken to choose
                     DataExporter.DataExport.GetValue("Time to choose", m_cardsChosen) = m_cardChoiceDelta;

@@ -15,7 +15,6 @@ namespace ILOVEYOU
             void Start()
             {
                 SceneManager.LoadScene(TargetScene);
-                DataExport.Init();
             }
         }
     }

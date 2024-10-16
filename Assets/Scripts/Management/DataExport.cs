@@ -12,68 +12,72 @@ namespace DataExporter
     public static class DataExport
     {
         //The data that will be saved then exported
-        static Dictionary<string, object[]> m_dataSet = new();
+        private static Dictionary<string, object[]> m_dataSet = new();
 
         //the max length of data - good for seeing values over time
-        private static uint m_arraySize = 256;
+        private static uint m_arraySize = 16;
         public static int ReadArraySize => (int)m_arraySize;
 
         private static string m_fileName = $"Untitled";
         private static string m_fileDirectory = $".\\";
         private static string m_configPath = $".\\config.txt";
 
-        public static void Init()
+        static DataExport()
         {
-            //check for the config
+            //check for an existing config
             if (!File.Exists(m_configPath))
             {
                 //create default config
                 TextWriter tw = new StreamWriter(m_configPath, false);
-                tw.WriteLine("Untitled");
-                tw.WriteLine(".\\");
-                tw.WriteLine("16");
+                tw.WriteLine(m_fileName);
+                tw.WriteLine(m_fileDirectory);
+                tw.WriteLine(m_arraySize);
                 tw.Close();
             }
+            else
+            {
+                //read the config file
+                string[] lines = File.ReadAllLines(m_configPath);
+                m_fileName = $"{lines[0]}";
+                m_fileDirectory = $"{lines[1]}";
+                m_arraySize = Convert.ToUInt32(lines[2]);
+            }
 
-            //read the config file
-            string[] lines = File.ReadAllLines(m_configPath);
-            m_fileName = $"{lines[0]}";
-            m_fileDirectory = $"{lines[1]}";
-            m_arraySize = Convert.ToUInt32(lines[2]);
 
             //check if the output path exists
             FileInfo fi = new FileInfo(m_fileDirectory);
             if (!fi.Directory.Exists)
             {
+                //otherwise create it
                 System.IO.Directory.CreateDirectory(fi.DirectoryName);
             }
         }
         /// <summary>
-        /// Creates the dictonary refence if not already created.
+        /// Checks for the dictionary <paramref name="key"/>, and can create it if needed.
         /// </summary>
-        /// <param name="target"></param>
-        private static void _validateTarget(string target, bool createIfMissing = false)
+        /// <param name="key">Dictionary Key</param>
+        /// <param name="createIfMissing">If the key should be added to the dictionary if its not found.</param>
+        private static void _validateTarget(string key, bool createIfMissing = false)
         {
-            if (!m_dataSet.ContainsKey(target))
+            if (!m_dataSet.ContainsKey(key))
             {
                 if (createIfMissing)
                 {
-                    Debug.LogWarning($"{target} doesn't exist in the dictionary, creating key!");
-                    m_dataSet.TryAdd(target, new object[m_arraySize]);
+                    Debug.LogWarning($"{key} doesn't exist in the dictionary, creating key!");
+                    m_dataSet.TryAdd(key, new object[m_arraySize]);
                 }
                 else
                 {
-                    Debug.LogError($"Data export dictionary doesn't contain the key \"{target}\".");
+                    Debug.LogError($"Data export dictionary doesn't contain the key \"{key}\".");
                 }
             }
         }
         /// <summary>
-        /// Returns a value at the given index and key.
+        /// Returns a value reference at the given <paramref name="index"/> and <paramref name="key"/>.
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <param name="index"></param>
-        /// <param name="oper"></param>
+        /// <param name="key">Dictionary Key</param>
+        /// <param name="index">Index in dictionary.</param>
+        /// <param name="createIfMissing">If the key should be added to the dictionary if its not found.</param>
         public static ref object GetValue(string key, int index = 0, bool createIfMissing = false)
         {
             key = key.ToUpper();
@@ -81,9 +85,9 @@ namespace DataExporter
             return ref m_dataSet[key][index];
         }
         /// <summary>
-        /// Returns all the values from a key
+        /// Returns all the values from a <paramref name="key"/>
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="key">Dictionary key</param>
         /// <returns></returns>
         public static object[] ReadValues(string key)
         {
@@ -92,10 +96,9 @@ namespace DataExporter
         /// <summary>
         /// Exports the data out as an CSV file
         /// </summary>
-        /// <param name="path"></param>
         public static void ExportCSV()
         {
-            //set the path
+            //set the path and unique name
             var csvPath = m_fileDirectory + m_fileName + $" - {DateTime.Now.ToFileTime()}.csv";
             Debug.Log($"Exporting csv file to {csvPath}.");
 
@@ -129,6 +132,7 @@ namespace DataExporter
 
             Debug.Log("CSV exported!!");
 
+            //Clear
             m_dataSet = new();
         }
     }
