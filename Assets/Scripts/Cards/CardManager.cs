@@ -76,13 +76,10 @@ namespace ILOVEYOU
                     {
                         if(m_debugging) Debug.LogWarning($"{card} might be missing an effect. Please make sure there is a script attached to the same object as the \"DisruptCardBase\" script, and that it has a function called \"ExecuteEvents\"");
                     }
-
-                    //Data export
-                    DataExporter.DataExport.GetValue($"{card.name} uses", 0);
                 }
                 
-                    //passed
-                    if (m_debugging) Debug.Log($"{this} started successfully.");
+                //passed
+                if (m_debugging) Debug.Log($"{this} started successfully.");
                 return true;
             }
             public List<DisruptCard> DispenseCards(int count, PlayerManager player)

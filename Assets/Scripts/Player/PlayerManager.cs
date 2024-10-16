@@ -42,6 +42,10 @@ namespace ILOVEYOU
             [SerializeField] private PlayerUI m_playerUI;
             public PlayerUI GetUI => m_playerUI;
 
+            //data export
+            private int m_cardsChosen;
+            private float m_cardChoiceDelta;
+
             [Header("Event - sounds and visuals")]
             [SerializeField] private UnityEvent m_onGetCards;
             [SerializeField] private UnityEvent m_onDiscardHand;
@@ -102,8 +106,6 @@ namespace ILOVEYOU
                 //bosshud setup
                 transform.GetComponentInChildren<BossBar>().Initialize((int)m_playerID);
 
-                //data export
-                DataExporter.DataExport.GetValue($"Player {m_playerID + 1} card choice time", 0);
                 if (m_debugging) Debug.Log($"{this} started successfully");
                 return true;
             }
@@ -117,7 +119,6 @@ namespace ILOVEYOU
                 if (m_debugging) Debug.Log("Hand dealt, setting up cards.");
                 CancelInvoke();
                 m_onGetCards.Invoke();
-                m_cardWaitTime = 0;
                 //Copy the given array to this hand
                 m_cardsHeld = new DisruptCard[cards.Length];
                 cards.CopyTo(m_cardsHeld, 0);
@@ -207,18 +208,19 @@ namespace ILOVEYOU
 
                     m_playerUI.GetCardDisplay.SelectCard(value);
 
-                    //Data export
-                    //get card name
+                    //Data Export
+                    for (int i = 0; i < m_cardsHeld.Length; i++)
+                    {
+                        string n = m_cardsHeld[i].name;
+                        n = n.Remove(n.Length - 7, 7);
+                        //Data export
+                        DataExporter.DataExport.GetValue($"Card choice {i + 1}", m_cardsChosen) = n;
+                    }
                     string cardName = m_cardsHeld[value].name;
-                    //remove clone from the end
-                    cardName = cardName.Remove(cardName.Length - 7, 7);
-                    //get the dictonary value
-                    int uses = Convert.ToInt32(DataExporter.DataExport.GetValue($"{cardName} uses", (int)m_playerID));
-                    //apply to dictonary
-                    uses++;
-                    DataExporter.DataExport.GetValue($"{cardName} uses", (int)m_playerID) = uses;
+                    cardName = cardName.Remove(cardName.Length - 8, 8);
+                    DataExporter.DataExport.GetValue("Chosen card", m_cardsChosen) = cardName;
                     //get time taken to choose
-                    DataExporter.DataExport.GetValue($"Player {m_playerID + 1} card choice time", m_cardsChosen) = m_cardChoiceDelta;
+                    DataExporter.DataExport.GetValue("Time to choose", m_cardsChosen) = m_cardChoiceDelta;
                     m_cardChoiceDelta = 0;
                     m_cardsChosen++;
                     

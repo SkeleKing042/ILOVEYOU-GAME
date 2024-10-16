@@ -12,19 +12,13 @@ namespace DataExporter
     public static class DataExport
     {
         //The data that will be saved then exported
-        static Dictionary<string, object[]> m_dataSet = new Dictionary<string, object[]>();
-        public enum Operation
-        {
-            Add,
-            Multiply,
-            Set,
-            Reset
-        };
+        static Dictionary<string, object[]> m_dataSet = new();
+
         //the max length of data - good for seeing values over time
         private static uint m_arraySize = 256;
         public static int ReadArraySize => (int)m_arraySize;
 
-        private static string m_fileName = $"Untitled - {DateTime.Now.ToFileTime()}.csv";
+        private static string m_fileName = $"Untitled";
         private static string m_fileDirectory = $".\\";
         private static string m_configPath = $".\\config.txt";
 
@@ -58,33 +52,42 @@ namespace DataExporter
         /// Creates the dictonary refence if not already created.
         /// </summary>
         /// <param name="target"></param>
-        private static void _validateTarget(string target)
+        private static void _validateTarget(string target, bool createIfMissing = false)
         {
             if (!m_dataSet.ContainsKey(target))
             {
-                m_dataSet.TryAdd(target, new object[m_arraySize]);
+                if (createIfMissing)
+                {
+                    Debug.LogWarning($"{target} doesn't exist in the dictionary, creating key!");
+                    m_dataSet.TryAdd(target, new object[m_arraySize]);
+                }
+                else
+                {
+                    Debug.LogError($"Data export dictionary doesn't contain the key \"{target}\".");
+                }
             }
         }
         /// <summary>
         /// Returns a value at the given index and key.
         /// </summary>
-        /// <param name="target"></param>
+        /// <param name="key"></param>
         /// <param name="value"></param>
         /// <param name="index"></param>
         /// <param name="oper"></param>
-        public static ref object GetValue(string target, int index)
+        public static ref object GetValue(string key, int index = 0, bool createIfMissing = false)
         {
-            _validateTarget(target);
-            return ref m_dataSet[target][index];
+            key = key.ToUpper();
+            _validateTarget(key, createIfMissing);
+            return ref m_dataSet[key][index];
         }
         /// <summary>
         /// Returns all the values from a key
         /// </summary>
-        /// <param name="target"></param>
+        /// <param name="key"></param>
         /// <returns></returns>
-        public static object[] ReadValues(string target)
+        public static object[] ReadValues(string key)
         {
-            return m_dataSet[target];
+            return m_dataSet[key];
         }
         /// <summary>
         /// Exports the data out as an CSV file
@@ -103,7 +106,7 @@ namespace DataExporter
             string titles = "";
             foreach (var key in m_dataSet.Keys)
             {
-                titles += $"{key}, ";
+                titles += $"{key},";
             }
             tw.WriteLine(titles);
             tw.Close();
@@ -118,7 +121,7 @@ namespace DataExporter
                 //go through each key - the x
                 foreach (var key in m_dataSet.Keys)
                 {
-                    output += $"{GetValue(key, i)}, ";
+                    output += $"{GetValue(key, i)},";
                 }
                 tw.WriteLine($"{output}");
             }

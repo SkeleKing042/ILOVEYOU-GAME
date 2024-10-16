@@ -140,8 +140,17 @@ namespace ILOVEYOU
                 m_onGameStart.Invoke();
 
                 //data export start
-                DataExporter.DataExport.GetValue($"Player 1 task time", 0);
-                DataExporter.DataExport.GetValue($"Player 2 task time", 0);
+                //Data export
+                for (int i = 0; i < 3; i++)
+                {
+                    DataExporter.DataExport.GetValue($"Card choice {i + 1}", 0, true);
+                }
+                DataExporter.DataExport.GetValue("Chosen card", 0, true);
+                DataExporter.DataExport.GetValue("Time to choose", 0, true);
+
+                DataExporter.DataExport.GetValue("Given task", 0, true);
+                DataExporter.DataExport.GetValue("Task time", 0, true);
+
                 //passed
                 if (m_debugging) Debug.Log($"Game started successfully!\nStarting game in {m_roundStartCountdown}.");
                 if (!enabled)
@@ -224,9 +233,10 @@ namespace ILOVEYOU
 
                 //Data export stuff
                 //export the round time and score
-                DataExporter.DataExport.GetValue("Round time", 0) = m_timer;
-                DataExporter.DataExport.GetValue("P1 Score", 0) = m_score.x;
-                DataExporter.DataExport.GetValue("P2 Score", 0) = m_score.y;
+                DataExporter.DataExport.GetValue("Round time", 0, true) = m_timer;
+                DataExporter.DataExport.GetValue("P1 Score", 0, true) = m_score.x;
+                DataExporter.DataExport.GetValue("P2 Score", 0, true) = m_score.y;
+                DataExporter.DataExport.GetValue("Score sum", 0, true) = m_score.x + m_score.y;
                 DataExporter.DataExport.ExportCSV();
             }
 

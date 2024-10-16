@@ -55,10 +55,6 @@ namespace ILOVEYOU
                 }
                 //m_taskBars = new Image[m_taskLimit];
 
-                //Data exporter
-                DataExporter.DataExport.GetValue($"Player {m_player.GetPlayerID + 1} task type", 0);
-                DataExporter.DataExport.GetValue($"Player {m_player.GetPlayerID + 1} task time", 0);
-
                 if (m_debugging) Debug.Log($"{this} started successfully.");
                 return true;
             }
@@ -92,7 +88,6 @@ namespace ILOVEYOU
 
                         m_player.GetUI.GetLog.LogInput($"<color=\"green\"><sprite=\"iconSheet\" index={(int)m_tasks[i].GetTaskType} color=#00FF00>{m_tasks[i].GetTaskType}</color> task assigned to task list.");
 
-                        m_taskWaitTime = 0;
                         _verifyTaskList();
                         //Return the index of the new task
                         return i;
@@ -123,14 +118,15 @@ namespace ILOVEYOU
                         continue;
                     if (m_tasks[i].IsComplete)
                     {
-                        DataExporter.DataExport.GetValue($"Player {m_player.GetPlayerID + 1} task type", m_tasksCompleted) = m_tasks[i].GetTaskType;
+                        DataExporter.DataExport.GetValue("Given task", m_tasksCompleted) = m_tasks[i].GetTaskType.ToString();
                         m_player.GetUI.GetLog.LogInput($"{m_tasks[i].GetTaskType} task complete. Rewarding cards.");
                         //..clear the task in that slot
                         m_tasks[i] = new(TaskType.Invalid, 0);
 
                         //Give the player a point that will get exchanged for cards later
                         TaskCompletionPoints++;
-                        DataExporter.DataExport.GetValue($"Player {m_player.GetPlayerID + 1} task time", m_tasksCompleted) = m_taskWaitTime;
+                        DataExporter.DataExport.GetValue("Task time", m_tasksCompleted) = m_taskWaitTime;
+                        m_taskWaitTime = 0;
                         m_tasksCompleted++;
                     }
                 }
