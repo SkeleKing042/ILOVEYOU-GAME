@@ -15,6 +15,7 @@ namespace ILOVEYOU
             [SerializeField] protected float m_damage = 1f;
             [SerializeField] protected float m_health = 1f;
             [SerializeField] protected float m_distanceCondition = 1f;
+            protected bool m_isDead = false;
             
             protected Transform m_playerTransform;
             protected Rigidbody m_rigidBody;
@@ -44,6 +45,7 @@ namespace ILOVEYOU
             // Update is called once per frame
             void Update()
             {
+
                 //this is simple movement logic, subsequent enemy scripts can be as simple or as complex as they want
                 if (Vector3.Distance(transform.position, m_playerTransform.position) < m_distanceCondition)
                 {
@@ -58,6 +60,7 @@ namespace ILOVEYOU
             
             public virtual void MoveToTarget()
             {
+
                 //gets relative position between the player and enemy
                 Vector3 relativePos = m_playerTransform.position - transform.position;
                 //looks at the player (removing x, and z rotation)
@@ -79,11 +82,17 @@ namespace ILOVEYOU
             {
                 m_blinkScript.StartBlink();
                 m_health -= damage;
-
+                //death
                 if (m_health <= 0)
                 {
+                    m_isDead = true;
+                    enabled = false;
                     m_playerTransform.GetComponent<PlayerManager>().GetTaskManager.UpdateKillTrackers(1);
-                    Destroy(gameObject);
+                    foreach(Collider col in GetComponentsInChildren<Collider>())
+                    {
+                        col.enabled = false;
+                    }
+                    Destroy(gameObject, 10f); //test remove delay later
                 }
             }
 

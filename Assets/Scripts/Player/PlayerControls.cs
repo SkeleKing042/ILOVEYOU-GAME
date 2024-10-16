@@ -179,6 +179,8 @@ namespace ILOVEYOU
             }
             public void OnMove(InputValue value)
             {
+                if (!enabled) return;
+
                 //Get the direction from the given input
                 m_moveDir = value.Get<Vector2>();
                 m_moveDir = new Vector3(m_moveDir.x, 0, m_moveDir.y);
@@ -195,6 +197,8 @@ namespace ILOVEYOU
             }
             public void OnFire(InputValue value)
             {
+                if (!enabled) return;
+
                 //Get the direction of the right stick
                 m_aimDir = value.Get<Vector2>();
                 if (m_aimDir == Vector3.zero) return;
@@ -213,6 +217,16 @@ namespace ILOVEYOU
             {
                 //Debug.Log("HEwwo!!!!");
                 m_contextPress?.Invoke();
+            }
+            /// <summary>
+            /// zeros out player movement
+            /// </summary>
+            public void Zero()
+            {
+                m_moveDir = Vector3.zero;
+                m_rb.velocity = Vector3.zero;
+                m_anim.SetFloat("moveX", 0f);
+                m_anim.SetFloat("moveZ", 0f);
             }
             /// <summary>
             /// makes the player take the damage oh noooo this is bad
@@ -272,10 +286,6 @@ namespace ILOVEYOU
                 m_allowShooting = false;
                 m_plaMa.GetUI.GetLog.LogInput($"<color=\"red\">Debugger disabled.</color> Rebooting in {time} seconds");
                 m_onShootingDisabled.Invoke();
-                //CancelInvoke();
-                //m_plaMa.GetLevelManager.GetParticleSpawner.SpawnParticleTime(m_debuffParticleTemp, transform, time);
-                //Invoke("ReenableShooting", time);
-                //return true;
             }
             public void ReenableShooting()
             {

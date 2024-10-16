@@ -203,6 +203,8 @@ namespace ILOVEYOU
             public void PlayerDeath(PlayerManager player)
             {
 
+                player.GetComponent<Animator>().SetTrigger("Death");
+
                 //winning player
                 int playerNum = (player == m_levelManagers[0].GetPlayer) ? 1 : 0;
                 switch (playerNum)
@@ -214,19 +216,43 @@ namespace ILOVEYOU
                         m_score.y++;
                         break;
                 }
-                m_gameUI.DisplayWinScreen(playerNum + 1);
+                
+                //disables player movement and enemy spawner
+                foreach (var levelPlayer in m_levelManagers)
+                {
+                    levelPlayer.GetSpawner.DisableAllEnemies();
+                    levelPlayer.GetSpawner.enabled = false;
+                    levelPlayer.GetPlayer.GetControls.Zero();
+                    levelPlayer.GetPlayer.GetControls.enabled = false;
+                }
+                
 
-                StartCoroutine(_coolSlowMo());
+                enabled = false;
+
+                //does a cool animation
+                StartCoroutine(_CoolSlowMo(playerNum));
                 m_onGameEnd.Invoke();
             }
-
-            private IEnumerator _coolSlowMo()
+            /// <summary>
+            /// does a hitstop looking animation for emphasis before showing the win screen
+            /// </summary>
+            private IEnumerator _CoolSlowMo(int playerNum)
             {
-                while (Time.timeScale != 0)
+                Time.timeScale = 0f;
+
+                yield return new WaitForSecondsRealtime(1f);
+
+                //increases the time scale until it reaches 1
+                while (Time.timeScale != 1f)
                 {
-                    Time.timeScale = Mathf.MoveTowards(Time.timeScale, 0f, Time.unscaledDeltaTime);
+                    Time.timeScale = Mathf.MoveTowards(Time.timeScale, 1f, Time.unscaledDeltaTime / 2f);
                     yield return new WaitForEndOfFrame();
                 }
+
+                yield return new WaitForSecondsRealtime(.5f); //temp for now until I have the animation in
+
+                m_gameUI.DisplayWinScreen(playerNum + 1);
+
                 yield return null;
             }
             public void RestartScene()
