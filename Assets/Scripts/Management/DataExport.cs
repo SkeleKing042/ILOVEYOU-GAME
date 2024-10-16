@@ -31,7 +31,7 @@ namespace DataExporter
                 TextWriter tw = new StreamWriter(m_configPath, false);
                 tw.WriteLine("Untitled");
                 tw.WriteLine(".\\");
-                tw.WriteLine("256");
+                tw.WriteLine("16");
                 tw.Close();
             }
 
