@@ -16,7 +16,6 @@ namespace ILOVEYOU
             [SerializeField] private bool m_debugging;
             private PlayerManager m_player;
             private Task[] m_tasks = new Task[10];
-            private int m_tasksCompleted;
             private float m_taskWaitTime;
 
            //[SerializeField] private string[] m_taskDescriptions = new string[5];
@@ -118,16 +117,15 @@ namespace ILOVEYOU
                         continue;
                     if (m_tasks[i].IsComplete)
                     {
-                        DataExporter.DataExport.GetValue("Given task", m_tasksCompleted) = m_tasks[i].GetTaskType.ToString();
+                        DataExporter.DataExport.AppendKey("Given task", m_tasks[i].GetTaskType.ToString());
                         m_player.GetUI.GetLog.LogInput($"{m_tasks[i].GetTaskType} task complete. Rewarding cards.");
                         //..clear the task in that slot
                         m_tasks[i] = new(TaskType.Invalid, 0);
 
                         //Give the player a point that will get exchanged for cards later
                         TaskCompletionPoints++;
-                        DataExporter.DataExport.GetValue("Task time", m_tasksCompleted) = m_taskWaitTime;
+                        DataExporter.DataExport.AppendKey("Task time", m_taskWaitTime);
                         m_taskWaitTime = 0;
-                        m_tasksCompleted++;
                     }
                 }
                 return true;

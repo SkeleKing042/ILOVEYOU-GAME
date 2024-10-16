@@ -43,7 +43,6 @@ namespace ILOVEYOU
             public PlayerUI GetUI => m_playerUI;
 
             //data export
-            private int m_cardsChosen;
             private float m_cardChoiceDelta;
 
             [Header("Event - sounds and visuals")]
@@ -214,15 +213,14 @@ namespace ILOVEYOU
                         string n = m_cardsHeld[i].name;
                         n = n.Remove(n.Length - 7, 7);
                         //Data export
-                        DataExporter.DataExport.GetValue($"Card choice {i + 1}", m_cardsChosen) = n;
+                        DataExporter.DataExport.AppendKey($"Card choice {i + 1}", n);
                     }
                     string cardName = m_cardsHeld[value].name;
                     cardName = cardName.Remove(cardName.Length - 7, 7);
-                    DataExporter.DataExport.GetValue("Chosen card", m_cardsChosen) = cardName;
+                    DataExporter.DataExport.AppendKey("Chosen card", cardName);
                     //get time taken to choose
-                    DataExporter.DataExport.GetValue("Time to choose", m_cardsChosen) = m_cardChoiceDelta;
+                    DataExporter.DataExport.AppendKey("Time to choose", m_cardChoiceDelta);
                     m_cardChoiceDelta = 0;
-                    m_cardsChosen++;
                     
                     DiscardHand();
                 }

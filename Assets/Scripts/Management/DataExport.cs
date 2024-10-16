@@ -13,6 +13,7 @@ namespace DataExporter
     {
         //The data that will be saved then exported
         private static Dictionary<string, object[]> m_dataSet = new();
+        private static Dictionary<string, int> m_keyArraySizes = new();
 
         //the max length of data - good for seeing values over time
         private static uint m_arraySize = 16;
@@ -65,12 +66,14 @@ namespace DataExporter
                 {
                     Debug.LogWarning($"{key} doesn't exist in the dictionary, creating key!");
                     m_dataSet.TryAdd(key, new object[m_arraySize]);
+                    m_keyArraySizes.TryAdd(key, 0);
                 }
                 else
                 {
                     Debug.LogError($"Data export dictionary doesn't contain the key \"{key}\".");
                 }
             }
+            VerifiyIndex(key);
         }
         /// <summary>
         /// Returns a value reference at the given <paramref name="index"/> and <paramref name="key"/>.
@@ -83,6 +86,43 @@ namespace DataExporter
             key = key.ToUpper();
             _validateTarget(key, createIfMissing);
             return ref m_dataSet[key][index];
+        }
+        /// <summary>
+        /// Appends a given <paramref name="value"/> to the end of a <paramref name="key"/>
+        /// </summary>
+        /// <param name="key">Dictionary key</param>
+        /// <param name="value"></param>
+        /// <param name="createIfMissing">If the key should be added to the dictionary if its not found.</param>
+        public static void AppendKey(string key, object value, bool createIfMissing = true)
+        {
+            key = key.ToUpper();
+            _validateTarget(key, createIfMissing);
+            m_dataSet[key][m_keyArraySizes[key]] = value;
+            m_keyArraySizes[key]++;
+        }
+        /// <summary>
+        /// Iterates backward though an given <paramref name="key"/>'s array to find the most recent index.
+        /// </summary>
+        /// <param name="key">Dictionary Key</param>
+        private static void VerifiyIndex(string key)
+        {
+            //Go through each item in the key.
+            for(int i = m_dataSet[key].Length - 1; i > 0; i--)
+            {
+                //if (m_dataSet[key][i])
+                //If the index has a value
+                if (m_dataSet[key][i] != null)
+                {
+                    //but were at the end of the array.
+                    if(i == m_dataSet[key].Length)
+                    {
+                        Debug.Log("Cannot append key, max size reached. Either clear the data set or increase the size of the array.");
+                    }
+                    //set the index as the most recent
+                    m_keyArraySizes[key] = i + 1;
+                    break;
+                }
+            }
         }
         /// <summary>
         /// Returns all the values from a <paramref name="key"/>
