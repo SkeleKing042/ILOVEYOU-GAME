@@ -134,14 +134,14 @@ namespace ILOVEYOU
 
             public override void TakeDamage(float damage)
             {
-                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_health);
                 base.TakeDamage(damage);
+                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_health);
             }
 
-            private void OnDestroy()
-            {
-                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_health);
-            }
+            //private void OnDestroy()
+            //{
+            //    BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_health);
+            //}
         }
     }
 

@@ -219,6 +219,16 @@ namespace ILOVEYOU
                 m_contextPress?.Invoke();
             }
             /// <summary>
+            /// zeros out player movement
+            /// </summary>
+            public void Zero()
+            {
+                m_moveDir = Vector3.zero;
+                m_rb.velocity = Vector3.zero;
+                m_anim.SetFloat("moveX", 0f);
+                m_anim.SetFloat("moveZ", 0f);
+            }
+            /// <summary>
             /// makes the player take the damage oh noooo this is bad
             /// </summary>
             public void TakeDamage(float damage)

@@ -33,6 +33,7 @@ namespace ILOVEYOU
 
             [SerializeField] private AnimationCurve m_enemyCap;
             private List<GameObject> m_enemyObjects = new();
+            
             public float PercentToMaxEnemies => m_enemyObjects.Count / m_enemyCap.Evaluate(GameManager.Instance.PercentToMaxDiff);
 
             [Header("Events")]
@@ -44,6 +45,26 @@ namespace ILOVEYOU
             public bool Initialize()
             {
                 return true;
+            }
+            /// <summary>
+            /// kills all enemies
+            /// </summary>
+            public void KillAllEnemies()
+            {
+                foreach(GameObject obj in m_enemyObjects)
+                {
+                    obj.GetComponent<Enemy>().TakeDamage(999999999999); //woah reference!!!
+                }
+            }
+            /// <summary>
+            /// Disables all enemies
+            /// </summary>
+            public void DisableAllEnemies()
+            {
+                foreach (GameObject obj in m_enemyObjects)
+                {
+                    obj.GetComponent<Enemy>().enabled = false;
+                }
             }
             /// <summary>
             /// spawns a group of enemies around the player
