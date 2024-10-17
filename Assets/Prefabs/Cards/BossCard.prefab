@@ -9,18 +9,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2682175057650438265, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_text
-      value: 'Spawns a Boss
-
-'
+      value: Sends a giant bug to <size=200%><sprite="playerIcon" index=0 color=#ff0000></size>
       objectReference: {fileID: 0}
     - target: {fileID: 5323591372523980615, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_Type
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5323591372523980615, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 48da930f2651ea64ea304acffe45f471, type: 3}
+      objectReference: {fileID: 21300000, guid: ff65fd6be6d9e1142bfdacf6f4368b55, type: 3}
     - target: {fileID: 5323591372523980615, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_PreserveAspect
       value: 1
@@ -47,11 +45,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5323591373018342659, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_text
-      value: Spawn Boss
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5323591373018342659, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_fontSize
-      value: 72
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 5323591373018342659, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_enableAutoSizing
@@ -59,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5323591373018342717, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5824060672530148152, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_Pivot.x
