@@ -349,12 +349,12 @@ MonoBehaviour:
   m_debugging: 0
   m_blindBox: {fileID: 3221515562550018329}
   m_cardDisplay: {fileID: 8836863041727132697}
+  m_cardVin: {fileID: 7982534298751278089}
   m_pointer: {fileID: 0}
   m_mirroredUIContainer: {fileID: 985648400498203073}
+  m_eventLog: {fileID: 0}
   m_healthSlider: {fileID: 3729699121368928241}
   m_healthFill: {fileID: 3202648140768492349}
-  m_eventLog: {fileID: 0}
-  m_cardVin: {fileID: 7982534298751278089}
   m_flashTick: 0.01
   m_flashReductionRate: 0.05
   m_sizeBurst: -50
@@ -750,7 +750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5715371356237877210
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1517,7 +1517,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255615
+    rgba: 4278255360
   m_fontColor: {r: 0, g: 1, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3

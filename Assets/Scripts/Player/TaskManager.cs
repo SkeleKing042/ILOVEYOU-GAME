@@ -2,10 +2,10 @@ using ILOVEYOU.UI;
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UI;
+using ILOVEYOU.UI;
 
 namespace ILOVEYOU
 {
@@ -84,7 +84,7 @@ namespace ILOVEYOU
                             m_player.GetLevelManager.StartSequence(m_tasks[i]);
                         }
 
-                        m_player.GetUI.GetLog.LogInput($"<color=\"green\"><sprite=\"iconSheet\" index={(int)m_tasks[i].GetTaskType} color=#00FF00>{m_tasks[i].GetTaskType}</color> task assigned to task list.");
+                        m_player.GetUI.GetLog.LogInput($"<color=#{ColorUtility.ToHtmlStringRGBA(ColorPref.Get("Important Color"))}><sprite=\"iconSheet\" index={(int)m_tasks[i].GetTaskType} color=#{ColorUtility.ToHtmlStringRGBA(ColorPref.Get("Important Color"))}>{m_tasks[i].GetTaskType}</color> task assigned to task list.");
 
                         _verifyTaskList();
                         //Return the index of the new task
