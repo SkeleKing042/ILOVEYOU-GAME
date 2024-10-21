@@ -15,6 +15,7 @@ using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
 using System.Collections.Generic;
 using ILOVEYOU.UI;
+using ILOVEYOU.MainMenu;
 
 namespace ILOVEYOU
 {
@@ -257,14 +258,14 @@ namespace ILOVEYOU
             }
             public void RestartScene()
             {
-                SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+                SceneLoader.Instance.RestartScene();
             }
             /// <summary>
             /// loads the set scene
             /// </summary>
             public void LoadScene(string sceneName)
             {
-                SceneManager.LoadSceneAsync(sceneName);
+                SceneLoader.Instance.LoadScene(sceneName);
             }
 
             /// <summary>
@@ -272,7 +273,7 @@ namespace ILOVEYOU
             /// </summary>
             public void LoadScene(int scene)
             {
-                SceneManager.LoadSceneAsync(scene);
+                SceneLoader.Instance.LoadScene(scene);
             }
 
             private void Update()
