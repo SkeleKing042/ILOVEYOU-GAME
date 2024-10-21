@@ -10,6 +10,7 @@ namespace ILOVEYOU
         {
             [SerializeField] private float m_lungeTime = 5f;
             [SerializeField] private float m_lungeSpeed = 3f;
+            [SerializeField] private LayerMask m_wallMask;
 
             private float m_lungeCooldown;
             private float m_tempSpeed = 0f;
@@ -36,6 +37,8 @@ namespace ILOVEYOU
                 else
                 {
                     //transform.position += m_tempSpeed * Time.deltaTime * transform.forward;
+                    if (Physics.BoxCast(transform.position,new Vector3(.45f,.25f,.25f), transform.forward, transform.rotation, .3f, m_wallMask)) m_tempSpeed = 0f;
+
                     m_rigidBody.MovePosition(m_rigidBody.position + (m_tempSpeed * Time.deltaTime * transform.forward));
                     m_tempSpeed -= Time.deltaTime * (m_lungeSpeed / 2);
                 }
