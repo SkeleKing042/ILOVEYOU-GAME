@@ -9,7 +9,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2682175057650438265, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_text
-      value: Slows down other player
+      value: Slows down <size=200%><sprite="playerIcon" index=0 color=#ff0000></size>
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323591372523980615, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323591372523980615, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1ba421d81157aff46afad704efd58d84, type: 3}
+    - target: {fileID: 5323591372523980615, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5323591372800690837, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_Name
@@ -42,6 +54,10 @@ PrefabInstance:
     - target: {fileID: 5323591373018342659, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_fontSizeBase
       value: 44.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323591373018342717, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5824060672530148152, guid: f992a2d479fd0a242ad4c36c279c07a1, type: 3}
       propertyPath: m_Pivot.x
