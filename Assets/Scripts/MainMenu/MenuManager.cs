@@ -1,7 +1,9 @@
 using ILOVEYOU.Management;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -18,9 +20,13 @@ namespace ILOVEYOU.MainMenu
         [SerializeField] private GameObject[] m_mainMenuButtons;
         [SerializeField] private GameObject[] m_optionSelect;
 
-
-
-        //[SerializeField] GameObject SHOWTHING;
+        private int m_lastPlayerCount = 0;
+        [SerializeField] private string m_stringToPassOnJoin;
+        [SerializeField] private UnityEvent<string, float> m_onPlayerJoined;
+        [SerializeField] private string m_stringToPassOnLeave;
+        [SerializeField] private UnityEvent<string, float> m_onPlayerLeft;
+        //[SerializeField] private Animator[] m_playerIndis;
+        [SerializeField] private TextMeshProUGUI[] m_joinText;
 
         // Start is called before the first frame update
         void Start()
@@ -66,13 +72,29 @@ namespace ILOVEYOU.MainMenu
             //m_effect.StartType(m_inputField, "run program Goku.EXE", 12f, StartGame);
         }
 
+        public void Update()
+        {
+            if (ControllerManager.Instance.ControllerCount > m_lastPlayerCount)
+            {
+                //controller added
+                m_joinText[m_lastPlayerCount].text = "Player " + (m_lastPlayerCount + 1) + " Has Joined";
+                m_joinText[m_lastPlayerCount].GetComponent<Animator>().SetTrigger("Change State");
+                m_onPlayerJoined.Invoke("", 0);
+            }
+            else if (ControllerManager.Instance.ControllerCount < m_lastPlayerCount)
+            {
+                //controller removed
+                m_joinText[m_lastPlayerCount].text = "Player " + (m_lastPlayerCount + 1) + " Has Left";
+                m_joinText[m_lastPlayerCount].GetComponent<Animator>().SetTrigger("Change State");
+                m_onPlayerLeft.Invoke("", 0);
+            }
+            m_lastPlayerCount = Mathf.Clamp(m_lastPlayerCount + 1, 0, (int)ControllerManager.Instance.ControllerCount);
+        }
+
         public void StartGame()
         {
-            //scene change here
-            //Debug.Log("Game started");
 
             MainMenuAudio.Instance.Skip();
-
 
             SceneLoader.Instance.LoadScene(4);
         }
