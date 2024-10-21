@@ -50,7 +50,7 @@ MonoBehaviour:
   m_debugging: 0
   m_controllerManagerPrefab: {fileID: 2981069590497697266, guid: cdad5cce2685bfd47918daffa201ee89, type: 3}
   m_levelTemplate: {fileID: 7541849866350878214, guid: 385d856711731a544bc4934c66233e58, type: 3}
-  m_roundStartCountdown: 5
+  m_roundStartCountdown: 6
   m_difficultyCap: 60
   m_spawnTime:
     serializedVersion: 2
@@ -154,6 +154,13 @@ MonoBehaviour:
       m_PreInfinity: 0
       m_PostInfinity: 0
       m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    AllowWithBoss: 1
     CurrentChance: 0
   - DisruptCard: {fileID: 7536772021414428902, guid: 6247c47f77355474d83d213a024c7785, type: 3}
     ChanceOverTime:
@@ -204,6 +211,13 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    AllowWithBoss: 1
     CurrentChance: 0
   - DisruptCard: {fileID: 3994002374922476513, guid: 6738cd636793a634899e13ad63cebebc, type: 3}
     ChanceOverTime:
@@ -236,6 +250,13 @@ MonoBehaviour:
       m_PreInfinity: 0
       m_PostInfinity: 0
       m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    AllowWithBoss: 1
     CurrentChance: 0
   - DisruptCard: {fileID: 6432578054958738686, guid: 70dce7f37c6ec5a4495b8298d93b36fc, type: 3}
     ChanceOverTime:
@@ -268,6 +289,13 @@ MonoBehaviour:
       m_PreInfinity: 0
       m_PostInfinity: 0
       m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    AllowWithBoss: 1
     CurrentChance: 0
   - DisruptCard: {fileID: 2255046956262864865, guid: 6eee37eeabf47a947a324202506b5b72, type: 3}
     ChanceOverTime:
@@ -300,6 +328,13 @@ MonoBehaviour:
       m_PreInfinity: 0
       m_PostInfinity: 0
       m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    AllowWithBoss: 1
     CurrentChance: 0
   - DisruptCard: {fileID: 3994002374922476513, guid: 63db7129f4a43214bb70518e0b8ced69, type: 3}
     ChanceOverTime:
@@ -332,6 +367,13 @@ MonoBehaviour:
       m_PreInfinity: 0
       m_PostInfinity: 0
       m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    AllowWithBoss: 1
     CurrentChance: 0
   - DisruptCard: {fileID: 3994002374922476513, guid: f6208203fbdd81a489ae373e42b721c9, type: 3}
     ChanceOverTime:
@@ -373,6 +415,13 @@ MonoBehaviour:
       m_PreInfinity: 0
       m_PostInfinity: 0
       m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    AllowWithBoss: 1
     CurrentChance: 0
   - DisruptCard: {fileID: 7536772021414428902, guid: f675df7ac294fb64881b7f74d5b28d4a, type: 3}
     ChanceOverTime:
@@ -414,6 +463,13 @@ MonoBehaviour:
       m_PreInfinity: 0
       m_PostInfinity: 0
       m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    AllowWithBoss: 1
     CurrentChance: 0
   m_onDispenseCard:
     m_PersistentCalls:
