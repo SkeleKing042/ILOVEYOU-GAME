@@ -165,6 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7613335133617298297}
   - component: {fileID: 7613335133617298294}
+  - component: {fileID: 6444891374781925890}
   - component: {fileID: 183515926821657586}
   - component: {fileID: 6302020764854501118}
   - component: {fileID: 6571689930070751659}
@@ -209,6 +210,23 @@ MonoBehaviour:
   m_damage: 1
   m_health: 10
   m_distanceCondition: 1
+  m_blockMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_nearState: {fileID: 3545682103434516086, guid: 29c155eac27b977428646872334e3c53, type: 3}
+--- !u!114 &6444891374781925890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7613335133617298300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc25b1627d675b48b3240287b7ff372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_currentState: {fileID: 3545682103434516086, guid: 29c155eac27b977428646872334e3c53, type: 3}
 --- !u!54 &183515926821657586
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 namespace ILOVEYOU
@@ -9,11 +10,16 @@ namespace ILOVEYOU
         public class LungeEnemy : Enemy
         {
             [SerializeField] private float m_lungeTime = 5f;
+            public float GetLungeTime => m_lungeTime;
             [SerializeField] private float m_lungeSpeed = 3f;
+            public float GetLungeSpeed => m_lungeSpeed;
             [SerializeField] private LayerMask m_wallMask;
+            public LayerMask GetWall => m_wallMask;
 
             private float m_lungeCooldown;
+            public float GetCooldown => m_lungeCooldown;
             private float m_tempSpeed = 0f;
+            public float GetTempSpeed => m_tempSpeed;
 
             // Start is called before the first frame update
             public override void Initialize(Transform target)

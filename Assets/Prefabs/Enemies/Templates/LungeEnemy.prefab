@@ -78,7 +78,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6625428459995327672}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 167c115a03ec0a54794e0a8462edc2eb, type: 3}
   m_Name: 
@@ -88,5 +88,12 @@ MonoBehaviour:
   m_damage: 1
   m_health: 10
   m_distanceCondition: 5
+  m_blockMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_nearState: {fileID: 0}
   m_lungeTime: 0.5
   m_lungeSpeed: 15
+  m_wallMask:
+    serializedVersion: 2
+    m_Bits: 0

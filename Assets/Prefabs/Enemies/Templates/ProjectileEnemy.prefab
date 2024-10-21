@@ -74,15 +74,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5426312569765723760}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81aa91e54e5278c46b51b358df6b0086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_speed: 1
+  m_turnSpeed: 3
   m_damage: 1
   m_health: 10
   m_distanceCondition: 10
+  m_blockMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_nearState: {fileID: 0}
 --- !u!114 &8038948517180347969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,3 +104,8 @@ MonoBehaviour:
   m_isPlayer: 0
   m_fireSpeedMulti: 1
   m_damageMulti: 1
+  m_muzzleFlash: {fileID: 0}
+  m_flashTime: 0
+  m_onBulletFire:
+    m_PersistentCalls:
+      m_Calls: []

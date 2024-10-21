@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 using ILOVEYOU.Shader;
+using ILOVEYOU.AI;
 namespace ILOVEYOU
 {
     namespace EnemySystem
@@ -11,16 +12,28 @@ namespace ILOVEYOU
         public class Enemy : MonoBehaviour
         {
             [SerializeField] protected float m_speed = 1f;
+            public float GetSpeed => m_speed;
             [SerializeField] protected float m_turnSpeed = 3f;
+            public float GetTurnSpeed => m_turnSpeed;
             [SerializeField] protected float m_damage = 1f;
             [SerializeField] protected float m_health = 1f;
             [SerializeField] protected float m_distanceCondition = 1f;
+            public float GetDistanceCondition => m_distanceCondition;
+            public bool IsPlayerWithinRange { get { return Vector3.Distance(transform.position, m_playerTransform.position) < m_distanceCondition; } }
             protected bool m_isDead = false;
+            [SerializeField] protected LayerMask m_blockMask;
+            public LayerMask GetMask => m_blockMask;
             
             protected Transform m_playerTransform;
+            public Transform GetPlayerTransform => m_playerTransform;
             protected Rigidbody m_rigidBody;
+            public Rigidbody GetRigidbody => m_rigidBody;
 
             private DamageBlink m_blinkScript;
+            private StateMachine m_machine;
+            public StateMachine GetStateMachine => m_machine;
+            [SerializeField] protected State m_nearState;
+            public State GetNearState => m_nearState;
             //this is used for the enemy hurtbox script
             public float GetDamage() { return m_damage; }
 
@@ -39,6 +52,9 @@ namespace ILOVEYOU
                 transform.rotation = rotation;
 
                 //Potential TODO: add a "modifier" value that is dependent on current difficulty/time that influences the base values
+
+                m_machine = GetComponent<StateMachine>();
+                m_machine.Initialize();
             }
 
 
