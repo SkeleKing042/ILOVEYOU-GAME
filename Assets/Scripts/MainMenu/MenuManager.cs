@@ -1,3 +1,4 @@
+using ILOVEYOU.Management;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -26,11 +27,12 @@ namespace ILOVEYOU.MainMenu
         {
             m_effect = GetComponent<TypeWriterEffect>();
             m_eventSystem = GetComponent<EventSystem>();
-            //m_eventSystem.currentSelectedGameObject.GetComponent<ButtonSelect>().Enabled = true;
         }
 
         public void ButtonPressed(int selection)
         {
+            if (selection == 0 && ControllerManager.Instance.ControllerCount < 2) return;
+
             foreach (GameObject obj in m_mainMenuButtons)
             {
                 obj.GetComponent<Button>().interactable = false;
@@ -67,9 +69,10 @@ namespace ILOVEYOU.MainMenu
         public void StartGame()
         {
             //scene change here
-            Debug.Log("Game started");
+            //Debug.Log("Game started");
 
             MainMenuAudio.Instance.Skip();
+
 
             SceneLoader.Instance.LoadScene(4);
         }
