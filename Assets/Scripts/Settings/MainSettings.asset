@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7aa59cabe82a34f807b2a13aea9a66, type: 3}
+  m_Name: MainSettings
+  m_EditorClassIdentifier: 
+  m_difficultyCap: 60
+  m_maxTaskCount: 1
+  m_taskList: []
+  m_numberOfCardToGive: 3
+  m_cardTimeOut: 10
+  m_cardData:
+  - DisruptCard: {fileID: 0}
+    ChanceOverTime:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    ChanceOverEnemyCount:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    AllowWithBoss: 0
+    CurrentChance: 0
+  m_playerHealth: 15
+  m_iframes: 1
+  m_playerSpeed: 10
+  m_enemyGroups:
+  - m_groupName: 
+    m_spawnRate:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    m_enemyPrefabs: []
+  m_spawnRangeMin: 0
+  m_spawnRangeMax: 0
+  m_spawnTime:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_spawnCap:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_importantColor: {r: 1, g: 0, b: 0, a: 1}

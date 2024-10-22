@@ -27,6 +27,9 @@ namespace ILOVEYOU
         {
             //static stuff
             public static GameManager Instance { get; private set; }
+            [SerializeField] private GameSettingsSO m_settings;
+            public GameSettingsSO GetSettings;
+
             private static Vector2 m_score;
             public static Vector2 GetScore { get { return m_score; } }
             public static void ResetScore() { m_score = Vector2.zero; }
@@ -58,20 +61,18 @@ namespace ILOVEYOU
             //Game rules
             [Header("Difficulty")]
             //[SerializeField] private float m_timePerStage;
-            [SerializeField] private int m_difficultyCap;
+            //[SerializeField] private int m_difficultyCap;
             private float m_timer;
             private float m_spawnTimer = 0;
             [SerializeField] private AnimationCurve m_spawnTime;
             public int GetDifficulty { get { return (int)m_timer; } }
-            public float PercentToMaxDiff { get { return (float)GetDifficulty / (float)m_difficultyCap; } }
+            public float PercentToMaxDiff { get { return (float)GetDifficulty / (float)m_settings.GetDiffCap; } }
 
-            [Header("Tasks & Cards")]
-            [Tooltip("The maximum number of tasks a player can have.")]
-            [SerializeField] private int m_maxTaskCount;
-            [Tooltip("The number of cards shown to the player.\nPLEASE KEEP AT 3")]
-            [SerializeField] private int m_numberOfCardsToGive = 3;
-            [SerializeField] private Task[] m_taskList;
-            public Task[] GetTasks { get { return m_taskList; } }
+            //[Header("Tasks & Cards")]
+            //[SerializeField] private int m_maxTaskCount;
+            //[SerializeField] private int m_numberOfCardsToGive = 3;
+            //[SerializeField] private Task[] m_taskList;
+            //public Task[] GetTasks { get { return m_taskList; } }
 
             [SerializeField] private GameUI m_gameUI;
 
@@ -96,6 +97,12 @@ namespace ILOVEYOU
                 Time.timeScale = 1f;
                 //Singleton setup
                 Instance = this;
+                if(!m_settings)
+                {
+                    Debug.LogError("No settings loaded, aborting!");
+                    Destroy(gameObject);
+                    return;
+                }
 
                 //Make sure that the other management scripts work
                 if (m_debugging) Debug.Log("Game manager starting.");
@@ -134,7 +141,7 @@ namespace ILOVEYOU
                     }
                     m_levelManagers.Add(newLevel);
                     //give players the first task in the list to start with
-                    newLevel.GetPlayer.GetTaskManager.AddTask(m_taskList[0]);
+                    newLevel.GetPlayer.GetTaskManager.AddTask(m_settings.GetTasks[0]);
                 }
 
                 //Boss setup
@@ -285,7 +292,7 @@ namespace ILOVEYOU
                     {
                         level.GetSpawner.SpawnEnemyWave();
                     }
-                    m_spawnTimer = m_spawnTime.Evaluate(m_timer / m_difficultyCap);
+                    m_spawnTimer = m_spawnTime.Evaluate(m_timer / m_settings.GetDiffCap);
                 }
                 else
                 {
@@ -304,27 +311,27 @@ namespace ILOVEYOU
                     //hand out cards to the player
                     if (m_debugging) Debug.Log($"Player {player.GetPlayerID} has completed a task, dealing cards.");
                     player.GetTaskManager.TaskCompletionPoints--;
-                    player.CollectHand(m_cardMan.DispenseCards(m_numberOfCardsToGive, player).ToArray());
+                    player.CollectHand(m_cardMan.DispenseCards(m_settings.GetNumberOfCardsToGive, player).ToArray());
                 }
             }
             public void GivePlayerTasks(PlayerManager player)
             {
                 //Giving tasks
-                if (!player.CardsInHand && player.GetTaskManager.NumberOfTasks < m_maxTaskCount)
+                if (!player.CardsInHand && player.GetTaskManager.NumberOfTasks < m_settings.GetMaxTaskCount)
                 {
                     //Change for random generation
                     if (m_debugging) Debug.Log($"Giving player {player.GetPlayerID} a task.");
                     int rnd = 0;
                     for (int c = 100; c > 0; c--)
                     {
-                        rnd = Random.Range(1, m_taskList.Length);
+                        rnd = Random.Range(1, m_settings.GetTasks.Length);
                         //Check for no tasks of the same type
-                        if (player.GetTaskManager.GetMatchingTasks(m_taskList[rnd].GetTaskType).Length == 0)
+                        if (player.GetTaskManager.GetMatchingTasks(m_settings.GetTasks[rnd].GetTaskType).Length == 0)
                         {
                             break;
                         }
                     }
-                    player.GetTaskManager.AddTask(m_taskList[rnd]);
+                    player.GetTaskManager.AddTask(m_settings.GetTasks[rnd]);
                     m_onTaskAssignment.Invoke();
                 }
             }
