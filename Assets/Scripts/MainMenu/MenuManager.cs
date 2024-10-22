@@ -21,6 +21,7 @@ namespace ILOVEYOU.MainMenu
         [SerializeField] private GameObject[] m_optionSelect;
 
         private int m_lastPlayerCount = 0;
+        //private bool[] m_connected = new bool[2];
         [SerializeField] private string m_stringToPassOnJoin;
         [SerializeField] private UnityEvent<string, float> m_onPlayerJoined;
         [SerializeField] private string m_stringToPassOnLeave;
@@ -29,10 +30,18 @@ namespace ILOVEYOU.MainMenu
         [SerializeField] private TextMeshProUGUI[] m_joinText;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             m_effect = GetComponent<TypeWriterEffect>();
             m_eventSystem = GetComponent<EventSystem>();
+
+            for (int i = 0; i < ControllerManager.Instance.ControllerCount && i < m_joinText.Length; i++)
+           {
+                m_joinText[i].text = "Player " + (i + 1) + " Has Joined";
+                m_joinText[i].GetComponent<Animator>().SetTrigger("Change State");
+            }
+
+            m_lastPlayerCount = (int)ControllerManager.Instance.ControllerCount;
         }
 
         public void ButtonPressed(int selection)
@@ -74,21 +83,23 @@ namespace ILOVEYOU.MainMenu
 
         public void Update()
         {
+
             if (ControllerManager.Instance.ControllerCount > m_lastPlayerCount)
             {
                 //controller added
-                m_joinText[m_lastPlayerCount].text = "Player " + (m_lastPlayerCount + 1) + " Has Joined";
-                m_joinText[m_lastPlayerCount].GetComponent<Animator>().SetTrigger("Change State");
+                m_joinText[ControllerManager.Instance.MostRecentID].text = "Player " + (ControllerManager.Instance.MostRecentID + 1) + " Has Joined";
+                m_joinText[ControllerManager.Instance.MostRecentID].GetComponent<Animator>().SetTrigger("Change State");
                 m_onPlayerJoined.Invoke("", 0);
             }
             else if (ControllerManager.Instance.ControllerCount < m_lastPlayerCount)
             {
                 //controller removed
-                m_joinText[m_lastPlayerCount].text = "Player " + (m_lastPlayerCount + 1) + " Has Left";
-                m_joinText[m_lastPlayerCount].GetComponent<Animator>().SetTrigger("Change State");
+                m_joinText[ControllerManager.Instance.MostRecentID].text = "Player " + (ControllerManager.Instance.MostRecentID + 1) + " Has Left";
+                m_joinText[ControllerManager.Instance.MostRecentID].GetComponent<Animator>().SetTrigger("Change State");
                 m_onPlayerLeft.Invoke("", 0);
             }
-            m_lastPlayerCount = Mathf.Clamp(m_lastPlayerCount + 1, 0, (int)ControllerManager.Instance.ControllerCount);
+            m_lastPlayerCount = (int)ControllerManager.Instance.ControllerCount;
+
         }
 
         public void StartGame()
