@@ -240,9 +240,9 @@ namespace ILOVEYOU
             /// </summary>
             private IEnumerator _CoolSlowMo(int playerNum)
             {
-                Time.timeScale = 0f;
+                Time.timeScale = .05f;
 
-                yield return new WaitForSecondsRealtime(1f);
+                yield return new WaitForSecondsRealtime(3f);
 
                 //increases the time scale until it reaches 1
                 while (Time.timeScale != 1f)
@@ -251,7 +251,7 @@ namespace ILOVEYOU
                     yield return new WaitForEndOfFrame();
                 }
 
-                yield return new WaitForSecondsRealtime(.5f); //temp for now until I have the animation in
+                yield return new WaitForSecondsRealtime(8f);
 
                 m_gameUI.DisplayWinScreen(playerNum + 1);
 
