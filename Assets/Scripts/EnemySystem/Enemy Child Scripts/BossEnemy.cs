@@ -59,16 +59,16 @@ namespace ILOVEYOU
                 //BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_health);
 
                 //this is simple movement logic, subsequent enemy scripts can be as simple or as complex as they want
-                /*                    if (Vector3.Distance(transform.position, m_playerTransform.position) < m_distanceCondition)
-                                    {
-                                        DoNearAction();
-                                    }
-                                    else
-                                    {
-                                        m_speed = m_maxSpeed;
-                                        MoveToTarget();
-                                    }*/
-                base.Update();
+                if (Vector3.Distance(transform.position, m_playerTransform.position) < m_distanceCondition)
+                {
+                    DoNearAction();
+                }
+                else
+                {
+                    m_agent.speed = m_maxSpeed;
+                    MoveToTarget();
+                }
+                //base.Update();
             }
 
             public override void DoNearAction()
