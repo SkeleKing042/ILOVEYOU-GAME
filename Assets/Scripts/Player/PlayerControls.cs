@@ -29,6 +29,7 @@ namespace ILOVEYOU
             [SerializeField] private float m_iframesTotal = 1f; //this is in seconds
             private float m_iframesCurrent;
             [SerializeField] private Animator m_anim; //animator should be located on the player model
+            public Animator GetPlayerAnimator { get { return m_anim; } }
 
             [Header("Movement")]
             [SerializeField] private float m_moveSpeed;

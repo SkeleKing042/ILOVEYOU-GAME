@@ -205,6 +205,7 @@ namespace ILOVEYOU
             {
 
                 player.GetComponent<Animator>().SetTrigger("Death");
+                player.GetControls.GetPlayerAnimator.SetTrigger("Death");
 
                 //winning player
                 int playerNum = (player == m_levelManagers[0].GetPlayer) ? 1 : 0;
