@@ -2,6 +2,7 @@ using ILOVEYOU.Management;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 namespace ILOVEYOU
@@ -64,6 +65,9 @@ namespace ILOVEYOU
                 foreach (GameObject obj in m_enemyObjects)
                 {
                     obj.GetComponent<Enemy>().enabled = false;
+                    obj.GetComponent<Enemy>().StopAllCoroutines();
+                    obj.GetComponent<NavMeshAgent>().enabled = false;
+                    foreach (Collider col in obj.GetComponentsInChildren<Collider>()) col.enabled = false;
                 }
             }
             /// <summary>

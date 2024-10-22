@@ -24,6 +24,7 @@ namespace ILOVEYOU
             protected NavMeshAgent m_agent;
             protected bool m_usingAIBrain = false;
             [SerializeField] private Vector2 m_repathTimes = new Vector2(0.2f, 0.5f);
+            protected Animator m_anim;
 
             private DamageBlink m_blinkScript;
             //this is used for the enemy hurtbox script
@@ -35,6 +36,7 @@ namespace ILOVEYOU
                 m_playerTransform = target;
                 m_blinkScript = GetComponent<DamageBlink>();
                 m_agent = GetComponent<NavMeshAgent>();
+                m_anim = GetComponentInChildren<Animator>();
 
                 //gets relative position between the player and enemy
                 Vector3 relativePos = m_playerTransform.position - transform.position;
@@ -92,7 +94,6 @@ namespace ILOVEYOU
                 m_usingAIBrain = true;
                 m_rigidBody.isKinematic = true;
                 m_agent.enabled = true;
-                m_agent.SetDestination(m_playerTransform.position);
                 StartCoroutine(Repath());
             }
             protected void DisableAIBrain()
@@ -105,8 +106,8 @@ namespace ILOVEYOU
             {
                 while (m_usingAIBrain)
                 {
-                    yield return new WaitForSeconds(Random.Range(m_repathTimes.x, m_repathTimes.y));
                     m_agent.SetDestination(m_playerTransform.position);
+                    yield return new WaitForSeconds(Random.Range(m_repathTimes.x, m_repathTimes.y));
                 }
             }
 
@@ -131,7 +132,8 @@ namespace ILOVEYOU
                     {
                         col.enabled = false;
                     }
-                    Destroy(gameObject, m_deathTimeout); //test remove delay later
+                    m_anim?.SetTrigger("Death");
+                    Destroy(gameObject, m_deathTimeout);
                 }
             }
 

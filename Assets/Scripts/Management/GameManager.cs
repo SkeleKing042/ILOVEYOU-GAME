@@ -253,6 +253,7 @@ namespace ILOVEYOU
 
                 yield return new WaitForSecondsRealtime(8f);
 
+                Time.timeScale = 0f;
                 m_gameUI.DisplayWinScreen(playerNum + 1);
 
                 yield return null;
