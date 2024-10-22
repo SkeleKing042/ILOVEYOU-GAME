@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ILOVEYOU
@@ -23,16 +21,12 @@ namespace ILOVEYOU
             }
 
             // Update is called once per frame
-            void Update()
+            protected override void Update()
             {
                 //this is simple movement logic, subsequent enemy scripts can be as simple or as complex as they want
-                if (Vector3.Distance(transform.position, m_playerTransform.position) < m_distanceCondition && m_tempSpeed <= 0)
+                if (m_tempSpeed <= 0)
                 {
-                    DoNearAction();
-                }
-                else if (m_tempSpeed <= 0)
-                {
-                    MoveToTarget();
+                    base.Update();
                 }
                 else
                 {
@@ -46,6 +40,11 @@ namespace ILOVEYOU
 
             public override void DoNearAction()
             {
+                if (m_usingAIBrain)
+                {
+                    DisableAIBrain();
+                }
+
                 //gets relative position between the player and enemy
                 Vector3 relativePos = m_playerTransform.position - transform.position;
                 //looks at the player (removing x, and z rotation)

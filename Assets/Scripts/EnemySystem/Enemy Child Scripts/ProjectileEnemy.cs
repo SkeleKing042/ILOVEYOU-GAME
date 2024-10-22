@@ -1,6 +1,4 @@
 using ILOVEYOU.ProjectileSystem;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 namespace ILOVEYOU
 {
@@ -21,21 +19,13 @@ namespace ILOVEYOU
           
             }
 
-            void Update()
-            {
-                //this is simple movement logic, subsequent enemy scripts can be as simple or as complex as they want
-                if (Vector3.Distance(transform.position, m_playerTransform.position) < m_distanceCondition)
-                {
-                    DoNearAction();
-                }
-                else
-                {
-                    MoveToTarget();
-                }
-            }
-
             public override void DoNearAction()
             {
+                if (m_usingAIBrain)
+                {
+                    DisableAIBrain();
+                }
+
                 m_pattern.PatternUpdate();
                 //gets relative position between the player and enemy
                 Vector3 relativePos = m_playerTransform.position - transform.position;

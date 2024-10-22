@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 183515926821657586}
   - component: {fileID: 6302020764854501118}
   - component: {fileID: 6571689930070751659}
+  - component: {fileID: -2293750798486704578}
   m_Layer: 6
   m_Name: BasicEnemy
   m_TagString: Untagged
@@ -209,6 +210,10 @@ MonoBehaviour:
   m_damage: 1
   m_health: 10
   m_distanceCondition: 1
+  m_obscureMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_ignoreSight: 0
 --- !u!54 &183515926821657586
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -252,3 +257,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_blinkMat: {fileID: 2100000, guid: a14212e056224f44286aa5a5b1c7f125, type: 2}
   m_activeTime: 0.05
+--- !u!195 &-2293750798486704578
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7613335133617298300}
+  m_Enabled: 0
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 360
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

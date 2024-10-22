@@ -88,5 +88,11 @@ MonoBehaviour:
   m_damage: 1
   m_health: 10
   m_distanceCondition: 5
+  m_obscureMask:
+    serializedVersion: 2
+    m_Bits: 2048
   m_lungeTime: 0.5
   m_lungeSpeed: 15
+  m_wallMask:
+    serializedVersion: 2
+    m_Bits: 2048

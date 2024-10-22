@@ -80,9 +80,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_speed: 1
+  m_turnSpeed: 3
   m_damage: 1
   m_health: 10
   m_distanceCondition: 10
+  m_obscureMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_ignoreSight: 1
 --- !u!114 &8038948517180347969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,3 +104,8 @@ MonoBehaviour:
   m_isPlayer: 0
   m_fireSpeedMulti: 1
   m_damageMulti: 1
+  m_muzzleFlash: {fileID: 0}
+  m_flashTime: 0
+  m_onBulletFire:
+    m_PersistentCalls:
+      m_Calls: []
