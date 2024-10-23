@@ -8,33 +8,31 @@ namespace ILOVEYOU
 {
     namespace EnemySystem
     {
+        [Serializable]
+        public class EnemyPrefabs
+        {
+            [SerializeField] private string m_groupName;
+            //[SerializeField][Tooltip("When difficulty/time is below this value, use this spawn group, values with 0 are ignored in the wave spawner"), Min(-1)] private Vector2 m_threshold;
+            [Tooltip("When the enemy group spawns in. The X axis is the difficulty and Y is the likelyness of the enemy group spawning.")]
+            [SerializeField] private AnimationCurve m_spawnRate;
+            [SerializeField] private GameObject[] m_enemyPrefabs;
+
+            public GameObject EnemyPrefab(int i) { return m_enemyPrefabs[i]; }
+            public GameObject RandomEnemyPrefab() { return m_enemyPrefabs[Random.Range(0, m_enemyPrefabs.Length)]; }
+            public AnimationCurve Threshold() { return m_spawnRate; }
+
+        }
         public class EnemySpawner : MonoBehaviour
         {
-            [Serializable]
-            class EnemyPrefabs
-            {
-                [SerializeField] private string m_groupName;
-                //[SerializeField][Tooltip("When difficulty/time is below this value, use this spawn group, values with 0 are ignored in the wave spawner"), Min(-1)] private Vector2 m_threshold;
-                [Tooltip("When the enemy group spawns in. The X axis is the difficulty and Y is the likelyness of the enemy group spawning.")]
-                [SerializeField] private AnimationCurve m_spawnRate;
-                [SerializeField] private GameObject[] m_enemyPrefabs;
-
-                public GameObject EnemyPrefab(int i) { return m_enemyPrefabs[i]; }
-                public GameObject RandomEnemyPrefab() { return m_enemyPrefabs[Random.Range(0, m_enemyPrefabs.Length)]; }
-                public AnimationCurve Threshold() { return m_spawnRate; }
-
-            }
-
-            [SerializeField] private EnemyPrefabs[] m_enemyGroups;
-            [SerializeField] private float m_spawnRangeMin;
-            [SerializeField] private float m_spawnRangeMax;
+            private EnemyPrefabs[] m_enemyGroups;
+            private float m_spawnRangeMin;
+            private float m_spawnRangeMax;
             private float m_spawnRange { get { return Random.Range(m_spawnRangeMin, m_spawnRangeMax); } }
             [SerializeField] private LayerMask m_spawnMask;
 
-            [SerializeField] private AnimationCurve m_enemyCap;
             private List<GameObject> m_enemyObjects = new();
             
-            public float PercentToMaxEnemies => m_enemyObjects.Count / m_enemyCap.Evaluate(GameManager.Instance.PercentToMaxDiff);
+            public float PercentToMaxEnemies => m_enemyObjects.Count / GameSettings.Current.GetSpawnCap.Evaluate(GameManager.Instance.PercentToMaxDiff);
 
             [Header("Events")]
             [SerializeField] private UnityEvent m_onSpawnEnemy;
@@ -44,6 +42,11 @@ namespace ILOVEYOU
             /// </summary>
             public bool Initialize()
             {
+                Debug.Log("Initializing enemy spawner");
+                m_enemyGroups = GameSettings.Current.GetEnemyGroups;
+                m_spawnRangeMin = GameSettings.Current.GetSpawnRangeMin;
+                m_spawnRangeMax = GameSettings.Current.GetSpawnRangeMax;
+                
                 return true;
             }
             /// <summary>
@@ -87,7 +90,7 @@ namespace ILOVEYOU
             /// <param name="groupNumber">enemy group to spawn from</param>
             public void SpawnRandomEnemiesFromGroup(int groupNumber)
             {
-                float enemyCount = GameManager.Instance.GetDifficulty + 1;
+                float enemyCount = GameManager.Instance.GetCurrentDifficulty + 1;
 
                 for (int i = 0; i < enemyCount; i++)
                 {
@@ -135,7 +138,7 @@ namespace ILOVEYOU
 
             private bool _SpawnEnemy(GameObject prefab, bool ignoreCap)
             {
-                if (!ignoreCap && m_enemyObjects.Count >= m_enemyCap.Evaluate(GameManager.Instance.PercentToMaxDiff))
+                if (!ignoreCap && m_enemyObjects.Count >= GameSettings.Current.GetSpawnCap.Evaluate(GameManager.Instance.PercentToMaxDiff))
                 {
                     Debug.Log("Max number of enemies reached!");
                     return false;

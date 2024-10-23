@@ -1,18 +1,11 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using ILOVEYOU.Cards;
 using ILOVEYOU.Environment;
 using ILOVEYOU.EnemySystem;
-using ILOVEYOU.Hazards;
 using ILOVEYOU.Player;
 using System.Collections;
-using TMPro;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using UnityEditor;
-using UnityEngine.UI;
-using UnityEngine.Rendering.Universal;
 using System.Collections.Generic;
 using ILOVEYOU.UI;
 using ILOVEYOU.MainMenu;
@@ -27,16 +20,22 @@ namespace ILOVEYOU
         {
             //static stuff
             public static GameManager Instance { get; private set; }
+
             private static Vector2 m_score;
             public static Vector2 GetScore { get { return m_score; } }
             public static void ResetScore() { m_score = Vector2.zero; }
-
-            [SerializeField] private bool m_debugging;
+            ///////////////////////////////////////////////////////////////////////////////////////////////////
+            [Header("Settings")]
+            [SerializeField] private GameSettings m_settings;
+            [SerializeField] private bool m_devMode;
+            [SerializeField] private float m_roundStartCountdown;
+            [Header("References")]
             [SerializeField] private ControllerManager m_controllerManagerPrefab;
-            //Other managers
             [SerializeField] private LevelManager m_levelTemplate;
             private List<LevelManager> m_levelManagers = new();
             private CardManager m_cardMan;
+
+            //Game info
             public int NumberOfPlayers
             {
                 get
@@ -50,29 +49,14 @@ namespace ILOVEYOU
                     return count;
                 }
             }
-
-            //Game settings
-            [Header("Settings")]
-            [SerializeField] private float m_roundStartCountdown;
             public bool isPlaying { get { return enabled; } }
-            //Game rules
-            [Header("Difficulty")]
-            //[SerializeField] private float m_timePerStage;
-            [SerializeField] private int m_difficultyCap;
+            //Difficulty
             private float m_timer;
             private float m_spawnTimer = 0;
-            [SerializeField] private AnimationCurve m_spawnTime;
-            public int GetDifficulty { get { return (int)m_timer; } }
-            public float PercentToMaxDiff { get { return (float)GetDifficulty / (float)m_difficultyCap; } }
+            public int GetCurrentDifficulty { get { return (int)m_timer; } }
+            public float PercentToMaxDiff { get { return (float)GetCurrentDifficulty / (float)GameSettings.Current.GetDiffCap; } }
 
-            [Header("Tasks & Cards")]
-            [Tooltip("The maximum number of tasks a player can have.")]
-            [SerializeField] private int m_maxTaskCount;
-            [Tooltip("The number of cards shown to the player.\nPLEASE KEEP AT 3")]
-            [SerializeField] private int m_numberOfCardsToGive = 3;
-            [SerializeField] private Task[] m_taskList;
-            public Task[] GetTasks { get { return m_taskList; } }
-
+            [Header("UI")]
             [SerializeField] private GameUI m_gameUI;
 
             [Header("Events - mostly for visuals and sounds")]
@@ -82,13 +66,14 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onTaskAssignment;
             private void Awake()
             {
+                m_settings.Assign();
                 //check for the input manager
                 if (!ControllerManager.Instance)
                 {
                     Debug.Log("Instancing controller manager");
                     Instantiate(m_controllerManagerPrefab);
                 }
-                if(!m_debugging)
+                if(!m_devMode)
                 BeginSetup();
             }
             public void BeginSetup()
@@ -96,13 +81,19 @@ namespace ILOVEYOU
                 Time.timeScale = 1f;
                 //Singleton setup
                 Instance = this;
+                if(!GameSettings.Current)
+                {
+                    Debug.LogError("No settings loaded, aborting!");
+                    Destroy(gameObject);
+                    return;
+                }
 
                 //Make sure that the other management scripts work
-                if (m_debugging) Debug.Log("Game manager starting.");
+                Debug.Log("Game manager starting.");
 
 
                 //Set card manager
-                if (m_debugging) Debug.Log("Getting CardManager");
+                Debug.Log("Getting CardManager");
                 m_cardMan = GetComponent<CardManager>();
                 if (!m_cardMan.Startup())
                 {
@@ -111,7 +102,7 @@ namespace ILOVEYOU
                     return;
                 }
 
-                if (m_debugging) Debug.Log("Attempting to start the game.");
+                Debug.Log("Attempting to start the game.");
                 GameObject[] players = ControllerManager.Instance.JoinPlayers();
 
                 //Boss data setup
@@ -122,7 +113,7 @@ namespace ILOVEYOU
                 {
                     //camera setup
                     //spawn a new level
-                    if (m_debugging) Debug.Log("Initializing level");
+                    Debug.Log("Initializing level");
                     LevelManager newLevel = Instantiate(m_levelTemplate);
                     //start level manager
                     if (!newLevel.Startup(players[i], (uint)i))
@@ -134,14 +125,14 @@ namespace ILOVEYOU
                     }
                     m_levelManagers.Add(newLevel);
                     //give players the first task in the list to start with
-                    newLevel.GetPlayer.GetTaskManager.AddTask(m_taskList[0]);
+                    newLevel.GetPlayer.GetTaskManager.AddTask(GameSettings.Current.GetTasks[0]);
                 }
 
                 //Boss setup
                 m_onGameStart.Invoke();
 
                 //passed
-                if (m_debugging) Debug.Log($"Game started successfully!\nStarting game in {m_roundStartCountdown}.");
+                Debug.Log($"Game started successfully!\nStarting game in {m_roundStartCountdown}.");
                 if (!enabled)
                 {
                     StartCoroutine(_startGame());
@@ -285,7 +276,7 @@ namespace ILOVEYOU
                     {
                         level.GetSpawner.SpawnEnemyWave();
                     }
-                    m_spawnTimer = m_spawnTime.Evaluate(m_timer / m_difficultyCap);
+                    m_spawnTimer = GameSettings.Current.GetSpawnTime.Evaluate(m_timer / GameSettings.Current.GetDiffCap);
                 }
                 else
                 {
@@ -302,29 +293,29 @@ namespace ILOVEYOU
                 if (player.GetTaskManager.TaskCompletionPoints > 0 && !player.CardsInHand)
                 {
                     //hand out cards to the player
-                    if (m_debugging) Debug.Log($"Player {player.GetPlayerID} has completed a task, dealing cards.");
+                    Debug.Log($"Player {player.GetPlayerID} has completed a task, dealing cards.");
                     player.GetTaskManager.TaskCompletionPoints--;
-                    player.CollectHand(m_cardMan.DispenseCards(m_numberOfCardsToGive, player).ToArray());
+                    player.CollectHand(m_cardMan.DispenseCards(GameSettings.Current.GetNumberOfCardsToGive, player).ToArray());
                 }
             }
             public void GivePlayerTasks(PlayerManager player)
             {
                 //Giving tasks
-                if (!player.CardsInHand && player.GetTaskManager.NumberOfTasks < m_maxTaskCount)
+                if (!player.CardsInHand && player.GetTaskManager.NumberOfTasks < GameSettings.Current.GetMaxTaskCount)
                 {
                     //Change for random generation
-                    if (m_debugging) Debug.Log($"Giving player {player.GetPlayerID} a task.");
+                    Debug.Log($"Giving player {player.GetPlayerID} a task.");
                     int rnd = 0;
                     for (int c = 100; c > 0; c--)
                     {
-                        rnd = Random.Range(1, m_taskList.Length);
+                        rnd = Random.Range(1, GameSettings.Current.GetTasks.Length);
                         //Check for no tasks of the same type
-                        if (player.GetTaskManager.GetMatchingTasks(m_taskList[rnd].GetTaskType).Length == 0)
+                        if (player.GetTaskManager.GetMatchingTasks(GameSettings.Current.GetTasks[rnd].GetTaskType).Length == 0)
                         {
                             break;
                         }
                     }
-                    player.GetTaskManager.AddTask(m_taskList[rnd]);
+                    player.GetTaskManager.AddTask(GameSettings.Current.GetTasks[rnd]);
                     m_onTaskAssignment.Invoke();
                 }
             }
