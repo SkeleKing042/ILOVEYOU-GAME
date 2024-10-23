@@ -1,4 +1,3 @@
-using BgTools.PlayerPrefsEditor;
 using ILOVEYOU.UI;
 using System;
 using System.Collections;
@@ -32,10 +31,10 @@ namespace ILOVEYOU.EditorScript
             keys = new();
 
             keys.Add("Important Color");
-            keys.Add("Hazard color R");
-            keys.Add("Buff color R");
-            keys.Add("Debuff color R");
-            keys.Add("Summon color R");
+            keys.Add("Buff color");
+            keys.Add("Debuff color");
+            keys.Add("Hazard color");
+            keys.Add("Summon color");
 
             foreach(var color in keys)
             {

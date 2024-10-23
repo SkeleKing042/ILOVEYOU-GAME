@@ -21,7 +21,7 @@ namespace ILOVEYOU
             // Start is called before the first frame update
             public void Start()
             {
-                ColorPref.Set("Important Color", GameSettings.Current.GetImportantColor);
+                ColorPref.Get("Important Color");
             }
             public void DisplayWinScreen(int winnerID)
             {

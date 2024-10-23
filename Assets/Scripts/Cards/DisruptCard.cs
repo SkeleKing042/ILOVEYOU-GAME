@@ -22,7 +22,7 @@ namespace ILOVEYOU
                 Hazard  
             };
             [SerializeField] private category m_cardType;
-            [SerializeField] private Color m_color;
+            private Color m_color;
             [SerializeField] private bool m_effectSelf;
             [SerializeField] private Image m_cardFace;
             void Awake()
@@ -30,11 +30,11 @@ namespace ILOVEYOU
                 string key = $"{m_cardType} color";
                 if(!PlayerPrefs.HasKey($"{key} R"))
                 {
-                    ColorPref.Set($"{key} R", m_color);
+                    ColorPref.Set(key, m_color);
                 }
                 else
                 {
-                    m_color = ColorPref.Get($"{key}");
+                    m_color = ColorPref.Get(key);
                 }
             }
             public void Trigger(GameManager manager, PlayerManager player)
