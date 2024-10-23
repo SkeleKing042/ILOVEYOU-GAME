@@ -47,8 +47,14 @@ namespace ILOVEYOU
                 averageHealth /= others.Length;
                 chances[2] = ChanceOverHealthDelta.Evaluate(Mathf.Clamp(averageHealth - player.GetControls.GetHealthPercent, 0, 1));
 
-                //Average all the chance values for the final result
-                return CurrentChance = chances.Average();
+                //Mult all the chance values for the final result
+                float result = 1;
+                foreach(var num in chances)
+                {
+                    result *= num;
+                    if (result <= 0) break;
+                }
+                return CurrentChance = result;
             }
         }
 
