@@ -39,7 +39,7 @@ namespace ILOVEYOU
             // Update is called once per frame
             void Update()
             {
-                if (!m_taskRef.IsComplete)
+                if (m_taskRef != null && !m_taskRef.IsComplete)
                     m_iconDisplays[1].fillAmount = m_taskRef.GetPercent;
                 else
                     gameObject.SetActive(false);

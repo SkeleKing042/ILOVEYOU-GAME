@@ -124,8 +124,6 @@ namespace ILOVEYOU
                         return;
                     }
                     m_levelManagers.Add(newLevel);
-                    //give players the first task in the list to start with
-                    newLevel.GetPlayer.GetTaskManager.AddTask(GameSettings.Current.GetTasks[0]);
                 }
 
                 //Boss setup
@@ -144,6 +142,8 @@ namespace ILOVEYOU
                 enabled = true;
                 foreach(var player in m_levelManagers)
                 {
+                    //give players the first task in the list to start with
+                    player.GetPlayer.GetTaskManager.AddTask(GameSettings.Current.GetTasks[0]);
                     player.GetPlayer.GetControls.enabled = true;
                 }
             }
