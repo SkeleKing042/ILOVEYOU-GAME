@@ -80,7 +80,7 @@ namespace ILOVEYOU.MainMenu
                 {
                     m_loadingSlider.value = 75f;
                     m_text[1].text = "100%";
-                    yield return new WaitForSeconds(.5f);
+                    yield return new WaitForSecondsRealtime(.5f);
                     operation.allowSceneActivation = true;
                 }
 
@@ -122,7 +122,7 @@ namespace ILOVEYOU.MainMenu
                 {
                     m_loadingSlider.value = 75f;
                     m_text[1].text = "100%";
-                    yield return new WaitForSeconds(.5f);
+                    yield return new WaitForSecondsRealtime(.5f);
                     operation.allowSceneActivation = true;
                 }
 

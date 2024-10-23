@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
       propertyPath: m_deathTimeout
-      value: 0.01
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
       propertyPath: m_repathTimes.x
@@ -125,6 +125,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MothModel
       objectReference: {fileID: 0}
+    - target: {fileID: 1640253408457509492, guid: a7ed41d79041c714a8ac6fb6636aa8ab, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 4331349666300ba4bb5c4155ba4613d4, type: 2}
     - target: {fileID: 3766475832969610567, guid: a7ed41d79041c714a8ac6fb6636aa8ab, type: 3}
       propertyPath: m_RootOrder
       value: 1
