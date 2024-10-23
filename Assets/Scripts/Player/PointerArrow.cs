@@ -21,7 +21,7 @@ namespace ILOVEYOU
 
             public void Awake()
             {
-                m_trail = GetComponent<LineRenderer>();
+                m_trail = GetComponentInChildren<LineRenderer>();
                 m_path = new();
                 m_agent = GetComponent<NavMeshAgent>();
             }
