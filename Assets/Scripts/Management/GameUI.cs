@@ -10,8 +10,6 @@ namespace ILOVEYOU
     {
         public class GameUI : MonoBehaviour
         {
-            [SerializeField] private Color m_importantColour;
-
             [Header("In-Game Menu")]
             [SerializeField] private GameObject m_InGameSharedUI;
             [SerializeField] private TextMeshProUGUI m_timerText;
@@ -33,7 +31,8 @@ namespace ILOVEYOU
             }
             public void UpdateTimer(float currentTime)
             {
-                Color timeColour = Color.white - new Color(1-m_importantColour.r, 1-m_importantColour.g, 1-m_importantColour.b) * Mathf.Clamp(GameManager.Instance.PercentToMaxDiff, 0, 1);
+                Color imp = GameSettings.Current.GetImportantColor;
+                Color timeColour = Color.white - new Color(1- imp.r, 1- imp.g, 1- imp.b) * Mathf.Clamp(GameManager.Instance.PercentToMaxDiff, 0, 1);
                 m_timerText.text = $"<color=#{ColorUtility.ToHtmlStringRGB(timeColour)}>{(int)currentTime}</color>";
             }
         }

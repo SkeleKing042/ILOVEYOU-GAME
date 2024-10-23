@@ -1,3 +1,4 @@
+using ILOVEYOU.Management;
 using ILOVEYOU.UI;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,6 @@ namespace ILOVEYOU
     {
         public class TaskManager : MonoBehaviour
         {
-            [SerializeField] private bool m_debugging;
             private PlayerManager m_player;
             private Task[] m_tasks = new Task[10];
 
@@ -30,7 +30,6 @@ namespace ILOVEYOU
                     return i;
                 }
             }
-            [SerializeField] private uint m_taskLimit = 10;
             [HideInInspector] public int TaskCompletionPoints;
             [Header("UI")]
             //this should have a slider/image
@@ -42,18 +41,18 @@ namespace ILOVEYOU
             [SerializeField] private TaskDisplay m_taskDisplay;
             public bool Startup()
             {
-                if(m_debugging) Debug.Log($"Starting {this}");
+                Debug.Log($"Starting {this}");
 
                 m_player = GetComponent<PlayerManager>();
                 TaskCompletionPoints = 0;
-                m_tasks = new Task[m_taskLimit];
+                m_tasks = new Task[GameSettings.Current.GetMaxTaskCount];
                 for (int i = 0; i < m_tasks.Length; i++)
                 {
                     m_tasks[i] = new(TaskType.Invalid, 0);
                 }
                 //m_taskBars = new Image[m_taskLimit];
 
-                if (m_debugging) Debug.Log($"{this} started successfully.");
+                Debug.Log($"{this} started successfully.");
                 return true;
             }
             /// <summary>

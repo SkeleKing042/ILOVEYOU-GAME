@@ -7,6 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5944551596282354170, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
+      propertyPath: m_Speed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944551596282354170, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
+      propertyPath: m_Height
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944551596282354170, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944551596282354170, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
+      propertyPath: m_Acceleration
+      value: 88
+      objectReference: {fileID: 0}
     - target: {fileID: 6321246886551609924, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -72,8 +88,16 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8076140763560181639, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
+      propertyPath: m_wallMask.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 8076140763560181639, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
       propertyPath: m_distanceCondition
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8076140763560181639, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}
+      propertyPath: m_obscureMask.m_Bits
+      value: 2048
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4100106d5432f9048b3db1a2b07272bf, type: 3}

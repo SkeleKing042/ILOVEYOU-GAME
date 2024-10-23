@@ -16,22 +16,19 @@ namespace ILOVEYOU
         [RequireComponent(typeof(Rigidbody))]
         [RequireComponent(typeof(Collider))]
         public class PlayerControls : MonoBehaviour
-        {
-            [SerializeField] private bool m_debugging;
-            
+        {            
             private PlayerManager m_plaMa;
             private Rigidbody m_rb;
 
             [Header("General")]
-            [SerializeField] private float m_MaxHealth = 10f;
+            [SerializeField] private float m_maxHealth = 10f;
             private float m_health;
-            public float GetHealthPercent => m_health / m_MaxHealth;
-            [SerializeField] private float m_iframesTotal = 1f; //this is in seconds
+            public float GetHealthPercent => m_health / m_maxHealth;
             private float m_iframesCurrent;
             [SerializeField] private Animator m_anim; //animator should be located on the player model
 
             [Header("Movement")]
-            [SerializeField] private float m_moveSpeed;
+            private float m_moveSpeed;
             private Vector3 m_moveDir;
 
             [Header("Shooting")]
@@ -103,15 +100,15 @@ namespace ILOVEYOU
                 m_Collider = GetComponent<Collider>();
                 m_plaMa = GetComponent<PlayerManager>();
                 m_rb = GetComponent<Rigidbody>();
-                m_health = m_MaxHealth;
+                m_maxHealth = GameSettings.Current.GetPlayerHealth;
+                m_health = m_maxHealth;
+                m_moveSpeed = GameSettings.Current.GetPlayerSpeed;
                 UpdateHealthBar();
                 m_allowShooting = true;
             }
             public bool Startup()
             {
-                if (m_debugging) Debug.Log($"There's nothing to start in {this}. It was all done in Awake.");
-
-
+                Debug.Log($"There's nothing to start in {this}. It was all done in Awake.");
                 return true;
             }
 
@@ -130,7 +127,7 @@ namespace ILOVEYOU
                         m_moveSpeed += value;
                         break;
                     case 1:
-                        m_MaxHealth += value;
+                        m_maxHealth += value;
                         break;
                     case 2:
                         m_pattern.AddDamage(value);
@@ -151,8 +148,7 @@ namespace ILOVEYOU
                 Color tmp_color = Color.blue;
                 if (m_aimMagnitude >= m_aimDeadZone && m_allowShooting)
                 {
-                    if (m_debugging) Debug.Log($"{gameObject} is firing");
-                    if (m_debugging) tmp_color = Color.red;
+                    Debug.Log($"{gameObject} is firing");;
 
                     //raycasts in front of the player for a target for the bullets
                     m_hitDetect = Physics.BoxCast(m_Collider.bounds.center, m_boxCastSize * 0.5f, m_facingObject.transform.forward, out m_Hit, m_facingObject.transform.rotation, 200f, m_mask);
@@ -172,17 +168,19 @@ namespace ILOVEYOU
                     //update animator
                     m_anim.SetBool("Shooting", false);
                 }
-                m_iframesCurrent = Mathf.Clamp(m_iframesCurrent - Time.deltaTime, 0f, m_iframesTotal);
-                if (m_debugging) Debug.DrawRay(transform.position, 5 * m_aimMagnitude * m_aimDir, tmp_color);
+                m_iframesCurrent = Mathf.Clamp(m_iframesCurrent - Time.deltaTime, 0f, GameSettings.Current.GetiFrameDuration);
+                Debug.DrawRay(transform.position, 5 * m_aimMagnitude * m_aimDir, tmp_color);
                 //Apply direction to the player object
                 m_rb.velocity = m_moveDir * m_moveSpeed;
             }
             public void OnMove(InputValue value)
             {
+                if (!enabled) return;
+
                 //Get the direction from the given input
                 m_moveDir = value.Get<Vector2>();
                 m_moveDir = new Vector3(m_moveDir.x, 0, m_moveDir.y);
-                if (m_debugging) Debug.Log($"Moving {gameObject} by {m_moveDir}.");
+                //Debug.Log($"Moving {gameObject} by {m_moveDir}.");
 
                 //Converts movement into angle
                 float moveAngle = Mathf.Rad2Deg * Mathf.Atan2(m_moveDir.x, m_moveDir.z);
@@ -195,12 +193,14 @@ namespace ILOVEYOU
             }
             public void OnFire(InputValue value)
             {
+                if (!enabled) return;
+
                 //Get the direction of the right stick
                 m_aimDir = value.Get<Vector2>();
                 if (m_aimDir == Vector3.zero) return;
                 //Apply it to the x & z axis
                 m_aimDir = new Vector3(m_aimDir.x, 0, m_aimDir.y);
-                if (m_debugging) Debug.Log($"{gameObject} is aiming towards {m_aimDir}.");
+                //Debug.Log($"{gameObject} is aiming towards {m_aimDir}.");
 
                 //find and apply rotation to the pattern object
                 Vector3 relativePos = (transform.position + m_aimDir) - transform.position;
@@ -215,13 +215,23 @@ namespace ILOVEYOU
                 m_contextPress?.Invoke();
             }
             /// <summary>
+            /// zeros out player movement
+            /// </summary>
+            public void Zero()
+            {
+                m_moveDir = Vector3.zero;
+                m_rb.velocity = Vector3.zero;
+                m_anim.SetFloat("moveX", 0f);
+                m_anim.SetFloat("moveZ", 0f);
+            }
+            /// <summary>
             /// makes the player take the damage oh noooo this is bad
             /// </summary>
             public void TakeDamage(float damage)
             {
                 if (m_iframesCurrent > 0) return;
                 m_health -= damage;
-                m_iframesCurrent = m_iframesTotal;
+                m_iframesCurrent = GameSettings.Current.GetiFrameDuration;
                 UpdateHealthBar();
                 //reset all timed tasks when damaged
                 m_plaMa.GetTaskManager.UpdateTimers(true);
@@ -239,13 +249,13 @@ namespace ILOVEYOU
 
             public void UpdateHealthBar()
             {
-                float current = m_health / m_MaxHealth;
+                float current = m_health / m_maxHealth;
                 m_plaMa.GetUI.UpdateHealthBar(current);
             }
 
             private void OnDrawGizmos()
             {
-                if (m_debugging)
+#if UNITY_EDITOR
                 {
                     Gizmos.color = Color.red;
 
@@ -266,16 +276,13 @@ namespace ILOVEYOU
                         Gizmos.DrawWireCube(m_facingObject.transform.position + m_facingObject.transform.forward * 200f, m_boxCastSize);
                     }
                 }
+#endif
             }
             public void DisableShooting(float time)
             {
                 m_allowShooting = false;
                 m_plaMa.GetUI.GetLog.LogInput($"<color=\"red\">Debugger disabled.</color> Rebooting in {time} seconds");
                 m_onShootingDisabled.Invoke();
-                //CancelInvoke();
-                //m_plaMa.GetLevelManager.GetParticleSpawner.SpawnParticleTime(m_debuffParticleTemp, transform, time);
-                //Invoke("ReenableShooting", time);
-                //return true;
             }
             public void ReenableShooting()
             {
