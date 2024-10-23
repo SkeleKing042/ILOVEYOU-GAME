@@ -21,7 +21,6 @@ namespace ILOVEYOU
         [RequireComponent(typeof(PlayerControls))]
         public class PlayerManager : MonoBehaviour
         {
-            [SerializeField] private bool m_debugging;
             //player
             private PlayerControls m_playerControls;
             public PlayerControls GetControls { get { return m_playerControls; } }
@@ -35,8 +34,6 @@ namespace ILOVEYOU
             //cards
             private DisruptCard[] m_cardsHeld;
             public bool CardsInHand { get { return m_cardsHeld.Length > 0; } }
-            [SerializeField] private float m_cardTimeout;
-            //[SerializeField] private DamageArea m_damDaniel;
             //ui
             [SerializeField] private PlayerUI m_playerUI;
             public PlayerUI GetUI => m_playerUI;
@@ -49,7 +46,7 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onUnblind;
             public bool Startup(LevelManager manager, uint index)
             {
-                if (m_debugging) Debug.Log($"Starting {this}.");
+                Debug.Log($"Starting {this}.");
                 //clear cards
                 m_cardsHeld = new DisruptCard[0];
                 //set id
@@ -66,7 +63,7 @@ namespace ILOVEYOU
                 //dodgy??
                 cam.GetUniversalAdditionalCameraData().cameraStack[0].rect = cam.rect;
 
-                if (m_debugging) Debug.Log($"Getting task manager.");
+                Debug.Log($"Getting task manager.");
                 m_taskMan = GetComponent<TaskManager>();
                 if (!m_taskMan.Startup())
                 {
@@ -75,7 +72,7 @@ namespace ILOVEYOU
                     return false;
                 }
 
-                if (m_debugging) Debug.Log($"Getting player controls");
+                Debug.Log($"Getting player controls");
                 m_playerControls = GetComponent<PlayerControls>();
                 if (!m_playerControls.Startup())
                 {
@@ -101,7 +98,7 @@ namespace ILOVEYOU
                 //bosshud setup
                 transform.GetComponentInChildren<BossBar>().Initialize((int)m_playerID);
 
-                if (m_debugging) Debug.Log($"{this} started successfully");
+                Debug.Log($"{this} started successfully");
                 return true;
             }
             #region Card Management
@@ -111,7 +108,7 @@ namespace ILOVEYOU
             /// <param name="cards"></param>
             public void CollectHand(DisruptCard[] cards)
             {
-                if (m_debugging) Debug.Log("Hand dealt, setting up cards.");
+                Debug.Log("Hand dealt, setting up cards.");
                 CancelInvoke();
                 m_onGetCards.Invoke();
                 //Copy the given array to this hand
@@ -121,7 +118,7 @@ namespace ILOVEYOU
                 m_playerUI.GetCardDisplay.DisplayCards(m_cardsHeld);
 
                 //To stop stockpiling, delete the cards after a set time
-                Invoke("_autoSelectCard", m_cardTimeout);
+                Invoke("_autoSelectCard", GameSettings.Current.GetCardTimeOut);
             }
             private void _autoSelectCard()
             {
@@ -153,7 +150,7 @@ namespace ILOVEYOU
 
                 //Get the vector of the face buttons
                 Vector2 selection = value.Get<Vector2>();
-                if (m_debugging) Debug.Log($"The inputed value {selection}");
+                Debug.Log($"The inputed value {selection}");
                 //This index will be used to choose a card
                 int index = -1;
                 switch (selection)
