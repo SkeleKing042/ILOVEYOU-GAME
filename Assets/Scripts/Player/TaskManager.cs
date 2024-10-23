@@ -6,7 +6,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UI;
-using ILOVEYOU.UI;
 
 namespace ILOVEYOU
 {
