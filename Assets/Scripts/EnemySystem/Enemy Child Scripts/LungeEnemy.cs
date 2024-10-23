@@ -26,6 +26,7 @@ namespace ILOVEYOU
                 //this is simple movement logic, subsequent enemy scripts can be as simple or as complex as they want
                 if (m_tempSpeed <= 0)
                 {
+                    m_anim.SetBool("Charging", false);
                     base.Update();
                 }
                 else
@@ -35,6 +36,8 @@ namespace ILOVEYOU
 
                     m_rigidBody.MovePosition(m_rigidBody.position + (m_tempSpeed * Time.deltaTime * transform.forward));
                     m_tempSpeed -= Time.deltaTime * (m_lungeSpeed / 2);
+
+                    m_anim.SetFloat("TempSpeed", (m_tempSpeed / m_lungeSpeed) * 2f);
                 }
             }
 
@@ -44,6 +47,8 @@ namespace ILOVEYOU
                 {
                     DisableAIBrain();
                 }
+
+                m_anim.SetBool("Charging", true);
 
                 //gets relative position between the player and enemy
                 Vector3 relativePos = m_playerTransform.position - transform.position;
@@ -58,6 +63,7 @@ namespace ILOVEYOU
                 {
                     m_tempSpeed = m_lungeSpeed;
                     m_lungeCooldown = m_lungeTime;
+                    m_anim.SetFloat("TempSpeed", (m_tempSpeed / m_lungeSpeed) * 2f);
                 }
             }
         }

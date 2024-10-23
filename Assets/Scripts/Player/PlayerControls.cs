@@ -26,6 +26,7 @@ namespace ILOVEYOU
             public float GetHealthPercent => m_health / m_maxHealth;
             private float m_iframesCurrent;
             [SerializeField] private Animator m_anim; //animator should be located on the player model
+            public Animator GetPlayerAnimator { get { return m_anim; } }
 
             [Header("Movement")]
             private float m_moveSpeed;
@@ -223,6 +224,7 @@ namespace ILOVEYOU
                 m_rb.velocity = Vector3.zero;
                 m_anim.SetFloat("moveX", 0f);
                 m_anim.SetFloat("moveZ", 0f);
+                m_anim.SetBool("Shooting", false);
             }
             /// <summary>
             /// makes the player take the damage oh noooo this is bad

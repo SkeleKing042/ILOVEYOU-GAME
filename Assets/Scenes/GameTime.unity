@@ -225,15 +225,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2264516596137082570, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
       propertyPath: m_importantColour.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2264516596137082570, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
-      propertyPath: m_importantColour.g
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2264516596137082570, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
-      propertyPath: m_importantColour.r
+      propertyPath: m_importantColour.g
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2264516596137082570, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
+      propertyPath: m_importantColour.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4640543421261658557, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -602,10 +602,6 @@ PrefabInstance:
     - target: {fileID: 5104232827307362641, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
       propertyPath: m_cardData.Array.data[6].ChanceOverEnemyCount.m_Curve.Array.data[1].tangentMode
       value: 136
-      objectReference: {fileID: 0}
-    - target: {fileID: 5104232827307362646, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5104232827307362646, guid: 6ceba4921a96af346b634a9bc956a788, type: 3}
       propertyPath: m_devMode

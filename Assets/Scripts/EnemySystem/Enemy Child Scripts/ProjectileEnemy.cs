@@ -19,6 +19,12 @@ namespace ILOVEYOU
           
             }
 
+            public override void EnableAIBrain()
+            {
+                m_anim.SetBool("Attacking", false);
+                base.EnableAIBrain();
+            }
+
             public override void DoNearAction()
             {
                 if (m_usingAIBrain)
@@ -26,6 +32,7 @@ namespace ILOVEYOU
                     DisableAIBrain();
                 }
 
+                m_anim.SetBool("Attacking", true);
                 m_pattern.PatternUpdate();
                 //gets relative position between the player and enemy
                 Vector3 relativePos = m_playerTransform.position - transform.position;
