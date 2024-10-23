@@ -1,6 +1,4 @@
 using ILOVEYOU.Management;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,6 +19,10 @@ namespace ILOVEYOU
             [SerializeField] private TextMeshProUGUI m_winText;
             [SerializeField] private Button m_restartButton;
             // Start is called before the first frame update
+            public void Start()
+            {
+                ColorPref.Get("Important Color");
+            }
             public void DisplayWinScreen(int winnerID)
             {
                 m_winScreen.SetActive(true);

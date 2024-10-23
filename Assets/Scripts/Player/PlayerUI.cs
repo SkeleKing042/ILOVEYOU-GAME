@@ -16,21 +16,21 @@ namespace ILOVEYOU
             [SerializeField] private bool m_debugging;
             [Header("Card UI")]
             [SerializeField] private PopUps m_blindBox;
+            public PopUps GetBlindBox => m_blindBox;
             [SerializeField] private CardDisplay m_cardDisplay;
             public CardDisplay GetCardDisplay => m_cardDisplay;
-            public PopUps GetBlindBox => m_blindBox;
+            [SerializeField] private CardVignette m_cardVin;
+            public CardVignette GetCardVin => m_cardVin;
             [Header("World Space")]
             [SerializeField] private PointerArrow m_pointer;
             public PointerArrow GetPointer { get { return m_pointer; } }
             [Header("HUD elements")]
             [SerializeField] private Transform m_mirroredUIContainer;
+            [SerializeField] private EventLogUI m_eventLog;
+            public EventLogUI GetLog { get { return m_eventLog; } }
+            [Header("Health")]
             [SerializeField] private Slider m_healthSlider;
             [SerializeField] private Image m_healthFill;
-            [SerializeField] private EventLogUI m_eventLog;
-            [SerializeField] private CardVignette m_cardVin;
-            public CardVignette GetCardVin => m_cardVin;
-            public EventLogUI GetLog { get { return m_eventLog; } }
-            [Header("Health Flash settings")]
             [SerializeField] private float m_flashTick;
             [SerializeField] private float m_flashReductionRate;
             [SerializeField] private float m_sizeBurst;
