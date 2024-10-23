@@ -32,6 +32,8 @@ namespace ILOVEYOU.MainMenu
         // Start is called before the first frame update
         void Awake()
         {
+            Time.timeScale = 1f;
+
             m_effect = GetComponent<TypeWriterEffect>();
             m_eventSystem = GetComponent<EventSystem>();
 
