@@ -678,4 +678,14 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_importantColor: {r: 1, g: 0, b: 0, a: 1}
+  m_prefColors:
+  - m_key: Important Color
+    m_color: {r: 0, g: 1, b: 0, a: 1}
+  - m_key: Buff color
+    m_color: {r: 1, g: 0, b: 0, a: 1}
+  - m_key: Debuff color
+    m_color: {r: 1, g: 0, b: 1, a: 1}
+  - m_key: Hazard color
+    m_color: {r: 1, g: 1, b: 0, a: 1}
+  - m_key: Summon color
+    m_color: {r: 0, g: 1, b: 1, a: 1}

@@ -1,6 +1,7 @@
 using ILOVEYOU.Cards;
 using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Player;
+using ILOVEYOU.UI;
 using UnityEngine;
 
 namespace ILOVEYOU.Management
@@ -50,14 +51,32 @@ namespace ILOVEYOU.Management
         public AnimationCurve GetSpawnTime => m_spawnTime;
         [SerializeField] private AnimationCurve m_spawnCap;
         public AnimationCurve GetSpawnCap => m_spawnCap;
-        [Header("Color")]
-        [SerializeField] private Color m_importantColor;
-        public Color GetImportantColor => m_importantColor;
 
+        [System.Serializable]
+        public struct ColorPrefType
+        {
+            public string m_key;
+            public Color m_color;
+
+            public void setup()
+            {
+                Debug.Log($"Initializing color with key {m_key} and value {m_color.ToString()}");
+                ColorPref.Set(m_key, m_color);
+            }
+        }
+        [Header("Color")]
+        [SerializeField] private ColorPrefType[] m_prefColors;
         public void Assign()
         {
             Debug.Log("Assigning new settings.");
             Current = this;
+        }
+        public void InitalizePrefs()
+        {
+            foreach(var color in m_prefColors)
+            {
+                color.setup();
+            }
         }
     }
 }
