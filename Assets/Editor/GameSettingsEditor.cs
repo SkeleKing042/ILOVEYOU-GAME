@@ -18,6 +18,10 @@ namespace ILOVEYOU.EditorScript
             {
                 m_target.Assign();
             }
+            if(EditorGUILayout.LinkButton("Initialize color preferences"))
+            {
+                m_target.InitalizePrefs();
+            }
             base.OnInspectorGUI();
         }
     }
