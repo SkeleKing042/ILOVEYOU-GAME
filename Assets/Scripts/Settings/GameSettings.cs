@@ -1,12 +1,6 @@
 using ILOVEYOU.Cards;
 using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Player;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Unity.PlasticSCM.Editor.WebApi;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace ILOVEYOU.Management
