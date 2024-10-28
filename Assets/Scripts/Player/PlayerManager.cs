@@ -196,7 +196,7 @@ namespace ILOVEYOU
                     }
                     m_playerUI.GetLog.LogInput($"{s} selected, triggering events.");
 
-                    m_cardsHeld[value].Trigger(GameManager.Instance, this);
+                    m_cardsHeld[value].ExecuteEvents(this);
                     m_playerUI.GetCardDisplay.SelectCard(value);
                     DiscardHand();
                 }

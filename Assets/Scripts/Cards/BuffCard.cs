@@ -8,7 +8,7 @@ namespace ILOVEYOU
 { 
     namespace Cards
     {
-        public class BuffCard : MonoBehaviour
+        public class BuffCard : DisruptCard
         {
             [SerializeField] private int[] m_effectsToGive = new int[0];
             //[SerializeField] private float[] m_time = new float[0];
@@ -17,17 +17,15 @@ namespace ILOVEYOU
 
             //TODO: CUSTOM EDITOR SCRIPT THIS WILL BE SO FUN
 
-            public void ExecuteEvents(object[] data)
+            public override void ExecuteEvents(PlayerManager caller)
             {
-                //get required data
-                PlayerManager player = (PlayerManager)data[1];
-
+                base.ExecuteEvents(caller);
                 //gives effects to self
                 for (int i = 0; i < m_effectsToGiveSelf.Length; i++)
                 {
-                    player.GetComponent<BuffDataSystem>().GiveBuff(m_effectsToGiveSelf[i]);
+                    caller.GetComponent<BuffDataSystem>().GiveBuff(m_effectsToGiveSelf[i]);
                 }
-                foreach (PlayerManager target in GameManager.Instance.GetOtherPlayers(player))
+                foreach (PlayerManager target in GameManager.Instance.GetOtherPlayers(caller))
                 {
                     //gives effects to enemy
                     for (int i = 0; i < m_effectsToGive.Length; i++)

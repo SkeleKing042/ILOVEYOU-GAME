@@ -9,13 +9,13 @@ namespace ILOVEYOU
     namespace Cards
     {
 
-        public class CyberAttackCard : MonoBehaviour
+        public class CyberAttackCard : DisruptCard
         {
             [Tooltip("How long the effect will last for.")] [SerializeField] private float m_time = 1;
-            public void ExecuteEvents(object[] data)
+            public override void ExecuteEvents(PlayerManager caller)
             {
-                PlayerManager player = (PlayerManager)data[1];
-                foreach(PlayerManager target in GameManager.Instance.GetOtherPlayers(player))
+                base.ExecuteEvents(caller);
+                foreach (PlayerManager target in GameManager.Instance.GetOtherPlayers(caller))
                     target.GetComponent<PlayerControls>().DisableShooting(m_time);
             }
         }

@@ -37,17 +37,16 @@ namespace ILOVEYOU
                     m_color = ColorPref.Get(key);
                 }
             }
-            public void Trigger(GameManager manager, PlayerManager player)
+            public virtual void ExecuteEvents(PlayerManager caller)
             {
                 //This function is called by a button on click event, a script with this function should be attached to the same gameobject as this script
-                SendMessage("ExecuteEvents", new object[] { manager, player });
                 switch (m_effectSelf)
                 {
                     case true:
-                        player.GetUI.GetCardVin.FlashIn(m_color);
+                        caller.GetUI.GetCardVin.FlashIn(m_color);
                         break;
                     case false:
-                        foreach(PlayerManager others in GameManager.Instance.GetOtherPlayers(player))
+                        foreach(PlayerManager others in GameManager.Instance.GetOtherPlayers(caller))
                         {
                             others.GetUI.GetCardVin.FlashIn(m_color);
                         }
