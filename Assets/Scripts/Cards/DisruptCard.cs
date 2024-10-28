@@ -36,6 +36,8 @@ namespace ILOVEYOU
                 {
                     m_color = ColorPref.Get(key);
                 }
+
+                m_cardFace.color = m_color;
             }
             public virtual void ExecuteEvents(PlayerManager caller)
             {
