@@ -25,10 +25,10 @@ namespace ILOVEYOU
 
                 if (m_time <= 0f)
                 {
-                    float range = Random.Range(0.05f, 1f);
+                    float range = Random.Range(0.05f, .2f);
 
                     //do thing
-                    m_buffDataSystem.GiveBuff(new BuffDataSystem.BuffData("Slowness", 6969, 0, false, range, 0f, -5, 0, 0));
+                    m_buffDataSystem.GiveBuff(new BuffDataSystem.BuffData("Slowness", 6969, 0, false, range, 0f, -10, 0, 0));
 
                     m_time = Random.Range(0.1f, 1f) + range;
                 }

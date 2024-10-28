@@ -1,8 +1,8 @@
+using ILOVEYOU.Management;
 using ILOVEYOU.UI;
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UI;
@@ -13,7 +13,6 @@ namespace ILOVEYOU
     {
         public class TaskManager : MonoBehaviour
         {
-            [SerializeField] private bool m_debugging;
             private PlayerManager m_player;
             private Task[] m_tasks = new Task[10];
 
@@ -30,7 +29,6 @@ namespace ILOVEYOU
                     return i;
                 }
             }
-            [SerializeField] private uint m_taskLimit = 10;
             [HideInInspector] public int TaskCompletionPoints;
             [Header("UI")]
             //this should have a slider/image
@@ -42,18 +40,18 @@ namespace ILOVEYOU
             [SerializeField] private TaskDisplay m_taskDisplay;
             public bool Startup()
             {
-                if(m_debugging) Debug.Log($"Starting {this}");
+                Debug.Log($"Starting {this}");
 
                 m_player = GetComponent<PlayerManager>();
                 TaskCompletionPoints = 0;
-                m_tasks = new Task[m_taskLimit];
+                m_tasks = new Task[GameSettings.Current.GetMaxTaskCount];
                 for (int i = 0; i < m_tasks.Length; i++)
                 {
                     m_tasks[i] = new(TaskType.Invalid, 0);
                 }
                 //m_taskBars = new Image[m_taskLimit];
 
-                if (m_debugging) Debug.Log($"{this} started successfully.");
+                Debug.Log($"{this} started successfully.");
                 return true;
             }
             /// <summary>
@@ -84,7 +82,7 @@ namespace ILOVEYOU
                             m_player.GetLevelManager.StartSequence(m_tasks[i]);
                         }
 
-                        m_player.GetLog.LogInput($"<color=\"green\"><sprite=\"iconSheet\" index={(int)m_tasks[i].GetTaskType} color=#00FF00>{m_tasks[i].GetTaskType}</color> task assigned to task list.");
+                        m_player.GetUI.GetLog.LogInput($"<color=#{ColorUtility.ToHtmlStringRGBA(ColorPref.Get("Important Color"))}><sprite=\"iconSheet\" index={(int)m_tasks[i].GetTaskType} color=#{ColorUtility.ToHtmlStringRGBA(ColorPref.Get("Important Color"))}>{m_tasks[i].GetTaskType}</color> task assigned to task list.");
 
                         _verifyTaskList();
                         //Return the index of the new task
@@ -116,7 +114,7 @@ namespace ILOVEYOU
                         continue;
                     if (m_tasks[i].IsComplete)
                     {
-                        m_player.GetLog.LogInput($"{m_tasks[i].GetTaskType} task complete. Rewarding cards.");
+                        m_player.GetUI.GetLog.LogInput($"{m_tasks[i].GetTaskType} task complete. Rewarding cards.");
                         //..clear the task in that slot
                         m_tasks[i] = new(TaskType.Invalid, 0);
 
