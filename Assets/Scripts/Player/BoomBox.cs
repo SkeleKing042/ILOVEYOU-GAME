@@ -5,13 +5,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace ILOVEYOU.Player
 {
     [RequireComponent(typeof(Collider))]
     public class BoomBox : MonoBehaviour
     {
-        [SerializeField] private float m_radius;
+        [SerializeField] private UnityEvent m_onActivate = new UnityEvent();
         private bool m_triggerCheck;
         private void OnTriggerEnter(Collider other)
         {
@@ -31,8 +32,9 @@ namespace ILOVEYOU.Player
         {
             if (gameObject.activeSelf && !m_triggerCheck)
             {
+                m_onActivate.Invoke();
                 m_triggerCheck = true;
-                Invoke("DisableBB", 0.1f);
+                Invoke("DisableBB", GameSettings.Current.GetKnockbackWindow);
             }
         }
         private void DisableBB()

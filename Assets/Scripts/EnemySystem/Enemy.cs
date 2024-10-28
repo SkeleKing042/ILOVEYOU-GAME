@@ -156,10 +156,11 @@ namespace ILOVEYOU
                     m_agent.enabled = false;
                     StopAllCoroutines();
                     m_playerTransform.GetComponent<PlayerManager>().GetTaskManager.UpdateKillTrackers(1);
-                    foreach(Collider col in GetComponentsInChildren<Collider>())
+                    m_rigidBody.mass /= 2f;
+                    /*foreach(Collider col in GetComponentsInChildren<Collider>())
                     {
                         col.enabled = false;
-                    }
+                    }*/
                     m_anim?.SetTrigger("Death");
                     Destroy(gameObject, m_deathTimeout);
                 }

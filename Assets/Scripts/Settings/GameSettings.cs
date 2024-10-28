@@ -38,6 +38,8 @@ namespace ILOVEYOU.Management
         public float GetiFrameDuration => m_iframes;
         [SerializeField] private float m_playerSpeed;
         public float GetPlayerSpeed => m_playerSpeed;
+        [SerializeField] private float m_knockbackWindow = 0.1f;
+        public float GetKnockbackWindow => m_knockbackWindow;
         [SerializeField] private Vector2 m_knockbackStrength;
         public Vector2 GetKnockbackStrength => m_knockbackStrength;
         [SerializeField] private float m_knockbackRadius;
