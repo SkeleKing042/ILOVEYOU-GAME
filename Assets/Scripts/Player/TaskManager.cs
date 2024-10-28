@@ -15,6 +15,7 @@ namespace ILOVEYOU
         {
             private PlayerManager m_player;
             private Task[] m_tasks = new Task[10];
+            [SerializeField] private BoomBox m_boomBox;
 
            //[SerializeField] private string[] m_taskDescriptions = new string[5];
 
@@ -119,6 +120,7 @@ namespace ILOVEYOU
                         m_tasks[i] = new(TaskType.Invalid, 0);
 
                         //Give the player a point that will get exchanged for cards later
+                        m_boomBox.gameObject.SetActive(true);
                         TaskCompletionPoints++;
                     }
                 }

@@ -3,6 +3,7 @@ using UnityEngine;
 using ILOVEYOU.Shader;
 using UnityEngine.AI;
 using System.Collections;
+using Unity.VisualScripting;
 namespace ILOVEYOU
 {
     namespace EnemySystem
@@ -13,6 +14,8 @@ namespace ILOVEYOU
             [SerializeField] protected float m_health = 1f;
             [SerializeField] protected float m_deathTimeout = 10f;
             [SerializeField] protected float m_distanceCondition = 1f;
+            protected bool m_stunned = false;
+            [SerializeField] protected float m_stunnedRecoveryTime = 1f;
             protected bool m_isDead = false;
 
             [SerializeField] protected LayerMask m_obscureMask;
@@ -53,29 +56,54 @@ namespace ILOVEYOU
             // Update is called once per frame
             protected virtual void Update()
             {
-
-                //this is simple movement logic, subsequent enemy scripts can be as simple or as complex as they want
-                if (Vector3.Distance(transform.position, m_playerTransform.position) < m_distanceCondition && (m_canSeePlayer || m_ignoreSight))
+                if (!m_stunned)
                 {
-                    DoNearAction();
-                }
-                else
-                {
-                    if ((m_agent.destination - transform.position).magnitude <= 1 && m_usingAIBrain)
+                    //this is simple movement logic, subsequent enemy scripts can be as simple or as complex as they want
+                    if (Vector3.Distance(transform.position, m_playerTransform.position) < m_distanceCondition && (m_canSeePlayer || m_ignoreSight))
                     {
-                        m_agent.SetDestination(m_playerTransform.position);
+                        DoNearAction();
                     }
-                    else if (!m_usingAIBrain)
+                    else
                     {
-                        EnableAIBrain();
+                        if ((m_agent.destination - transform.position).magnitude <= 1 && m_usingAIBrain)
+                        {
+                            m_agent.SetDestination(m_playerTransform.position);
+                        }
+                        else if (!m_usingAIBrain)
+                        {
+                            EnableAIBrain();
+                        }
+                        /*                    if (m_canSeePlayer)
+                                            {
+                                                MoveToTarget();
+                                            }*/
                     }
-/*                    if (m_canSeePlayer)
-                    {
-                        MoveToTarget();
-                    }*/
                 }
             }
-            
+            public void GetStunned()
+            {
+                DisableAIBrain();
+                m_rigidBody.constraints = RigidbodyConstraints.None;
+                m_rigidBody.useGravity = true;
+                m_stunned = true;
+            }
+            private void OnCollisionEnter(Collision collision)
+            {
+                if (m_stunned && collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
+                {
+                    Invoke("StunRecovery", m_stunnedRecoveryTime);
+                }
+            }
+            public void StunRecovery()
+            {
+                m_stunned = false;
+                m_rigidBody.useGravity = false;
+                m_rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
+                m_rigidBody.constraints = RigidbodyConstraints.FreezePositionY;
+                transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+                EnableAIBrain();
+            }
+
             //public virtual void MoveToTarget()
             //{
             //    //gets relative position between the player and enemy
@@ -128,10 +156,11 @@ namespace ILOVEYOU
                     m_agent.enabled = false;
                     StopAllCoroutines();
                     m_playerTransform.GetComponent<PlayerManager>().GetTaskManager.UpdateKillTrackers(1);
-                    foreach(Collider col in GetComponentsInChildren<Collider>())
+                    m_rigidBody.mass /= 2f;
+                    /*foreach(Collider col in GetComponentsInChildren<Collider>())
                     {
                         col.enabled = false;
-                    }
+                    }*/
                     m_anim?.SetTrigger("Death");
                     Destroy(gameObject, m_deathTimeout);
                 }
