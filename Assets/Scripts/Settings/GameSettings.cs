@@ -38,6 +38,8 @@ namespace ILOVEYOU.Management
         public float GetiFrameDuration => m_iframes;
         [SerializeField] private float m_playerSpeed;
         public float GetPlayerSpeed => m_playerSpeed;
+        [SerializeField] private Vector2 m_knockbackStrength;
+        public Vector2 GetKnockbackStrength => m_knockbackStrength;
         [Header("Enemy")]
         [SerializeField] private EnemyPrefabs[] m_enemyGroups;
         public EnemyPrefabs[] GetEnemyGroups => m_enemyGroups;
