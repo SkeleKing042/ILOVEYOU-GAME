@@ -95,9 +95,6 @@ namespace ILOVEYOU
                     return false;
                 }
 
-                //bosshud setup
-                transform.GetComponentInChildren<BossBar>().Initialize((int)m_playerID);
-
                 Debug.Log($"{this} started successfully");
                 return true;
             }
