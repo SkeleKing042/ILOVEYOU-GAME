@@ -11,7 +11,7 @@ namespace ILOVEYOU
     namespace Cards
     {
 
-        public class HazardCard : MonoBehaviour
+        public class HazardCard : DisruptCard
         {
             [Tooltip("How long the effect will last for. 0 seconds will enable the hazard without it turning off.")][SerializeField] private float m_time;
             [Tooltip("What hazards will be enabled when this card is selected. If none is inputted, activate all hazards instead.")][SerializeField] private HazardTypes[] m_hazardType;
@@ -21,11 +21,11 @@ namespace ILOVEYOU
             [Tooltip("How long the object will last for. 0 seconds will enable the hazard without it turning off.")][SerializeField] private float m_objectLifetime = 1f;
             [Tooltip("Hazard objects that will be created in the scene around the player")] [SerializeField] private GameObject[] m_hazardObjects;
             [Tooltip("Mask that the hazards will collide with when spawning")][SerializeField] private LayerMask m_mask;
-            public void ExecuteEvents(object[] data)
+            public override void ExecuteEvents(PlayerManager caller)
             {
-                PlayerManager player = (PlayerManager)data[1];
+                base.ExecuteEvents(caller);
 
-                foreach (PlayerManager other in GameManager.Instance.GetOtherPlayers(player))
+                foreach (PlayerManager other in GameManager.Instance.GetOtherPlayers(caller))
                 {
                     //creates the requested objects if true
                     if (m_createObjects)

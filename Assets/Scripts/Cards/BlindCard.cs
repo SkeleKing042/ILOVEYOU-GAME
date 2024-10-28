@@ -9,15 +9,14 @@ namespace ILOVEYOU
     namespace Cards
     {
 
-        public class BlindCard : MonoBehaviour
+        public class BlindCard : DisruptCard
         {
             //[Tooltip("How long the effect will last for.")] [SerializeField] private float m_time = 3;
             [SerializeField] private int m_popupAmount;
-            public void ExecuteEvents(object[] data)
+            public override void ExecuteEvents(PlayerManager caller)
             {
-                PlayerManager player = (PlayerManager)data[1];
-
-                foreach(PlayerManager target in GameManager.Instance.GetOtherPlayers(player))
+                base.ExecuteEvents(caller);
+                foreach(PlayerManager target in GameManager.Instance.GetOtherPlayers(caller))
                 {
                     target.TriggerBlindness(m_popupAmount);
                 }
