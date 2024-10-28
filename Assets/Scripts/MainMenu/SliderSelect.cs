@@ -2,12 +2,17 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class SliderSelect : MonoBehaviour, ISubmitHandler
+namespace ILOVEYOU.MainMenu
 {
-    [SerializeField] private UnityEvent m_onSubmit;
-
-    public void OnSubmit(BaseEventData eventData)
+    public class SliderSelect : MonoBehaviour, ISubmitHandler
     {
-        m_onSubmit.Invoke();
+        [SerializeField] private UnityEvent m_onSubmit;
+
+        public void OnSubmit(BaseEventData eventData)
+        {
+            m_onSubmit.Invoke();
+        }
     }
 }
+
+

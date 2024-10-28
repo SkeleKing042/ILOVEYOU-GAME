@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using ILOVEYOU.Audio;
 using Random = UnityEngine.Random;
 
 namespace ILOVEYOU.MainMenu
