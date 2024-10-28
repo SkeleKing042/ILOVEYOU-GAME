@@ -205,15 +205,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c6590acb3a1ff439924d010ec80892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 1
-  m_turnSpeed: 3
   m_damage: 1
   m_health: 10
+  m_deathTimeout: 10
   m_distanceCondition: 1
   m_obscureMask:
     serializedVersion: 2
     m_Bits: 2048
   m_ignoreSight: 0
+  m_repathTimes: {x: 0.2, y: 0.5}
 --- !u!54 &183515926821657586
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_blinkMat: {fileID: 2100000, guid: a14212e056224f44286aa5a5b1c7f125, type: 2}
-  m_activeTime: 0.05
+  m_activeTime: 0.1
 --- !u!195 &-2293750798486704578
 NavMeshAgent:
   m_ObjectHideFlags: 0

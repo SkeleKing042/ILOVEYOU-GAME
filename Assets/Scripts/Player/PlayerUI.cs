@@ -13,7 +13,6 @@ namespace ILOVEYOU
         //ui
         public class PlayerUI : MonoBehaviour
         {
-            [SerializeField] private bool m_debugging;
             [Header("Card UI")]
             [SerializeField] private PopUps m_blindBox;
             public PopUps GetBlindBox => m_blindBox;
@@ -40,9 +39,9 @@ namespace ILOVEYOU
             // Start is called before the first frame update
             public bool Startup(int id)
             {
-                if (m_debugging) Debug.Log($"Starting player UI");
+                Debug.Log($"Starting player UI");
 
-                if (m_debugging) Debug.Log("Setting up point tracker");
+                Debug.Log("Setting up point tracker");
                 if (m_pointer != null)
                 {
                     m_pointer.gameObject.SetActive(false);
@@ -60,7 +59,7 @@ namespace ILOVEYOU
                 //bosshud setup
                 transform.GetComponentInChildren<BossBar>().Initialize(id);
 
-                if (m_debugging) Debug.Log($"Player UI started successfully!");
+                Debug.Log($"Player UI started successfully!");
                 return true;
             }
             public void UpdateHealthBar(float value)
