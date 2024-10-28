@@ -19,9 +19,13 @@ namespace ILOVEYOU.Player
             if (e)
             {
                 e.GetStunned();
-                other.GetComponent<Rigidbody>().AddExplosionForce(GameSettings.Current.GetKnockbackStrength.x, transform.position, m_radius);
-                other.GetComponent<Rigidbody>().AddForce(new Vector3(0, GameSettings.Current.GetKnockbackStrength.y, 0), ForceMode.Impulse);
+                Vector3 direction = (other.transform.position - transform.position).normalized;
+                other.GetComponent<Rigidbody>().AddForceAtPosition(new Vector3(GameSettings.Current.GetKnockbackStrength.x * direction.x, GameSettings.Current.GetKnockbackStrength.y, GameSettings.Current.GetKnockbackStrength.x * direction.z), transform.position, ForceMode.Impulse);
             }
+        }
+        private void Awake()
+        {
+            GetComponent<SphereCollider>().radius = GameSettings.Current.GetKnockbackRadius;
         }
         private void Update()
         {

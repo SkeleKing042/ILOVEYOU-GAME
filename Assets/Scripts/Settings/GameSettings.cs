@@ -40,6 +40,8 @@ namespace ILOVEYOU.Management
         public float GetPlayerSpeed => m_playerSpeed;
         [SerializeField] private Vector2 m_knockbackStrength;
         public Vector2 GetKnockbackStrength => m_knockbackStrength;
+        [SerializeField] private float m_knockbackRadius;
+        public float GetKnockbackRadius => m_knockbackRadius;
         [Header("Enemy")]
         [SerializeField] private EnemyPrefabs[] m_enemyGroups;
         public EnemyPrefabs[] GetEnemyGroups => m_enemyGroups;
