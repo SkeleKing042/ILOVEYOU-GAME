@@ -42,6 +42,8 @@ namespace ILOVEYOU
                 Instances[index] = this;
 
                 if(index == 0) _InitializeCustomText();
+
+                gameObject.SetActive(false);
             }
 
             public void InitializeHealthBar(float maxHealth)
