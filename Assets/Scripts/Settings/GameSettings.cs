@@ -11,46 +11,46 @@ namespace ILOVEYOU.Management
     {
         public static GameSettings Current { get; private set; }
         [Header("Difficulty")]
-        [SerializeField] private float m_difficultyCap;
+        [SerializeField] private float m_difficultyCap = 60f;
         public float GetDiffCap => m_difficultyCap;
 
         [Header("Tasks")]
         [Tooltip("The maximum number of tasks a player can have.")]
-        [SerializeField] private int m_maxTaskCount;
+        [SerializeField] private int m_maxTaskCount = 1;
         public int GetMaxTaskCount => m_maxTaskCount;
         [SerializeField] private Task[] m_taskList;
         public Task[] GetTasks => m_taskList;
 
         [Header("Cards")]
         [Tooltip("The number of cards shown to the player.\nPLEASE KEEP AT 3")]
-        [SerializeField] private int m_numberOfCardToGive;
+        private int m_numberOfCardToGive = 3;
         public int GetNumberOfCardsToGive => m_numberOfCardToGive;
-        [SerializeField] private float m_cardTimeOut;
+        [SerializeField] private float m_cardTimeOut = 10f;
         public float GetCardTimeOut => m_cardTimeOut;
         [Tooltip("RNG table for cards. The Chances get combined into an average.")]
         [SerializeField] private CardData[] m_cardData;
         public CardData[] GetCardData => m_cardData;
 
         [Header("Player")]
-        [SerializeField] private float m_playerHealth;
+        [SerializeField] private float m_playerHealth = 15f;
         public float GetPlayerHealth => m_playerHealth;
-        [SerializeField] private float m_iframes;
+        [SerializeField] private float m_iframes = 1f;
         public float GetiFrameDuration => m_iframes;
-        [SerializeField] private float m_playerSpeed;
+        [SerializeField] private float m_playerSpeed = 10f;
         public float GetPlayerSpeed => m_playerSpeed;
         [SerializeField] private float m_knockbackWindow = 0.1f;
         public float GetKnockbackWindow => m_knockbackWindow;
-        [SerializeField] private Vector2 m_knockbackStrength;
+        [SerializeField] private Vector2 m_knockbackStrength = new(10, 1);
         public Vector2 GetKnockbackStrength => m_knockbackStrength;
-        [SerializeField] private float m_knockbackRadius;
+        [SerializeField] private float m_knockbackRadius = 10f;
         public float GetKnockbackRadius => m_knockbackRadius;
         [Header("Enemy")]
         [SerializeField] private EnemyPrefabs[] m_enemyGroups;
         public EnemyPrefabs[] GetEnemyGroups => m_enemyGroups;
 
-        [SerializeField] private float m_spawnRangeMin;
+        [SerializeField] private float m_spawnRangeMin = 10f;
         public float GetSpawnRangeMin => m_spawnRangeMin;
-        [SerializeField] private float m_spawnRangeMax;
+        [SerializeField] private float m_spawnRangeMax = 10f;
         public float GetSpawnRangeMax => m_spawnRangeMax;
         public Vector2 GetSpawnRange => new Vector2(m_spawnRangeMin, m_spawnRangeMax);
         [SerializeField] private AnimationCurve m_spawnTime;
@@ -64,6 +64,12 @@ namespace ILOVEYOU.Management
             public string m_key;
             public Color m_color;
 
+            public ColorPrefType(string key, Color color)
+            {
+                m_key = key;
+                m_color = color;
+            }
+
             public void setup()
             {
                 Debug.Log($"Initializing color with key {m_key} and value {m_color.ToString()}");
@@ -71,7 +77,11 @@ namespace ILOVEYOU.Management
             }
         }
         [Header("Color")]
-        [SerializeField] private ColorPrefType[] m_prefColors;
+        [SerializeField] private ColorPrefType[] m_prefColors = { new("Important Color", Color.white),
+                                                                    new("Buff color", Color.white),
+                                                                    new("Debuff color", Color.white),
+                                                                    new("Hazard color", Color.white),
+                                                                    new("Summon color", Color.white) };
         public void Assign()
         {
             Debug.Log("Assigning new settings.");
