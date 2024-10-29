@@ -23,7 +23,8 @@ MonoBehaviour:
     m_capValue: 10
   - m_type: 3
     m_capValue: 10
-  m_cardTimeOut: 10
+  m_numberOfCardToGive: 2
+  m_cardTimeOut: 0
   m_cardData:
   - DisruptCard: {fileID: 181290029558229270, guid: 9f9523a3d21be474cb358c337e57258b, type: 3}
     ChanceOverTime:
@@ -445,7 +446,7 @@ MonoBehaviour:
   m_playerHealth: 15
   m_iframes: 1
   m_playerSpeed: 10
-  PlayerShootingPattern: {fileID: 11400000, guid: f80c5045f971c394096cc345a99bb1a5, type: 2}
+  m_playerShootingPattern: {fileID: 11400000, guid: f80c5045f971c394096cc345a99bb1a5, type: 2}
   m_knockbackWindow: 0.1
   m_knockbackStrength: {x: 10, y: 1}
   m_knockbackRadius: 10
