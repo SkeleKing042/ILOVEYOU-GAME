@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,6 +11,7 @@ namespace ILOVEYOU.Management
         // Start is called before the first frame update
         void Start()
         {
+            transform.GetChild(2).gameObject.SetActive(true);
             FindObjectOfType<EventSystem>().SetSelectedGameObject(m_firstSelected);
         }
 

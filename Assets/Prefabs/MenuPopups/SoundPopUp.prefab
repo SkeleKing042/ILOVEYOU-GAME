@@ -4633,6 +4633,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 7894415942289386488}
+        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
+        m_MethodName: PlayRandomSound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1683116686207163892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4663,7 +4675,7 @@ MonoBehaviour:
   m_onDeselect:
     m_PersistentCalls:
       m_Calls: []
-  m_makeSound: 0
+  m_makeSound: 1
 --- !u!1 &1683116686294019787
 GameObject:
   m_ObjectHideFlags: 0

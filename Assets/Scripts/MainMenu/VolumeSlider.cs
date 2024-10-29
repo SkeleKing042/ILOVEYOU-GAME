@@ -3,6 +3,7 @@ using ILOVEYOU.Management;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace ILOVEYOU.MainMenu
 {
@@ -12,7 +13,8 @@ namespace ILOVEYOU.MainMenu
 
         void Start()
         {
-            GetComponent<Slider>().value = OptionsData.Instance.Volume[(int)m_soundTag] * GetComponent<Slider>().maxValue;
+            GetComponent<Slider>().SetValueWithoutNotify(OptionsData.Instance.Volume[(int)m_soundTag] * GetComponent<Slider>().maxValue);
+            transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(GetComponent<Slider>().value / GetComponent<Slider>().maxValue * 100f) + "%";
         }
 
         public void UpdateVolume(float value)
@@ -20,10 +22,6 @@ namespace ILOVEYOU.MainMenu
             transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(value / GetComponent<Slider>().maxValue * 100f) + "%";
             OptionsData.Instance.VolumeAdjust(value / GetComponent<Slider>().maxValue, (int)m_soundTag);
             
-            //Debug.Log(value / GetComponent<Slider>().maxValue);
-
-            //AudioListener listener = GetComponent<AudioListener>();
-            //AudioListener.volume = value / GetComponent<Slider>().maxValue;
         }
 
     }
