@@ -156,6 +156,7 @@ MonoBehaviour:
   m_health: 1000
   m_deathTimeout: 10
   m_distanceCondition: 32
+  m_stunnedRecoveryTime: 0
   m_obscureMask:
     serializedVersion: 2
     m_Bits: 2048
@@ -197,7 +198,7 @@ NavMeshAgent:
   m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 4.5
-  m_Speed: 40
+  m_Speed: 8
   m_Acceleration: 88
   avoidancePriority: 50
   m_AngularSpeed: 120

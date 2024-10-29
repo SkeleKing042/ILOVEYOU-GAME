@@ -134,7 +134,12 @@ namespace ILOVEYOU
             {
                 while (m_usingAIBrain)
                 {
-                    m_agent.SetDestination(m_playerTransform.position);
+                    if (!m_agent.SetDestination(m_playerTransform.position))
+                    {
+                        Debug.LogWarning($"Agent failed to path. DEATH.");
+                        Destroy(gameObject);
+                        break;
+                    }
                     yield return new WaitForSeconds(Random.Range(m_repathTimes.x, m_repathTimes.y));
                 }
             }

@@ -73,6 +73,7 @@ namespace ILOVEYOU
 
             public override void DoNearAction()
             {
+                DisableAIBrain();
                 if (m_tempSpeed >= 0)
                 {
                     m_rigidBody.MovePosition(m_rigidBody.position + (m_tempSpeed * Time.deltaTime * transform.forward));
