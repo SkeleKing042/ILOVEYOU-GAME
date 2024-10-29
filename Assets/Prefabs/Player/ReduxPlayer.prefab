@@ -2322,6 +2322,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 5819253805525202702, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6122181987106447691, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_ChildControlHeight
       value: 1
@@ -2485,6 +2489,34 @@ PrefabInstance:
     - target: {fileID: 7466998449250900997, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621683590365786601, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_onDiscard.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621683590365786601, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_onDiscard.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621683590365786601, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_onDiscard.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1146677423907829169}
+    - target: {fileID: 7621683590365786601, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_onDiscard.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621683590365786601, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_onDiscard.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DiscardHand
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621683590365786601, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_onDiscard.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ILOVEYOU.Player.PlayerManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621683590365786601, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_onDiscard.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7953061024499127825, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_AnchorMax.y
