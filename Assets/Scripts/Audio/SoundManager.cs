@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ILOVEYOU.Audio
 {
@@ -27,6 +29,8 @@ namespace ILOVEYOU.Audio
         }
 
         [SerializeField] private SoundList[] m_sounds;
+        [SerializeField] private SoundTag m_tag;
+        public SoundTag Tag { get { return m_tag; } }
         
         /// <summary>
         /// plays random looping sound from group
@@ -45,6 +49,7 @@ namespace ILOVEYOU.Audio
 
                 loopingSource.Stop();
                 loopingSource.clip = m_sounds[group].GetSounds()[rando];
+                loopingSource.volume = GetVolume();
                 loopingSource.Play();
 
                 return;
@@ -55,6 +60,7 @@ namespace ILOVEYOU.Audio
             rando = Random.Range(0, m_sounds[group].GetSounds().Length);
 
             loopingSource.clip = m_sounds[group].GetSounds()[rando];
+            loopingSource.volume = GetVolume();
             loopingSource.loop = true;
 
             loopingSource.Play();
@@ -73,6 +79,7 @@ namespace ILOVEYOU.Audio
 
                 loopingSource.Stop();
                 loopingSource.clip = m_sounds[group].GetSounds()[sound];
+                loopingSource.volume = GetVolume();
                 loopingSource.Play();
 
                 return;
@@ -82,6 +89,7 @@ namespace ILOVEYOU.Audio
             loopingSource = gameObject.AddComponent<AudioSource>();
 
             loopingSource.clip = m_sounds[group].GetSounds()[sound];
+            loopingSource.volume = GetVolume();
             loopingSource.loop = true;
 
             loopingSource.Play(); 
@@ -96,7 +104,7 @@ namespace ILOVEYOU.Audio
 
             int rando = Random.Range(0, m_sounds[group].GetSounds().Length);
 
-            oneShotSource.PlayOneShot(m_sounds[group].GetSounds()[rando]); //play it right now
+            oneShotSource.PlayOneShot(m_sounds[group].GetSounds()[rando], GetVolume()); //play it right now
             Destroy(oneShotSource.gameObject, m_sounds[group].GetSounds()[rando].length);
         }
         /// <summary>
@@ -106,8 +114,13 @@ namespace ILOVEYOU.Audio
         {
             AudioSource oneShotSource = new GameObject("OneShotObject: " + m_sounds[group].GetName()).AddComponent<AudioSource>(); //woahhh oneshot reference!!!
 
-            oneShotSource.PlayOneShot(m_sounds[group].GetSounds()[sound]); //play it right now
+            oneShotSource.PlayOneShot(m_sounds[group].GetSounds()[sound], GetVolume()); //play it right now
             Destroy(oneShotSource.gameObject, m_sounds[group].GetSounds()[sound].length);
+        }
+
+        public float GetVolume()
+        {
+            return PlayerPrefs.GetFloat(Enum.GetName(typeof(SoundTag), m_tag) + " Volume", 1f);
         }
     }
 

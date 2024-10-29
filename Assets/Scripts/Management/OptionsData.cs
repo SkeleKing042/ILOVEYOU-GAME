@@ -1,6 +1,7 @@
 using UnityEngine;
 using ILOVEYOU.Audio;
 using System;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace ILOVEYOU.Management
 {
@@ -29,7 +30,6 @@ namespace ILOVEYOU.Management
 
             m_volume = new float[Enum.GetNames(typeof(SoundTag)).Length];
 
-            //
             if (!PlayerPrefs.HasKey("Master Volume")) PlayerPrefs.SetFloat("Master Volume", 1f);
             m_volume[0] = PlayerPrefs.GetFloat("Master Volume");
 
@@ -40,10 +40,6 @@ namespace ILOVEYOU.Management
                 if (!PlayerPrefs.HasKey(Enum.GetNames(typeof(SoundTag))[i] + " Volume")) PlayerPrefs.SetFloat(Enum.GetNames(typeof(SoundTag))[i] + " Volume", 1f);
                 m_volume[i] = PlayerPrefs.GetFloat(Enum.GetNames(typeof(SoundTag))[i ] + " Volume");
             }
-
-            
-
-            
         }
 
         public void VolumeAdjust(float value, int volumeTag)
@@ -66,7 +62,16 @@ namespace ILOVEYOU.Management
         /// </summary>
         public void AdjustAllSound(int volumeTag)
         {
-            
+            foreach(AudioSource src in FindObjectsOfType<AudioSource>())
+            {
+                if (src.GetComponent<SoundManager>())
+                {
+                    if((int)src.GetComponent<SoundManager>().Tag == volumeTag)
+                    {
+                        src.volume = PlayerPrefs.GetFloat(Enum.GetNames(typeof(SoundTag))[volumeTag] + " Volume", 1f);
+                    }
+                }
+            }
         }
     }
 

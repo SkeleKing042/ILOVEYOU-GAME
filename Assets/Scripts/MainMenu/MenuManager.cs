@@ -38,7 +38,7 @@ namespace ILOVEYOU.MainMenu
             m_eventSystem = GetComponent<EventSystem>();
 
             for (int i = 0; i < ControllerManager.Instance.ControllerCount && i < m_joinText.Length; i++)
-           {
+            {
                 m_joinText[i].text = "Player " + (i + 1) + " Has Joined";
                 m_joinText[i].GetComponent<Animator>().SetTrigger("Change State");
             }
