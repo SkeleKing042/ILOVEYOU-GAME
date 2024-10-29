@@ -1,15 +1,19 @@
 using ILOVEYOU.Management;
 using UnityEditor;
+using UnityEngine;
 
 namespace ILOVEYOU.EditorScript
 {
     [CustomEditor(typeof(GameSettings))]
+    [CanEditMultipleObjects]
     public class GameSettingsEditor : Editor
     {
         GameSettings m_target;
+        SerializedProperty diffCapProp;
         private void OnEnable()
         {
             m_target = (GameSettings)target;
+            diffCapProp = serializedObject.FindProperty("m_difficultyCap");
         }
         public override void OnInspectorGUI()
         {
@@ -22,7 +26,13 @@ namespace ILOVEYOU.EditorScript
             {
                 m_target.InitalizePrefs();
             }
-            base.OnInspectorGUI();
+
+            serializedObject.Update();
+
+            EditorGUILayout.Slider(diffCapProp, 0, 60, new GUIContent("Difficulty Cap"));
+
+            serializedObject.ApplyModifiedProperties();
+            //base.OnInspectorGUI();
         }
     }
 }
