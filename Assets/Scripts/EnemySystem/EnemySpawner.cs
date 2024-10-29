@@ -25,10 +25,7 @@ namespace ILOVEYOU
         }
         public class EnemySpawner : MonoBehaviour
         {
-            private EnemyPrefabs[] m_enemyGroups;
-            private float m_spawnRangeMin;
-            private float m_spawnRangeMax;
-            private float m_spawnRange { get { return Random.Range(m_spawnRangeMin, m_spawnRangeMax); } }
+            private float m_spawnRange { get { return Random.Range(GameSettings.Current.GetSpawnRangeMin, GameSettings.Current.GetSpawnRangeMax); } }
             [SerializeField] private LayerMask m_spawnMask;
 
             private List<GameObject> m_enemyObjects = new();
@@ -44,9 +41,6 @@ namespace ILOVEYOU
             public bool Initialize()
             {
                 Debug.Log("Initializing enemy spawner");
-                m_enemyGroups = GameSettings.Current.GetEnemyGroups;
-                m_spawnRangeMin = GameSettings.Current.GetSpawnRangeMin;
-                m_spawnRangeMax = GameSettings.Current.GetSpawnRangeMax;
                 
                 return true;
             }
@@ -79,13 +73,13 @@ namespace ILOVEYOU
             public void SpawnEnemyWave()
             {   
                 //goes through each prefab list
-                for (int i = 0; i < m_enemyGroups.Length; i++)
+                for (int i = 0; i < GameSettings.Current.GetEnemyGroups.Length; i++)
                 {
                     float rnd = Random.Range(0.0f, 1.0f);
                     //ignores list if threshold is 0 or the current difficulty is larger than the threshold assigned to the group
-                    if (m_enemyGroups[i].Threshold().Evaluate(Mathf.Clamp(GameManager.Instance.PercentToMaxDiff, 0 , 1)) <= rnd) continue;
+                    if (GameSettings.Current.GetEnemyGroups[i].Threshold().Evaluate(Mathf.Clamp(GameManager.Instance.PercentToMaxDiff, 0 , 1)) <= rnd) continue;
 
-                    if (_SpawnEnemy(m_enemyGroups[i].RandomEnemyPrefab(), false)) m_onSpawnEnemy.Invoke();
+                    if (_SpawnEnemy(GameSettings.Current.GetEnemyGroups[i].RandomEnemyPrefab(), false)) m_onSpawnEnemy.Invoke();
                 }
             }
             /// <summary>
@@ -99,7 +93,7 @@ namespace ILOVEYOU
                 for (int i = 0; i < enemyCount; i++)
                 {
 
-                    if(_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab(), false)) m_onSpawnEnemy.Invoke();
+                    if(_SpawnEnemy(GameSettings.Current.GetEnemyGroups[groupNumber].RandomEnemyPrefab(), false)) m_onSpawnEnemy.Invoke();
                 }
             }
             /// <summary>
@@ -112,7 +106,7 @@ namespace ILOVEYOU
 
                 for (int i = 0; i < enemyCount; i++)
                 {
-                    if (_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab(), ignoreCap)) m_onSpawnEnemy.Invoke();
+                    if (_SpawnEnemy(GameSettings.Current.GetEnemyGroups[groupNumber].RandomEnemyPrefab(), ignoreCap)) m_onSpawnEnemy.Invoke();
                 }
             }
             /// <summary>
@@ -121,7 +115,7 @@ namespace ILOVEYOU
             /// <param name="groupNumber">enemy group to spawn from</param>
             public void SpawnRandomEnemyFromGroup(int groupNumber)
             {
-                if (_SpawnEnemy(m_enemyGroups[groupNumber].RandomEnemyPrefab(), false)) m_onSpawnEnemy.Invoke();
+                if (_SpawnEnemy(GameSettings.Current.GetEnemyGroups[groupNumber].RandomEnemyPrefab(), false)) m_onSpawnEnemy.Invoke();
             }
             /// <summary>
             /// spawns a singular specified enemy from a group
@@ -130,14 +124,14 @@ namespace ILOVEYOU
             /// <param name="prefabIndex">which enemy from the array to spawn</param>
             public void SpawnEnemyFromGroup(int groupNumber, int prefabIndex)
             {
-                if(_SpawnEnemy(m_enemyGroups[groupNumber].EnemyPrefab(prefabIndex), false)) m_onSpawnEnemy.Invoke();
+                if(_SpawnEnemy(GameSettings.Current.GetEnemyGroups[groupNumber].EnemyPrefab(prefabIndex), false)) m_onSpawnEnemy.Invoke();
             }
 
             public void OnDrawGizmosSelected()
             {
                 //this is just to make it easier to visualise where enemies will spawn
-                if (transform) Gizmos.DrawWireSphere(transform.position, m_spawnRangeMin);
-                if (transform) Gizmos.DrawWireSphere(transform.position, m_spawnRangeMax);
+                if (transform) Gizmos.DrawWireSphere(transform.position, GameSettings.Current.GetSpawnRangeMin);
+                if (transform) Gizmos.DrawWireSphere(transform.position, GameSettings.Current.GetSpawnRangeMax);
             }
 
             private bool _SpawnEnemy(GameObject prefab, bool ignoreCap)

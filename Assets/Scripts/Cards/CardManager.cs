@@ -60,7 +60,6 @@ namespace ILOVEYOU
 
         public class CardManager : MonoBehaviour
         {
-            private CardData[] m_cardData = new CardData[1];
             [SerializeField] private UnityEvent m_onDispenseCard;
 
             /// <summary>
@@ -70,10 +69,8 @@ namespace ILOVEYOU
             public bool Startup()
             {
                 Debug.Log($"Starting {this}.");
-                //Clone the set card data to this array
-                m_cardData = GameSettings.Current.GetCardData;
                 //Check the cards for issues
-                foreach (CardData card in m_cardData)
+                foreach (CardData card in GameSettings.Current.GetCardData)
                 {
                     //possible missing parts
                     if (card.DisruptCard.GetComponents(typeof(Component)).Length < 3)
@@ -90,12 +87,12 @@ namespace ILOVEYOU
             {
                 //Sum the chances of all the cards
                 float chanceSum = 0;
-                foreach(CardData card in m_cardData)
+                foreach(CardData card in GameSettings.Current.GetCardData)
                 {
                     chanceSum += card.GenerateChance(player);
                 }
                 //Clamp the number of possible cards
-                Mathf.Clamp(count, 1, m_cardData.Length - 1);
+                Mathf.Clamp(count, 1, GameSettings.Current.GetCardData.Length - 1);
                 //Make a new array with the requested amount of cards
                 List<DisruptCard> cards = new List<DisruptCard>();
                 List<int> selectedCards = new List<int>();
@@ -107,12 +104,12 @@ namespace ILOVEYOU
                     for(int i = 100; i > 0; i--)
                     {
                         float rndChance = -1;
-                        rndCard = Random.Range(0, m_cardData.Length);
+                        rndCard = Random.Range(0, GameSettings.Current.GetCardData.Length);
                          rndChance = Random.Range(0.0f, 1.0f);
-                        if (!selectedCards.Contains(rndCard) && m_cardData[rndCard].CurrentChance >= rndChance) break;
+                        if (!selectedCards.Contains(rndCard) && GameSettings.Current.GetCardData[rndCard].CurrentChance >= rndChance) break;
                     }
                     selectedCards.Add(rndCard);
-                    cards.Add(Instantiate(m_cardData[rndCard].DisruptCard));
+                    cards.Add(Instantiate(GameSettings.Current.GetCardData[rndCard].DisruptCard));
                 }
                 m_onDispenseCard.Invoke();
                 //Return the array
