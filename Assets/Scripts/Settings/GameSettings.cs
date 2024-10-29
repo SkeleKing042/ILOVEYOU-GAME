@@ -1,6 +1,7 @@
 using ILOVEYOU.Cards;
 using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Player;
+using ILOVEYOU.ProjectileSystem;
 using ILOVEYOU.UI;
 using UnityEngine;
 
@@ -38,6 +39,8 @@ namespace ILOVEYOU.Management
         public float GetiFrameDuration => m_iframes;
         [SerializeField] private float m_playerSpeed = 10f;
         public float GetPlayerSpeed => m_playerSpeed;
+        [SerializeField] private BulletPatternObject PlayerShootingPattern;
+        public BulletPatternObject GetPlayerShootingPattern => PlayerShootingPattern;
         [SerializeField] private float m_knockbackWindow = 0.1f;
         public float GetKnockbackWindow => m_knockbackWindow;
         [SerializeField] private Vector2 m_knockbackStrength = new(10, 1);
@@ -85,6 +88,10 @@ namespace ILOVEYOU.Management
         public void Assign()
         {
             Debug.Log("Assigning new settings.");
+            foreach(var player in FindObjectsOfType<PlayerControls>())
+            {
+                player.ChangeWeapon(GetPlayerShootingPattern);
+            }
             Current = this;
         }
         public void InitalizePrefs()
