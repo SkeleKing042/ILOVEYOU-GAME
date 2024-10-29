@@ -16,7 +16,7 @@ namespace ILOVEYOU.MainMenu
 
         public static SceneLoader Instance;
 
-        //Create instance
+        //Create instance and destroy duplicates
         void Awake()
         {
             if (Instance == null)
@@ -27,61 +27,65 @@ namespace ILOVEYOU.MainMenu
             else { Destroy(gameObject); }
         }
 
-
+        /// <summary>
+        /// Loads scene by index of build layout
+        /// </summary>
         public void LoadScene(int sceneNumber)
         {
-            m_sceneName = SceneManager.GetSceneByBuildIndex(sceneNumber).name;
-
             StartCoroutine(_LoadAsync(sceneNumber));
 
         }
-
+        /// <summary>
+        /// Loads scene by name of scene
+        /// </summary>
         public void LoadScene(string sceneName)
         {
-            m_sceneName = SceneManager.GetSceneByName(sceneName).name;
-
             StartCoroutine(_LoadAsync(sceneName));
         }
-
+        /// <summary>
+        /// Reloads currently active scene
+        /// </summary>
         public void RestartScene()
         {
-            m_sceneName = SceneManager.GetActiveScene().name;
+            //m_sceneName = SceneManager.GetActiveScene().name;
 
             StartCoroutine(_LoadAsync(SceneManager.GetActiveScene().name));
         }
-
+        /// <summary>
+        /// Loads new scene by going to the SceneLoader scene and then going to the scene
+        /// </summary>
         IEnumerator _LoadAsync(int sceneNumber)
         {
+            //First goes to the loading scene
             AsyncOperation operation = SceneManager.LoadSceneAsync(m_loadingScene);
-
-            //Debug.Break();
-
+            //makes sure the loading scene is loaded
             while (!operation.isDone)
             {
                 yield return new WaitForEndOfFrame();
             }
-
+            //starts loading next scene
+            operation = SceneManager.LoadSceneAsync(sceneNumber);
+            operation.allowSceneActivation = false;
+            //gets the name of the next scene
+            m_sceneName = SceneManager.GetSceneByBuildIndex(sceneNumber).name;
+            //gets and sets values in the loading scene
             m_loadingSlider = FindObjectOfType<Slider>();
             m_text = FindObjectsOfType<TextMeshProUGUI>();
             m_text[0].text = "Loading " + m_sceneName + "...";
 
-            operation = SceneManager.LoadSceneAsync(sceneNumber);
-            operation.allowSceneActivation = false;
-
             yield return new WaitForEndOfFrame();
-
+            //while loading update loading bar
             while (!operation.isDone)
             {
                 m_loadingSlider.value = Mathf.RoundToInt(operation.progress * 75f); //multi by 75 as the loading bar is 0-75
                 m_text[1].text = Mathf.RoundToInt(operation.progress * 100f) + "%";
-
-
-                if (operation.progress >= 0.9f)
+                //once finished loading go to next scene after short delay
+                if (operation.progress >= 0.9f) // <- Unity loading "Finishes" at .9, hence why it considers it done past .9
                 {
                     m_loadingSlider.value = 75f;
                     m_text[1].text = "100%";
                     yield return new WaitForSecondsRealtime(.5f);
-                    operation.allowSceneActivation = true;
+                    operation.allowSceneActivation = true; //enables the next scene
                 }
 
                 yield return new WaitForEndOfFrame();
@@ -91,39 +95,42 @@ namespace ILOVEYOU.MainMenu
 
             yield return null;
         }
-
+        /// <summary>
+        /// Loads new scene by going to the SceneLoader scene and then going to the scene
+        /// </summary>
         IEnumerator _LoadAsync(string sceneName)
         {
+            //First goes to the loading scene
             AsyncOperation operation = SceneManager.LoadSceneAsync(m_loadingScene);
-
-            //Debug.Break();
-
+            //makes sure the loading scene is loaded
             while (!operation.isDone)
             {
                 yield return new WaitForEndOfFrame();
             }
-
+            //starts loading next scene
+            operation = SceneManager.LoadSceneAsync(sceneName);
+            operation.allowSceneActivation = false;
+            //gets the name of the next scene
+            m_sceneName = SceneManager.GetSceneByName(sceneName).name;
+            //gets and sets values in the loading scene
             m_loadingSlider = FindObjectOfType<Slider>();
             m_text = FindObjectsOfType<TextMeshProUGUI>();
             m_text[0].text = "Loading " + m_sceneName + "...";
 
-            operation = SceneManager.LoadSceneAsync(sceneName);
-            operation.allowSceneActivation = false;
-
             yield return new WaitForEndOfFrame();
 
+            //while loading update loading bar
             while (!operation.isDone)
             {
                 m_loadingSlider.value = Mathf.RoundToInt(operation.progress * 75f); //multi by 75 as the loading bar is 0-75
                 m_text[1].text = Mathf.RoundToInt(operation.progress * 100f) + "%";
-
-
-                if (operation.progress >= 0.9f)
+                //once finished loading go to next scene after short delay
+                if (operation.progress >= 0.9f) // <- Unity loading "Finishes" at .9, hence why it considers it done past .9
                 {
                     m_loadingSlider.value = 75f;
                     m_text[1].text = "100%";
                     yield return new WaitForSecondsRealtime(.5f);
-                    operation.allowSceneActivation = true;
+                    operation.allowSceneActivation = true; //enables the next scene
                 }
 
                 yield return new WaitForEndOfFrame();
