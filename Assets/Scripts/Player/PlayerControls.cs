@@ -98,6 +98,7 @@ namespace ILOVEYOU
             {
                 m_facingObject = transform.GetChild(0);
                 m_pattern = m_facingObject.GetComponent<BulletPattern>();
+                m_pattern.ChangePattern(GameSettings.Current.GetPlayerShootingPattern);
                 m_Collider = GetComponent<Collider>();
                 m_plaMa = GetComponent<PlayerManager>();
                 m_rb = GetComponent<Rigidbody>();
