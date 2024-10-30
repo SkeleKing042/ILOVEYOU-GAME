@@ -24,7 +24,6 @@ namespace ILOVEYOU.Audio
                 if (m_loop) 
                 { 
                     //GetComponent<SoundManager>().PlayRandomSoundLoop(m_group);
-                    
                 }
                 //else GetComponent<SoundManager>().PlayRandomSound(m_group);
                 

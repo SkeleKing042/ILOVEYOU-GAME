@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using System;
 using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 using EGL = UnityEditor.EditorGUILayout;
@@ -14,9 +11,11 @@ namespace ILOVEYOU.Audio
     {
         private SoundManagerInitializer m_init;
         SerializedProperty m_managers;
-
         public override void OnInspectorGUI()
         {
+            m_init = target as SoundManagerInitializer;
+
+
             using (new EditorGUI.DisabledScope(true))
             {
                 EGL.ObjectField("Script", MonoScript.FromMonoBehaviour((MonoBehaviour)target), GetType(), false);
@@ -24,35 +23,31 @@ namespace ILOVEYOU.Audio
             }
 
             // get properties
-            m_managers = serializedObject.FindProperty("Managers");
+            m_managers = serializedObject.FindProperty("m_data");
 
+            EditorGUI.BeginChangeCheck();
 
-            if (m_managers.arraySize == 0)
-                ResetValues();
+            OnGUI();
 
-            for (int i = 0; i < m_managers.arraySize; i++)
+            if (EditorGUI.EndChangeCheck())
             {
-                EGL.LabelField("Manager " + (i + 1).ToString());
-                EGL.PropertyField(m_managers.GetArrayElementAtIndex(i), GUIContent.none);
+                //Undo.RecordObject(target, "Changed " + Enum.GetNames(typeof(SoundTag))[i]);
+                EditorUtility.SetDirty(target);
+                serializedObject.ApplyModifiedProperties();
             }
-            
-            m_init = target as SoundManagerInitializer;
 
-            //EGL.PropertyField(m_managers);
-
-            //base.OnInspectorGUI();
         }
 
-        public void ResetValues()
+
+        protected virtual void OnGUI()
         {
-            m_init.Managers = new SoundManager[5];
+            for (int i = 0; i < m_managers.arraySize; i++)
+            {
+                serializedObject.ApplyModifiedProperties();
 
-            m_init.Managers[0] = new SoundManager("None");
-            m_init.Managers[1] = new SoundManager("SFX");
-            m_init.Managers[2] = new SoundManager("Music");
-            m_init.Managers[3] = new SoundManager("UI");
-            m_init.Managers[4] = new SoundManager("Environment");
+                EGL.PropertyField(m_managers.GetArrayElementAtIndex(i), new GUIContent(Enum.GetNames(typeof(SoundTag))[i]));
 
+            }
         }
     }
 }

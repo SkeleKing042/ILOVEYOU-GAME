@@ -24,35 +24,74 @@ namespace ILOVEYOU.Audio
         public static SoundManager UI;
         public static SoundManager Environment;
 
-        [System.Serializable]
-        public class SoundGroup
+        [Serializable]
+        public class SoundManagerData
         {
-            [SerializeField] private string m_name;
-            [SerializeField] [Range(0f,1f)] private float m_soundMult = 1f;
-            [SerializeField] private AudioClip[] m_clips;
+            [Serializable]
+            public class SoundGroup
+            {
+                [SerializeField] private string m_name;
+                [SerializeField][Range(0f, 1f)] private float m_soundMult = 1f;
+                [SerializeField] private AudioClip[] m_clips;
 
-            public AudioClip[] GetSounds() { return m_clips; }
-            public string GetName() { return m_name; }
-            public float GetSoundMult() { return m_soundMult; }
+                public AudioClip[] GetSounds() { return m_clips; }
+                public string GetName() { return m_name; }
+                public float GetSoundMult() { return m_soundMult; }
+            }
+
+            [SerializeField] private SoundGroup[] m_sounds;
+            [SerializeField] [HideInInspector] private SoundTag m_tag = SoundTag.None;
+            [Tooltip("Sounds in this group are manually loaded and unloaded in when playing. Mainly targeted for music.")][SerializeField] private bool m_manualLoad = false;
+            private int[] m_prevAudio = new int[2]; //only relevent to manual loading
+            
+            /// <summary>
+            /// gets group at i index
+            /// </summary>
+            public SoundGroup GetGroup(int i)  
+            { 
+                return m_sounds[i];
+            }
+            /// <summary>
+            /// Gets group based on name
+            /// </summary>
+            public SoundGroup GetGroup(string name)
+            {
+                SoundGroup group = null;
+
+                for (int i = 0; i < m_sounds.Length; i++)
+                {
+                    if (m_sounds[i].GetName() == name)
+                    {
+                        group = m_sounds[i];
+                    }
+                }
+
+                if (group == null) { Debug.LogWarning("Sound Group of Name: \"" + name + "\" Not found!"); }
+
+                return group;
+            }
+
+            public bool ManualLoad { get { return m_manualLoad; } }
+
+            public void SetTag(SoundTag tag)
+            {
+                m_tag = tag;
+            }
+
+            public SoundTag Tag
+            {
+                get { return m_tag; }
+            }
+
         }
 
-        [SerializeField] private string m_name;
-        [SerializeField] private SoundGroup[] m_sounds;
-        [SerializeField] private SoundTag m_tag;
-        [Tooltip("Sounds in this group are manually loaded and unloaded in when playing. Mainly targeted for music.")][SerializeField] private bool m_manualLoad = false;
-        private int[] m_prevAudio = new int[2]; //only relevent to manual loading
-        public SoundTag Tag
-        {
-            get { return m_tag; } 
-        }
-
-        public SoundManager(string name)
-        {
-            m_name = name;
-
-        }
-
+        [SerializeField] private SoundManagerData m_soundData = new();
         
+        public void SetData(SoundManagerData data)
+        {
+            m_soundData = data;
+        }
+
 
         /// <summary>
         /// plays random looping sound from group
@@ -67,17 +106,17 @@ namespace ILOVEYOU.Audio
             {
                 loopingSource = gameObject.GetComponent<AudioSource>();
 
-                rando = Random.Range(0, m_sounds[group].GetSounds().Length);
+                rando = Random.Range(0, m_soundData.GetGroup(group).GetSounds().Length);
 
-                if (m_manualLoad) 
+                if (m_soundData.ManualLoad) 
                 { 
                     _UnloadAudio();
                     _LoadAudio(group, rando);
                 }
 
                 loopingSource.Stop();
-                loopingSource.clip = m_sounds[group].GetSounds()[rando];
-                loopingSource.volume = GetVolume() * m_sounds[group].GetSoundMult();
+                loopingSource.clip = m_soundData.GetGroup(group).GetSounds()[rando];
+                loopingSource.volume = GetVolume() * m_soundData.GetGroup(group).GetSoundMult();
                 loopingSource.Play();
 
                 return;
@@ -85,17 +124,17 @@ namespace ILOVEYOU.Audio
 
             loopingSource = gameObject.AddComponent<AudioSource>(); 
 
-            rando = Random.Range(0, m_sounds[group].GetSounds().Length);
+            rando = Random.Range(0, m_soundData.GetGroup(group).GetSounds().Length);
 
-            if (m_manualLoad)
+            if (m_soundData.ManualLoad)
             {
                 _UnloadAudio();
                 _LoadAudio(group, rando);
             }
 
             loopingSource.Stop();
-            loopingSource.clip = m_sounds[group].GetSounds()[rando];
-            loopingSource.volume = GetVolume() * m_sounds[group].GetSoundMult();
+            loopingSource.clip = m_soundData.GetGroup(group).GetSounds()[rando];
+            loopingSource.volume = GetVolume() * m_soundData.GetGroup(group).GetSoundMult();
             loopingSource.loop = true;
             loopingSource.Play();
         }
@@ -111,15 +150,15 @@ namespace ILOVEYOU.Audio
             {
                 loopingSource = gameObject.GetComponent<AudioSource>();
 
-                if (m_manualLoad)
+                if (m_soundData.ManualLoad)
                 {
                     _UnloadAudio();
                     _LoadAudio(group, sound);
                 }
 
                 loopingSource.Stop();
-                loopingSource.clip = m_sounds[group].GetSounds()[sound];
-                loopingSource.volume = GetVolume() * m_sounds[group].GetSoundMult();
+                loopingSource.clip = m_soundData.GetGroup(group).GetSounds()[sound];
+                loopingSource.volume = GetVolume() * m_soundData.GetGroup(group).GetSoundMult();
                 loopingSource.Play();
 
                 return;
@@ -127,14 +166,14 @@ namespace ILOVEYOU.Audio
 
             loopingSource = gameObject.AddComponent<AudioSource>();
 
-            if (m_manualLoad)
+            if (m_soundData.ManualLoad)
             {
                 _UnloadAudio();
                 _LoadAudio(group, sound);
             }
 
-            loopingSource.clip = m_sounds[group].GetSounds()[sound];
-            loopingSource.volume = GetVolume() * m_sounds[group].GetSoundMult();
+            loopingSource.clip = m_soundData.GetGroup(group).GetSounds()[sound];
+            loopingSource.volume = GetVolume() * m_soundData.GetGroup(group).GetSoundMult();
             loopingSource.loop = true;
 
             loopingSource.Play(); 
@@ -145,51 +184,51 @@ namespace ILOVEYOU.Audio
         /// </summary>
         public void PlayRandomSound(int group)
         {
-            AudioSource oneShotSource = new GameObject("OneShotObject: " + m_sounds[group].GetName()).AddComponent<AudioSource>(); //woahhh oneshot reference!!!
+            AudioSource oneShotSource = new GameObject("OneShotObject: " + m_soundData.GetGroup(group).GetName()).AddComponent<AudioSource>(); //woahhh oneshot reference!!!
 
-            int rando = Random.Range(0, m_sounds[group].GetSounds().Length);
+            int rando = Random.Range(0, m_soundData.GetGroup(group).GetSounds().Length);
 
-            if (m_manualLoad)
+            if (m_soundData.ManualLoad)
             {
                 _UnloadAudio();
                 _LoadAudio(group, rando);
             }
 
-            oneShotSource.PlayOneShot(m_sounds[group].GetSounds()[rando], GetVolume() * m_sounds[group].GetSoundMult()); //play it right now
-            Destroy(oneShotSource.gameObject, m_sounds[group].GetSounds()[rando].length);
+            oneShotSource.PlayOneShot(m_soundData.GetGroup(group).GetSounds()[rando], GetVolume() * m_soundData.GetGroup(group).GetSoundMult()); //play it right now
+            Destroy(oneShotSource.gameObject, m_soundData.GetGroup(group).GetSounds()[rando].length);
         }
         /// <summary>
         /// plays selected sound from group as a one shot
         /// </summary>
         public void PlaySound(int group, int sound)
         {
-            AudioSource oneShotSource = new GameObject("OneShotObject: " + m_sounds[group].GetName()).AddComponent<AudioSource>(); //woahhh oneshot reference!!!
+            AudioSource oneShotSource = new GameObject("OneShotObject: " + m_soundData.GetGroup(group).GetName()).AddComponent<AudioSource>(); //woahhh oneshot reference!!!
 
-            if (m_manualLoad)
+            if (m_soundData.ManualLoad)
             {
                 _UnloadAudio();
                 _LoadAudio(group, sound);
             }
 
-            oneShotSource.PlayOneShot(m_sounds[group].GetSounds()[sound], GetVolume() * m_sounds[group].GetSoundMult()); //play it right now
-            Destroy(oneShotSource.gameObject, m_sounds[group].GetSounds()[sound].length);
+            oneShotSource.PlayOneShot(m_soundData.GetGroup(group).GetSounds()[sound], GetVolume() * m_soundData.GetGroup(group).GetSoundMult()); //play it right now
+            Destroy(oneShotSource.gameObject, m_soundData.GetGroup(group).GetSounds()[sound].length);
         }
 
         public float GetVolume()
         {
-            return PlayerPrefs.GetFloat(Enum.GetName(typeof(SoundTag), m_tag) + " Volume", 1f);
+            return PlayerPrefs.GetFloat(Enum.GetName(typeof(SoundTag), m_soundData.Tag) + " Volume", 1f);
         }
 
         private void _LoadAudio(int group, int sound)
         {
-            m_sounds[group].GetSounds()[sound].LoadAudioData();
-            m_prevAudio = new int[2] {group, sound};
+            m_soundData.GetGroup(group).GetSounds()[sound].LoadAudioData();
+            //m_prevAudio = new int[2] {group, sound};
 
         }
 
         private void _UnloadAudio()
         {
-            m_sounds[m_prevAudio[0]].GetSounds()[m_prevAudio[1]].UnloadAudioData();
+            //m_soundData[m_prevAudio[0]].GetSounds()[m_prevAudio[1]].UnloadAudioData();
         }
     }
 
