@@ -15,6 +15,34 @@ namespace ILOVEYOU
 
     namespace Management
     {
+        [System.Serializable]
+        public class UnseenAIPlayer
+        {
+            public bool Enabled;
+            private float m_countdown;
+
+            public UnseenAIPlayer(bool startOn)
+            {
+                Enabled = startOn;
+
+                m_countdown = GameSettings.Current.GetUnseenCardRate;
+            }
+            public void Update()
+            {
+                if (!Enabled || GameSettings.Current.GetUnseenCards.Length == 0)
+                    return;
+
+                if(m_countdown > 0)
+                {
+                    m_countdown -= Time.deltaTime;
+                }
+                else
+                {
+                    CardManager.GetRandomCard(GameSettings.Current.GetUnseenCards).ExecuteEvents(null);
+                    m_countdown = GameSettings.Current.GetUnseenCardRate;
+                }
+            }
+        }
         [RequireComponent(typeof(CardManager))]
         public class GameManager : MonoBehaviour
         {
@@ -29,6 +57,7 @@ namespace ILOVEYOU
             [SerializeField] private GameSettings m_settings;
             [SerializeField] private bool m_devMode;
             [SerializeField] private float m_roundStartCountdown;
+            [SerializeField, HideInInspector] private UnseenAIPlayer m_unseenOne;
             [Header("References")]
             [SerializeField] private ControllerManager m_controllerManagerPrefab;
             [SerializeField] private LevelManager m_levelTemplate;
@@ -90,7 +119,10 @@ namespace ILOVEYOU
 
                 //Make sure that the other management scripts work
                 Debug.Log("Game manager starting.");
-
+                if (GameSettings.Current.isUsingUnseenAI)
+                {
+                    m_unseenOne = new(true);
+                }
 
                 //Set card manager
                 Debug.Log("Getting CardManager");
@@ -271,6 +303,7 @@ namespace ILOVEYOU
 
             private void Update()
             {
+                m_unseenOne.Update();
                 //update spawn timer
                 if (m_spawnTimer <= 0)
                 {
@@ -297,7 +330,7 @@ namespace ILOVEYOU
                     //hand out cards to the player
                     Debug.Log($"Player {player.GetPlayerID} has completed a task, dealing cards.");
                     player.GetTaskManager.TaskCompletionPoints--;
-                    player.CollectHand(m_cardMan.DispenseCards(GameSettings.Current.GetNumberOfCardsToGive, player).ToArray());
+                    player.CollectHand(m_cardMan.DispenseCards(GameSettings.Current.GetNumberOfCardsToGive, player));
                 }
             }
             public void GivePlayerTasks(PlayerManager player)

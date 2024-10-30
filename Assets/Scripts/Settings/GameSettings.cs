@@ -41,6 +41,16 @@ namespace ILOVEYOU.Management
         public float GetPlayerSpeed => m_playerSpeed;
         [SerializeField] private BulletPatternObject m_playerShootingPattern;
         public BulletPatternObject GetPlayerShootingPattern => m_playerShootingPattern;
+
+        //Unseen/Singleplayer AI
+        [SerializeField] private bool m_useUnseen;
+        public bool isUsingUnseenAI => m_useUnseen;
+        [SerializeField] private CardData[] m_unseenCards = new CardData[0];
+        public CardData[] GetUnseenCards => m_unseenCards;
+        [SerializeField] private float m_unseenRate = 10;
+        public float GetUnseenCardRate => m_unseenRate;
+
+        //knockback
         [SerializeField] private float m_knockbackWindow = 0.1f;
         public float GetKnockbackWindow => m_knockbackWindow;
         [SerializeField] private Vector2 m_knockbackStrength = new(10, 1);
