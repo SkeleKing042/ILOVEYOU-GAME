@@ -24,11 +24,11 @@ namespace ILOVEYOU.MainMenu
 
             m_audioSource[0] = gameObject.AddComponent<AudioSource>();
             m_audioSource[0].clip = m_clips[0];
-            m_audioSource[0].volume = GetComponent<SoundManager>().GetVolume();
+            //m_audioSource[0].volume = GetComponent<SoundManager>().GetVolume();
 
             m_audioSource[1] = gameObject.AddComponent<AudioSource>();
             m_audioSource[1].clip = m_clips[1];
-            m_audioSource[1].volume = GetComponent<SoundManager>().GetVolume();
+            //m_audioSource[1].volume = GetComponent<SoundManager>().GetVolume();
             m_audioSource[1].loop = true;
 
             if (m_skip)
@@ -52,7 +52,7 @@ namespace ILOVEYOU.MainMenu
         public void Beep()
         {
             AudioSource temp = gameObject.AddComponent<AudioSource>();
-            temp.PlayOneShot(m_clips[2], GetComponent<SoundManager>().GetVolume());
+            //temp.PlayOneShot(m_clips[2], GetComponent<SoundManager>().GetVolume());
             Destroy(temp, m_clips[2].length);
         }
 

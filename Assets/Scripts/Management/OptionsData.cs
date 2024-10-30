@@ -66,10 +66,10 @@ namespace ILOVEYOU.Management
             {
                 if (src.GetComponent<SoundManager>())
                 {
-                    if((int)src.GetComponent<SoundManager>().Tag == volumeTag)
-                    {
-                        src.volume = PlayerPrefs.GetFloat(Enum.GetNames(typeof(SoundTag))[volumeTag] + " Volume", 1f);
-                    }
+                    //if((int)src.GetComponent<SoundManager>().Tag == volumeTag)
+                    //{
+                    //    src.volume = PlayerPrefs.GetFloat(Enum.GetNames(typeof(SoundTag))[volumeTag] + " Volume", 1f);
+                    //}
                 }
             }
         }

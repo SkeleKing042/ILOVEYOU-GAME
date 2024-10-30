@@ -16,7 +16,7 @@ namespace ILOVEYOU.Player
         {
             if (_IsHeaviestAnimClip(evt.animatorClipInfo.clip))
             {
-                GetComponent<SoundManager>().PlayRandomSound(0);
+                //GetComponent<SoundManager>().PlayRandomSound(0);
             }
         }
 

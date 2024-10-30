@@ -67,7 +67,7 @@ namespace ILOVEYOU.MainMenu
 
                     int groupNumber = (textObject.text.ToCharArray()[textObject.text.Length - 1] == ' ') ? 2 : 0;
 
-                    m_soundManager.PlayRandomSound(groupNumber);
+                    //m_soundManager.PlayRandomSound(groupNumber);
                 }
 
                 yield return new WaitForEndOfFrame();
@@ -114,7 +114,7 @@ namespace ILOVEYOU.MainMenu
 
                     int groupNumber = (textObject.text.ToCharArray()[textObject.text.Length - 1] == ' ') ? 2 : 0;
 
-                    m_soundManager.PlayRandomSound(groupNumber);
+                    //m_soundManager.PlayRandomSound(groupNumber);
                 }
 
                 yield return new WaitForEndOfFrame();
@@ -122,7 +122,7 @@ namespace ILOVEYOU.MainMenu
 
             yield return new WaitForSeconds(Random.Range(0.25f, 0.5f));
 
-            m_soundManager.PlayRandomSound(1);
+            //m_soundManager.PlayRandomSound(1);
             m_activate.Invoke();
 
             textObject.text = "";
