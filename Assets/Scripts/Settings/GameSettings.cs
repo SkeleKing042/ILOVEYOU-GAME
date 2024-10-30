@@ -11,43 +11,43 @@ namespace ILOVEYOU.Management
     public class GameSettings : ScriptableObject
     {
         public static GameSettings Current { get; private set; }
-        [Header("Difficulty")]
+        //[Header("Difficulty")]
         [SerializeField] private float m_difficultyCap = 60f;
         public float GetDiffCap => m_difficultyCap;
 
-        [Header("Tasks")]
+        //[Header("Tasks")]
         [Tooltip("The maximum number of tasks a player can have.")]
         [SerializeField] private int m_maxTaskCount = 1;
         public int GetMaxTaskCount => m_maxTaskCount;
         [SerializeField] private Task[] m_taskList;
         public Task[] GetTasks => m_taskList;
 
-        [Header("Cards")]
+        //[Header("Cards")]
         [Tooltip("The number of cards shown to the player.\nPLEASE KEEP AT 3")]
-        private int m_numberOfCardToGive = 3;
+        [SerializeField] private int m_numberOfCardToGive = 3;
         public int GetNumberOfCardsToGive => m_numberOfCardToGive;
         [SerializeField] private float m_cardTimeOut = 10f;
         public float GetCardTimeOut => m_cardTimeOut;
         [Tooltip("RNG table for cards. The Chances get combined into an average.")]
-        [SerializeField] private CardData[] m_cardData;
+        [SerializeField] private CardData[] m_cardData = new CardData[2];
         public CardData[] GetCardData => m_cardData;
 
-        [Header("Player")]
+        //[Header("Player")]
         [SerializeField] private float m_playerHealth = 15f;
         public float GetPlayerHealth => m_playerHealth;
         [SerializeField] private float m_iframes = 1f;
         public float GetiFrameDuration => m_iframes;
         [SerializeField] private float m_playerSpeed = 10f;
         public float GetPlayerSpeed => m_playerSpeed;
-        [SerializeField] private BulletPatternObject PlayerShootingPattern;
-        public BulletPatternObject GetPlayerShootingPattern => PlayerShootingPattern;
+        [SerializeField] private BulletPatternObject m_playerShootingPattern;
+        public BulletPatternObject GetPlayerShootingPattern => m_playerShootingPattern;
         [SerializeField] private float m_knockbackWindow = 0.1f;
         public float GetKnockbackWindow => m_knockbackWindow;
         [SerializeField] private Vector2 m_knockbackStrength = new(10, 1);
         public Vector2 GetKnockbackStrength => m_knockbackStrength;
         [SerializeField] private float m_knockbackRadius = 10f;
         public float GetKnockbackRadius => m_knockbackRadius;
-        [Header("Enemy")]
+        //[Header("Enemy")]
         [SerializeField] private EnemyPrefabs[] m_enemyGroups;
         public EnemyPrefabs[] GetEnemyGroups => m_enemyGroups;
 
@@ -79,7 +79,7 @@ namespace ILOVEYOU.Management
                 ColorPref.Set(m_key, m_color);
             }
         }
-        [Header("Color")]
+        //[Header("Color")]
         [SerializeField] private ColorPrefType[] m_prefColors = { new("Important Color", Color.white),
                                                                     new("Buff color", Color.white),
                                                                     new("Debuff color", Color.white),
