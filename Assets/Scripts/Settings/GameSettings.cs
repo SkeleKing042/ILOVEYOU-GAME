@@ -29,7 +29,7 @@ namespace ILOVEYOU.Management
         [SerializeField] private float m_cardTimeOut = 10f;
         public float GetCardTimeOut => m_cardTimeOut;
         [Tooltip("RNG table for cards. The Chances get combined into an average.")]
-        [SerializeField] private CardData[] m_cardData;
+        [SerializeField] private CardData[] m_cardData = new CardData[2];
         public CardData[] GetCardData => m_cardData;
 
         //[Header("Player")]
