@@ -779,7 +779,7 @@ MonoBehaviour:
     m_buffID: 3
     m_isStackable: 1
     m_isPermanent: 0
-    m_time: 10
+    m_time: 7
     m_particleEffect: {fileID: 1645793788547902424, guid: d404d07975c6fb748acf990140ee974a, type: 3}
     m_maxHealthValue: 0
     m_moveSpeedValue: 0
@@ -796,6 +796,18 @@ MonoBehaviour:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 773300932064389319}
+          m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
+          m_MethodName: PlayRandomSound
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 1
@@ -867,8 +879,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_sounds:
   - m_name: Shooting
+    m_soundMult: 1
     m_clips:
     - {fileID: 8300000, guid: 7467b79ab94625a488cacb3f0447811d, type: 3}
+  - m_name: DialUp
+    m_soundMult: 0.204
+    m_clips:
+    - {fileID: 8300000, guid: 63326731e1d68af409787bf3ba2eae6e, type: 3}
   m_tag: 1
 --- !u!1 &2313846247829714107
 GameObject:
@@ -2892,6 +2909,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_sounds:
   - m_name: FootStep
+    m_soundMult: 0.536
     m_clips:
     - {fileID: 8300000, guid: 7fe7ecdfc5b1d9a43960de9249888eb6, type: 3}
   m_tag: 1
