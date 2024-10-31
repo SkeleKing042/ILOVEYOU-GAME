@@ -25,9 +25,6 @@ namespace ILOVEYOU.MainMenu
 
         private void Update()
         {
-            //m_time += Time.deltaTime;
-
-
             m_time += Time.deltaTime * m_timeMulti;
 
             if (Input.anyKeyDown)

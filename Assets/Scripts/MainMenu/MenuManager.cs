@@ -1,3 +1,4 @@
+using ILOVEYOU.Audio;
 using ILOVEYOU.Management;
 using System.Runtime.CompilerServices;
 using TMPro;
@@ -142,6 +143,13 @@ namespace ILOVEYOU.MainMenu
             m_menuObjects[0].SetActive(false); //disable default menu
             m_menuObjects[2].SetActive(true); //enable credits menu
             m_eventSystem.SetSelectedGameObject(m_optionSelect[2]);
+        }
+        /// <summary>
+        /// plays sound
+        /// </summary>
+        public void PlaySound(string soundName)
+        {
+            SoundManager.UI.PlayRandomSound(soundName);
         }
 
         public void Quit()

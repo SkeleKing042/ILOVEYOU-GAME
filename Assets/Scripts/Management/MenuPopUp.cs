@@ -1,3 +1,4 @@
+using ILOVEYOU.Audio;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -20,6 +21,11 @@ namespace ILOVEYOU.Management
             if (m_returnObject) FindObjectOfType<EventSystem>().SetSelectedGameObject(m_returnObject);
 
             Destroy(gameObject);
+        }
+
+        public void PlaySound(string soundName)
+        {
+            SoundManager.UI.PlayRandomSound(soundName);
         }
 
         /// <summary>
