@@ -108,7 +108,9 @@ namespace ILOVEYOU.MainMenu
         public void StartGame()
         {
 
-            MainMenuAudio.Instance.Skip();
+            //MainMenuAudio.Instance.Skip();
+
+            SoundManager.Environment.ClearAudio(true);
 
             SceneLoader.Instance.LoadScene(4);
         }

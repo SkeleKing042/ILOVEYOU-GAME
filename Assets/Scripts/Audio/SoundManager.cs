@@ -439,13 +439,14 @@ namespace ILOVEYOU.Audio
             Destroy(oneShotSource.gameObject, m_soundData.GetGroup(group).GetSounds()[sound].length);
         }
         #endregion
-
+        /// <summary>
+        /// Goes through all looping sounds of a tag and finds the first exact match
+        /// </summary>
+        /// <returns>The child index of the looping sound</returns>
         public int CheckID(int ID)
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                if (transform.GetChild(i) == this) continue;
-
                 if (transform.GetChild(i).GetComponent<SoundID>().ID == -1) continue;
 
                 if (transform.GetChild(i).GetComponent<SoundID>().SoundTag == m_soundData.Tag && transform.GetChild(i).GetComponent<SoundID>().ID == ID)
@@ -457,9 +458,44 @@ namespace ILOVEYOU.Audio
             return -1;
         }
 
+        public bool IsPlaying(int ID)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                if (transform.GetChild(i).GetComponent<SoundID>().ID == -1) continue;
+
+                if (transform.GetChild(i).GetComponent<SoundID>().SoundTag == m_soundData.Tag && transform.GetChild(i).GetComponent<SoundID>().ID == ID)
+                {
+                    return transform.GetChild(i).GetComponent<AudioSource>().isPlaying;
+                }
+            }
+
+            return false;
+        }
+
         public float GetVolume()
         {
             return PlayerPrefs.GetFloat(Enum.GetName(typeof(SoundTag), m_soundData.Tag) + " Volume", 1f);
+        }
+
+        public void ClearAudio(bool allAudio)
+        {
+            int count = transform.childCount;
+            int index = 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (!allAudio)
+                {
+                    if(transform.GetChild(i).GetComponent<SoundID>().SoundTag != m_soundData.Tag)
+                    {
+                        index++;
+                        continue;
+                    }
+                }
+
+                Destroy(transform.GetChild(index).gameObject);
+            }
         }
 
         private void _LoadAudio(int group, int sound)

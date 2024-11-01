@@ -94,6 +94,12 @@ MonoBehaviour:
       - {fileID: 8300000, guid: a84363cea9d340b42beafb6b689ba2a8, type: 3}
     m_tag: 3
     m_manualLoad: 0
-  - m_sounds: []
+  - m_sounds:
+    - m_name: ComputerStartUp
+      m_soundMult: 1
+      m_clips:
+      - {fileID: 8300000, guid: 6ef0ee893f77d154f87780391554b949, type: 3}
+      - {fileID: 8300000, guid: ad3ff25160eaeb545885bea5640bba65, type: 3}
+      - {fileID: 8300000, guid: 83910e782c2fad142b1d580805c06fe5, type: 3}
     m_tag: 4
     m_manualLoad: 0

@@ -64,12 +64,12 @@ namespace ILOVEYOU.Management
         {
             foreach(AudioSource src in FindObjectsOfType<AudioSource>())
             {
-                if (src.GetComponent<SoundManager>())
+                if (src.GetComponent<SoundID>())
                 {
-                    //if((int)src.GetComponent<SoundManager>().Tag == volumeTag)
-                    //{
-                    //    src.volume = PlayerPrefs.GetFloat(Enum.GetNames(typeof(SoundTag))[volumeTag] + " Volume", 1f);
-                    //}
+                    if((int)src.GetComponent<SoundID>().SoundTag == volumeTag)
+                    {
+                        src.volume = PlayerPrefs.GetFloat(Enum.GetNames(typeof(SoundTag))[volumeTag] + " Volume", 1f);
+                    }
                 }
             }
         }
