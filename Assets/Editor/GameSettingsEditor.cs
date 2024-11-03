@@ -19,6 +19,9 @@ namespace ILOVEYOU.EditorScript
         SerializedProperty m_iFramesProp;
         SerializedProperty m_playerSpeedProp;
         SerializedProperty m_playerShootingProp;
+        SerializedProperty m_useUnseenProp;
+        SerializedProperty m_unseenCardsProp;
+        SerializedProperty m_unseenRateProp;
         SerializedProperty m_knockbackWindowProp;
         SerializedProperty m_knockbackStrengthProp;
         SerializedProperty m_knockbackRadiusProp;
@@ -112,6 +115,9 @@ namespace ILOVEYOU.EditorScript
             m_iFramesProp = serializedObject.FindProperty("m_iframes");
             m_playerSpeedProp = serializedObject.FindProperty("m_playerSpeed");
             m_playerShootingProp = serializedObject.FindProperty("m_playerShootingPattern");
+            m_useUnseenProp = serializedObject.FindProperty("m_useUnseen");
+            m_unseenCardsProp = serializedObject.FindProperty("m_unseenCards");
+            m_unseenRateProp = serializedObject.FindProperty("m_unseenRate");
             m_knockbackWindowProp = serializedObject.FindProperty("m_knockbackWindow");
             m_knockbackStrengthProp = serializedObject.FindProperty("m_knockbackStrength");
             m_knockbackRadiusProp = serializedObject.FindProperty("m_knockbackRadius");
@@ -197,6 +203,21 @@ namespace ILOVEYOU.EditorScript
                 EditorGUILayout.PropertyField(m_iFramesProp, new GUIContent("iFrame Duration"));
                 EditorGUILayout.PropertyField(m_playerSpeedProp, new GUIContent("Player Speed"));
                 EditorGUILayout.PropertyField(m_playerShootingProp, new GUIContent("Player Shooting Pattern"));
+            }
+
+            //unseen ai
+            GUILayout.Space(16);
+            m_useUnseenProp.boolValue = EditorGUILayout.ToggleLeft(new GUIContent("Use Unseen AI"), m_useUnseenProp.boolValue);
+            if (m_useUnseenProp.boolValue)
+            {
+                if (m_unseenCardsProp.arraySize == 0)
+                    m_unseenCardsProp.InsertArrayElementAtIndex(0);
+                EditorGUILayout.PropertyField(m_unseenRateProp, new GUIContent("Card trigger rate"));
+                EditorGUILayout.PropertyField(m_unseenCardsProp, new GUIContent("Cards to use"));
+            }
+            else
+            {
+                m_unseenCardsProp.ClearArray();
             }
 
             //knockback
