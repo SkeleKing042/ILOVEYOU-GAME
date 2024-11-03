@@ -197,6 +197,8 @@ namespace ILOVEYOU
 
                 player.GetComponent<Animator>().SetTrigger("Death");
                 player.GetControls.GetPlayerAnimator.SetTrigger("Death");
+                //foreach(other player)
+                //start win animation
 
                 //winning player
                 int playerNum = (player == m_levelManagers[0].GetPlayer) ? 1 : 0;
@@ -213,7 +215,7 @@ namespace ILOVEYOU
                 //disables player movement and enemy spawner
                 foreach (var levelPlayer in m_levelManagers)
                 {
-                    levelPlayer.GetSpawner.DisableAllEnemies();
+                    levelPlayer.GetSpawner.KillAllEnemies();
                     levelPlayer.GetSpawner.enabled = false;
                     levelPlayer.GetPlayer.GetControls.Zero();
                     levelPlayer.GetPlayer.GetControls.enabled = false;
