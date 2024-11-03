@@ -1,6 +1,4 @@
 using ILOVEYOU.Management;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,8 +10,7 @@ namespace ILOVEYOU
     {
         public class GameUI : MonoBehaviour
         {
-            [SerializeField] private Color m_importantColour;
-
+            private Color m_importantColor;
             [Header("In-Game Menu")]
             [SerializeField] private GameObject m_InGameSharedUI;
             [SerializeField] private TextMeshProUGUI m_timerText;
@@ -23,6 +20,10 @@ namespace ILOVEYOU
             [SerializeField] private TextMeshProUGUI m_winText;
             [SerializeField] private Button m_restartButton;
             // Start is called before the first frame update
+            public void Start()
+            {
+                m_importantColor = ColorPref.Get("Important Color");
+            }
             public void DisplayWinScreen(int winnerID)
             {
                 m_winScreen.SetActive(true);
@@ -31,7 +32,7 @@ namespace ILOVEYOU
             }
             public void UpdateTimer(float currentTime)
             {
-                Color timeColour = Color.white - new Color(1-m_importantColour.r, 1-m_importantColour.g, 1-m_importantColour.b) * Mathf.Clamp(GameManager.Instance.PercentToMaxDiff, 0, 1);
+                Color timeColour = Color.white - new Color(1- m_importantColor.r, 1- m_importantColor.g, 1- m_importantColor.b) * Mathf.Clamp(GameManager.Instance.PercentToMaxDiff, 0, 1);
                 m_timerText.text = $"<color=#{ColorUtility.ToHtmlStringRGB(timeColour)}>{(int)currentTime}</color>";
             }
         }

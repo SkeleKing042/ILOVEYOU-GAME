@@ -5,7 +5,7 @@ namespace ILOVEYOU
 { 
     namespace ProjectileSystem 
     {
-        [CreateAssetMenu(fileName = "BulletPattern", menuName = "Bullets/BulletPattern", order = 1)]
+        [CreateAssetMenu(fileName = "BulletPattern", menuName = "ILOVEYOU Objects/New Bullet Pattern", order = 1)]
         public class BulletPatternObject : ScriptableObject
         {
             [Serializable]
