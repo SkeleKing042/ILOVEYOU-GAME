@@ -102,6 +102,7 @@ namespace ILOVEYOU.Management
             {
                 player.ChangeWeapon(GetPlayerShootingPattern);
             }
+            InitalizePrefs();
             Current = this;
         }
         public void InitalizePrefs()
