@@ -19,7 +19,7 @@ namespace ILOVEYOU
             private float m_lungeCooldown;
             private float m_tempSpeed = 0f;
             private float m_maxSpeed = 0f;
-            private float m_maxHealth = 0f;
+            //private float m_currentHealth = 0f;
 
             private bool m_charging = false;
 
@@ -30,12 +30,12 @@ namespace ILOVEYOU
                 m_pattern.AddTarget(m_playerTransform);
 
                 m_maxSpeed = m_agent.speed;
-                m_maxHealth = m_health;
+                m_currentHealth = base.m_maxHealth;
 
 
                 if (Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID])
                 {
-                    Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].m_health = m_maxHealth;
+                    Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].m_currentHealth = m_maxHealth;
                     //BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].m_health);
                     Destroy(gameObject);
                 }
@@ -147,7 +147,7 @@ namespace ILOVEYOU
             public override bool TakeDamage(float damage)
             {
                 bool b = base.TakeDamage(damage);
-                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_health);
+                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_currentHealth);
                 return b;
             }
 

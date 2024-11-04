@@ -166,6 +166,18 @@ namespace ILOVEYOU
                 Destroy(enemy);
                 return false;
             }
+            public bool RespawnEnemy(GameObject enemy)
+            {
+                if (!m_enemyObjects.Contains(enemy))
+                {
+                    Debug.LogWarning($"{enemy} isn't spawned and cannot be respawned.");
+                    return false;
+                }
+
+                _SpawnEnemy(enemy, true);
+                Destroy(enemy);
+                return true;
+            }
 
             private void Update()
             {
