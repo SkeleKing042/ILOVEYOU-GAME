@@ -1,6 +1,7 @@
 using ILOVEYOU.Audio;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 
 namespace ILOVEYOU.Management 
 {
@@ -13,7 +14,7 @@ namespace ILOVEYOU.Management
         void Start()
         {
             transform.GetChild(2).gameObject.SetActive(true);
-            FindObjectOfType<EventSystem>().SetSelectedGameObject(m_firstSelected);
+            FindObjectOfType<MultiplayerEventSystem>().SetSelectedGameObject(m_firstSelected);
         }
 
         public void Return()

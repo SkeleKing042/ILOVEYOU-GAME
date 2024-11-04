@@ -217,6 +217,12 @@ namespace ILOVEYOU
                 //Debug.Log("HEwwo!!!!");
                 m_contextPress?.Invoke();
             }
+
+            public void OnJoin(InputValue value)
+            {
+                Time.timeScale = 0f;
+                Debug.Log("Paused!");
+            }
             /// <summary>
             /// zeros out player movement
             /// </summary>
