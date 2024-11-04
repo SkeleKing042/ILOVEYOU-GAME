@@ -3,6 +3,7 @@ using UnityEngine;
 using ILOVEYOU.Shader;
 using UnityEngine.AI;
 using System.Collections;
+using ILOVEYOU.UI;
 namespace ILOVEYOU
 {
     namespace EnemySystem
@@ -46,6 +47,7 @@ namespace ILOVEYOU
             {
                 m_rigidBody = GetComponent<Rigidbody>();
                 m_playerTransform = target;
+                GetComponentInChildren<ModifierDisplay>().GetCamera = m_playerTransform.GetComponentInChildren<Camera>().transform;
                 m_blinkScript = GetComponent<DamageBlink>();
                 m_agent = GetComponent<NavMeshAgent>();
                 m_anim = GetComponentInChildren<Animator>();
@@ -62,6 +64,7 @@ namespace ILOVEYOU
                 foreach(var mod in mods)
                 {
                     mod.ApplyModifications(this);
+                    GetComponentInChildren<ModifierDisplay>().AddModifierToDisplay(mod.GetIcon);
                 }
 
                 //Potential TODO: add a "modifier" value that is dependent on current difficulty/time that influences the base values
