@@ -55,10 +55,12 @@ namespace ILOVEYOU
                 //if bullet collided with enemy
                 if (other.gameObject.GetComponent<Enemy>())
                 {
-                    other.gameObject.GetComponent<Enemy>()
-                        .TakeDamage(m_damage);
-                    m_pierce--;
-                    if (m_pierce <= 0) Destroy(gameObject);
+                    //try to damage the other object - don't to anything if damages fails to be dealt.
+                    if (other.gameObject.GetComponent<Enemy>().TakeDamage(m_damage))
+                    {
+                        m_pierce--;
+                        if (m_pierce <= 0) Destroy(gameObject);
+                    }
                     return;
                 }
                 //if bullet collided with player

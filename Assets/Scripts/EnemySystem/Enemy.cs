@@ -162,8 +162,11 @@ namespace ILOVEYOU
                 
             }
 
-            public virtual void TakeDamage(float damage)
+            public virtual bool TakeDamage(float damage)
             {
+                //do not take damage if dead
+                if (m_isDead)
+                    return false;
                 m_blinkScript.StartBlink();
                 m_health -= damage;
                 //death
@@ -182,6 +185,7 @@ namespace ILOVEYOU
                     m_anim?.SetTrigger("Death");
                     Destroy(gameObject, m_deathTimeout);
                 }
+                return true;
             }
 
             
