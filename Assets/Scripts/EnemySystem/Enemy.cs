@@ -21,6 +21,16 @@ namespace ILOVEYOU
             protected bool m_canSeePlayer { get { return !Physics.Raycast(transform.position, (m_playerTransform.position - transform.position).normalized, (m_playerTransform.position - transform.position).magnitude, m_obscureMask); } }
             [SerializeField] protected bool m_ignoreSight;
 
+            [Header("Despawning offscreen")]
+            [Tooltip("The time this enemy can spend offscreen before despawning")]
+            [SerializeField] protected float m_offscrenDespawnTime = 5f;
+            protected float m_timeSpentOffscreen;
+            [Tooltip("The amount this enemy can be offscreen with starting the countdown - generally for larger enemies that may be seen despawning. (0 is the far left/bottom of the screen and 1 is the far right/top")]
+            [SerializeField] protected Vector2 m_screenSizeBuffer = Vector2.zero;
+            [Tooltip("When this enemy gets despawned, should another enemy get spawned in.")]
+            [SerializeField] protected bool m_shouldRespawn = false;
+
+            [Header("Player Tracking")]
             protected Transform m_playerTransform;
             protected Rigidbody m_rigidBody;
             protected NavMeshAgent m_agent;
@@ -78,6 +88,22 @@ namespace ILOVEYOU
                                             }*/
                     }
                 }
+
+                Vector3 positionInViewport = m_playerTransform.GetComponentInChildren<Camera>().WorldToViewportPoint(transform.position);
+                if (positionInViewport.x < 0 - m_screenSizeBuffer.x || positionInViewport.x > 1 + m_screenSizeBuffer.x || positionInViewport.y < 0 - m_screenSizeBuffer.y || positionInViewport.y > 1 + m_screenSizeBuffer.y)
+                {
+                    //this is offscreen - start countdown
+                    m_timeSpentOffscreen += Time.deltaTime;
+                    //been offscreen too long - despawn object
+                    if (m_timeSpentOffscreen >= m_offscrenDespawnTime)
+                    {
+                        Debug.Log($"Enemy spent too long offscreen - despawning.");
+                        DisableAIBrain();
+                        Destroy(gameObject);
+                    }
+                }
+                else if (m_timeSpentOffscreen > 0)
+                    m_timeSpentOffscreen = 0;
             }
             public void GetStunned()
             {
