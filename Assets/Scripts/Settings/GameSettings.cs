@@ -72,6 +72,16 @@ namespace ILOVEYOU.Management
         public AnimationCurve GetSpawnTime => m_spawnTime;
         [SerializeField] private AnimationCurve m_spawnCap;
         public AnimationCurve GetSpawnCap => m_spawnCap;
+        [System.Serializable]
+        public struct ModListEntry
+        {
+            public EnemyModifier Modifier;
+            public float Chance;
+        }
+        [SerializeField] private ModListEntry[] m_modList = new ModListEntry[0];
+        public ModListEntry[] GetModList => m_modList;
+        [SerializeField] public AnimationCurve m_modChanceOverTime;
+        public float GetModChance => m_modChanceOverTime.Evaluate(GameManager.Instance.PercentToMaxDiff);
 
         [System.Serializable]
         public struct ColorPrefType

@@ -15,7 +15,7 @@ namespace ILOVEYOU
 
             private void Awake()
             {
-                m_damage = GetComponentInParent<Enemy>().GetDamage();
+                m_damage = GetComponentInParent<Enemy>().GetSetDamage;
             }
 
             public void OnTriggerStay(Collider collision)

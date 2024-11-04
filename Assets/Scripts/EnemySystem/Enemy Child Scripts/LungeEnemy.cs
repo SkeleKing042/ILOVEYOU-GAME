@@ -14,10 +14,10 @@ namespace ILOVEYOU
             private float m_tempSpeed = 0f;
 
             // Start is called before the first frame update
-            public override void Initialize(Transform target)
+            public override void Initialize(Transform target, EnemyModifier[] mods = null)
             {
                 m_lungeCooldown = m_lungeTime;
-                base.Initialize(target);
+                base.Initialize(target, mods);
             }
 
             // Update is called once per frame

@@ -142,8 +142,29 @@ namespace ILOVEYOU
                     Debug.Log("Max number of enemies reached!");
                     return false;
                 }
+
+                //try for a modifier
+                GameSettings.ModListEntry[] entries = GameSettings.Current.GetModList;
+                List<EnemyModifier> mods = new();
+                if (entries.Length > 0)
+                {
+                    float rnd = Random.Range(0f, 1f);
+                    if (rnd <= GameSettings.Current.GetModChance)
+                    {
+                        foreach (var mod in entries)
+                        {
+                            float rndMod = Random.Range(0f, 1f);
+                            if(rndMod <= mod.Chance)
+                            {
+                                mods.Add(mod.Modifier);
+                            }
+                        }
+                    }
+                }
+
                 //creates enemy from given prefab
                 GameObject enemy = Instantiate(prefab);
+
                 //attempts 100 times to spawn an enemy
                 for (int i = 0; i < 100; i++)
                 {
@@ -156,7 +177,7 @@ namespace ILOVEYOU
                     if(!Physics.CheckSphere(enemy.transform.position, 1f, m_spawnMask))
                     {
                         //intializes enemy script
-                        enemy.GetComponent<Enemy>().Initialize(transform);
+                        enemy.GetComponent<Enemy>().Initialize(transform, mods.ToArray());
                         m_enemyObjects.Add(enemy);
                         return true;
                     }

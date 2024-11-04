@@ -31,6 +31,8 @@ namespace ILOVEYOU.EditorScript
         SerializedProperty m_spawnRangeMaxProp;
         SerializedProperty m_spawnTimeProp;
         SerializedProperty m_spawnCapProp;
+        SerializedProperty m_modListProp;
+        SerializedProperty m_modChanceProp;
         SerializedProperty m_colorsProp;
         //Dictionary<string, object> SavedValues = new();
         //bool cardsEnabled = true;
@@ -102,6 +104,26 @@ namespace ILOVEYOU.EditorScript
             }
         }
         bool m_displayEnemySettings = false;
+        bool m_displayEnemyModifiers = false;
+        bool m_usingEnemyModifiers
+        {
+            get { return m_modListProp.arraySize > 0; }
+            set
+            {
+                switch (value)
+                {
+                    case true:
+                        if (m_modListProp.arraySize == 0)
+                        {
+                            m_modListProp.InsertArrayElementAtIndex(0);
+                        }
+                        break;
+                    case false:
+                        m_modListProp.ClearArray();
+                        break;
+                }
+            }
+        }
         bool m_displayColorStyles = false;
         private void OnEnable()
         {
@@ -128,6 +150,8 @@ namespace ILOVEYOU.EditorScript
             m_spawnRangeMaxProp = serializedObject.FindProperty("m_spawnRangeMax");
             m_spawnTimeProp = serializedObject.FindProperty("m_spawnTime");
             m_spawnCapProp = serializedObject.FindProperty("m_spawnCap");
+            m_modListProp = serializedObject.FindProperty("m_modList");
+            m_modChanceProp = serializedObject.FindProperty("m_modChanceOverTime");
             m_colorsProp = serializedObject.FindProperty("m_prefColors");
         }
         public override void OnInspectorGUI()
@@ -296,6 +320,27 @@ namespace ILOVEYOU.EditorScript
                     EditorGUILayout.LabelField("Enemy spawn rate and cap");
                     EditorGUILayout.PropertyField(m_spawnTimeProp, new GUIContent("Rate"));
                     EditorGUILayout.PropertyField(m_spawnCapProp, new GUIContent("Cap"));
+                }
+
+                if (m_usingEnemyModifiers)
+                {
+                    m_displayEnemyModifiers =  EditorGUILayout.Foldout(m_displayEnemyModifiers, new GUIContent("Enemy Modifiers"));
+                    if (m_displayEnemyModifiers)
+                    {
+                        EditorGUILayout.PropertyField(m_modListProp, new GUIContent("Mod list"));
+                        EditorGUILayout.PropertyField(m_modChanceProp, new GUIContent("Mod chance"));
+                        if(GUILayout.Button("Remove Enemy Modifiers"))
+                        {
+                            m_usingEnemyModifiers = false;
+                        }
+                    }
+                }
+                else
+                {
+                    if(GUILayout.Button("Use Enemy Modifiers"))
+                    {
+                        m_usingEnemyModifiers = true;
+                    }
                 }
             }
 
