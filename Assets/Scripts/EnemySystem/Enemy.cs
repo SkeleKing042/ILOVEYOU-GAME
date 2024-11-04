@@ -10,7 +10,8 @@ namespace ILOVEYOU
         public class Enemy : MonoBehaviour
         {
             [SerializeField] protected float m_damage = 1f;
-            [SerializeField] protected float m_health = 1f;
+            [SerializeField] protected float m_maxHealth = 1f;
+            protected float m_currentHealth = 1f;
             [SerializeField] protected float m_deathTimeout = 10f;
             [SerializeField] protected float m_distanceCondition = 1f;
             protected bool m_stunned = false;
@@ -49,6 +50,7 @@ namespace ILOVEYOU
                 m_blinkScript = GetComponent<DamageBlink>();
                 m_agent = GetComponent<NavMeshAgent>();
                 m_anim = GetComponentInChildren<Animator>();
+                m_currentHealth = m_maxHealth;
 
                 //gets relative position between the player and enemy
                 Vector3 relativePos = m_playerTransform.position - transform.position;
@@ -99,7 +101,7 @@ namespace ILOVEYOU
                     {
                         Debug.Log($"Enemy spent too long offscreen - despawning.");
                         DisableAIBrain();
-                        Destroy(gameObject);
+                        m_playerTransform.GetComponent<PlayerManager>().GetLevelManager.GetSpawner.RespawnEnemy(gameObject);
                     }
                 }
                 else if (m_timeSpentOffscreen > 0)
@@ -177,9 +179,9 @@ namespace ILOVEYOU
             public virtual void TakeDamage(float damage)
             {
                 m_blinkScript.StartBlink();
-                m_health -= damage;
+                m_currentHealth -= damage;
                 //death
-                if (m_health <= 0)
+                if (m_currentHealth <= 0)
                 {
                     m_isDead = true;
                     enabled = false;
