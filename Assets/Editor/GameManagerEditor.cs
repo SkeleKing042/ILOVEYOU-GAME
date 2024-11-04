@@ -1,9 +1,5 @@
-using Cinemachine.Editor;
 using ILOVEYOU.Management;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.TerrainTools;
 using UnityEngine;
 
 namespace ILOVEYOU
@@ -22,7 +18,7 @@ namespace ILOVEYOU
             }
             public override void OnInspectorGUI()
             {
-                if(EditorGUILayout.LinkButton("Start Game"))
+                if(GUILayout.Button("Start Game"))
                 {
                     Debug.Log("Manual game start called");
                     m_target.BeginSetup();

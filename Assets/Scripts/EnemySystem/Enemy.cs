@@ -3,7 +3,6 @@ using UnityEngine;
 using ILOVEYOU.Shader;
 using UnityEngine.AI;
 using System.Collections;
-using Unity.VisualScripting;
 namespace ILOVEYOU
 {
     namespace EnemySystem
