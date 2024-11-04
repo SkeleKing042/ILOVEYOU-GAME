@@ -24,7 +24,7 @@ namespace ILOVEYOU.Player
         private void Awake()
         {
             GetComponent<SphereCollider>().radius = GameSettings.Current.GetKnockbackRadius;
-            //m_stunDuration = GameSettings.Current.GetStunDuration;
+            m_stunDuration = GameSettings.Current.GetKnockbackStunDuration;
         }
         private void Update()
         {
