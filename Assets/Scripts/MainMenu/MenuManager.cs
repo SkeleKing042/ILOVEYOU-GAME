@@ -35,6 +35,8 @@ namespace ILOVEYOU.MainMenu
         {
             Time.timeScale = 1f;
 
+            if(!SoundManager.Environment.IsPlaying(100)) SoundManager.Environment.PlaySoundLoop("ComputerStartUp", 1, 100);
+
             m_effect = GetComponent<TypeWriterEffect>();
             m_eventSystem = GetComponent<EventSystem>();
 

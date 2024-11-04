@@ -16,7 +16,7 @@ namespace ILOVEYOU.Player
         {
             if (_IsHeaviestAnimClip(evt.animatorClipInfo.clip))
             {
-                //GetComponent<SoundManager>().PlayRandomSound(0);
+                SoundManager.SFX.PlayRandomSound("PlayerFootsteps", new Vector2(m_animator.GetFloat("moveX"), m_animator.GetFloat("moveZ")).magnitude);
             }
         }
 

@@ -48,7 +48,15 @@ MonoBehaviour:
   - m_sounds: []
     m_tag: 0
     m_manualLoad: 0
-  - m_sounds: []
+  - m_sounds:
+    - m_name: PlayerFootsteps
+      m_soundMult: 1
+      m_clips:
+      - {fileID: 8300000, guid: 4c6d5cfa90bab264c9eb26d833ada5df, type: 3}
+    - m_name: PlayerShoot
+      m_soundMult: 1
+      m_clips:
+      - {fileID: 8300000, guid: 7467b79ab94625a488cacb3f0447811d, type: 3}
     m_tag: 1
     m_manualLoad: 0
   - m_sounds:
@@ -63,6 +71,11 @@ MonoBehaviour:
       - {fileID: 8300000, guid: 25e28da2a56934242a83647a6cc108c3, type: 3}
       - {fileID: 8300000, guid: a5683291ebaa4264c80dac811cc625cc, type: 3}
       - {fileID: 8300000, guid: c7ad210f81bf27543820be87e54f4840, type: 3}
+      - {fileID: 8300000, guid: cead3a592426ca747abcc828bde41476, type: 3}
+      - {fileID: 8300000, guid: 75a9819dd5b9ccd47b125d4920c0ad5d, type: 3}
+      - {fileID: 8300000, guid: 4b18b82991304454ca5f63cff5a418b1, type: 3}
+      - {fileID: 8300000, guid: 72073b932815e0845aa09a613b8a7025, type: 3}
+      - {fileID: 8300000, guid: 1f41364b69bab2846a6bd6b843224775, type: 3}
     m_tag: 2
     m_manualLoad: 0
   - m_sounds:

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace ILOVEYOU.Audio
 {
@@ -8,15 +9,18 @@ namespace ILOVEYOU.Audio
     {
         private SoundTag m_soundTag;
         private int m_id;
+        private string m_group;
         
-        public void Initialize(SoundTag soundTag, int id)
+        public void Initialize(SoundTag soundTag, int id, string group)
         {
             m_soundTag = soundTag;
             m_id = id;
+            m_group = group;
         }
 
         public SoundTag SoundTag { get { return m_soundTag; } }
         public int ID { get { return m_id; } }
+        public string Group { get { return m_group; } }
     }
 
 }

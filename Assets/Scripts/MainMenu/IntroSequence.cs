@@ -21,7 +21,7 @@ namespace ILOVEYOU.MainMenu
             m_time = 0f;
             m_timeMulti = 1f;
             StartCoroutine(_Sequence());
-            StartCoroutine(_Audio());
+            _Audio();
             //StartCoroutine(MainMenuAudio.Instance.AudioSequence());
         }
 
@@ -39,13 +39,11 @@ namespace ILOVEYOU.MainMenu
 
         }
 
-        private IEnumerator _Audio()
+        private void _Audio()
         {
             SoundManager.Environment.PlaySound("ComputerStartUp", 0);
 
-            yield return new WaitForSeconds(15.2f);
-
-            SoundManager.Environment.PlaySoundLoop("ComputerStartUp", 1, 100); // plays the computer loop with an ID of 100
+            SoundManager.Environment.PlaySoundLoopDelay("ComputerStartUp", 1, 100, 15.15f); // plays the computer loop with an ID of 100
         }
 
         /// <summary>

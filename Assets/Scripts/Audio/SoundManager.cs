@@ -109,6 +109,11 @@ namespace ILOVEYOU.Audio
 
         [SerializeField] private SoundManagerData m_soundData = new();
         
+        public SoundManagerData GetData()
+        {
+            return m_soundData;
+        }
+
         public void SetData(SoundManagerData data)
         {
             m_soundData = data;
@@ -126,7 +131,7 @@ namespace ILOVEYOU.Audio
             int rando;
 
             loopingSource = obj.AddComponent<AudioSource>(); 
-            obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, -1); //adds id to object  
+            obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, -1, m_soundData.GetGroup(group).GetName()); //adds id to object  
 
             rando = Random.Range(0, m_soundData.GetGroup(group).GetSounds().Length);
 
@@ -162,7 +167,7 @@ namespace ILOVEYOU.Audio
                 obj.transform.parent = transform;
 
                 loopingSource = obj.AddComponent<AudioSource>();
-                obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, soundID); //adds id to object  
+                obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, soundID, m_soundData.GetGroup(group).GetName()); //adds id to object  
             }
             
 
@@ -191,7 +196,7 @@ namespace ILOVEYOU.Audio
             int rando;
 
             loopingSource = obj.AddComponent<AudioSource>();
-            obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, -1); //adds id to object  
+            obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, -1, m_soundData.GetGroup(group).GetName()); //adds id to object  
 
 
             rando = Random.Range(0, m_soundData.GetGroup(group).GetSounds().Length);
@@ -228,7 +233,7 @@ namespace ILOVEYOU.Audio
                 obj.transform.parent = transform;
 
                 loopingSource = obj.AddComponent<AudioSource>();
-                obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, soundID); //adds id to object  
+                obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, soundID, m_soundData.GetGroup(group).GetName()); //adds id to object  
             }
 
 
@@ -260,7 +265,7 @@ namespace ILOVEYOU.Audio
             
 
             loopingSource = obj.AddComponent<AudioSource>();
-            obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, -1); //adds id to object  
+            obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, -1, m_soundData.GetGroup(group).GetName()); //adds id to object  
 
             if (m_soundData.ManualLoad)
             {
@@ -292,7 +297,7 @@ namespace ILOVEYOU.Audio
                 obj.transform.parent = transform;
 
                 loopingSource = obj.AddComponent<AudioSource>();
-                obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, soundID); //adds id to object  
+                obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, soundID, m_soundData.GetGroup(group).GetName()); //adds id to object  
             }
 
             if (m_soundData.ManualLoad)
@@ -319,7 +324,7 @@ namespace ILOVEYOU.Audio
 
 
             loopingSource = obj.AddComponent<AudioSource>();
-            obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, -1); //adds id to object  
+            obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, -1, m_soundData.GetGroup(group).GetName()); //adds id to object  
 
             if (m_soundData.ManualLoad)
             {
@@ -351,7 +356,7 @@ namespace ILOVEYOU.Audio
                 obj.transform.parent = transform;
 
                 loopingSource = obj.AddComponent<AudioSource>();
-                obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, soundID); //adds id to object  
+                obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, soundID, m_soundData.GetGroup(group).GetName()); //adds id to object  
             }
 
             if (m_soundData.ManualLoad)
@@ -365,6 +370,40 @@ namespace ILOVEYOU.Audio
             loopingSource.volume = GetVolume() * m_soundData.GetGroup(group).GetSoundMult();
             loopingSource.loop = true;
             loopingSource.Play();
+        }
+        /// <summary>
+        /// plays selected looping sound from group
+        /// </summary>
+        /// <param name="soundID">ID will determine whether a sound will be overridden if a new one plays with the same ID. If an ID is -1 it will be ignored</param>
+        public void PlaySoundLoopDelay(string group, int sound, int soundID, float delay)
+        {
+
+            AudioSource loopingSource;
+
+            if (CheckID(soundID) > -1)
+            {
+                loopingSource = transform.GetChild(CheckID(soundID)).GetComponent<AudioSource>();
+            }
+            else
+            {
+                GameObject obj = new("LoopObject: " + m_soundData.GetGroup(group).GetName());
+                obj.transform.parent = transform;
+
+                loopingSource = obj.AddComponent<AudioSource>();
+                obj.AddComponent<SoundID>().Initialize(m_soundData.Tag, soundID, m_soundData.GetGroup(group).GetName()); //adds id to object  
+            }
+
+            if (m_soundData.ManualLoad)
+            {
+                _UnloadAudio();
+                _LoadAudio(group, sound);
+            }
+
+            loopingSource.Stop();
+            loopingSource.clip = m_soundData.GetGroup(group).GetSounds()[sound];
+            loopingSource.volume = GetVolume() * m_soundData.GetGroup(group).GetSoundMult();
+            loopingSource.loop = true;
+            loopingSource.PlayDelayed(delay);
         }
         #endregion
         #region Play Random Sound
@@ -402,6 +441,24 @@ namespace ILOVEYOU.Audio
             }
 
             oneShotSource.PlayOneShot(m_soundData.GetGroup(group).GetSounds()[rando], GetVolume() * m_soundData.GetGroup(group).GetSoundMult()); //play it right now
+            Destroy(oneShotSource.gameObject, m_soundData.GetGroup(group).GetSounds()[rando].length);
+        }
+        /// <summary>
+        /// plays random sound from group as a one shot
+        /// </summary>
+        public void PlayRandomSound(string group, float volume)
+        {
+            AudioSource oneShotSource = new GameObject("OneShotObject: " + m_soundData.GetGroup(group).GetName()).AddComponent<AudioSource>(); //woahhh oneshot reference!!!
+
+            int rando = Random.Range(0, m_soundData.GetGroup(group).GetSounds().Length);
+
+            if (m_soundData.ManualLoad)
+            {
+                _UnloadAudio();
+                _LoadAudio(group, rando);
+            }
+
+            oneShotSource.PlayOneShot(m_soundData.GetGroup(group).GetSounds()[rando], GetVolume() * m_soundData.GetGroup(group).GetSoundMult() * volume); //play it right now
             Destroy(oneShotSource.gameObject, m_soundData.GetGroup(group).GetSounds()[rando].length);
         }
         #endregion

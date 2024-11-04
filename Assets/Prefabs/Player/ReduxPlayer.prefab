@@ -412,7 +412,6 @@ GameObject:
   - component: {fileID: -4732492361604711822}
   - component: {fileID: 6695779224707933300}
   - component: {fileID: 7510329956559289926}
-  - component: {fileID: 773300932064389319}
   m_Layer: 7
   m_Name: ReduxPlayer
   m_TagString: Player
@@ -800,7 +799,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-        - m_Target: {fileID: 773300932064389319}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
           m_MethodName: PlayRandomSound
           m_Mode: 3
@@ -865,28 +864,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &773300932064389319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2304864054761233360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14f0ec7d494ff2f42953ce3153574eb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_sounds:
-  - m_name: Shooting
-    m_soundMult: 1
-    m_clips:
-    - {fileID: 8300000, guid: 7467b79ab94625a488cacb3f0447811d, type: 3}
-  - m_name: DialUp
-    m_soundMult: 0.204
-    m_clips:
-    - {fileID: 8300000, guid: 63326731e1d68af409787bf3ba2eae6e, type: 3}
-  m_tag: 1
 --- !u!1 &2313846247829714107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1474,10 +1451,10 @@ MonoBehaviour:
   m_onBulletFire:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 773300932064389319}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 3879512174640564857}
+        m_TargetAssemblyTypeName: ILOVEYOU.Player.PlayerControls, Assembly-CSharp
+        m_MethodName: BulletShoot
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2895,21 +2872,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0236e6524e341fb41b366aacaff0757d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8333618894489677041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8064955278045969793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14f0ec7d494ff2f42953ce3153574eb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_sounds:
-  - m_name: FootStep
-    m_soundMult: 0.536
-    m_clips:
-    - {fileID: 8300000, guid: 7fe7ecdfc5b1d9a43960de9249888eb6, type: 3}
-  m_tag: 1
