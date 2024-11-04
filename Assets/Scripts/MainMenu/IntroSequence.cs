@@ -1,3 +1,4 @@
+using ILOVEYOU.Audio;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -19,30 +20,36 @@ namespace ILOVEYOU.MainMenu
         {
             m_time = 0f;
             m_timeMulti = 1f;
-            StartCoroutine(Sequence());
-            StartCoroutine(MainMenuAudio.Instance.AudioSequence());
+            StartCoroutine(_Sequence());
+            _Audio();
+            //StartCoroutine(MainMenuAudio.Instance.AudioSequence());
         }
 
         private void Update()
         {
-            //m_time += Time.deltaTime;
-
-
             m_time += Time.deltaTime * m_timeMulti;
 
             if (Input.anyKeyDown)
             {
                 StopAllCoroutines();
-                MainMenuAudio.Instance.Skip();
+                //MainMenuAudio.Instance.Skip();
+                SoundManager.Environment.ClearAudio(true);
                 SceneManager.LoadScene(3); //MAKE SURE TO CHANGE THIS IF EDITING THE SCENE BUILD LAYOUT!!!!!
             }
 
         }
 
+        private void _Audio()
+        {
+            SoundManager.Environment.PlaySound("ComputerStartUp", 0);
+
+            SoundManager.Environment.PlaySoundLoopDelay("ComputerStartUp", 1, 100, 15.15f); // plays the computer loop with an ID of 100
+        }
+
         /// <summary>
         /// could I have done this in the animator? probably. Do I wanna? Nuh.
         /// </summary>
-        public IEnumerator Sequence()
+        private IEnumerator _Sequence()
         {
             //part one
             yield return new WaitForSeconds(Random.Range(2f, 3f));
@@ -85,7 +92,7 @@ namespace ILOVEYOU.MainMenu
             m_sequenceObjects[2].GetComponent<TextMeshProUGUI>().text = "Keyboard: OK\r\nMonitor: OK\r\nCD Rom: OK\r\nTechnomantic Gnomes: OK\r\nFlimple Drive: OK\r\nGlognog: OK\r\nCoconut JPEG: OK";
             yield return new WaitForSeconds(0.2f);
             m_sequenceObjects[2].GetComponent<TextMeshProUGUI>().text = "Keyboard: OK\r\nMonitor: OK\r\nCD Rom: OK\r\nTechnomantic Gnomes: OK\r\nFlimple Drive: OK\r\nGlognog: OK\r\nCoconut JPEG: OK\r\n\r\n...All Good";
-            MainMenuAudio.Instance.Beep();
+            SoundManager.Environment.PlaySound("ComputerStartUp",2); //Beep
             yield return new WaitForSeconds(0.3f);
 
             m_sequenceObjects[0].SetActive(false);
@@ -116,7 +123,7 @@ namespace ILOVEYOU.MainMenu
 
             yield return new WaitForSeconds(Random.Range(0, 0.3f));
 
-            while (!MainMenuAudio.Instance.IsPlaying)
+            while (!SoundManager.Environment.IsPlaying(100))
             {
                 yield return new WaitForEndOfFrame();
             }

@@ -778,7 +778,7 @@ MonoBehaviour:
     m_buffID: 3
     m_isStackable: 1
     m_isPermanent: 0
-    m_time: 10
+    m_time: 7
     m_particleEffect: {fileID: 1645793788547902424, guid: d404d07975c6fb748acf990140ee974a, type: 3}
     m_maxHealthValue: 0
     m_moveSpeedValue: 0
@@ -795,6 +795,18 @@ MonoBehaviour:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
+          m_MethodName: PlayRandomSound
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 1
@@ -1439,9 +1451,9 @@ MonoBehaviour:
   m_onBulletFire:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5500304486792191100}
-        m_TargetAssemblyTypeName: RadoPitchShift, Assembly-CSharp
-        m_MethodName: Play
+      - m_Target: {fileID: 3879512174640564857}
+        m_TargetAssemblyTypeName: ILOVEYOU.Player.PlayerControls, Assembly-CSharp
+        m_MethodName: BulletShoot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1781,7 +1793,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4491275438902680959
 Transform:
   m_ObjectHideFlags: 0
@@ -2843,3 +2855,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
   m_PrefabInstance: {fileID: 7146389940020592848}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8064955278045969793 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
+  m_PrefabInstance: {fileID: 7146389940020592848}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3929432164549352819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8064955278045969793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0236e6524e341fb41b366aacaff0757d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

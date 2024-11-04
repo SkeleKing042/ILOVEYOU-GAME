@@ -9,6 +9,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using ILOVEYOU.UI;
 using ILOVEYOU.MainMenu;
+using ILOVEYOU.Audio;
 
 namespace ILOVEYOU
 {
@@ -285,6 +286,7 @@ namespace ILOVEYOU
             }
             public void RestartScene()
             {
+                SoundManager.SFX.ClearAudio(true);
                 SceneLoader.Instance.RestartScene();
             }
             /// <summary>
@@ -292,6 +294,7 @@ namespace ILOVEYOU
             /// </summary>
             public void LoadScene(string sceneName)
             {
+                SoundManager.SFX.ClearAudio(true);
                 SceneLoader.Instance.LoadScene(sceneName);
             }
 
@@ -300,6 +303,7 @@ namespace ILOVEYOU
             /// </summary>
             public void LoadScene(int scene)
             {
+                SoundManager.SFX.ClearAudio(true);
                 SceneLoader.Instance.LoadScene(scene);
             }
 

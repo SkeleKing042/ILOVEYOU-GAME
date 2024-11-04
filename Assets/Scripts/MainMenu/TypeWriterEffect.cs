@@ -13,12 +13,12 @@ namespace ILOVEYOU.MainMenu
         private FunctionToActivate m_activate;
         //public void AddFunction(FunctionToActivate function) { m_activate = function; }
         //public void RemoveFunction(FunctionToActivate function) { m_activate -= function; }
-        private SoundManager m_soundManager;
+        //private SoundManager m_soundManager;
 
         // Start is called before the first frame update
         void Awake()
         {
-            m_soundManager = GetComponent<SoundManager>();
+            //m_soundManager = GetComponent<SoundManager>();
             //Application.targetFrameRate = 60;
             //helloooo
         }
@@ -67,7 +67,7 @@ namespace ILOVEYOU.MainMenu
 
                     int groupNumber = (textObject.text.ToCharArray()[textObject.text.Length - 1] == ' ') ? 2 : 0;
 
-                    m_soundManager.PlayRandomSound(groupNumber);
+                    SoundManager.UI.PlayRandomSound(groupNumber);
                 }
 
                 yield return new WaitForEndOfFrame();
@@ -111,10 +111,10 @@ namespace ILOVEYOU.MainMenu
                         textBuffer = textBuffer.Remove(0, 1);
                         currentChar++;
                     }
+                    //checks if next key is a space and chooeses sound accordingly
+                    string group = (textObject.text.ToCharArray()[textObject.text.Length - 1] == ' ') ? "KeyboardSpace" : "KeyboardSelect";
 
-                    int groupNumber = (textObject.text.ToCharArray()[textObject.text.Length - 1] == ' ') ? 2 : 0;
-
-                    m_soundManager.PlayRandomSound(groupNumber);
+                    SoundManager.UI.PlayRandomSound(group);
                 }
 
                 yield return new WaitForEndOfFrame();
@@ -122,10 +122,14 @@ namespace ILOVEYOU.MainMenu
 
             yield return new WaitForSeconds(Random.Range(0.25f, 0.5f));
 
-            m_soundManager.PlayRandomSound(1);
+            SoundManager.UI.PlayRandomSound("KeyboardEnter");
+            textObject.text = "";
+
+            yield return new WaitForSeconds(Random.Range(0f, 0.1f));
+
             m_activate.Invoke();
 
-            textObject.text = "";
+            
 
             textObject.GetComponent<CursorEffect>().EnableCursor();
 

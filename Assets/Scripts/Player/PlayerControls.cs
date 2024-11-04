@@ -1,3 +1,4 @@
+using ILOVEYOU.Audio;
 using ILOVEYOU.Management;
 using ILOVEYOU.ProjectileSystem;
 using ILOVEYOU.Shader;
@@ -254,6 +255,11 @@ namespace ILOVEYOU
             {
                 float current = m_health / m_maxHealth;
                 m_plaMa.GetUI.UpdateHealthBar(current);
+            }
+
+            public void BulletShoot()
+            {
+                SoundManager.SFX.PlayRandomSound("PlayerShoot");
             }
 
             private void OnDrawGizmos()

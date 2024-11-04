@@ -64,11 +64,28 @@ namespace ILOVEYOU.Management
         {
             foreach(AudioSource src in FindObjectsOfType<AudioSource>())
             {
-                if (src.GetComponent<SoundManager>())
+                if (src.GetComponent<SoundID>())
                 {
-                    if((int)src.GetComponent<SoundManager>().Tag == volumeTag)
+                    if((int)src.GetComponent<SoundID>().SoundTag == volumeTag)
                     {
-                        src.volume = PlayerPrefs.GetFloat(Enum.GetNames(typeof(SoundTag))[volumeTag] + " Volume", 1f);
+                        float indMult = 1f;
+
+                        indMult = src.GetComponent<SoundID>().SoundTag switch
+                        {
+                            SoundTag.None =>
+                                indMult = SoundManager.None.GetData().GetGroup(src.GetComponent<SoundID>().Group).GetSoundMult(),
+                            SoundTag.SFX =>
+                                indMult = SoundManager.SFX.GetData().GetGroup(src.GetComponent<SoundID>().Group).GetSoundMult(),
+                            SoundTag.Music =>
+                                indMult = SoundManager.Music.GetData().GetGroup(src.GetComponent<SoundID>().Group).GetSoundMult(),
+                            SoundTag.UI =>
+                                indMult = SoundManager.UI.GetData().GetGroup(src.GetComponent<SoundID>().Group).GetSoundMult(),
+                            SoundTag.Environment =>
+                                indMult = SoundManager.Environment.GetData().GetGroup(src.GetComponent<SoundID>().Group).GetSoundMult(),
+                            _ => throw new NotImplementedException(),
+                        };
+
+                        src.volume = PlayerPrefs.GetFloat(Enum.GetNames(typeof(SoundTag))[volumeTag] + " Volume", 1f) * indMult;
                     }
                 }
             }

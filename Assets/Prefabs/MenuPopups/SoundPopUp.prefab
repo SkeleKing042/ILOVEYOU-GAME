@@ -299,7 +299,6 @@ GameObject:
   - component: {fileID: 1683116684548966319}
   - component: {fileID: 1683116684548966318}
   - component: {fileID: 1683116684548966316}
-  - component: {fileID: 7894415942289386488}
   m_Layer: 5
   m_Name: SoundPopUp
   m_TagString: Untagged
@@ -391,43 +390,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_firstSelected: {fileID: 1683116685400054922}
---- !u!114 &7894415942289386488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683116684548966304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14f0ec7d494ff2f42953ce3153574eb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_sounds:
-  - m_name: Keyboard Keys
-    m_clips:
-    - {fileID: 8300000, guid: ac75c585e4006634b9da53726509726d, type: 3}
-    - {fileID: 8300000, guid: a07ef9dd1a9d2cc4cadd70b14922bdee, type: 3}
-    - {fileID: 8300000, guid: b9dd24cb5735dd04393d77cbfd25e33a, type: 3}
-    - {fileID: 8300000, guid: 12fdec406665aba47900e4c3e9086604, type: 3}
-    - {fileID: 8300000, guid: 0de2f611c171da844b69e38ba151e6fc, type: 3}
-    - {fileID: 8300000, guid: 7ac0a0308ef8e7743889112883ff2b88, type: 3}
-    - {fileID: 8300000, guid: 8011db15c26108743b590b36c7ae1946, type: 3}
-    - {fileID: 8300000, guid: 3692fb38565f99744b6708893157f9b0, type: 3}
-    - {fileID: 8300000, guid: 0bd664f7302e018498fd89d3c1e90627, type: 3}
-  - m_name: Keyboard Enter
-    m_clips:
-    - {fileID: 8300000, guid: 4d16612a36cd2da4da5340f4393eb6ef, type: 3}
-    - {fileID: 8300000, guid: 2f65f327dddc082459aa41497ead73a2, type: 3}
-    - {fileID: 8300000, guid: e6ca6e1fdee165344b8910d2774265fd, type: 3}
-    - {fileID: 8300000, guid: 13eae3d57d33a25418d76352830a31b9, type: 3}
-  - m_name: Keyboard Space
-    m_clips:
-    - {fileID: 8300000, guid: 3655e53f14d19434a9df1985d5acf80b, type: 3}
-    - {fileID: 8300000, guid: 2a4172bc8a5ad884bbc97359a75bad7a, type: 3}
-    - {fileID: 8300000, guid: 2c4a85f426423734ea039115732a58a8, type: 3}
-    - {fileID: 8300000, guid: a84363cea9d340b42beafb6b689ba2a8, type: 3}
-  m_tag: 3
 --- !u!1 &1683116684556269911
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,16 +586,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardEnter
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1683116684599277681
@@ -651,16 +613,16 @@ MonoBehaviour:
   m_onSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardSelect
           m_BoolArgument: 0
         m_CallState: 2
   m_onDeselect:
@@ -1334,16 +1296,16 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardSelect
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1683116684881516834}
@@ -1409,16 +1371,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardEnter
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1683116684881516835
@@ -1436,7 +1398,7 @@ MonoBehaviour:
   m_onSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
         m_MethodName: PlayRandomSound
         m_Mode: 3
@@ -1585,16 +1547,16 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardSelect
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1683116684967488514}
@@ -1660,16 +1622,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardEnter
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1683116684967488515
@@ -1687,7 +1649,7 @@ MonoBehaviour:
   m_onSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
         m_MethodName: PlayRandomSound
         m_Mode: 3
@@ -2618,16 +2580,16 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardSelect
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1683116685387159234}
@@ -2693,16 +2655,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardEnter
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1683116685387159235
@@ -2720,7 +2682,7 @@ MonoBehaviour:
   m_onSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
         m_MethodName: PlayRandomSound
         m_Mode: 3
@@ -2932,16 +2894,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardEnter
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1683116685400054921
@@ -2959,16 +2921,16 @@ MonoBehaviour:
   m_onSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardSelect
           m_BoolArgument: 0
         m_CallState: 2
   m_onDeselect:
@@ -3620,16 +3582,16 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardSelect
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1683116685785906292}
@@ -3695,16 +3657,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardEnter
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1683116685785906293
@@ -3722,7 +3684,7 @@ MonoBehaviour:
   m_onSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
         m_MethodName: PlayRandomSound
         m_Mode: 3
@@ -4143,16 +4105,16 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardSelect
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1683116685866023247}
@@ -4218,16 +4180,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardEnter
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1683116685866023244
@@ -4245,7 +4207,7 @@ MonoBehaviour:
   m_onSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
         m_MethodName: PlayRandomSound
         m_Mode: 3
@@ -4633,16 +4595,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardEnter
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1683116686207163892
@@ -4660,16 +4622,16 @@ MonoBehaviour:
   m_onSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardSelect
           m_BoolArgument: 0
         m_CallState: 2
   m_onDeselect:
@@ -4835,16 +4797,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardEnter
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1683116686294019798
@@ -4862,16 +4824,16 @@ MonoBehaviour:
   m_onSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardSelect
           m_BoolArgument: 0
         m_CallState: 2
   m_onDeselect:
@@ -5307,16 +5269,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardEnter
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1683116686432566880
@@ -5334,16 +5296,16 @@ MonoBehaviour:
   m_onSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardSelect
           m_BoolArgument: 0
         m_CallState: 2
   m_onDeselect:
@@ -5756,16 +5718,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardEnter
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1683116686646174005
@@ -5783,16 +5745,16 @@ MonoBehaviour:
   m_onSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7894415942289386488}
-        m_TargetAssemblyTypeName: ILOVEYOU.Audio.SoundManager, Assembly-CSharp
-        m_MethodName: PlayRandomSound
-        m_Mode: 3
+      - m_Target: {fileID: 1683116684548966316}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: KeyboardSelect
           m_BoolArgument: 0
         m_CallState: 2
   m_onDeselect:

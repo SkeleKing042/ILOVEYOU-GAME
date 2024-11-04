@@ -1,3 +1,4 @@
+using ILOVEYOU.Audio;
 using ILOVEYOU.Management;
 using System.Runtime.CompilerServices;
 using TMPro;
@@ -33,6 +34,8 @@ namespace ILOVEYOU.MainMenu
         void Awake()
         {
             Time.timeScale = 1f;
+
+            if(!SoundManager.Environment.IsPlaying(100)) SoundManager.Environment.PlaySoundLoop("ComputerStartUp", 1, 100);
 
             m_effect = GetComponent<TypeWriterEffect>();
             m_eventSystem = GetComponent<EventSystem>();
@@ -107,7 +110,9 @@ namespace ILOVEYOU.MainMenu
         public void StartGame()
         {
 
-            MainMenuAudio.Instance.Skip();
+            //MainMenuAudio.Instance.Skip();
+
+            SoundManager.Environment.ClearAudio(true);
 
             SceneLoader.Instance.LoadScene(4);
         }
@@ -142,6 +147,13 @@ namespace ILOVEYOU.MainMenu
             m_menuObjects[0].SetActive(false); //disable default menu
             m_menuObjects[2].SetActive(true); //enable credits menu
             m_eventSystem.SetSelectedGameObject(m_optionSelect[2]);
+        }
+        /// <summary>
+        /// plays sound
+        /// </summary>
+        public void PlaySound(string soundName)
+        {
+            SoundManager.UI.PlayRandomSound(soundName);
         }
 
         public void Quit()
