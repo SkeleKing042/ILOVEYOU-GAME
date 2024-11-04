@@ -148,17 +148,13 @@ namespace ILOVEYOU
                 List<EnemyModifier> mods = new();
                 if (entries.Length > 0)
                 {
-                    float rnd = Random.Range(0f, 1f);
-                    if (rnd <= GameSettings.Current.GetModChance)
+                    int rolls = Mathf.FloorToInt(GameSettings.Current.GetMaxModCount);
+                    for (int i = 0; i < rolls; i++)
                     {
-                        foreach (var mod in entries)
-                        {
-                            float rndMod = Random.Range(0f, 1f);
-                            if(rndMod <= mod.Chance)
-                            {
-                                mods.Add(mod.Modifier);
-                            }
-                        }
+                        int rndMod = Random.Range(0, entries.Length);
+                        float modChance = Random.Range(0f, 1f);
+                        if(modChance <= entries[rndMod].Chance)
+                            mods.Add(entries[rndMod].Modifier);
                     }
                 }
 

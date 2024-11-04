@@ -80,9 +80,10 @@ namespace ILOVEYOU.Management
         }
         [SerializeField] private ModListEntry[] m_modList = new ModListEntry[0];
         public ModListEntry[] GetModList => m_modList;
-        [SerializeField] public AnimationCurve m_modChanceOverTime;
+        [SerializeField] private AnimationCurve m_modChanceOverTime;
         public float GetModChance => m_modChanceOverTime.Evaluate(GameManager.Instance.PercentToMaxDiff);
-
+        [SerializeField] private AnimationCurve m_modCountOverTime;
+        public float GetMaxModCount => m_modCountOverTime.Evaluate(GameManager.Instance.PercentToMaxDiff);
         [System.Serializable]
         public struct ColorPrefType
         {
