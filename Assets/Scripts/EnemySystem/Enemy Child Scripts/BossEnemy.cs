@@ -144,10 +144,11 @@ namespace ILOVEYOU
                 Gizmos.DrawWireSphere(transform.position, m_distanceCondition / 2f);
             }
 
-            public override void TakeDamage(float damage)
+            public override bool TakeDamage(float damage)
             {
-                base.TakeDamage(damage);
-                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(base.m_currentHealth);
+                bool b = base.TakeDamage(damage);
+                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_currentHealth);
+                return b;
             }
 
             //private void OnDestroy()

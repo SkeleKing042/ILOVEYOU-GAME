@@ -29,6 +29,7 @@ namespace ILOVEYOU
             [SerializeField] private LayerMask m_spawnMask;
 
             private List<GameObject> m_enemyObjects = new();
+            public List<GameObject> GetEnemies => m_enemyObjects;
             
             public float PercentToMaxEnemies => m_enemyObjects.Count / GameSettings.Current.GetSpawnCap.Evaluate(GameManager.Instance.PercentToMaxDiff);
 

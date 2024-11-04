@@ -57,6 +57,8 @@ namespace ILOVEYOU.Management
         public Vector2 GetKnockbackStrength => m_knockbackStrength;
         [SerializeField] private float m_knockbackRadius = 10f;
         public float GetKnockbackRadius => m_knockbackRadius;
+        [SerializeField] private float m_knockbackStunDuration;
+        public float GetKnockbackStunDuration => m_knockbackStunDuration;
         //[Header("Enemy")]
         [SerializeField] private EnemyPrefabs[] m_enemyGroups;
         public EnemyPrefabs[] GetEnemyGroups => m_enemyGroups;
@@ -102,6 +104,7 @@ namespace ILOVEYOU.Management
             {
                 player.ChangeWeapon(GetPlayerShootingPattern);
             }
+            InitalizePrefs();
             Current = this;
         }
         public void InitalizePrefs()
