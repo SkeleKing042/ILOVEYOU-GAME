@@ -14,7 +14,7 @@ namespace ILOVEYOU
             [SerializeField] protected float m_deathTimeout = 10f;
             [SerializeField] protected float m_distanceCondition = 1f;
             protected bool m_stunned = false;
-            [SerializeField] protected float m_stunnedRecoveryTime = 1f;
+            protected float m_stunnedRecoveryTime = 1f;
             protected bool m_isDead = false;
 
             [SerializeField] protected LayerMask m_obscureMask;
@@ -79,22 +79,36 @@ namespace ILOVEYOU
                     }
                 }
             }
-            public void GetStunned()
+            public void GetStunned(float stunTime, bool waitTillLanded = true)
             {
+                //upon getting stunned, switch to using the rigidbody
                 DisableAIBrain();
                 m_rigidBody.constraints = RigidbodyConstraints.None;
                 m_rigidBody.useGravity = true;
                 m_stunned = true;
+                m_stunnedRecoveryTime = stunTime;
+                
+                //if we are not going to wait until the ai has landed
+                if(!waitTillLanded)
+                    //start stun recovery
+                    Invoke("StunRecovery", stunTime);
             }
             private void OnCollisionEnter(Collision collision)
             {
+                //if we have hit the ground
                 if (m_stunned && collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
                 {
+                    //start stun recovery
                     Invoke("StunRecovery", m_stunnedRecoveryTime);
                 }
             }
             public void StunRecovery()
             {
+                //we cant recover from stun if we aren't stunned
+                if(!m_stunned)
+                    return;
+
+                //return to using the ai again
                 m_stunned = false;
                 m_rigidBody.useGravity = false;
                 m_rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
@@ -148,8 +162,11 @@ namespace ILOVEYOU
                 
             }
 
-            public virtual void TakeDamage(float damage)
+            public virtual bool TakeDamage(float damage)
             {
+                //do not take damage if dead
+                if (m_isDead)
+                    return false;
                 m_blinkScript.StartBlink();
                 m_health -= damage;
                 //death
@@ -168,6 +185,7 @@ namespace ILOVEYOU
                     m_anim?.SetTrigger("Death");
                     Destroy(gameObject, m_deathTimeout);
                 }
+                return true;
             }
 
             

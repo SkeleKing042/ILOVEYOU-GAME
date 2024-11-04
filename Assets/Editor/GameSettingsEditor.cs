@@ -25,6 +25,7 @@ namespace ILOVEYOU.EditorScript
         SerializedProperty m_knockbackWindowProp;
         SerializedProperty m_knockbackStrengthProp;
         SerializedProperty m_knockbackRadiusProp;
+        SerializedProperty m_knockbackStunProp;
         SerializedProperty m_enemyGroupsProp;
         SerializedProperty m_spawnRangeMinProp;
         SerializedProperty m_spawnRangeMaxProp;
@@ -121,6 +122,7 @@ namespace ILOVEYOU.EditorScript
             m_knockbackWindowProp = serializedObject.FindProperty("m_knockbackWindow");
             m_knockbackStrengthProp = serializedObject.FindProperty("m_knockbackStrength");
             m_knockbackRadiusProp = serializedObject.FindProperty("m_knockbackRadius");
+            m_knockbackStunProp = serializedObject.FindProperty("m_knockbackStunDuration");
             m_enemyGroupsProp = serializedObject.FindProperty("m_enemyGroups");
             m_spawnRangeMinProp = serializedObject.FindProperty("m_spawnRangeMin");
             m_spawnRangeMaxProp = serializedObject.FindProperty("m_spawnRangeMax");
@@ -239,6 +241,11 @@ namespace ILOVEYOU.EditorScript
                     {
                         Debug.LogWarning("Knockback radius invalid! Click disable knockback if you want to turn knockback off.");
                         m_knockbackRadiusProp.floatValue = 0.001f;
+                    }
+                    EditorGUILayout.PropertyField(m_knockbackStunProp, new GUIContent("Knockback Stun Duration"));
+                    if(m_knockbackStunProp.floatValue < 0)
+                    {
+                        m_knockbackStunProp.floatValue = 0;
                     }
                     if (GUILayout.Button("Disable Knockback"))
                         m_usingKnockback = false;
