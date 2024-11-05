@@ -33,6 +33,7 @@ namespace ILOVEYOU.EditorScript
         SerializedProperty m_spawnCapProp;
         SerializedProperty m_modListProp;
         SerializedProperty m_modChanceProp;
+        SerializedProperty m_modCapProp;
         SerializedProperty m_colorsProp;
         //Dictionary<string, object> SavedValues = new();
         //bool cardsEnabled = true;
@@ -152,6 +153,7 @@ namespace ILOVEYOU.EditorScript
             m_spawnCapProp = serializedObject.FindProperty("m_spawnCap");
             m_modListProp = serializedObject.FindProperty("m_modList");
             m_modChanceProp = serializedObject.FindProperty("m_modChanceOverTime");
+            m_modCapProp = serializedObject.FindProperty("m_modCountOverTime");
             m_colorsProp = serializedObject.FindProperty("m_prefColors");
         }
         public override void OnInspectorGUI()
@@ -329,6 +331,7 @@ namespace ILOVEYOU.EditorScript
                     {
                         EditorGUILayout.PropertyField(m_modListProp, new GUIContent("Mod list"));
                         EditorGUILayout.PropertyField(m_modChanceProp, new GUIContent("Mod chance"));
+                        EditorGUILayout.PropertyField(m_modCapProp, new GUIContent("Maximum Mod Count"));
                         if(GUILayout.Button("Remove Enemy Modifiers"))
                         {
                             m_usingEnemyModifiers = false;
