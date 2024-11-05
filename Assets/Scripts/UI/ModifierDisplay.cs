@@ -12,7 +12,13 @@ namespace ILOVEYOU.UI
             //create a new image instance as a child
             Image newImage = Instantiate(modImage);
             newImage.transform.SetParent(transform, false);
-            newImage.transform.localScale = Vector3.one;
+        }
+        public void FixModImages()
+        {
+            foreach(var child in transform.GetComponentsInChildren<Image>())
+            {
+                child.rectTransform.sizeDelta = Vector2.one / transform.parent.localScale;
+            }
         }
 
         // Update is called once per frame

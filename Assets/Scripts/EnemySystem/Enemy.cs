@@ -66,6 +66,7 @@ namespace ILOVEYOU
                     mod.ApplyModifications(this);
                     GetComponentInChildren<ModifierDisplay>().AddModifierToDisplay(mod.GetIcon);
                 }
+                GetComponentInChildren<ModifierDisplay>().FixModImages();
 
                 //Potential TODO: add a "modifier" value that is dependent on current difficulty/time that influences the base values
             }
