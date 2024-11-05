@@ -18,10 +18,19 @@ namespace ILOVEYOU
             }
             public override void OnInspectorGUI()
             {
-                if(GUILayout.Button("Start Game"))
+                if (m_target.IsDev)
                 {
-                    Debug.Log("Manual game start called");
-                    m_target.BeginSetup();
+                    if (GUILayout.Button("Start Game"))
+                    {
+                        Debug.Log("Manual game start called");
+                        m_target.BeginSetup();
+                    }
+                }
+                else
+                {
+                    EditorGUI.BeginDisabledGroup(true);
+                    EditorGUILayout.TextField("Enable DevMode to start game manually.");
+                    EditorGUI.EndDisabledGroup();
                 }
                 base.OnInspectorGUI();
             }
