@@ -220,8 +220,10 @@ namespace ILOVEYOU
 
             public void OnJoin(InputValue value)
             {
-                Time.timeScale = 0f;
-                Debug.Log("Paused!");
+                if (!enabled) return;
+
+                GameManager.Instance.PauseGame();
+                //Debug.Log("Paused!");
             }
             /// <summary>
             /// zeros out player movement

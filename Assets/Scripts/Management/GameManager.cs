@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using ILOVEYOU.UI;
 using ILOVEYOU.MainMenu;
 using ILOVEYOU.Audio;
+using UnityEditorInternal;
 
 namespace ILOVEYOU
 {
@@ -64,6 +65,8 @@ namespace ILOVEYOU
             [SerializeField] private LevelManager m_levelTemplate;
             private List<LevelManager> m_levelManagers = new();
             private CardManager m_cardMan;
+            [SerializeField] private MenuPopUp m_pauseMenu;
+            private bool m_paused = false;
 
             //Game info
             public int NumberOfPlayers
@@ -359,6 +362,86 @@ namespace ILOVEYOU
                     player.GetTaskManager.AddTask(GameSettings.Current.GetTasks[rnd]);
                     m_onTaskAssignment.Invoke();
                 }
+            }
+
+
+            public void PauseGame()
+            {
+                if (m_paused || !isPlaying) return;
+
+                StopAllCoroutines();
+
+                foreach (AudioSource src in FindObjectsOfType<AudioSource>())
+                {
+                    if (!src.GetComponent<AudioHighPassFilter>())
+                    {
+                        src.gameObject.AddComponent<AudioHighPassFilter>().highpassResonanceQ = 3;
+                        src.GetComponent<AudioHighPassFilter>().cutoffFrequency = 10;
+                    }
+
+                    StartCoroutine(PauseEffect(src.GetComponent<AudioHighPassFilter>()));
+                }
+
+                Instantiate(m_pauseMenu, transform.GetChild(0).GetChild(0));
+
+                Time.timeScale = 0f;
+                m_paused = true;
+                foreach (LevelManager levelMan in m_levelManagers)
+                {
+                    levelMan.GetPlayer.Pause(m_paused);
+                }
+            }
+
+            IEnumerator PauseEffect(AudioHighPassFilter high)
+            {
+                while (high != null)
+                {
+
+                    high.cutoffFrequency = Mathf.MoveTowards(high.cutoffFrequency, 7000, Time.unscaledDeltaTime * 7000f);
+                    //low.cutoffFrequency = Mathf.MoveTowards(low.cutoffFrequency, 4000, Time.unscaledDeltaTime * 40000f);
+
+                    if (Mathf.Round(high.cutoffFrequency) == 7000) break;
+
+                    yield return new WaitForEndOfFrame();
+                }
+
+                yield return null;
+            }
+
+            public void ResumeGame()
+            {
+                StopAllCoroutines();
+
+                foreach (AudioHighPassFilter src in FindObjectsOfType<AudioHighPassFilter>())
+                {
+                    StartCoroutine(ResumeEffect(src));
+                }
+
+                Time.timeScale = 1f;
+                m_paused = false;
+
+                foreach (LevelManager levelMan in m_levelManagers)
+                {
+                    levelMan.GetPlayer.Pause(m_paused);
+                }
+            }
+
+            IEnumerator ResumeEffect(AudioHighPassFilter high)
+            {
+                while (high != null)
+                {
+
+                    high.cutoffFrequency = Mathf.MoveTowards(high.cutoffFrequency, 10, Time.unscaledDeltaTime * 7000f);
+                    //low.cutoffFrequency = Mathf.MoveTowards(low.cutoffFrequency, 4000, Time.unscaledDeltaTime * 40000f);
+
+                    if (Mathf.Round(high.cutoffFrequency) == 10) break;
+
+                    yield return new WaitForEndOfFrame();
+                }
+
+                Destroy(high);
+
+                yield return null;
             }
 
             public void QuitApp()

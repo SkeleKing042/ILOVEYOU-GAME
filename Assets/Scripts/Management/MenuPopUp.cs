@@ -1,4 +1,5 @@
 using ILOVEYOU.Audio;
+using ILOVEYOU.MainMenu;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
@@ -13,13 +14,13 @@ namespace ILOVEYOU.Management
         // Start is called before the first frame update
         void Start()
         {
-            transform.GetChild(2).gameObject.SetActive(true);
+            //transform.GetChild(2).gameObject.SetActive(true);
             FindObjectOfType<MultiplayerEventSystem>().SetSelectedGameObject(m_firstSelected);
         }
 
         public void Return()
         {
-            if (m_returnObject) FindObjectOfType<EventSystem>().SetSelectedGameObject(m_returnObject);
+            if (m_returnObject) FindObjectOfType<MultiplayerEventSystem>().SetSelectedGameObject(m_returnObject);
 
             Destroy(gameObject);
         }
@@ -35,6 +36,16 @@ namespace ILOVEYOU.Management
         public void SetReturn(GameObject returnObj)
         {
             m_returnObject = returnObj;
+        }
+
+        public void ChangeScene(int scene)
+        {
+            GameManager.Instance.LoadScene(scene);
+        }
+
+        public void Resume()
+        {
+            GameManager.Instance.ResumeGame();
         }
     }
 }
