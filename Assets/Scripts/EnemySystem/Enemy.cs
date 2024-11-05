@@ -3,6 +3,7 @@ using UnityEngine;
 using ILOVEYOU.Shader;
 using UnityEngine.AI;
 using System.Collections;
+using ILOVEYOU.UI;
 namespace ILOVEYOU
 {
     namespace EnemySystem
@@ -10,7 +11,9 @@ namespace ILOVEYOU
         public class Enemy : MonoBehaviour
         {
             [SerializeField] protected float m_damage = 1f;
+            public float GetSetDamage { get { return m_damage; } set { m_damage = value; } }
             [SerializeField] protected float m_maxHealth = 1f;
+            public float GetSetMaxHealth { get { return m_maxHealth; } set { m_maxHealth = value; } }
             protected float m_currentHealth = 1f;
             [SerializeField] protected float m_deathTimeout = 10f;
             [SerializeField] protected float m_distanceCondition = 1f;
@@ -40,13 +43,11 @@ namespace ILOVEYOU
             protected Animator m_anim;
 
             private DamageBlink m_blinkScript;
-            //this is used for the enemy hurtbox script
-            public float GetDamage() { return m_damage; }
-
-            public virtual void Initialize(Transform target)
+            public virtual void Initialize(Transform target, EnemyModifier[] mods = null)
             {
                 m_rigidBody = GetComponent<Rigidbody>();
                 m_playerTransform = target;
+                GetComponentInChildren<ModifierDisplay>().GetCamera = m_playerTransform.GetComponentInChildren<Camera>().transform;
                 m_blinkScript = GetComponent<DamageBlink>();
                 m_agent = GetComponent<NavMeshAgent>();
                 m_anim = GetComponentInChildren<Animator>();
@@ -59,6 +60,13 @@ namespace ILOVEYOU
                 rotation = Quaternion.Euler(0f, rotation.eulerAngles.y, 0f);
                 //sets rotation
                 transform.rotation = rotation;
+
+                foreach(var mod in mods)
+                {
+                    mod.ApplyModifications(this);
+                    GetComponentInChildren<ModifierDisplay>().AddModifierToDisplay(mod.GetIcon);
+                }
+                GetComponentInChildren<ModifierDisplay>().FixModImages();
 
                 //Potential TODO: add a "modifier" value that is dependent on current difficulty/time that influences the base values
             }
@@ -216,7 +224,18 @@ namespace ILOVEYOU
                 return true;
             }
 
-            
+            public virtual bool HealDamage(float health, bool clampResult = true)
+            {
+                if (m_isDead)
+                    return false;
+
+                m_currentHealth += health;
+
+                if (clampResult)
+                    m_currentHealth = Mathf.Clamp(m_currentHealth, 0, m_maxHealth);
+
+                return true;
+            }
         }
     }
 }

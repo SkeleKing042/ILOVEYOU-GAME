@@ -8,9 +8,9 @@ namespace ILOVEYOU
         {
             BulletPattern m_pattern;
 
-            public override void Initialize(Transform target)
+            public override void Initialize(Transform target, EnemyModifier[] mods = null)
             {
-                base.Initialize(target);
+                base.Initialize(target, mods);
                 m_pattern.AddTarget(m_playerTransform);
             }
             void Awake()
