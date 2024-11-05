@@ -17,6 +17,8 @@ namespace ILOVEYOU
             [Tooltip("When the enemy group spawns in. The X axis is the difficulty and Y is the likelyness of the enemy group spawning.")]
             [SerializeField] private AnimationCurve m_spawnRate;
             [SerializeField] private GameObject[] m_enemyPrefabs;
+            [SerializeField] private bool m_usingMods;
+            public bool CanUseMods => m_usingMods;
 
             public GameObject EnemyPrefab(int i) { return m_enemyPrefabs[i]; }
             public GameObject RandomEnemyPrefab() { return m_enemyPrefabs[Random.Range(0, m_enemyPrefabs.Length)]; }
@@ -76,11 +78,12 @@ namespace ILOVEYOU
                 //goes through each prefab list
                 for (int i = 0; i < GameSettings.Current.GetEnemyGroups.Length; i++)
                 {
+                    EnemyPrefabs current = GameSettings.Current.GetEnemyGroups[i];
                     float rnd = Random.Range(0.0f, 1.0f);
                     //ignores list if threshold is 0 or the current difficulty is larger than the threshold assigned to the group
-                    if (GameSettings.Current.GetEnemyGroups[i].Threshold().Evaluate(Mathf.Clamp(GameManager.Instance.PercentToMaxDiff, 0 , 1)) <= rnd) continue;
+                    if (current.Threshold().Evaluate(Mathf.Clamp(GameManager.Instance.PercentToMaxDiff, 0 , 1)) <= rnd) continue;
 
-                    if (_SpawnEnemy(GameSettings.Current.GetEnemyGroups[i].RandomEnemyPrefab(), false)) m_onSpawnEnemy.Invoke();
+                    if (_SpawnEnemy(current.RandomEnemyPrefab(), false, current.CanUseMods)) m_onSpawnEnemy.Invoke();
                 }
             }
             /// <summary>
@@ -94,7 +97,7 @@ namespace ILOVEYOU
                 for (int i = 0; i < enemyCount; i++)
                 {
 
-                    if(_SpawnEnemy(GameSettings.Current.GetEnemyGroups[groupNumber].RandomEnemyPrefab(), false)) m_onSpawnEnemy.Invoke();
+                    if(_SpawnEnemy(GameSettings.Current.GetEnemyGroups[groupNumber].RandomEnemyPrefab(), false, GameSettings.Current.GetEnemyGroups[groupNumber].CanUseMods)) m_onSpawnEnemy.Invoke();
                 }
             }
             /// <summary>
@@ -107,7 +110,7 @@ namespace ILOVEYOU
 
                 for (int i = 0; i < enemyCount; i++)
                 {
-                    if (_SpawnEnemy(GameSettings.Current.GetEnemyGroups[groupNumber].RandomEnemyPrefab(), ignoreCap)) m_onSpawnEnemy.Invoke();
+                    if (_SpawnEnemy(GameSettings.Current.GetEnemyGroups[groupNumber].RandomEnemyPrefab(), ignoreCap, GameSettings.Current.GetEnemyGroups[groupNumber].CanUseMods)) m_onSpawnEnemy.Invoke();
                 }
             }
             /// <summary>
@@ -116,7 +119,7 @@ namespace ILOVEYOU
             /// <param name="groupNumber">enemy group to spawn from</param>
             public void SpawnRandomEnemyFromGroup(int groupNumber)
             {
-                if (_SpawnEnemy(GameSettings.Current.GetEnemyGroups[groupNumber].RandomEnemyPrefab(), false)) m_onSpawnEnemy.Invoke();
+                if (_SpawnEnemy(GameSettings.Current.GetEnemyGroups[groupNumber].RandomEnemyPrefab(), false, GameSettings.Current.GetEnemyGroups[groupNumber].CanUseMods)) m_onSpawnEnemy.Invoke();
             }
             /// <summary>
             /// spawns a singular specified enemy from a group
@@ -125,7 +128,7 @@ namespace ILOVEYOU
             /// <param name="prefabIndex">which enemy from the array to spawn</param>
             public void SpawnEnemyFromGroup(int groupNumber, int prefabIndex)
             {
-                if(_SpawnEnemy(GameSettings.Current.GetEnemyGroups[groupNumber].EnemyPrefab(prefabIndex), false)) m_onSpawnEnemy.Invoke();
+                if(_SpawnEnemy(GameSettings.Current.GetEnemyGroups[groupNumber].EnemyPrefab(prefabIndex), false, GameSettings.Current.GetEnemyGroups[groupNumber].CanUseMods)) m_onSpawnEnemy.Invoke();
             }
 
             public void OnDrawGizmosSelected()
@@ -135,7 +138,7 @@ namespace ILOVEYOU
                 if (transform) Gizmos.DrawWireSphere(transform.position, GameSettings.Current.GetSpawnRangeMax);
             }
 
-            private bool _SpawnEnemy(GameObject prefab, bool ignoreCap)
+            private bool _SpawnEnemy(GameObject prefab, bool ignoreCap, bool useMods = true)
             {
                 if (!ignoreCap && m_enemyObjects.Count >= GameSettings.Current.GetSpawnCap.Evaluate(GameManager.Instance.PercentToMaxDiff))
                 {
@@ -146,7 +149,7 @@ namespace ILOVEYOU
                 //try for a modifier
                 GameSettings.ModListEntry[] entries = GameSettings.Current.GetModList;
                 List<EnemyModifier> mods = new();
-                if (entries.Length > 0)
+                if (entries.Length > 0 && useMods)
                 {
                     int rolls = Mathf.FloorToInt(GameSettings.Current.GetMaxModCount);
                     for (int i = 0; i < rolls; i++)
