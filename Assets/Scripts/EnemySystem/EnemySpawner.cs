@@ -156,8 +156,9 @@ namespace ILOVEYOU
                     {
                         int rndMod = Random.Range(0, entries.Length);
                         float modChance = Random.Range(0f, 1f);
-                        if(modChance <= entries[rndMod].Chance)
-                            mods.Add(entries[rndMod].Modifier);
+                        if (entries[rndMod].Modifier.IsStackable || !mods.Contains(entries[rndMod].Modifier))
+                            if (modChance <= entries[rndMod].Chance)
+                                mods.Add(entries[rndMod].Modifier);
                     }
                 }
 
