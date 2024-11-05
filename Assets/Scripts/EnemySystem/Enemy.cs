@@ -168,6 +168,9 @@ namespace ILOVEYOU
             //}
             public virtual void EnableAIBrain()
             {
+                if (m_isDead)
+                    return;
+
                 m_usingAIBrain = true;
                 m_rigidBody.isKinematic = true;
                 m_agent.enabled = true;
@@ -212,6 +215,7 @@ namespace ILOVEYOU
                     enabled = false;
                     m_agent.enabled = false;
                     StopAllCoroutines();
+                    CancelInvoke();
                     m_playerTransform.GetComponent<PlayerManager>().GetTaskManager.UpdateKillTrackers(1);
                     m_rigidBody.mass /= 2f;
                     /*foreach(Collider col in GetComponentsInChildren<Collider>())
