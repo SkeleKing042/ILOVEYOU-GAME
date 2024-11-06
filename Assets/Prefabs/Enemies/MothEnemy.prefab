@@ -39,13 +39,29 @@ PrefabInstance:
       propertyPath: m_ObstacleAvoidanceType
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 98999291716005708, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_Radius
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 98999291716005708, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_Center.z
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 720666407426655038, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6200019169468903389, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302020764854501118, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_Radius
+      value: 0.6895262
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302020764854501118, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_Center.z
+      value: -0.24644148
       objectReference: {fileID: 0}
     - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
       propertyPath: m_speed
@@ -107,8 +123,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: MothEnemy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6302020764854501118, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+--- !u!1 &4186434829523837888 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7613335133617298300, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+  m_PrefabInstance: {fileID: 6034484561089788092}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &7308197125271157233
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4186434829523837888}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1.75
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: -0.19}
 --- !u!4 &4186434829523837893 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7613335133617298297, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
