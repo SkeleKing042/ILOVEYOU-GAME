@@ -108,7 +108,7 @@ namespace ILOVEYOU
             private void _CloseHealthBar()
             {
                 m_active = false;
-                transform.GetChild(0).gameObject.SetActive(false);
+                gameObject.SetActive(false);
             }
 
             /// <summary>
