@@ -255,9 +255,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2573360970103687744, guid: 216d392008d35514d9f5d83766578465, type: 3}
+      propertyPath: m_Radius
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 4810733576204290866, guid: 216d392008d35514d9f5d83766578465, type: 3}
       propertyPath: m_Speed
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810733576204290866, guid: 216d392008d35514d9f5d83766578465, type: 3}
+      propertyPath: m_Radius
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 4810733576204290866, guid: 216d392008d35514d9f5d83766578465, type: 3}
       propertyPath: m_Acceleration
@@ -315,6 +323,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5531011580317987076, guid: 216d392008d35514d9f5d83766578465, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6189571301066139494, guid: 216d392008d35514d9f5d83766578465, type: 3}
       propertyPath: m_speed
       value: 2
@@ -322,6 +334,14 @@ PrefabInstance:
     - target: {fileID: 6189571301066139494, guid: 216d392008d35514d9f5d83766578465, type: 3}
       propertyPath: m_deathTimeout
       value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474819026497068018, guid: 216d392008d35514d9f5d83766578465, type: 3}
+      propertyPath: m_Radius
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474819026497068018, guid: 216d392008d35514d9f5d83766578465, type: 3}
+      propertyPath: m_Center.y
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 216d392008d35514d9f5d83766578465, type: 3}
