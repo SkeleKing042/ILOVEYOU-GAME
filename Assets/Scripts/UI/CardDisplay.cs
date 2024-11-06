@@ -13,7 +13,7 @@ namespace ILOVEYOU
         public class CardDisplay : MonoBehaviour
         {
             [SerializeField] private Transform[] m_displayPoints;
-            private DisruptCard[] m_cards;
+            private DisruptCard[] m_cards = new DisruptCard[0];
 
             [Header("Events")]
             [SerializeField] private UnityEvent m_onGetCards;
@@ -21,6 +21,14 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent<string, float> m_onDiscard;
             public void DisplayCards(DisruptCard[] cards)
             {
+                if (m_cards.Length > 0)
+                {
+                    foreach (var card in m_cards)
+                    {
+                        Destroy(card.gameObject);
+                    }
+                    m_cards = new DisruptCard[0];
+                }
                 gameObject.SetActive(true);
                 m_onGetCards.Invoke();
                 m_cards = new DisruptCard[cards.Length];
