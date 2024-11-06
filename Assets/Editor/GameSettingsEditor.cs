@@ -9,6 +9,7 @@ namespace ILOVEYOU.EditorScript
     public class GameSettingsEditor : Editor
     {
         GameSettings m_target;
+        SerializedProperty m_announcProp;
         SerializedProperty m_diffCapProp;
         SerializedProperty m_maxTasksProp;
         SerializedProperty m_taskListProp;
@@ -146,6 +147,7 @@ namespace ILOVEYOU.EditorScript
         private void OnEnable()
         {
             m_target = (GameSettings)target;
+            m_announcProp = serializedObject.FindProperty("m_announcement");
             m_diffCapProp = serializedObject.FindProperty("m_difficultyCap");
             m_maxTasksProp = serializedObject.FindProperty("m_maxTaskCount");
             m_taskListProp = serializedObject.FindProperty("m_taskList");
@@ -189,6 +191,8 @@ namespace ILOVEYOU.EditorScript
 
             serializedObject.Update();
 
+            //title
+            EditorGUILayout.PropertyField(m_announcProp, new GUIContent("Announcement title"));
             //difficulty
             EditorGUILayout.LabelField("Difficulty Settings", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(m_diffCapProp, new GUIContent("Max Difficulty Value"));

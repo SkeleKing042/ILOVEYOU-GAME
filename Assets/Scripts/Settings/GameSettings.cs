@@ -11,6 +11,18 @@ namespace ILOVEYOU.Management
     public class GameSettings : ScriptableObject
     {
         public static GameSettings Current { get; private set; }
+        [SerializeField] private string[] m_announcement = new string[0];
+        public string GetAnouncement
+        {
+            get
+            {
+                if (m_announcement.Length > 0)
+                {
+                    int rnd = Random.Range(0, m_announcement.Length); return m_announcement[rnd];
+                }
+                return "";
+            }
+        }
         //[Header("Difficulty")]
         [SerializeField] private float m_difficultyCap = 60f;
         public float GetDiffCap => m_difficultyCap;
@@ -19,7 +31,7 @@ namespace ILOVEYOU.Management
         [Tooltip("The maximum number of tasks a player can have.")]
         [SerializeField] private int m_maxTaskCount = 1;
         public int GetMaxTaskCount => m_maxTaskCount;
-        [SerializeField] private Task[] m_taskList;
+        [SerializeField] private Task[] m_taskList = new Task[2];
         public Task[] GetTasks => m_taskList;
 
         //[Header("Cards")]
