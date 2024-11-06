@@ -5,12 +5,16 @@ namespace ILOVEYOU.Shader
 {
     public class UnscaledTimeWrapper : MonoBehaviour
     {
+        [SerializeField] private Material m_scanLineMaterial;
+        
         private Material m_mat;
 
         // Start is called before the first frame update
         void Start()
         {
-            m_mat = GetComponent<Image>().material;
+            Image image = GetComponent<Image>();
+            image.material = new(m_scanLineMaterial);
+            m_mat = image.material;
         }
 
         // Update is called once per frame
@@ -18,6 +22,7 @@ namespace ILOVEYOU.Shader
         {
             m_mat.SetFloat("_UnscaledTime", Time.unscaledTime);
         }
+
     }
 }
 

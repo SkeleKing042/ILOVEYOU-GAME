@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using ILOVEYOU.UI;
 using ILOVEYOU.MainMenu;
 using ILOVEYOU.Audio;
-using UnityEditorInternal;
 
 namespace ILOVEYOU
 {
@@ -255,6 +254,7 @@ namespace ILOVEYOU
                     levelPlayer.GetSpawner.enabled = false;
                     levelPlayer.GetPlayer.GetControls.Zero();
                     levelPlayer.GetPlayer.GetControls.enabled = false;
+                    levelPlayer.GetPlayer.DiscardHand();
                 }
                 
 
@@ -364,13 +364,16 @@ namespace ILOVEYOU
                 }
             }
 
-
+            /// <summary>
+            /// pauses the game when called
+            /// </summary>
             public void PauseGame()
             {
+                //prevents this from being called when the game is over or the game is already paused
                 if (m_paused || !isPlaying) return;
-
+                //this is mainly for all the audio effect coroutines (might need to move this elsewhere in the future)
                 StopAllCoroutines();
-
+                //finds all audio sources and does the cool high pass filter effect on them
                 foreach (AudioSource src in FindObjectsOfType<AudioSource>())
                 {
                     if (!src.GetComponent<AudioHighPassFilter>())
@@ -381,11 +384,12 @@ namespace ILOVEYOU
 
                     StartCoroutine(PauseEffect(src.GetComponent<AudioHighPassFilter>()));
                 }
-
+                //creates pause menu and assigns its parent to the shared ui
                 Instantiate(m_pauseMenu, transform.GetChild(0).GetChild(0));
-
+                //pauses time
                 Time.timeScale = 0f;
                 m_paused = true;
+                //pauses the player
                 foreach (LevelManager levelMan in m_levelManagers)
                 {
                     levelMan.GetPlayer.Pause(m_paused);
