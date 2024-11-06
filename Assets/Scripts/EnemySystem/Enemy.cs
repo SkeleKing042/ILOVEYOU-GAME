@@ -17,6 +17,7 @@ namespace ILOVEYOU
             protected float m_currentHealth = 1f;
             [SerializeField] protected float m_deathTimeout = 10f;
             [SerializeField] protected float m_distanceCondition = 1f;
+            [SerializeField] protected bool m_canBeStunned = false;
             protected bool m_stunned = false;
             protected float m_stunnedRecoveryTime = 1f;
             protected bool m_isDead = false;
@@ -118,6 +119,9 @@ namespace ILOVEYOU
             }
             public void GetStunned(float stunTime, bool waitTillLanded = true)
             {
+                if (!m_canBeStunned)
+                    return;
+
                 //upon getting stunned, switch to using the rigidbody
                 DisableAIBrain();
                 m_rigidBody.constraints = RigidbodyConstraints.None;
