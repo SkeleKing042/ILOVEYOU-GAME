@@ -10,22 +10,21 @@ namespace ILOVEYOU
         [RequireComponent(typeof(Collider))]
         public class EnemyHurtBox : MonoBehaviour
         {
-            private float m_damage;
-            //private Enemy m_enemyScript;
+            private Enemy m_enemyScript;
 
             private void Awake()
             {
-                m_damage = GetComponentInParent<Enemy>().GetSetDamage;
+                m_enemyScript = GetComponentInParent<Enemy>();
             }
 
             public void OnTriggerStay(Collider collision)
             {
                 //if collided with player
-                if (collision.gameObject.GetComponent<PlayerControls>())
+                if (collision.gameObject.GetComponent<PlayerControls>() && !m_enemyScript.IsDead)
                 {
                     //Debug.Log("Player touched enemy! They took " + m_damage + " damage!");
 
-                    collision.gameObject.GetComponent<PlayerControls>().TakeDamage(m_damage);
+                    collision.gameObject.GetComponent<PlayerControls>().TakeDamage(m_enemyScript.GetSetDamage);
 
                     //damage player
                 }

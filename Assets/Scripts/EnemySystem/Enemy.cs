@@ -20,6 +20,7 @@ namespace ILOVEYOU
             protected bool m_stunned = false;
             protected float m_stunnedRecoveryTime = 1f;
             protected bool m_isDead = false;
+            public bool IsDead => m_isDead;
 
             [SerializeField] protected LayerMask m_obscureMask;
             protected bool m_canSeePlayer { get { return !Physics.Raycast(transform.position, (m_playerTransform.position - transform.position).normalized, (m_playerTransform.position - transform.position).magnitude, m_obscureMask); } }
