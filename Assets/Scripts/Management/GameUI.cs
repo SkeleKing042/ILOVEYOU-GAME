@@ -1,4 +1,6 @@
 using ILOVEYOU.Management;
+using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,6 +13,11 @@ namespace ILOVEYOU
         public class GameUI : MonoBehaviour
         {
             private Color m_importantColor;
+
+            [Header("Announcement Settings")]
+            [SerializeField] private GameObject m_announcementBox;
+            [SerializeField] private float m_announcementDuration;
+
             [Header("In-Game Menu")]
             [SerializeField] private GameObject m_InGameSharedUI;
             [SerializeField] private TextMeshProUGUI m_timerText;
@@ -34,6 +41,17 @@ namespace ILOVEYOU
             {
                 Color timeColour = Color.white - new Color(1- m_importantColor.r, 1- m_importantColor.g, 1- m_importantColor.b) * Mathf.Clamp(GameManager.Instance.PercentToMaxDiff, 0, 1);
                 m_timerText.text = $"<color=#{ColorUtility.ToHtmlStringRGB(timeColour)}>{(int)currentTime}</color>";
+            }
+
+            public IEnumerator PlayAnnouncement()
+            {
+                if (m_announcementBox && GameSettings.Current.GetAnouncement != "")
+                {
+                    m_announcementBox.GetComponentInChildren<TextMeshProUGUI>().text = $"{GameSettings.Current.GetAnouncement}";
+                    m_announcementBox.SetActive(true);
+                    yield return new WaitForSecondsRealtime(m_announcementDuration);
+                    m_announcementBox.SetActive(false);
+                }
             }
         }
     }
