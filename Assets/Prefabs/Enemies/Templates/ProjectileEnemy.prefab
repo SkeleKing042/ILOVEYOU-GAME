@@ -84,13 +84,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_damage: 1
-  m_health: 10
+  m_maxHealth: 1
   m_deathTimeout: 10
   m_distanceCondition: 10
+  m_canBeStunned: 1
   m_obscureMask:
     serializedVersion: 2
     m_Bits: 2048
   m_ignoreSight: 1
+  m_offscrenDespawnTime: 5
+  m_screenSizeBuffer: {x: 0, y: 0}
+  m_shouldRespawn: 0
+  m_repathTimes: {x: 0.2, y: 0.5}
 --- !u!114 &8038948517180347969
 MonoBehaviour:
   m_ObjectHideFlags: 0
