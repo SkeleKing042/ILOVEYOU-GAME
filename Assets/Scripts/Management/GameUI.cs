@@ -27,14 +27,18 @@ namespace ILOVEYOU
             [SerializeField] private TextMeshProUGUI m_winText;
             [SerializeField] private Button m_restartButton;
 
-            //[TextArea][SerializeField] private string m_onePlayerText;
-            //[TextArea][SerializeField] private string m_twoPlayerText;
+            [Header("Pause Menu")]
+            [SerializeField] private MenuPopUp m_pauseMenu;
 
 
             // Start is called before the first frame update
             public void Start()
             {
                 m_importantColor = ColorPref.Get("Important Color");
+            }
+            public void CreatePauseMenu()
+            {
+                Instantiate(m_pauseMenu, transform.GetChild(0).GetChild(0));
             }
             public void DisplayWinScreen(int winnerID)
             {

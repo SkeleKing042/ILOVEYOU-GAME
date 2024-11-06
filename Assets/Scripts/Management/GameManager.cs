@@ -64,7 +64,6 @@ namespace ILOVEYOU
             [SerializeField] private LevelManager m_levelTemplate;
             private List<LevelManager> m_levelManagers = new();
             private CardManager m_cardMan;
-            [SerializeField] private MenuPopUp m_pauseMenu;
             private bool m_paused = false;
 
             //Game info
@@ -387,7 +386,7 @@ namespace ILOVEYOU
                     StartCoroutine(PauseEffect(src.GetComponent<AudioHighPassFilter>()));
                 }
                 //creates pause menu and assigns its parent to the shared ui
-                Instantiate(m_pauseMenu, transform.GetChild(0).GetChild(0));
+                m_gameUI.CreatePauseMenu();
                 //pauses time
                 Time.timeScale = 0f;
                 m_paused = true;
