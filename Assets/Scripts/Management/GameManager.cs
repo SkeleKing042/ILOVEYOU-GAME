@@ -255,7 +255,8 @@ namespace ILOVEYOU
                     levelPlayer.GetSpawner.enabled = false;
                     levelPlayer.GetPlayer.GetControls.Zero();
                     levelPlayer.GetPlayer.GetControls.enabled = false;
-                    levelPlayer.GetPlayer.DiscardHand();
+                    levelPlayer.GetPlayer.GetUI.GetCardDisplay.DiscardHand();
+                    //levelPlayer.GetPlayer.DiscardHand();
                 }
                 
 
