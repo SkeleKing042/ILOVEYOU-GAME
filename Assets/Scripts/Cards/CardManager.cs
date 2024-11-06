@@ -124,6 +124,7 @@ namespace ILOVEYOU
                         if (!selectedCards.Contains(selected))
                         {
                             selectedCards.Add(selected);
+                            break;
                         }
                     }
                 }
