@@ -119,6 +119,7 @@ namespace ILOVEYOU
                     Destroy(gameObject);
                     return;
                 }
+                StartCoroutine(m_gameUI.PlayAnnouncement());
 
                 //Make sure that the other management scripts work
                 Debug.Log("Game manager starting.");

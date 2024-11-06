@@ -95,6 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05392cff8cc915044be4eb2fc9d3a716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_announcementBox: {fileID: 3536509323339724513}
+  m_announcementDuration: 5
   m_InGameSharedUI: {fileID: 171689938713971076}
   m_timerText: {fileID: 171689937773803801}
   m_winScreen: {fileID: 171689938909668674}
@@ -393,3 +395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3536509323339724513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2196563185154751899, guid: b8b68dced8f261145a816488c52f3218, type: 3}
+  m_PrefabInstance: {fileID: 3418222127941946234}
+  m_PrefabAsset: {fileID: 0}
