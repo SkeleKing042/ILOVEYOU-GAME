@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e7aa59cabe82a34f807b2a13aea9a66, type: 3}
   m_Name: MainSettings
   m_EditorClassIdentifier: 
+  m_announcement: []
   m_difficultyCap: 60
   m_maxTaskCount: 1
   m_taskList:
@@ -73,7 +74,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     AllowWithBoss: 1
-    CurrentChance: 0.6666667
+    CurrentChance: 1
   - DisruptCard: {fileID: 2943384210519268959, guid: 313118f0d262fc64090349f7082b78b9, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -139,7 +140,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     AllowWithBoss: 1
-    CurrentChance: 0.17349134
+    CurrentChance: 1
   - DisruptCard: {fileID: 4827626793003550405, guid: 9445586d2e239764abe3ce16ee0270f0, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -187,7 +188,7 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0.6666667
+    CurrentChance: 1
   - DisruptCard: {fileID: 5968024172544978597, guid: dd03823435310a842942d5075241ee54, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -235,7 +236,7 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0.6666667
+    CurrentChance: 1
   - DisruptCard: {fileID: 7919094890916979554, guid: faf10d97288fc92429c79b3f30529f8b, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -301,7 +302,7 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0.17349134
+    CurrentChance: 1
   - DisruptCard: {fileID: 4248793250358130411, guid: fdbefdc97ddd78643ad6c91b7b376199, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -385,7 +386,7 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0.6083668
+    CurrentChance: 0.25679865
   - DisruptCard: {fileID: 3063484218868929400, guid: 80f3a9c1d8a308a43a2a9b8d3f078461, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -442,7 +443,82 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0.6677567
+    CurrentChance: 1
+  - DisruptCard: {fileID: 938783057243066637, guid: 27302251ee741cb49851d9d5a55fb851, type: 3}
+    ChanceOverTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    ChanceOverEnemyCount:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    AllowWithBoss: 1
+    CurrentChance: 1
   m_playerHealth: 15
   m_iframes: 1
   m_playerSpeed: 10
@@ -465,6 +541,7 @@ MonoBehaviour:
     m_enemyPrefabs:
     - {fileID: 291654530562668115, guid: 1e6a3e7b31e14aa4b801981ef3044904, type: 3}
     - {fileID: 1923789606412629652, guid: 5376137f086b2b5429f2512e47f7b803, type: 3}
+    m_usingMods: 0
   - m_groupName: Boss
     m_spawnRate:
       serializedVersion: 2
@@ -483,6 +560,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_enemyPrefabs:
     - {fileID: 4970928481276679482, guid: c19bc291bb2e3e24c9717d55867875d9, type: 3}
+    m_usingMods: 0
   - m_groupName: Just moths
     m_spawnRate:
       serializedVersion: 2
@@ -528,6 +606,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_enemyPrefabs:
     - {fileID: 4186434829523837888, guid: 8a2742483f7908c4c9c9cae83ccd0685, type: 3}
+    m_usingMods: 0
   - m_groupName: Just Scorpions
     m_spawnRate:
       serializedVersion: 2
@@ -573,6 +652,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_enemyPrefabs:
     - {fileID: 291654530562668115, guid: 1e6a3e7b31e14aa4b801981ef3044904, type: 3}
+    m_usingMods: 0
   - m_groupName: Just Shooters
     m_spawnRate:
       serializedVersion: 2
@@ -618,6 +698,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_enemyPrefabs:
     - {fileID: 1923789606412629652, guid: 5376137f086b2b5429f2512e47f7b803, type: 3}
+    m_usingMods: 0
   m_spawnRangeMin: 21
   m_spawnRangeMax: 30
   m_spawnTime:
@@ -683,6 +764,19 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0.059833884
       outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_modList: []
+  m_modChanceOverTime:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_modCountOverTime:
+    serializedVersion: 2
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
