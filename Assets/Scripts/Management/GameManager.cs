@@ -57,6 +57,7 @@ namespace ILOVEYOU
             [Header("Settings")]
             [SerializeField] private GameSettings m_settings;
             [SerializeField] private bool m_devMode;
+            public bool IsDev => m_devMode;
             [SerializeField] private float m_roundStartCountdown;
             [SerializeField, HideInInspector] private UnseenAIPlayer m_unseenOne;
             [Header("References")]
