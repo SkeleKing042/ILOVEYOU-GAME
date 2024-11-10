@@ -4,7 +4,6 @@ using ILOVEYOU.Environment;
 using ILOVEYOU.Management;
 using ILOVEYOU.UI;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -26,6 +25,8 @@ namespace ILOVEYOU
             private uint m_playerID;
             public uint GetPlayerID { get { return m_playerID; } }
             private LevelManager m_levelManager;
+            private bool m_paused = false;
+            //public bool Paused { get { return m_paused; } }
             public LevelManager GetLevelManager { get { return m_levelManager; } }
             //tasks
             private TaskManager m_taskMan;
@@ -141,7 +142,7 @@ namespace ILOVEYOU
             public void OnSelectCard(InputValue value)
             {
                 //If the hand is empty, don't continue
-                if (!CardsInHand)
+                if (!CardsInHand || m_paused)
                     return;
 
                 //Get the vector of the face buttons
@@ -206,14 +207,16 @@ namespace ILOVEYOU
                 m_playerUI.GetLog.LogInput($"Reciving packet... running program \"areaSingles.exe\"");
                 //Invoke("_disableBlindness", m_time);
             }
-            //private void _disableBlindness()
-            //{
-            //    m_blindBox.SetActive(false);
-            //    m_onUnblind.Invoke();
-            //}
+
             public void UpdateHealthBar(float value)
             {
                 m_playerUI.UpdateHealthBar(value);
+            }
+
+            public void Pause(bool pause)
+            {
+                m_paused = pause;
+                m_playerControls.enabled = !pause;
             }
         }
     }

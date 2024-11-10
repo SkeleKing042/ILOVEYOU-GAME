@@ -82,8 +82,6 @@ namespace ILOVEYOU.Audio
                         pos = i;
                         group = m_sounds[i];
                     }
-
-                    break;
                 }
 
                 if (group == null) { Debug.LogWarning("Sound Group of Name: \"" + name + "\" Not found!"); }

@@ -217,6 +217,14 @@ namespace ILOVEYOU
                 //Debug.Log("HEwwo!!!!");
                 m_contextPress?.Invoke();
             }
+
+            public void OnJoin(InputValue value)
+            {
+                if (!enabled) return;
+
+                GameManager.Instance.PauseGame();
+                //Debug.Log("Paused!");
+            }
             /// <summary>
             /// zeros out player movement
             /// </summary>
