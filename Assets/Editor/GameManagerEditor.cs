@@ -20,29 +20,36 @@ namespace ILOVEYOU
             }
             public override void OnInspectorGUI()
             {
-                string s = "You shouldn't be reading this...";
-                if (ControllerManager.Instance != null && m_target.IsDev && ControllerManager.Instance.ControllerCount > 0)
+                serializedObject.Update();
+                if (!m_target.enabled)
                 {
-                    if (GUILayout.Button("Start Game"))
+                    string s = "You shouldn't be reading this...";
+                    if (ControllerManager.Instance != null && m_target.IsDev && ControllerManager.Instance.ControllerCount > 0)
                     {
-                        Debug.Log("Manual game start called");
-                        m_target.BeginSetup();
+                        if (GUILayout.Button("Start Game"))
+                        {
+                            Debug.Log("Manual game start called");
+                            m_target.BeginSetup();
+                        }
                     }
+                    else
+                    {
+                        EditorGUI.BeginDisabledGroup(true);
+                        if (!m_target.IsDev)
+                            s = "Please enable DevMode to start the game manually.";
+                        else if (!ControllerManager.Instance)
+                            s = "Please start the game.";
+                        else if (ControllerManager.Instance.ControllerCount == 0)
+                            s = "Please connect a controller.";
+                        EditorGUILayout.TextField(s);
+                        EditorGUI.EndDisabledGroup();
+                    }
+                    m_devMode.boolValue = GUILayout.Toggle(m_devMode.boolValue, new GUIContent("Dev Mode"));
                 }
                 else
                 {
-                    EditorGUI.BeginDisabledGroup(true);
-                    if (!m_target.IsDev)
-                        s = "Please enable DevMode to start the game manually.";
-                    else if (!ControllerManager.Instance)
-                        s = "Please start the game.";
-                    else if (ControllerManager.Instance.ControllerCount == 0)
-                        s = "Please connect a controller.";
-                    EditorGUILayout.TextField(s);
-                    EditorGUI.EndDisabledGroup();
+                    m_devMode.boolValue = false;
                 }
-                serializedObject.Update();
-                m_devMode.boolValue = GUILayout.Toggle(m_devMode.boolValue, new GUIContent("Dev Mode"));
                 serializedObject.ApplyModifiedProperties();
                 base.OnInspectorGUI();
             }

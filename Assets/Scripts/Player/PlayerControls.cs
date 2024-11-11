@@ -273,6 +273,7 @@ namespace ILOVEYOU
             private void OnDrawGizmos()
             {
 #if UNITY_EDITOR
+                if(m_facingObject)
                 {
                     Gizmos.color = Color.red;
 
