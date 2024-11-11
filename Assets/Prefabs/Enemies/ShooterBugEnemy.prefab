@@ -335,6 +335,38 @@ PrefabInstance:
       propertyPath: m_deathTimeout
       value: 1.3
       objectReference: {fileID: 0}
+    - target: {fileID: 6189571301066139494, guid: 216d392008d35514d9f5d83766578465, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6189571301066139494, guid: 216d392008d35514d9f5d83766578465, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6189571301066139494, guid: 216d392008d35514d9f5d83766578465, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 295347179612057474}
+    - target: {fileID: 6189571301066139494, guid: 216d392008d35514d9f5d83766578465, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6189571301066139494, guid: 216d392008d35514d9f5d83766578465, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlaySound
+      objectReference: {fileID: 0}
+    - target: {fileID: 6189571301066139494, guid: 216d392008d35514d9f5d83766578465, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ILOVEYOU.EnemySystem.Enemy, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6189571301066139494, guid: 216d392008d35514d9f5d83766578465, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: EnemyDeath
+      objectReference: {fileID: 0}
+    - target: {fileID: 6189571301066139494, guid: 216d392008d35514d9f5d83766578465, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8474819026497068018, guid: 216d392008d35514d9f5d83766578465, type: 3}
       propertyPath: m_Radius
       value: 0.7
@@ -345,6 +377,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 216d392008d35514d9f5d83766578465, type: 3}
+--- !u!114 &295347179612057474 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6189571301066139494, guid: 216d392008d35514d9f5d83766578465, type: 3}
+  m_PrefabInstance: {fileID: 5907754024619165924}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81aa91e54e5278c46b51b358df6b0086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1923789606412629649 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5426312569765723765, guid: 216d392008d35514d9f5d83766578465, type: 3}

@@ -489,6 +489,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_maxHealth: 10
   m_anim: {fileID: 3623012174040595777}
+  m_characterRenderers:
+  - {fileID: 7453694946192554722}
+  - {fileID: 5206664602675065919}
   m_damage: 0
   m_fireRate: 0
   m_aimDeadZone: 0.904
@@ -509,6 +512,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3879512174640564857}
+        m_TargetAssemblyTypeName: ILOVEYOU.Player.PlayerControls, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: PlayerHit
           m_BoolArgument: 0
         m_CallState: 2
   m_onDeath:
@@ -1453,14 +1468,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3879512174640564857}
         m_TargetAssemblyTypeName: ILOVEYOU.Player.PlayerControls, Assembly-CSharp
-        m_MethodName: BulletShoot
-        m_Mode: 1
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: PlayerShoot
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &4779584253060138983
@@ -2845,6 +2860,11 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
   m_PrefabInstance: {fileID: 7146389940020592848}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &5206664602675065919 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3129115634279281903, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
+  m_PrefabInstance: {fileID: 7146389940020592848}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6215682006868460121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5372906420252130679, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
@@ -2853,6 +2873,11 @@ Transform:
 --- !u!4 &7252953419133429563 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
+  m_PrefabInstance: {fileID: 7146389940020592848}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7453694946192554722 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8908740434949031374, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
   m_PrefabInstance: {fileID: 7146389940020592848}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8064955278045969793 stripped

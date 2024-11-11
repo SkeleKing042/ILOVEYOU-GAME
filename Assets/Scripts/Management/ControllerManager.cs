@@ -1,5 +1,7 @@
+using ILOVEYOU.Player;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -16,6 +18,7 @@ namespace ILOVEYOU
             bool m_ignoreJoin = false;
             [SerializeField] private uint m_maxControllers;
             [SerializeField] private List<Controller> m_controllers = new();
+            [SerializeField] private Material[] m_playerMaterials;
             public List<Controller> GetControllers => m_controllers;
             public uint ControllerCount => (uint)transform.childCount;
             public uint NumberOfActivePlayers { get
@@ -75,18 +78,21 @@ namespace ILOVEYOU
 
             }
             //instances player objects - for scene start
-            public GameObject[] JoinPlayers()
+            public GameObject[] JoinPlayers(int playerCount)
             {
                 Debug.Log("Instancing players...");
                 m_ignoreJoin = true;
                 GameObject[] players = new GameObject[transform.childCount];
-                for (int i = 0; i < transform.childCount; i++)
+                for (int i = 0; i < Mathf.Clamp(transform.childCount, 0, playerCount); i++)
                 {
                     Controller current = transform.GetChild(i).GetComponent<Controller>();
                     if (!current.IsAssigned)
                     {
                         players[i] = PlayerInput.Instantiate(m_playerPrefab, default, pairWithDevices: current.GetDevice).gameObject;
                         current.AssignObject(players[i]);
+
+                        players[i].GetComponent<PlayerControls>().SetMaterial(new Material[2] { m_playerMaterials[i * 2], m_playerMaterials[i * 2 + 1] });
+
                     }
                 }
                 m_ignoreJoin = false;
