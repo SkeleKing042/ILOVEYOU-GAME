@@ -24,7 +24,9 @@ namespace ILOVEYOU
             [SerializeField] private category m_cardType;
             private Color m_color;
             [SerializeField] private bool m_effectSelf;
+            public bool DoesEffectSelf => m_effectSelf;
             [SerializeField] private Image m_cardFace;
+            [SerializeField] private GameObject[] m_particleEffects;
             void Awake()
             {
                 string key = $"{m_cardType} color";
@@ -54,6 +56,9 @@ namespace ILOVEYOU
                         }
                         break;
                 }
+
+                if(m_particleEffects.Length > 0)
+                    ParticleSpawner.SpawnParticlesTime(m_particleEffects, caller.transform);
             }
         }
     }

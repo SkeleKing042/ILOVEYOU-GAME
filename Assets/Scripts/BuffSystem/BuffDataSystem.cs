@@ -27,7 +27,7 @@ namespace ILOVEYOU
                 [SerializeField] private int m_isStackable = 0; //determines if a buff will stack with others with the same ID (0 = don't stack, 1 = don't stack but extend timer, 2 = stack)
                 [SerializeField] private bool m_isPermanent = false; //will apply the buff permanently (won't be added to remove timer)
                 [SerializeField] private float m_time = 1f; //how long the buff will last
-                [SerializeField] private GameObject m_particleEffect;
+                [SerializeField] private GameObject[] m_particleEffect = new GameObject[0];
 
                 //Values for stat change
                 [SerializeField] private float m_maxHealthValue = 0f;
@@ -54,7 +54,7 @@ namespace ILOVEYOU
                 public float GetShootSpeed { get { return m_shootSpeedValue; } }
                 public float GetDamage { get { return m_damageValue; } }
 
-                public GameObject GetParticleEffect { get { return m_particleEffect; } }
+                public GameObject[] GetParticleEffect { get { return m_particleEffect; } }
                 //public BulletPatternObject GetPatternObject { get { return m_pattern; } }
 
                 public void SetName(string name) => m_name = name;
@@ -92,11 +92,11 @@ namespace ILOVEYOU
             {
                 private BuffData m_data;
                 private float m_currentTime;
-                private GameObject m_buffParticleEffect;
+                private GameObject[] m_buffParticleEffect = new GameObject[0];
                 //private bulle
 
                 public BuffData GetData { get { return m_data; } }
-                public GameObject GetParticle { get { return m_buffParticleEffect; } }
+                public GameObject[] GetParticles { get { return m_buffParticleEffect; } }
                 public float CurrentTime { get { return m_currentTime; } }
                 /// <summary>
                 /// subtracts time according to deltatime
@@ -104,8 +104,8 @@ namespace ILOVEYOU
                 /// <param name="time">time is multiplied by deltatime</param>
                 public void SubtractTime(float time) { m_currentTime -= time * Time.deltaTime; }
                 public void AddTime(float time) { m_currentTime += time; }
-                public void SetBuffParticle(GameObject obj) { m_buffParticleEffect = obj; }
-                public void DestroyBuffParticle() { Destroy(m_buffParticleEffect); }
+                public void SetBuffParticles(GameObject[] obj) { m_buffParticleEffect = obj; }
+                public void DestroyBuffParticles() { foreach(var part in m_buffParticleEffect) Destroy(part); }
 
                 public ActiveBuff(BuffData data, float time)
                 {
@@ -161,7 +161,7 @@ namespace ILOVEYOU
 
                 _ActivateBuff(dataClone);
 
-                if (dataClone.GetParticleEffect && spawnParticle) buff.SetBuffParticle(GetComponent<PlayerManager>().GetLevelManager.GetParticleSpawner.SpawnParticle(dataClone.GetParticleEffect, transform));
+                if (dataClone.GetParticleEffect.Length > 0 && spawnParticle) buff.SetBuffParticles(ParticleSpawner.SpawnParticles(dataClone.GetParticleEffect, transform));
 
                 m_activeBuffs.Add(buff);
             }
@@ -203,7 +203,7 @@ namespace ILOVEYOU
 
                 _ActivateBuff(dataClone);
 
-                if (dataClone.GetParticleEffect && spawnParticle) buff.SetBuffParticle(GetComponent<PlayerManager>().GetLevelManager.GetParticleSpawner.SpawnParticle(dataClone.GetParticleEffect, transform));
+                if (dataClone.GetParticleEffect.Length > 0 && spawnParticle) buff.SetBuffParticles(ParticleSpawner.SpawnParticles(dataClone.GetParticleEffect, transform));
 
                 m_activeBuffs.Add(buff);
             }
@@ -242,14 +242,14 @@ namespace ILOVEYOU
 
                 _ActivateBuff(customData);
 
-                if (customData.GetParticleEffect && spawnParticle) buff.SetBuffParticle(GetComponent<PlayerManager>().GetLevelManager.GetParticleSpawner.SpawnParticle(customData.GetParticleEffect, transform));
+                if (customData.GetParticleEffect.Length > 0 && spawnParticle) buff.SetBuffParticles(ParticleSpawner.SpawnParticles(customData.GetParticleEffect, transform));
 
                 m_activeBuffs.Add(buff);
             }
 
             public void RemoveBuff(int listCount, bool deactivate)
             {
-                if (m_activeBuffs[listCount].GetParticle) m_activeBuffs[listCount].DestroyBuffParticle();
+                m_activeBuffs[listCount].DestroyBuffParticles();
 
                 if (deactivate) _DeactivateBuff(m_activeBuffs[listCount].GetData);
             }
