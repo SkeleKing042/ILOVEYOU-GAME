@@ -75,6 +75,54 @@ PrefabInstance:
       propertyPath: m_repathTimes.x
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_onDeathTimeout.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4186434829523837898}
+    - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlaySound
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_onDeathTimeout.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_onDeathTimeout.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4186434829523837888}
+    - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_onDeathTimeout.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ILOVEYOU.EnemySystem.Enemy, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: EnemyDeath
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7613335133617298297, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -150,6 +198,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7613335133617298297, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
   m_PrefabInstance: {fileID: 6034484561089788092}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4186434829523837898 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7613335133617298294, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+  m_PrefabInstance: {fileID: 6034484561089788092}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4186434829523837888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c6590acb3a1ff439924d010ec80892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6504329822342567838
 PrefabInstance:
   m_ObjectHideFlags: 0

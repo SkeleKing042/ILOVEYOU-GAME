@@ -271,9 +271,9 @@ namespace ILOVEYOU
                 m_plaMa.GetUI.UpdateHealthBar(current);
             }
 
-            public void BulletShoot()
+            public void PlaySound(string name)
             {
-                SoundManager.SFX.PlayRandomSound("PlayerShoot");
+                SoundManager.SFX.PlayRandomSound(name);
             }
 
             private void OnDrawGizmos()
