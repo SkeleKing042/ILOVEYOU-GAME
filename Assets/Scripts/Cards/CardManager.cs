@@ -26,10 +26,13 @@ namespace ILOVEYOU
                 if (player)
                 {
                     //Check if this card can be used with a boss while its active...
-                    if (BossEnemy.Instances[player.GetPlayerID] != null && !AllowWithBoss)
+                    foreach (var other in GameManager.Instance.GetOtherPlayers(player))
                     {
-                        //...if not, set the chance to 0
-                        return CurrentChance = 0;
+                        if (BossEnemy.Instances[other.GetPlayerID] != null && !AllowWithBoss)
+                        {
+                            //...if not, set the chance to 0
+                            return CurrentChance = 0;
+                        }
                     }
 
                     //Create an array for the values used to find the chance.
@@ -124,6 +127,7 @@ namespace ILOVEYOU
                         if (!selectedCards.Contains(selected))
                         {
                             selectedCards.Add(selected);
+                            break;
                         }
                     }
                 }

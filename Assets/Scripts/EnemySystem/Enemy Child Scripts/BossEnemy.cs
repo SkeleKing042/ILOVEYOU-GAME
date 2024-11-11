@@ -23,10 +23,10 @@ namespace ILOVEYOU
 
             private bool m_charging = false;
 
-            public override void Initialize(Transform target)
+            public override void Initialize(Transform target, EnemyModifier[] mods = null)
             {
                 m_lungeCooldown = m_lungeTime;
-                base.Initialize(target);
+                base.Initialize(target, mods);
                 m_pattern.AddTarget(m_playerTransform);
 
                 m_maxSpeed = m_agent.speed;

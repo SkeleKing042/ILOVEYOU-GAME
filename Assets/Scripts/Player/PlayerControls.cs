@@ -72,7 +72,7 @@ namespace ILOVEYOU
             /// <param name="contextText">what display for the context text</param>
             public void SetContext(ContextPress context, int priority, string contextText)
             {
-                if (priority > m_contextPriority && context != m_contextPress) { m_contextPress = context; m_contextText.text = contextText; }
+                if (priority > m_contextPriority && context != m_contextPress) { m_contextText.gameObject.SetActive(true); m_contextPress = context; m_contextText.text = contextText; }
             }
             //possible TODO: think about perhaps having multiple context actions at once
             /// <summary>
@@ -216,6 +216,14 @@ namespace ILOVEYOU
             {
                 //Debug.Log("HEwwo!!!!");
                 m_contextPress?.Invoke();
+            }
+
+            public void OnJoin(InputValue value)
+            {
+                if (!enabled) return;
+
+                GameManager.Instance.PauseGame();
+                //Debug.Log("Paused!");
             }
             /// <summary>
             /// zeros out player movement

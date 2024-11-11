@@ -52,7 +52,8 @@ namespace ILOVEYOU
                 CancelInvoke();
                 StopAllCoroutines();
                 //activates object and generates name
-                transform.GetChild(0).gameObject.SetActive(true);
+                gameObject.SetActive(true);
+                //transform.GetChild(0).gameObject.SetActive(true);
                 transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = GenerateName();
                 //resets values
                 m_lag.maxValue = maxHealth;
@@ -108,7 +109,7 @@ namespace ILOVEYOU
             private void _CloseHealthBar()
             {
                 m_active = false;
-                transform.GetChild(0).gameObject.SetActive(false);
+                gameObject.SetActive(false);
             }
 
             /// <summary>

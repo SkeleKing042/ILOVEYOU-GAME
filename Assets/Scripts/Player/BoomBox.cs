@@ -1,5 +1,6 @@
 using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Management;
+using ILOVEYOU.ProjectileSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,6 +20,11 @@ namespace ILOVEYOU.Player
                 e.GetStunned(m_stunDuration);
                 Vector3 direction = (other.transform.position - transform.position).normalized;
                 other.GetComponent<Rigidbody>().AddForceAtPosition(new Vector3(GameSettings.Current.GetKnockbackStrength.x * direction.x, GameSettings.Current.GetKnockbackStrength.y, GameSettings.Current.GetKnockbackStrength.x * direction.z), transform.position, ForceMode.Impulse);
+            }
+            Projectile p = other.GetComponent<Projectile>();
+            if (p)
+            {
+                Destroy(p.gameObject);
             }
         }
         private void Awake()

@@ -9,6 +9,7 @@ namespace ILOVEYOU.EditorScript
     public class GameSettingsEditor : Editor
     {
         GameSettings m_target;
+        SerializedProperty m_announcProp;
         SerializedProperty m_diffCapProp;
         SerializedProperty m_maxTasksProp;
         SerializedProperty m_taskListProp;
@@ -31,6 +32,9 @@ namespace ILOVEYOU.EditorScript
         SerializedProperty m_spawnRangeMaxProp;
         SerializedProperty m_spawnTimeProp;
         SerializedProperty m_spawnCapProp;
+        SerializedProperty m_modListProp;
+        SerializedProperty m_modChanceProp;
+        SerializedProperty m_modCapProp;
         SerializedProperty m_colorsProp;
         //Dictionary<string, object> SavedValues = new();
         //bool cardsEnabled = true;
@@ -77,22 +81,39 @@ namespace ILOVEYOU.EditorScript
             }
         }
         bool m_displayPlayerSettings = false;
+        bool m_displayUnseenSettings = false;
         bool m_displayKnockbackSettings = false;
         bool m_usingKnockback
+        {
+            get { return m_knockbackStrengthProp.vector2Value.x >= 0 && m_knockbackStrengthProp.vector2Value.y >= 0 && m_usingCardBurst; }
+            set
+            {
+                switch (value)
+                {
+                    case true:
+                        if (m_knockbackStrengthProp.vector2Value.x < 0 || m_knockbackStrengthProp.vector2Value.y < 0)
+                            m_knockbackStrengthProp.vector2Value = Vector2.zero;
+                        m_usingCardBurst = true;
+                        break;
+                    case false:
+                        m_knockbackStrengthProp.vector2Value = new Vector2(-1, -1);
+                        break;
+                }
+            }
+        }
+        bool m_displayCardBurstSettings = false;
+        bool m_usingCardBurst
         {
             get { return m_knockbackRadiusProp.floatValue > 0 || m_knockbackWindowProp.floatValue > 0; }
             set
             {
-                switch (value) { 
+                switch (value)
+                {
                     case true:
                         if (m_knockbackRadiusProp.floatValue <= 0)
-                        {
                             m_knockbackRadiusProp.floatValue = 1;
-                        }
-                        if(m_knockbackWindowProp.floatValue <= 0)
-                        { 
+                        if (m_knockbackWindowProp.floatValue <= 0)
                             m_knockbackWindowProp.floatValue = 1;
-                        }
                         break;
                     case false:
                         m_knockbackRadiusProp.floatValue = 0;
@@ -102,10 +123,31 @@ namespace ILOVEYOU.EditorScript
             }
         }
         bool m_displayEnemySettings = false;
+        bool m_displayEnemyModifiers = false;
+        bool m_usingEnemyModifiers
+        {
+            get { return m_modListProp.arraySize > 0; }
+            set
+            {
+                switch (value)
+                {
+                    case true:
+                        if (m_modListProp.arraySize == 0)
+                        {
+                            m_modListProp.InsertArrayElementAtIndex(0);
+                        }
+                        break;
+                    case false:
+                        m_modListProp.ClearArray();
+                        break;
+                }
+            }
+        }
         bool m_displayColorStyles = false;
         private void OnEnable()
         {
             m_target = (GameSettings)target;
+            m_announcProp = serializedObject.FindProperty("m_announcement");
             m_diffCapProp = serializedObject.FindProperty("m_difficultyCap");
             m_maxTasksProp = serializedObject.FindProperty("m_maxTaskCount");
             m_taskListProp = serializedObject.FindProperty("m_taskList");
@@ -128,6 +170,9 @@ namespace ILOVEYOU.EditorScript
             m_spawnRangeMaxProp = serializedObject.FindProperty("m_spawnRangeMax");
             m_spawnTimeProp = serializedObject.FindProperty("m_spawnTime");
             m_spawnCapProp = serializedObject.FindProperty("m_spawnCap");
+            m_modListProp = serializedObject.FindProperty("m_modList");
+            m_modChanceProp = serializedObject.FindProperty("m_modChanceOverTime");
+            m_modCapProp = serializedObject.FindProperty("m_modCountOverTime");
             m_colorsProp = serializedObject.FindProperty("m_prefColors");
         }
         public override void OnInspectorGUI()
@@ -146,6 +191,8 @@ namespace ILOVEYOU.EditorScript
 
             serializedObject.Update();
 
+            //title
+            EditorGUILayout.PropertyField(m_announcProp, new GUIContent("Announcement title"));
             //difficulty
             EditorGUILayout.LabelField("Difficulty Settings", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(m_diffCapProp, new GUIContent("Max Difficulty Value"));
@@ -175,7 +222,15 @@ namespace ILOVEYOU.EditorScript
             GUILayout.Space(16);
             if (m_cardsAreEnabled)
             {
+                EditorGUILayout.BeginHorizontal();
                 m_displayCardSettings = EditorGUILayout.Foldout(m_displayCardSettings, new GUIContent("Card Settings"));
+                if (GUILayout.Button("Disable cards"))
+                {
+                    m_cardsAreEnabled = false;
+                    m_displayCardSettings = false;
+                }
+                EditorGUILayout.EndHorizontal();
+
                 if (m_displayCardSettings)
                 {
                     EditorGUILayout.PropertyField(m_cardDataProp);
@@ -184,16 +239,11 @@ namespace ILOVEYOU.EditorScript
                         //EditorGUILayout.IntSlider(m_cardCountProp, 0, 3, new GUIContent("Card Cap"));
                         EditorGUILayout.PropertyField(m_cardTimeOutProp, new GUIContent("Card timeout"));
                     }
-                    if (GUILayout.Button("Remove cards"))
-                        m_cardsAreEnabled = false;
                 }
             }
-            else
+            else if (GUILayout.Button("Use cards"))
             {
-                if (GUILayout.Button("Use cards"))
-                {
-                    m_cardsAreEnabled = true;
-                }
+                m_cardsAreEnabled = true;
             }
 
             //player
@@ -209,25 +259,50 @@ namespace ILOVEYOU.EditorScript
 
             //unseen ai
             GUILayout.Space(16);
-            m_useUnseenProp.boolValue = EditorGUILayout.ToggleLeft(new GUIContent("Use Unseen AI"), m_useUnseenProp.boolValue);
             if (m_useUnseenProp.boolValue)
             {
-                if (m_unseenCardsProp.arraySize == 0)
-                    m_unseenCardsProp.InsertArrayElementAtIndex(0);
-                EditorGUILayout.PropertyField(m_unseenRateProp, new GUIContent("Card trigger rate"));
-                EditorGUILayout.PropertyField(m_unseenCardsProp, new GUIContent("Cards to use"));
+                EditorGUILayout.BeginHorizontal();
+                m_displayUnseenSettings = EditorGUILayout.Foldout(m_displayUnseenSettings, new GUIContent("Unseen AI Settings"));
+                if (GUILayout.Button("Disable Unseen AI"))
+                {
+                    m_useUnseenProp.boolValue = false;
+                    m_displayUnseenSettings = false;
+                }
+                EditorGUILayout.EndHorizontal();
+
+                if (m_displayUnseenSettings)
+                {
+                    if (m_unseenCardsProp.arraySize == 0)
+                        m_unseenCardsProp.InsertArrayElementAtIndex(0);
+                    EditorGUILayout.PropertyField(m_unseenRateProp, new GUIContent("Card trigger rate"));
+                    EditorGUILayout.PropertyField(m_unseenCardsProp, new GUIContent("Cards to use"));
+                }
             }
             else
             {
                 m_unseenCardsProp.ClearArray();
+                if (GUILayout.Button("Use Unseen AI"))
+                {
+                    m_useUnseenProp.boolValue = true;
+                    m_displayUnseenSettings = true;
+                }
             }
 
-            //knockback
+            //card burst
             GUILayout.Space(16);
-            if (m_usingKnockback)
+            if (m_usingCardBurst)
             {
-                m_displayKnockbackSettings = EditorGUILayout.Foldout(m_displayKnockbackSettings, new GUIContent("Knockback Settings"));
-                if (m_displayKnockbackSettings)
+                EditorGUILayout.BeginHorizontal();
+                m_displayCardBurstSettings = EditorGUILayout.Foldout(m_displayCardBurstSettings, new GUIContent("Card Burst Settings"));
+                if (GUILayout.Button("Disable Card Burst"))
+                {
+                    m_usingCardBurst = false;
+                    m_displayCardBurstSettings = false;
+                    m_displayKnockbackSettings = false;
+                }
+                EditorGUILayout.EndHorizontal();
+
+                if (m_displayCardBurstSettings)
                 {
                     EditorGUILayout.PropertyField(m_knockbackWindowProp, new GUIContent("Knockback Window"));
                     if(m_knockbackWindowProp.floatValue <= 0)
@@ -235,33 +310,49 @@ namespace ILOVEYOU.EditorScript
                         Debug.LogWarning("Knockback window time invalid! Click disable knockback if you want to turn knockback off.");
                         m_knockbackWindowProp.floatValue = 0.001f;
                     }
-                    EditorGUILayout.PropertyField(m_knockbackStrengthProp, new GUIContent("Knockback Strength"));
                     EditorGUILayout.PropertyField(m_knockbackRadiusProp, new GUIContent("Knockback Radius"));
                     if (m_knockbackRadiusProp.floatValue <= 0)
                     {
                         Debug.LogWarning("Knockback radius invalid! Click disable knockback if you want to turn knockback off.");
                         m_knockbackRadiusProp.floatValue = 0.001f;
                     }
-                    EditorGUILayout.PropertyField(m_knockbackStunProp, new GUIContent("Knockback Stun Duration"));
-                    if(m_knockbackStunProp.floatValue < 0)
-                    {
-                        m_knockbackStunProp.floatValue = 0;
-                    }
-                    if (GUILayout.Button("Disable Knockback"))
-                        m_usingKnockback = false;
                 }
-            }
-            else
-            {
-                if(m_knockbackWindowProp.floatValue > 0 || m_knockbackRadiusProp.floatValue > 0)
+                if (m_usingKnockback)
                 {
-                    m_knockbackRadiusProp.floatValue = m_knockbackWindowProp.floatValue = 0;
+                    EditorGUILayout.BeginHorizontal();
+                    m_displayKnockbackSettings = EditorGUILayout.Foldout(m_displayKnockbackSettings, new GUIContent("Knockback Settings"));
+                    if (GUILayout.Button("Disable Knockback"))
+                    {
+                        m_usingKnockback = false;
+                        m_displayKnockbackSettings = false;
+                    }
+                    EditorGUILayout.EndHorizontal();
+
+                    if (m_displayKnockbackSettings)
+                    {
+                        EditorGUILayout.PropertyField(m_knockbackStrengthProp, new GUIContent("Knockback Strength"));
+                        EditorGUILayout.PropertyField(m_knockbackStunProp, new GUIContent("Knockback Stun Duration"));
+                        if (m_knockbackStunProp.floatValue < 0)
+                        {
+                            m_knockbackStunProp.floatValue = 0;
+                        }
+                    }
+
                 }
-                if(GUILayout.Button("Enable Knockback"))
+                else if(GUILayout.Button("Enable Knockback"))
                 {
                     m_usingKnockback = true;
+                    m_displayKnockbackSettings = true;
                 }
             }
+            else if (GUILayout.Button("Enable Card Burst"))
+            {
+                m_usingCardBurst = true;
+                m_displayCardBurstSettings = true;
+            }
+
+            //if (m_usingCardBurst)
+
 
             //enemy
             GUILayout.Space(16);
@@ -296,6 +387,28 @@ namespace ILOVEYOU.EditorScript
                     EditorGUILayout.LabelField("Enemy spawn rate and cap");
                     EditorGUILayout.PropertyField(m_spawnTimeProp, new GUIContent("Rate"));
                     EditorGUILayout.PropertyField(m_spawnCapProp, new GUIContent("Cap"));
+                }
+
+                if (m_usingEnemyModifiers)
+                {
+                    m_displayEnemyModifiers =  EditorGUILayout.Foldout(m_displayEnemyModifiers, new GUIContent("Enemy Modifiers"));
+                    if (m_displayEnemyModifiers)
+                    {
+                        EditorGUILayout.PropertyField(m_modListProp, new GUIContent("Mod list"));
+                        EditorGUILayout.PropertyField(m_modChanceProp, new GUIContent("Mod chance"));
+                        EditorGUILayout.PropertyField(m_modCapProp, new GUIContent("Maximum Mod Count"));
+                        if(GUILayout.Button("Remove Enemy Modifiers"))
+                        {
+                            m_usingEnemyModifiers = false;
+                        }
+                    }
+                }
+                else
+                {
+                    if(GUILayout.Button("Use Enemy Modifiers"))
+                    {
+                        m_usingEnemyModifiers = true;
+                    }
                 }
             }
 
