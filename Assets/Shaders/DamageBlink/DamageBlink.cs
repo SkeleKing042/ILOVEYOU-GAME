@@ -12,6 +12,7 @@ namespace ILOVEYOU
             [SerializeField] private float m_activeTime;
 
             List<Renderer> m_renderers = new List<Renderer>();
+            [SerializeField] private List<Renderer> m_rendererBlacklist = new();
 
             private void Awake()
             {
@@ -20,8 +21,9 @@ namespace ILOVEYOU
                     m_renderers.Add(ren);
 
                 Renderer[] rens = GetComponentsInChildren<Renderer>();
-                if (rens.Length > 0)
-                    m_renderers.AddRange(rens);
+                foreach(var render in rens)
+                    if(!m_rendererBlacklist.Contains(render))
+                        m_renderers.Add(render);
             }
             public void StartBlink()
             {
