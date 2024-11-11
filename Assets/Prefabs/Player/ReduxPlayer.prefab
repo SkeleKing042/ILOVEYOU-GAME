@@ -2717,6 +2717,10 @@ PrefabInstance:
       value: MOD_MuzzleFlash_GEO
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2f15ca8bff6bd2744a80489a7bf97755, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2f15ca8bff6bd2744a80489a7bf97755, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -2801,6 +2805,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2344402693588266727}
     m_Modifications:
+    - target: {fileID: -9091105296625119759, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2853,6 +2861,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: eb851f16de61b3c40b6839aaf000f246, type: 2}
+    - target: {fileID: 9083435656199003770, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
 --- !u!95 &3623012174040595777 stripped
