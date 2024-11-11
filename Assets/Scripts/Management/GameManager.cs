@@ -139,7 +139,7 @@ namespace ILOVEYOU
                 }
 
                 Debug.Log("Attempting to start the game.");
-                GameObject[] players = ControllerManager.Instance.JoinPlayers();
+                GameObject[] players = ControllerManager.Instance.JoinPlayers(2);
 
                 //Boss data setup
                 BossBar.Instances = new BossBar[players.Length];

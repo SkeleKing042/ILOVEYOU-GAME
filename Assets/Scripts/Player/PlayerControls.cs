@@ -28,6 +28,7 @@ namespace ILOVEYOU
             private float m_iframesCurrent;
             [SerializeField] private Animator m_anim; //animator should be located on the player model
             public Animator GetPlayerAnimator { get { return m_anim; } }
+            [SerializeField] private Renderer[] m_characterRenderers;
 
             [Header("Movement")]
             private float m_moveSpeed;
@@ -115,6 +116,11 @@ namespace ILOVEYOU
                 return true;
             }
 
+            public void SetMaterial(Material[] materials)
+            {
+                m_characterRenderers[0].material = materials[0];
+                m_characterRenderers[1].material = materials[1];
+            }
 
             /// <summary>
             /// Changes a stat
