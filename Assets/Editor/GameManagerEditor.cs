@@ -11,14 +11,17 @@ namespace ILOVEYOU
         public class GameManagerEditor : Editor
         {
             GameManager m_target;
+            SerializedProperty m_devMode;
             
             private void OnEnable()
             {
                 m_target = (GameManager)target;
+                m_devMode = serializedObject.FindProperty("m_devMode");
             }
             public override void OnInspectorGUI()
             {
-                if (m_target.IsDev)
+                string s = "You shouldn't be reading this...";
+                if (ControllerManager.Instance != null && m_target.IsDev && ControllerManager.Instance.ControllerCount > 0)
                 {
                     if (GUILayout.Button("Start Game"))
                     {
@@ -29,9 +32,18 @@ namespace ILOVEYOU
                 else
                 {
                     EditorGUI.BeginDisabledGroup(true);
-                    EditorGUILayout.TextField("Enable DevMode to start game manually.");
+                    if (!m_target.IsDev)
+                        s = "Please enable DevMode to start the game manually.";
+                    else if (!ControllerManager.Instance)
+                        s = "Please start the game.";
+                    else if (ControllerManager.Instance.ControllerCount == 0)
+                        s = "Please connect a controller.";
+                    EditorGUILayout.TextField(s);
                     EditorGUI.EndDisabledGroup();
                 }
+                serializedObject.Update();
+                m_devMode.boolValue = GUILayout.Toggle(m_devMode.boolValue, new GUIContent("Dev Mode"));
+                serializedObject.ApplyModifiedProperties();
                 base.OnInspectorGUI();
             }
         }
