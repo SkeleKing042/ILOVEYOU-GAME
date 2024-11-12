@@ -24,6 +24,7 @@ namespace ILOVEYOU
             protected float m_stunnedRecoveryTime = 1f;
             protected bool m_isDead = false;
             public bool IsDead => m_isDead;
+            [SerializeField] private ParticleSystem m_dp;
 
             [SerializeField] protected LayerMask m_obscureMask;
             protected bool m_canSeePlayer { get { return !Physics.Raycast(transform.position, (m_playerTransform.position - transform.position).normalized, (m_playerTransform.position - transform.position).magnitude, m_obscureMask); } }
@@ -249,7 +250,9 @@ namespace ILOVEYOU
             public virtual void DeathTimeout()
             {
                 m_onDeathTimeout.Invoke();
-                Destroy(gameObject);
+                m_dp.Play();
+                GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+                Destroy(gameObject, m_dp.main.duration);
             }
 
             public virtual void PlaySound(string group)
