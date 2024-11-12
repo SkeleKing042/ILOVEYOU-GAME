@@ -55,8 +55,10 @@ namespace ILOVEYOU
             public static void ResetScore() { m_score = Vector2.zero; }
             ///////////////////////////////////////////////////////////////////////////////////////////////////
             [Header("Settings")]
-            [SerializeField] private GameSettings m_settings;
-            [SerializeField] private bool m_devMode;
+            [SerializeField] private GameSettings m_singleplayerSettings;
+            [SerializeField] private GameSettings m_multiplayerSettings;
+            [SerializeField, HideInInspector] private bool m_devMode;
+            public bool IsDev => m_devMode;
             [SerializeField] private float m_roundStartCountdown;
             [SerializeField, HideInInspector] private UnseenAIPlayer m_unseenOne;
             [Header("References")]
@@ -64,6 +66,7 @@ namespace ILOVEYOU
             [SerializeField] private LevelManager m_levelTemplate;
             private List<LevelManager> m_levelManagers = new();
             private CardManager m_cardMan;
+            private bool m_paused = false;
 
             //Game info
             public int NumberOfPlayers
@@ -96,7 +99,16 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onTaskAssignment;
             private void Awake()
             {
-                m_settings.Assign();
+                if(ControllerManager.Instance.ControllerCount == 1)
+                {
+                    m_singleplayerSettings.Assign();
+                }
+                else
+                {
+                    m_multiplayerSettings.Assign();
+                }
+                
+                
                 //check for the input manager
                 if (!ControllerManager.Instance)
                 {
@@ -137,7 +149,7 @@ namespace ILOVEYOU
                 }
 
                 Debug.Log("Attempting to start the game.");
-                GameObject[] players = ControllerManager.Instance.JoinPlayers();
+                GameObject[] players = ControllerManager.Instance.JoinPlayers(2);
 
                 //Boss data setup
                 BossBar.Instances = new BossBar[players.Length];
@@ -249,10 +261,12 @@ namespace ILOVEYOU
                 //disables player movement and enemy spawner
                 foreach (var levelPlayer in m_levelManagers)
                 {
-                    levelPlayer.GetSpawner.KillAllEnemies();
+                    levelPlayer.GetSpawner.DestroyAllEnemies();
                     levelPlayer.GetSpawner.enabled = false;
                     levelPlayer.GetPlayer.GetControls.Zero();
                     levelPlayer.GetPlayer.GetControls.enabled = false;
+                    levelPlayer.GetPlayer.GetUI.GetCardDisplay.DiscardHand();
+                    //levelPlayer.GetPlayer.DiscardHand();
                 }
                 
 
@@ -360,6 +374,90 @@ namespace ILOVEYOU
                     player.GetTaskManager.AddTask(GameSettings.Current.GetTasks[rnd]);
                     m_onTaskAssignment.Invoke();
                 }
+            }
+
+            /// <summary>
+            /// pauses the game when called
+            /// </summary>
+            public void PauseGame()
+            {
+                //prevents this from being called when the game is over or the game is already paused
+                if (m_paused || !isPlaying) return;
+                //this is mainly for all the audio effect coroutines (might need to move this elsewhere in the future)
+                StopAllCoroutines();
+                //finds all audio sources and does the cool high pass filter effect on them
+                foreach (AudioSource src in FindObjectsOfType<AudioSource>())
+                {
+                    if (!src.GetComponent<AudioHighPassFilter>())
+                    {
+                        src.gameObject.AddComponent<AudioHighPassFilter>().highpassResonanceQ = 3;
+                        src.GetComponent<AudioHighPassFilter>().cutoffFrequency = 10;
+                    }
+
+                    StartCoroutine(PauseEffect(src.GetComponent<AudioHighPassFilter>()));
+                }
+                //creates pause menu and assigns its parent to the shared ui
+                m_gameUI.CreatePauseMenu();
+                //pauses time
+                Time.timeScale = 0f;
+                m_paused = true;
+                //pauses the player
+                foreach (LevelManager levelMan in m_levelManagers)
+                {
+                    levelMan.GetPlayer.Pause(m_paused);
+                }
+            }
+
+            IEnumerator PauseEffect(AudioHighPassFilter high)
+            {
+                while (high != null)
+                {
+
+                    high.cutoffFrequency = Mathf.MoveTowards(high.cutoffFrequency, 7000, Time.unscaledDeltaTime * 7000f);
+                    //low.cutoffFrequency = Mathf.MoveTowards(low.cutoffFrequency, 4000, Time.unscaledDeltaTime * 40000f);
+
+                    if (Mathf.Round(high.cutoffFrequency) == 7000) break;
+
+                    yield return new WaitForEndOfFrame();
+                }
+
+                yield return null;
+            }
+
+            public void ResumeGame()
+            {
+                StopAllCoroutines();
+
+                foreach (AudioHighPassFilter src in FindObjectsOfType<AudioHighPassFilter>())
+                {
+                    StartCoroutine(ResumeEffect(src));
+                }
+
+                Time.timeScale = 1f;
+                m_paused = false;
+
+                foreach (LevelManager levelMan in m_levelManagers)
+                {
+                    levelMan.GetPlayer.Pause(m_paused);
+                }
+            }
+
+            IEnumerator ResumeEffect(AudioHighPassFilter high)
+            {
+                while (high != null)
+                {
+
+                    high.cutoffFrequency = Mathf.MoveTowards(high.cutoffFrequency, 10, Time.unscaledDeltaTime * 7000f);
+                    //low.cutoffFrequency = Mathf.MoveTowards(low.cutoffFrequency, 4000, Time.unscaledDeltaTime * 40000f);
+
+                    if (Mathf.Round(high.cutoffFrequency) == 10) break;
+
+                    yield return new WaitForEndOfFrame();
+                }
+
+                Destroy(high);
+
+                yield return null;
             }
 
             public void QuitApp()

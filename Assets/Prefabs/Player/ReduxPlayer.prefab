@@ -489,6 +489,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_maxHealth: 10
   m_anim: {fileID: 3623012174040595777}
+  m_characterRenderers:
+  - {fileID: 7453694946192554722}
+  - {fileID: 5206664602675065919}
   m_damage: 0
   m_fireRate: 0
   m_aimDeadZone: 0.904
@@ -511,9 +514,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3879512174640564857}
+        m_TargetAssemblyTypeName: ILOVEYOU.Player.PlayerControls, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: PlayerHit
+          m_BoolArgument: 0
+        m_CallState: 2
   m_onDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7554037229398041792}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_onShootingDisabled:
     m_PersistentCalls:
       m_Calls: []
@@ -637,6 +664,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_blinkMat: {fileID: 2100000, guid: a14212e056224f44286aa5a5b1c7f125, type: 2}
   m_activeTime: 0.1
+  m_rendererBlacklist:
+  - {fileID: 823162465307329647}
+  - {fileID: 1555264459941148058}
+  - {fileID: 2206755783471007243}
+  - {fileID: 9168808568283863781}
 --- !u!114 &6695779224707933300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,7 +688,9 @@ MonoBehaviour:
     m_isStackable: 1
     m_isPermanent: 0
     m_time: 3
-    m_particleEffect: {fileID: 1645793788547902424, guid: 7fcffd11666bd17428ab3a2a93b204fd, type: 3}
+    m_particleEffect:
+    - {fileID: 523307538339158087, guid: 58bcb9d7d0c5aae41a0235e5a77b5b91, type: 3}
+    - {fileID: 5864989968811027547, guid: 6eb71502bc4dff148af4e490fc68b28b, type: 3}
     m_maxHealthValue: 0
     m_moveSpeedValue: 0
     m_shootSpeedValue: 0
@@ -697,7 +731,7 @@ MonoBehaviour:
     m_isStackable: 2
     m_isPermanent: 0
     m_time: 10
-    m_particleEffect: {fileID: 0}
+    m_particleEffect: []
     m_maxHealthValue: 0
     m_moveSpeedValue: 0
     m_shootSpeedValue: 0
@@ -738,7 +772,7 @@ MonoBehaviour:
     m_isStackable: 3
     m_isPermanent: 0
     m_time: 20
-    m_particleEffect: {fileID: 0}
+    m_particleEffect: []
     m_maxHealthValue: 0
     m_moveSpeedValue: 0
     m_shootSpeedValue: 0
@@ -779,7 +813,9 @@ MonoBehaviour:
     m_isStackable: 1
     m_isPermanent: 0
     m_time: 7
-    m_particleEffect: {fileID: 1645793788547902424, guid: d404d07975c6fb748acf990140ee974a, type: 3}
+    m_particleEffect:
+    - {fileID: 2967937541293205980, guid: cfce03a10ebb20b40a19d22dc71d9117, type: 3}
+    - {fileID: 1893750483830103216, guid: 612c74f16ba270a47bf9aedf6980584f, type: 3}
     m_maxHealthValue: 0
     m_moveSpeedValue: 0
     m_shootSpeedValue: 0
@@ -832,7 +868,7 @@ MonoBehaviour:
     m_isStackable: 1
     m_isPermanent: 0
     m_time: 3
-    m_particleEffect: {fileID: 0}
+    m_particleEffect: []
     m_maxHealthValue: 0
     m_moveSpeedValue: -5
     m_shootSpeedValue: 0
@@ -1453,14 +1489,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3879512174640564857}
         m_TargetAssemblyTypeName: ILOVEYOU.Player.PlayerControls, Assembly-CSharp
-        m_MethodName: BulletShoot
-        m_Mode: 1
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: PlayerShoot
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &4779584253060138983
@@ -2702,11 +2738,20 @@ PrefabInstance:
       value: MOD_MuzzleFlash_GEO
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2f15ca8bff6bd2744a80489a7bf97755, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2f15ca8bff6bd2744a80489a7bf97755, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f15ca8bff6bd2744a80489a7bf97755, type: 3}
+--- !u!23 &823162465307329647 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 2f15ca8bff6bd2744a80489a7bf97755, type: 3}
+  m_PrefabInstance: {fileID: 2066554401521572075}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1183472081975354810 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2f15ca8bff6bd2744a80489a7bf97755, type: 3}
@@ -2774,6 +2819,11 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5528519612752195936, guid: 344751553bc903644aa99910cc1eedb8, type: 3}
   m_PrefabInstance: {fileID: 3712964573947620228}
   m_PrefabAsset: {fileID: 0}
+--- !u!199 &9168808568283863781 stripped
+ParticleSystemRenderer:
+  m_CorrespondingSourceObject: {fileID: 5528519612752195937, guid: 344751553bc903644aa99910cc1eedb8, type: 3}
+  m_PrefabInstance: {fileID: 3712964573947620228}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9168808568283863782 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5528519612752195938, guid: 344751553bc903644aa99910cc1eedb8, type: 3}
@@ -2786,6 +2836,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2344402693588266727}
     m_Modifications:
+    - target: {fileID: -9091105296625119759, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2838,11 +2892,20 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: eb851f16de61b3c40b6839aaf000f246, type: 2}
+    - target: {fileID: 9083435656199003770, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
 --- !u!95 &3623012174040595777 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
+  m_PrefabInstance: {fileID: 7146389940020592848}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &5206664602675065919 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3129115634279281903, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
   m_PrefabInstance: {fileID: 7146389940020592848}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6215682006868460121 stripped
@@ -2853,6 +2916,11 @@ Transform:
 --- !u!4 &7252953419133429563 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
+  m_PrefabInstance: {fileID: 7146389940020592848}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7453694946192554722 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8908740434949031374, guid: ad11e6f4b23175445bd4ea86f2db5b51, type: 3}
   m_PrefabInstance: {fileID: 7146389940020592848}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8064955278045969793 stripped

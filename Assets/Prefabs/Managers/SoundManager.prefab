@@ -50,18 +50,26 @@ MonoBehaviour:
     m_manualLoad: 0
   - m_sounds:
     - m_name: PlayerFootsteps
-      m_soundMult: 1
+      m_soundMult: 0.136
       m_clips:
       - {fileID: 8300000, guid: 4c6d5cfa90bab264c9eb26d833ada5df, type: 3}
     - m_name: PlayerShoot
-      m_soundMult: 1
+      m_soundMult: 0.06
       m_clips:
       - {fileID: 8300000, guid: 7467b79ab94625a488cacb3f0447811d, type: 3}
+    - m_name: PlayerHit
+      m_soundMult: 0.136
+      m_clips:
+      - {fileID: 8300000, guid: 6b6fb426d014d3d4782755f9c62ff82a, type: 3}
+    - m_name: EnemyDeath
+      m_soundMult: 0.055
+      m_clips:
+      - {fileID: 8300000, guid: a0d83be68bf03a14089d9a7e17bf6de1, type: 3}
     m_tag: 1
     m_manualLoad: 0
   - m_sounds:
     - m_name: TestMusic
-      m_soundMult: 1
+      m_soundMult: 0.333
       m_clips:
       - {fileID: 8300000, guid: b5ac01f56f8815748bfc3e82656fd164, type: 3}
       - {fileID: 8300000, guid: 3b74ffd9b13d1ac4aa3f81b12292f27e, type: 3}
@@ -77,7 +85,7 @@ MonoBehaviour:
       - {fileID: 8300000, guid: 72073b932815e0845aa09a613b8a7025, type: 3}
       - {fileID: 8300000, guid: 1f41364b69bab2846a6bd6b843224775, type: 3}
     m_tag: 2
-    m_manualLoad: 0
+    m_manualLoad: 1
   - m_sounds:
     - m_name: KeyboardSelect
       m_soundMult: 1
@@ -109,7 +117,7 @@ MonoBehaviour:
     m_manualLoad: 0
   - m_sounds:
     - m_name: ComputerStartUp
-      m_soundMult: 1
+      m_soundMult: 0.25
       m_clips:
       - {fileID: 8300000, guid: 6ef0ee893f77d154f87780391554b949, type: 3}
       - {fileID: 8300000, guid: ad3ff25160eaeb545885bea5640bba65, type: 3}

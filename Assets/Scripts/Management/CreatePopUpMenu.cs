@@ -12,7 +12,10 @@ namespace ILOVEYOU.Management
         /// </summary>
         public void CreatePopUp()
         {
-            Instantiate(m_popUp, FindObjectOfType<Canvas>().gameObject.transform).GetComponent<MenuPopUp>().SetReturn(gameObject);
+            if (GetComponentInParent<Canvas>())
+            {
+                Instantiate(m_popUp, GetComponentInParent<Canvas>().gameObject.transform).GetComponent<MenuPopUp>().SetReturn(gameObject);
+            }
         }
 
         /// <summary>

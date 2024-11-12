@@ -4,6 +4,8 @@ using ILOVEYOU.Shader;
 using UnityEngine.AI;
 using System.Collections;
 using ILOVEYOU.UI;
+using UnityEngine.Events;
+using ILOVEYOU.Audio;
 namespace ILOVEYOU
 {
     namespace EnemySystem
@@ -22,10 +24,15 @@ namespace ILOVEYOU
             protected float m_stunnedRecoveryTime = 1f;
             protected bool m_isDead = false;
             public bool IsDead => m_isDead;
+            [SerializeField] private ParticleSystem m_dp;
 
             [SerializeField] protected LayerMask m_obscureMask;
             protected bool m_canSeePlayer { get { return !Physics.Raycast(transform.position, (m_playerTransform.position - transform.position).normalized, (m_playerTransform.position - transform.position).magnitude, m_obscureMask); } }
             [SerializeField] protected bool m_ignoreSight;
+
+            [Header("Events")]
+            [SerializeField] protected UnityEvent m_onDeath; //called when health reaches 0
+            [SerializeField] protected UnityEvent m_onDeathTimeout; //called when object is about to be destroyed
 
             [Header("Despawning offscreen")]
             [Tooltip("The time this enemy can spend offscreen before despawning")]
@@ -228,9 +235,32 @@ namespace ILOVEYOU
                         col.enabled = false;
                     }*/
                     m_anim?.SetTrigger("Death");
-                    Destroy(gameObject, m_deathTimeout);
+                    //Destroy(gameObject, m_deathTimeout);
+                    Death();
+                    Invoke(nameof(DeathTimeout), m_deathTimeout);
                 }
                 return true;
+            }
+
+            public virtual void Death()
+            {
+                m_onDeath.Invoke();
+            }
+
+            public virtual void DeathTimeout()
+            {
+                m_onDeathTimeout.Invoke();
+                if (m_dp)
+                {
+                    m_dp.Play();
+                    GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+                }
+                Destroy(gameObject, m_dp ? m_dp.main.duration : 0);
+            }
+
+            public virtual void PlaySound(string group)
+            {
+                SoundManager.SFX.PlayRandomSound(group);
             }
 
             public virtual bool HealDamage(float health, bool clampResult = true)
