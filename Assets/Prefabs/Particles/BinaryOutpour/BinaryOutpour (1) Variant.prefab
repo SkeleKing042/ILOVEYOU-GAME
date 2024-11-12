@@ -9,12 +9,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2967937541293205980, guid: cfce03a10ebb20b40a19d22dc71d9117, type: 3}
       propertyPath: m_Name
-      value: BinaryOutpour (1)
+      value: BinaryOutpour (1) Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6272930785134916818, guid: cfce03a10ebb20b40a19d22dc71d9117, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ddfac67d98565174a8b1eb8c792bc6df, type: 2}
+    - target: {fileID: 7874782546286526588, guid: cfce03a10ebb20b40a19d22dc71d9117, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.27799273
+      objectReference: {fileID: 0}
+    - target: {fileID: 7874782546286526588, guid: cfce03a10ebb20b40a19d22dc71d9117, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7997112162949251378, guid: cfce03a10ebb20b40a19d22dc71d9117, type: 3}
       propertyPath: m_RootOrder
       value: 0

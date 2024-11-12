@@ -105,7 +105,13 @@ namespace ILOVEYOU
                 public void SubtractTime(float time) { m_currentTime -= time * Time.deltaTime; }
                 public void AddTime(float time) { m_currentTime += time; }
                 public void SetBuffParticles(GameObject[] obj) { m_buffParticleEffect = obj; }
-                public void DestroyBuffParticles() { foreach(var part in m_buffParticleEffect) Destroy(part); }
+                public void DestroyBuffParticles()
+                {
+                    foreach (var part in m_buffParticleEffect)
+                    {
+                        part.GetComponent<ParticleSystem>().Stop();
+                    }
+                }
 
                 public ActiveBuff(BuffData data, float time)
                 {
