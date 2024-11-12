@@ -41,7 +41,7 @@ namespace ILOVEYOU
             [Header("Event - sounds and visuals")]
             [SerializeField] private UnityEvent m_onGetCards;
             [SerializeField] private UnityEvent m_onDiscardHand;
-            [SerializeField] private UnityEvent m_onCardSelected;
+            [SerializeField] private UnityEvent<bool> m_onCardSelected;
             [SerializeField] private UnityEvent m_onBlind;
             [SerializeField] private UnityEvent m_onUnblind;
             public bool Startup(LevelManager manager, uint index)
@@ -165,8 +165,8 @@ namespace ILOVEYOU
                         index = 2;
                         break;
                 }
+                m_onCardSelected.Invoke(m_cardsHeld[index].DoesEffectSelf);
                 _executeSelectedCard(index);
-                m_onCardSelected.Invoke();
             }
             private void _executeSelectedCard(int value)
             {
