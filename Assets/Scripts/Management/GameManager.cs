@@ -55,7 +55,8 @@ namespace ILOVEYOU
             public static void ResetScore() { m_score = Vector2.zero; }
             ///////////////////////////////////////////////////////////////////////////////////////////////////
             [Header("Settings")]
-            [SerializeField] private GameSettings m_settings;
+            [SerializeField] private GameSettings m_singleplayerSettings;
+            [SerializeField] private GameSettings m_multiplayerSettings;
             [SerializeField, HideInInspector] private bool m_devMode;
             public bool IsDev => m_devMode;
             [SerializeField] private float m_roundStartCountdown;
@@ -98,7 +99,16 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onTaskAssignment;
             private void Awake()
             {
-                m_settings.Assign();
+                if(ControllerManager.Instance.ControllerCount == 1)
+                {
+                    m_singleplayerSettings.Assign();
+                }
+                else
+                {
+                    m_multiplayerSettings.Assign();
+                }
+                
+                
                 //check for the input manager
                 if (!ControllerManager.Instance)
                 {
