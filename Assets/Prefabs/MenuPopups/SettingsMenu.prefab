@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Resume
+  m_text: 'Sound
 
 '
   m_isRightToLeft: 0
@@ -150,9 +150,8 @@ GameObject:
   - component: {fileID: 2418021774407276437}
   - component: {fileID: 1466287482061634742}
   - component: {fileID: 8067639550530300217}
-  - component: {fileID: 1848862635956124854}
   m_Layer: 5
-  m_Name: Settings
+  m_Name: Test2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +176,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0.000061035, y: -540}
-  m_SizeDelta: {x: 193.7968, y: 44.357}
+  m_SizeDelta: {x: 126.32, y: 44.357}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5024164827022108648
 CanvasRenderer:
@@ -261,6 +260,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 8067639550530300217}
+        m_TargetAssemblyTypeName: ButtonSelect, Assembly-CSharp
+        m_MethodName: set_MakeSound
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1683116684548966316}
         m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
         m_MethodName: PlaySound
@@ -271,30 +282,6 @@ MonoBehaviour:
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: KeyboardEnter
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ILOVEYOU.Management.CreatePopUpMenu, Assembly-CSharp
-        m_MethodName: CreatePopUp
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 7072792955519435729}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1848862635956124854}
-        m_TargetAssemblyTypeName: ILOVEYOU.Management.CreatePopUpMenu, Assembly-CSharp
-        m_MethodName: CreatePopUp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &8067639550530300217
@@ -328,19 +315,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_makeSound: 1
---- !u!114 &1848862635956124854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 766034323320520168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36a15f6e81c6a2542adcd2b972993e60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_popUp: {fileID: 1683116684548966304, guid: d49b62f222e39c649b753298af4d9807, type: 3}
 --- !u!1 &1126677809717762353
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +381,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Settings
+  m_text: Test2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
   m_sharedMaterial: {fileID: 8576475959318980258, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
@@ -486,11 +460,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1683116684548966305}
   - component: {fileID: 1683116684548966319}
-  - component: {fileID: 1683116684548966318}
   - component: {fileID: 1683116684548966316}
-  - component: {fileID: 2646511433329536981}
   m_Layer: 5
-  m_Name: PauseMenu
+  m_Name: SettingsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -531,36 +503,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683116684548966304}
   m_CullTransparentMesh: 1
---- !u!114 &1683116684548966318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683116684548966304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 54338cf92195d1b428314a95c15877a8, type: 2}
-  m_Color: {r: 0.003921569, g: 0.003921569, b: 0.6666667, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.36
 --- !u!114 &1683116684548966316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,19 +516,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_firstSelected: {fileID: 5866654562259584706}
---- !u!114 &2646511433329536981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683116684548966304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b858cf5eb6d0354d85d13dce5f0606a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_scanLineMaterial: {fileID: 2100000, guid: 54338cf92195d1b428314a95c15877a8, type: 2}
 --- !u!1 &1683116684611817566
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,7 +582,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Game Paused
+  m_text: 'Settings
 
     ==============================================================================================================='
   m_isRightToLeft: 0
@@ -814,7 +743,7 @@ GameObject:
   - component: {fileID: 8314968113443252954}
   - component: {fileID: 8195189020572794367}
   m_Layer: 5
-  m_Name: Quit
+  m_Name: Return
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -839,7 +768,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -1.5643e-10, y: -619.1}
-  m_SizeDelta: {x: 110.368, y: 44.357}
+  m_SizeDelta: {x: 152.0287, y: 44.357}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4089203278009365739
 CanvasRenderer:
@@ -949,12 +878,12 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1683116684548966316}
         m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
-        m_MethodName: ChangeScene
-        m_Mode: 3
+        m_MethodName: Return
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -1132,7 +1061,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit
+  m_text: Return
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
   m_sharedMaterial: {fileID: 8576475959318980258, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
@@ -1214,8 +1143,9 @@ GameObject:
   - component: {fileID: 6972271032309493784}
   - component: {fileID: 6274668475126367901}
   - component: {fileID: 3770140786408837363}
+  - component: {fileID: 175410905968634018}
   m_Layer: 5
-  m_Name: Resume
+  m_Name: Sound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1240,7 +1170,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -377.14197}
-  m_SizeDelta: {x: 153.751, y: 44.357}
+  m_SizeDelta: {x: 126.3201, y: 44.357}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5802110482773585466
 CanvasRenderer:
@@ -1325,7 +1255,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3770140786408837363}
-        m_TargetAssemblyTypeName: ButtonSelect, Assembly-CSharp
+        m_TargetAssemblyTypeName: ILOVEYOU.MainMenu.ButtonSelect, Assembly-CSharp
         m_MethodName: set_MakeSound
         m_Mode: 6
         m_Arguments:
@@ -1348,21 +1278,9 @@ MonoBehaviour:
           m_StringArgument: KeyboardEnter
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1683116684548966316}
-        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
-        m_MethodName: Resume
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1683116684548966316}
-        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
-        m_MethodName: Return
+      - m_Target: {fileID: 175410905968634018}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.CreatePopUpMenu, Assembly-CSharp
+        m_MethodName: CreatePopUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1403,6 +1321,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_makeSound: 0
+--- !u!114 &175410905968634018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5866654562259584706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a15f6e81c6a2542adcd2b972993e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_popUp: {fileID: 1683116684548966304, guid: 768c3960ff6b1cb45952b780cf4fc198, type: 3}
 --- !u!1 &7639839953486633006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,7 +1400,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Restart
+  m_text: Test1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
   m_sharedMaterial: {fileID: 8576475959318980258, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
@@ -1552,7 +1483,7 @@ GameObject:
   - component: {fileID: 193507263888877611}
   - component: {fileID: 3799387705983275931}
   m_Layer: 5
-  m_Name: Restart
+  m_Name: Test 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1577,7 +1508,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -460.24203}
-  m_SizeDelta: {x: 162.6093, y: 44.357}
+  m_SizeDelta: {x: 126.32, y: 44.357}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7448201024374557910
 CanvasRenderer:
@@ -1683,18 +1614,6 @@ MonoBehaviour:
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: KeyboardEnter
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1683116684548966316}
-        m_TargetAssemblyTypeName: ILOVEYOU.Management.MenuPopUp, Assembly-CSharp
-        m_MethodName: Restart
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &3799387705983275931
