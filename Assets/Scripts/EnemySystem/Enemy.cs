@@ -250,9 +250,12 @@ namespace ILOVEYOU
             public virtual void DeathTimeout()
             {
                 m_onDeathTimeout.Invoke();
-                m_dp.Play();
-                GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
-                Destroy(gameObject, m_dp.main.duration);
+                if (m_dp)
+                {
+                    m_dp.Play();
+                    GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+                }
+                Destroy(gameObject, m_dp ? m_dp.main.duration : 0);
             }
 
             public virtual void PlaySound(string group)
