@@ -377,6 +377,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5678987047097959898, guid: b8b68dced8f261145a816488c52f3218, type: 3}
+      propertyPath: m_firstSelected
+      value: 
+      objectReference: {fileID: 6992311043962969094}
+    - target: {fileID: 6312558181859174437, guid: b8b68dced8f261145a816488c52f3218, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -606
+      objectReference: {fileID: 0}
     - target: {fileID: 6939456417287439238, guid: b8b68dced8f261145a816488c52f3218, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -450,7 +458,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 341257248457092800, guid: b8b68dced8f261145a816488c52f3218, type: 3}
   m_PrefabInstance: {fileID: 3418222127941946234}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6992311043962969094}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -459,6 +467,11 @@ MonoBehaviour:
 --- !u!1 &3536509323339724513 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2196563185154751899, guid: b8b68dced8f261145a816488c52f3218, type: 3}
+  m_PrefabInstance: {fileID: 3418222127941946234}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6992311043962969094 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5649303056331315068, guid: b8b68dced8f261145a816488c52f3218, type: 3}
   m_PrefabInstance: {fileID: 3418222127941946234}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &7034664722742742688 stripped
