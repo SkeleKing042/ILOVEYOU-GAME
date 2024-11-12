@@ -140,7 +140,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     AllowWithBoss: 1
-    CurrentChance: 0
+    CurrentChance: 1
   - DisruptCard: {fileID: 4827626793003550405, guid: 9445586d2e239764abe3ce16ee0270f0, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -302,7 +302,7 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0
+    CurrentChance: 1
   - DisruptCard: {fileID: 4248793250358130411, guid: fdbefdc97ddd78643ad6c91b7b376199, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -386,7 +386,7 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0.3809814
+    CurrentChance: 0.25679865
   - DisruptCard: {fileID: 3063484218868929400, guid: 80f3a9c1d8a308a43a2a9b8d3f078461, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -517,7 +517,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 0
-    AllowWithBoss: 0
+    AllowWithBoss: 1
     CurrentChance: 1
   m_playerHealth: 15
   m_iframes: 1
