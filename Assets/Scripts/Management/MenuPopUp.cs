@@ -43,6 +43,11 @@ namespace ILOVEYOU.Management
             GameManager.Instance.LoadScene(scene);
         }
 
+        public void Restart()
+        {
+            GameManager.Instance.RestartScene();
+        }
+
         public void Resume()
         {
             GameManager.Instance.ResumeGame();
