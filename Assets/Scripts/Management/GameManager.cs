@@ -405,6 +405,7 @@ namespace ILOVEYOU
                 foreach (LevelManager levelMan in m_levelManagers)
                 {
                     levelMan.GetPlayer.Pause(m_paused);
+                    levelMan.GetPlayer.GetControls.Zero();
                 }
             }
 

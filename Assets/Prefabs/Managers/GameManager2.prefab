@@ -164,7 +164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 643172651196288964, guid: b8b68dced8f261145a816488c52f3218, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -44.782997
+      value: -44.78299
       objectReference: {fileID: 0}
     - target: {fileID: 2989163857307243080, guid: b8b68dced8f261145a816488c52f3218, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -176,11 +176,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3246534565570294371, guid: b8b68dced8f261145a816488c52f3218, type: 3}
       propertyPath: m_text
-      value: 
+      value: \
       objectReference: {fileID: 0}
     - target: {fileID: 3246534565570294371, guid: b8b68dced8f261145a816488c52f3218, type: 3}
       propertyPath: m_fontSize
-      value: 18
+      value: 44.75
       objectReference: {fileID: 0}
     - target: {fileID: 3246534565764684772, guid: b8b68dced8f261145a816488c52f3218, type: 3}
       propertyPath: m_AnchorMax.y
@@ -221,6 +221,18 @@ PrefabInstance:
     - target: {fileID: 3246534565764684773, guid: b8b68dced8f261145a816488c52f3218, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RestartScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246534566509413104, guid: b8b68dced8f261145a816488c52f3218, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246534566509413104, guid: b8b68dced8f261145a816488c52f3218, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246534566509413104, guid: b8b68dced8f261145a816488c52f3218, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 3246534566703541816, guid: b8b68dced8f261145a816488c52f3218, type: 3}
       propertyPath: m_IsActive
