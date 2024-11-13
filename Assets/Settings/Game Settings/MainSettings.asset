@@ -74,7 +74,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     AllowWithBoss: 1
-    CurrentChance: 1
+    CurrentChance: 0.5
   - DisruptCard: {fileID: 2943384210519268959, guid: 313118f0d262fc64090349f7082b78b9, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -140,7 +140,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     AllowWithBoss: 1
-    CurrentChance: 1
+    CurrentChance: 0.27098483
   - DisruptCard: {fileID: 4827626793003550405, guid: 9445586d2e239764abe3ce16ee0270f0, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -302,7 +302,7 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 1
+    CurrentChance: 0.54196966
   - DisruptCard: {fileID: 4248793250358130411, guid: fdbefdc97ddd78643ad6c91b7b376199, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -386,7 +386,7 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0.25679865
+    CurrentChance: 0.24324296
   - DisruptCard: {fileID: 3063484218868929400, guid: 80f3a9c1d8a308a43a2a9b8d3f078461, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -443,7 +443,7 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 1
+    CurrentChance: 1.0050939
   - DisruptCard: {fileID: 938783057243066637, guid: 27302251ee741cb49851d9d5a55fb851, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -506,19 +506,19 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 2
-        outSlope: 2
+        time: 0.8
+        value: 2
+        inSlope: 6.164538
+        outSlope: 6.164538
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.049874336
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 0
-    AllowWithBoss: 1
-    CurrentChance: 1
+    AllowWithBoss: 0
+    CurrentChance: 0.007958369
   m_playerHealth: 15
   m_iframes: 1
   m_playerSpeed: 10
