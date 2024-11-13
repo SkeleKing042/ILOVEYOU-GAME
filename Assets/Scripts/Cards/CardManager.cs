@@ -13,11 +13,15 @@ namespace ILOVEYOU
         public class CardData
         {
             public DisruptCard DisruptCard;
+            [Tooltip("The chance of a card dropping over the round time")]
             public AnimationCurve ChanceOverTime;
+            [Tooltip("The chance of a card dropping over the enemy count of the calling object.\nUnseen AI will take the average of all other players' enemy counts instead.")]
             public AnimationCurve ChanceOverEnemyCount;
+            [Tooltip("The chacne of a card dropping over the health differene of the calling object to the other players.\nUnseen AI will just use the average health of all players instead.")]
             public AnimationCurve ChanceOverHealthDelta;
+            [Tooltip("If this card can drop when other player have a boss.")]
             public bool AllowWithBoss = true;
-            [HideInInspector] public float CurrentChance;
+            public float CurrentChance { get; private set; }
 
             public float GenerateChance(PlayerManager player)
             {
