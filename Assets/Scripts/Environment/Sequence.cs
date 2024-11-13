@@ -1,6 +1,5 @@
 using ILOVEYOU.Player;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -59,7 +58,7 @@ namespace ILOVEYOU
                     if(!point)
                     {
                         //...add it
-                        point = segment.AddComponent<SequencePoint>();
+                        segment.gameObject.AddComponent<SequencePoint>();
                     }
                     //Attempt to initialise the point
                     if (!point.Init(AttemptProgress))

@@ -1,11 +1,15 @@
+using ILOVEYOU.Cards;
+using ILOVEYOU.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestCard : MonoBehaviour
+public class TestCard : DisruptCard
 {
-    public void ExecuteEvents()
+    public override void ExecuteEvents(PlayerManager caller)
     {
+        base.ExecuteEvents(caller);
+
         Debug.Log("Effect executed");
     }
 }

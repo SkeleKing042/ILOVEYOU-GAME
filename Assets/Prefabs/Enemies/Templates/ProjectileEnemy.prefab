@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2293750798486704578, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
+      propertyPath: m_Radius
+      value: 1.6
+      objectReference: {fileID: 0}
     - target: {fileID: 720666407426655038, guid: afe561fcf75b7fd45bb0093fd4102aa4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -79,10 +83,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81aa91e54e5278c46b51b358df6b0086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 1
   m_damage: 1
-  m_health: 10
+  m_maxHealth: 1
+  m_deathTimeout: 10
   m_distanceCondition: 10
+  m_canBeStunned: 1
+  m_obscureMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_ignoreSight: 1
+  m_offscrenDespawnTime: 5
+  m_screenSizeBuffer: {x: 0, y: 0}
+  m_shouldRespawn: 0
+  m_repathTimes: {x: 0.2, y: 0.5}
 --- !u!114 &8038948517180347969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,3 +112,8 @@ MonoBehaviour:
   m_isPlayer: 0
   m_fireSpeedMulti: 1
   m_damageMulti: 1
+  m_muzzleFlash: {fileID: 0}
+  m_flashTime: 0
+  m_onBulletFire:
+    m_PersistentCalls:
+      m_Calls: []
