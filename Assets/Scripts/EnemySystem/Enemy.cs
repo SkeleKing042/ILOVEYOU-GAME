@@ -17,6 +17,7 @@ namespace ILOVEYOU
             [SerializeField] protected float m_maxHealth = 1f;
             public float GetSetMaxHealth { get { return m_maxHealth; } set { m_maxHealth = value; } }
             protected float m_currentHealth = 1f;
+            public float GetCurrentHealth => m_currentHealth;
             [SerializeField] protected float m_deathTimeout = 10f;
             [SerializeField] protected float m_distanceCondition = 1f;
             [SerializeField] protected bool m_canBeStunned = false;
@@ -250,9 +251,12 @@ namespace ILOVEYOU
             public virtual void DeathTimeout()
             {
                 m_onDeathTimeout.Invoke();
-                m_dp.Play();
-                GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
-                Destroy(gameObject, m_dp.main.duration);
+                if (m_dp)
+                {
+                    m_dp.Play();
+                    GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+                }
+                Destroy(gameObject, m_dp ? m_dp.main.duration : 0);
             }
 
             public virtual void PlaySound(string group)

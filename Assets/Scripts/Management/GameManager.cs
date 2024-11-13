@@ -39,6 +39,7 @@ namespace ILOVEYOU
                 }
                 else
                 {
+                    CardManager.UpdateChances(GameSettings.Current.GetUnseenCards);
                     CardManager.GetRandomCard(GameSettings.Current.GetUnseenCards).ExecuteEvents(null);
                     m_countdown = GameSettings.Current.GetUnseenCardRate;
                 }

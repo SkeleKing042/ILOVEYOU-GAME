@@ -13,59 +13,70 @@ namespace ILOVEYOU
         public class CardData
         {
             public DisruptCard DisruptCard;
+            [Tooltip("The chance of a card dropping over the round time")]
             public AnimationCurve ChanceOverTime;
+            [Tooltip("The chance of a card dropping over the enemy count of the calling object.\nUnseen AI will take the average of all other players' enemy counts instead.")]
             public AnimationCurve ChanceOverEnemyCount;
+            [Tooltip("The chacne of a card dropping over the health differene of the calling object to the other players.\nUnseen AI will just use the average health of all players instead.")]
             public AnimationCurve ChanceOverHealthDelta;
+            [Tooltip("If this card can drop when other player have a boss.")]
             public bool AllowWithBoss = true;
-            [HideInInspector] public float CurrentChance;
+            public float CurrentChance { get; private set; }
 
             public float GenerateChance(PlayerManager player)
             {
-                float[] chances = new float[3];
-                //Chances if called from player
-                if (player)
-                {
-                    //Check if this card can be used with a boss while its active...
-                    foreach (var other in GameManager.Instance.GetOtherPlayers(player))
-                    {
-                        if (BossEnemy.Instances[other.GetPlayerID] != null && !AllowWithBoss)
-                        {
-                            //...if not, set the chance to 0
-                            return CurrentChance = 0;
-                        }
-                    }
+                //Get all the other players
+                PlayerManager[] others = GameManager.Instance.GetOtherPlayers(player);
 
-                    //Create an array for the values used to find the chance.
-                    //Get the game time compared to max diffculty
-                    chances[0] = ChanceOverTime.Evaluate(GameManager.Instance.PercentToMaxDiff);
-                    //Get the percent of enemies on this players side
-                    chances[1] = ChanceOverEnemyCount.Evaluate(player.GetLevelManager.GetSpawner.PercentToMaxEnemies);
-                    //Get the health difference between this and the other player.
-                    float averageHealth = 0;
-                    //Average the other players' health values
-                    PlayerManager[] others = GameManager.Instance.GetOtherPlayers(player);
-                    for (int i = 0; i < others.Length; i++)
+                //fails if any other player has the boss active.
+                if(!AllowWithBoss)
+                foreach(var p in others)
+                {
+                    if (BossEnemy.Instances[p.GetPlayerID] != null && BossEnemy.Instances[p.GetPlayerID].GetCurrentHealth > 0)
                     {
-                        averageHealth += others[i].GetControls.GetHealthPercent;
+                        return CurrentChance = 0;
                     }
-                    averageHealth /= others.Length;
-                    chances[2] = ChanceOverHealthDelta.Evaluate(Mathf.Clamp(averageHealth - player.GetControls.GetHealthPercent, 0, 1));
                 }
+
+                float[] chances = new float[3];
+
+                //Get the current difficulty
+                chances[0] = ChanceOverTime.Evaluate(GameManager.Instance.PercentToMaxDiff);
+                
+                //Get the current enemy count
+                if(player != null)
+                {
+                    chances[1] = ChanceOverEnemyCount.Evaluate(player.GetLevelManager.GetSpawner.PercentToMaxEnemies);
+                }
+                //If there is no player manager, get the average enemy count of the other player.
                 else
                 {
-                    PlayerManager[] others = GameManager.Instance.GetOtherPlayers(null);
-                    foreach(var other in others)
+                    float sum = 0;
+                    foreach(var p in others)
                     {
-                        if (BossEnemy.Instances[other.GetPlayerID] != null && !AllowWithBoss)
-                        {
-                            return CurrentChance = 0;
-                        }
+                        sum += p.GetLevelManager.GetSpawner.PercentToMaxEnemies;
                     }
-                    chances[0] = ChanceOverTime.Evaluate(GameManager.Instance.PercentToMaxDiff);
-                    chances[1] = 1;
-                    chances[2] = 1;
+                    chances[1] = sum / others.Length;
                 }
 
+                //Get the average health for all other players
+                float healthSum = 0;
+                foreach(var p in others)
+                {
+                    healthSum += p.GetControls.GetHealthPercent;
+                }
+                healthSum /= others.Length;
+
+                //Compare this health average to the caller's current health.
+                if(player != null)
+                {
+                    chances[2] = ChanceOverHealthDelta.Evaluate(Mathf.Clamp(healthSum - player.GetControls.GetHealthPercent, 0, 1));
+                }
+                //If there is no caller, just use the average health.
+                else
+                {
+                    chances[2] = ChanceOverHealthDelta.Evaluate(healthSum);
+                }
 
                 //Mult all the chance values for the final result
                 float result = 1;
@@ -110,6 +121,8 @@ namespace ILOVEYOU
 
                 //Make a new array for the requested cards
                 List<DisruptCard> selectedCards = new();
+                //Update the chances of the cards dropping
+                UpdateChances(GameSettings.Current.GetCardData, player);
                 //Get enough cards
                 for (int c = 0; c < count; c++)
                 {
@@ -150,17 +163,21 @@ namespace ILOVEYOU
                 m_onDispenseCard.Invoke();
                 return cards;
             }
+            static public CardData[] UpdateChances(CardData[] array, PlayerManager player = null)
+            {
+                foreach (var data in array)
+                {
+                    data.GenerateChance(player);
+                }
+                return array;
+            }
             static public DisruptCard GetRandomCard(CardData[] array, int attempts = 100)
             {
-                foreach(var data in array)
-                {
-                    data.GenerateChance(null);
-                }
                 for (int i = attempts; i > 0; i--)
                 {
-
                     float rndChance = Random.Range(0.00f, 1.00f);
                     int rndCard = Random.Range(0, array.Length);
+                    Debug.Log($"Pulled card at index {rndCard}");
                     if (array[rndCard].CurrentChance >= rndChance)
                         return array[rndCard].DisruptCard;
                 }
