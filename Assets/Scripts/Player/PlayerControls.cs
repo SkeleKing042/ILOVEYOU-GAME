@@ -238,6 +238,7 @@ namespace ILOVEYOU
             {
                 m_moveDir = Vector3.zero;
                 m_rb.velocity = Vector3.zero;
+                m_aimDir = Vector3.zero;
                 m_anim.SetFloat("moveX", 0f);
                 m_anim.SetFloat("moveZ", 0f);
                 m_anim.SetBool("Shooting", false);
