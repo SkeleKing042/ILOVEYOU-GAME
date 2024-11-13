@@ -19,7 +19,7 @@ namespace ILOVEYOU
             protected int m_pierce; // how many time a bullet can go through a target
             protected float m_lifeTime; // how long the projectile lasts in seconds
             protected bool m_isFriendly; // if the projectile has been shot by the player (might not need this)
-
+            public bool IsFriendly { get { return m_isFriendly; } }
 
             private void FixedUpdate()
             {
