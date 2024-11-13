@@ -100,15 +100,6 @@ namespace ILOVEYOU
             public bool Startup()
             {
                 Debug.Log($"Starting {this}.");
-                //Check the cards for issues
-                foreach (CardData card in GameSettings.Current.GetCardData)
-                {
-                    //possible missing parts
-                    if (card.DisruptCard.GetComponents(typeof(Component)).Length < 3)
-                    {
-                        Debug.LogWarning($"{card} might be missing an effect. Please make sure there is a script attached to the same object as the \"DisruptCardBase\" script, and that it has a function called \"ExecuteEvents\"");
-                    }
-                }
 
                 //passed
                 Debug.Log($"{this} started successfully.");

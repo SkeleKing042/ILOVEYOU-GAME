@@ -199,7 +199,7 @@ namespace ILOVEYOU
                 if (NumberOfPlayers >= 2)
                 {
 
-                    if (m_debugging) Debug.Log("There's enough players, starting game.");
+                    Debug.Log("There's enough players, starting game.");
                     m_mainMenuUI.SetActive(false);
                     m_InGameSharedUI.SetActive(true);
                     foreach (LevelManager manager in m_levelManagers)
@@ -209,7 +209,7 @@ namespace ILOVEYOU
                 }
                 else
                 {
-                    if (m_debugging) Debug.Log("There aren't enough players");
+                    Debug.Log("There aren't enough players");
                     m_onStartError.Invoke();
                 }
             }*/
