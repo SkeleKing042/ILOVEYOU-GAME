@@ -65,6 +65,8 @@ namespace ILOVEYOU
                     m_playMan.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
                 m_playMan.transform.SetParent(transform);
 
+                player.GetComponent<PlayerControls>().GetPlayerAnimator.SetInteger("Player", (int)index);
+
                 //Setup the hazard manager
                 if (m_debugging) Debug.Log("Getting HazardManager");
                 m_hazMan = GetComponent<HazardManager>();

@@ -24,7 +24,10 @@ namespace ILOVEYOU
             [SerializeField] private category m_cardType;
             private Color m_color;
             [SerializeField] private bool m_effectSelf;
+            public bool DoesEffectSelf => m_effectSelf;
             [SerializeField] private Image m_cardFace;
+            [SerializeField] private GameObject[] m_particleEffects;
+            [SerializeField] private GameObject[] m_selfParticleEffects;
             void Awake()
             {
                 string key = $"{m_cardType} color";
@@ -51,9 +54,16 @@ namespace ILOVEYOU
                         foreach(PlayerManager others in GameManager.Instance.GetOtherPlayers(caller))
                         {
                             others.GetUI.GetCardVin.FlashIn(m_color);
+                            if(m_particleEffects.Length > 0)
+                            {
+                                ParticleSpawner.SpawnParticles(m_particleEffects, others.transform);
+                            }
                         }
                         break;
                 }
+
+                if(m_selfParticleEffects.Length > 0)
+                    ParticleSpawner.SpawnParticles(m_selfParticleEffects, caller.transform);
             }
         }
     }

@@ -28,6 +28,7 @@ namespace ILOVEYOU
             private float m_iframesCurrent;
             [SerializeField] private Animator m_anim; //animator should be located on the player model
             public Animator GetPlayerAnimator { get { return m_anim; } }
+            [SerializeField] private Renderer[] m_characterRenderers;
 
             [Header("Movement")]
             private float m_moveSpeed;
@@ -72,7 +73,7 @@ namespace ILOVEYOU
             /// <param name="contextText">what display for the context text</param>
             public void SetContext(ContextPress context, int priority, string contextText)
             {
-                if (priority > m_contextPriority && context != m_contextPress) { m_contextPress = context; m_contextText.text = contextText; }
+                if (priority > m_contextPriority && context != m_contextPress) { m_contextText.gameObject.SetActive(true); m_contextPress = context; m_contextText.text = contextText; }
             }
             //possible TODO: think about perhaps having multiple context actions at once
             /// <summary>
@@ -115,6 +116,11 @@ namespace ILOVEYOU
                 return true;
             }
 
+            public void SetMaterial(Material[] materials)
+            {
+                m_characterRenderers[0].material = materials[0];
+                m_characterRenderers[1].material = materials[1];
+            }
 
             /// <summary>
             /// Changes a stat
@@ -217,6 +223,14 @@ namespace ILOVEYOU
                 //Debug.Log("HEwwo!!!!");
                 m_contextPress?.Invoke();
             }
+
+            public void OnJoin(InputValue value)
+            {
+                if (!enabled) return;
+
+                GameManager.Instance.PauseGame();
+                //Debug.Log("Paused!");
+            }
             /// <summary>
             /// zeros out player movement
             /// </summary>
@@ -257,14 +271,15 @@ namespace ILOVEYOU
                 m_plaMa.GetUI.UpdateHealthBar(current);
             }
 
-            public void BulletShoot()
+            public void PlaySound(string name)
             {
-                SoundManager.SFX.PlayRandomSound("PlayerShoot");
+                SoundManager.SFX.PlayRandomSound(name);
             }
 
             private void OnDrawGizmos()
             {
 #if UNITY_EDITOR
+                if(m_facingObject)
                 {
                     Gizmos.color = Color.red;
 

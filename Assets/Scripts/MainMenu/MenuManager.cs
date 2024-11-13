@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 namespace ILOVEYOU.MainMenu
@@ -15,7 +16,7 @@ namespace ILOVEYOU.MainMenu
 
         [SerializeField] private TextMeshProUGUI m_inputField;
         private TypeWriterEffect m_effect;
-        private EventSystem m_eventSystem;
+        private MultiplayerEventSystem m_eventSystem;
 
         [SerializeField] private GameObject[] m_menuObjects;
         [SerializeField] private GameObject[] m_mainMenuButtons;
@@ -38,7 +39,7 @@ namespace ILOVEYOU.MainMenu
             if(!SoundManager.Environment.IsPlaying(100)) SoundManager.Environment.PlaySoundLoop("ComputerStartUp", 1, 100);
 
             m_effect = GetComponent<TypeWriterEffect>();
-            m_eventSystem = GetComponent<EventSystem>();
+            m_eventSystem = GetComponent<MultiplayerEventSystem>();
 
             for (int i = 0; i < ControllerManager.Instance.ControllerCount && i < m_joinText.Length; i++)
             {
@@ -51,7 +52,7 @@ namespace ILOVEYOU.MainMenu
 
         public void ButtonPressed(int selection)
         {
-            if (selection == 0 && ControllerManager.Instance.ControllerCount < 2) return;
+            if (selection == 0 && ControllerManager.Instance.ControllerCount < 1) return;
 
             foreach (GameObject obj in m_mainMenuButtons)
             {
