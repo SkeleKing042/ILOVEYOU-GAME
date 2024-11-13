@@ -261,6 +261,7 @@ namespace ILOVEYOU
                 //disables player movement and enemy spawner
                 foreach (var levelPlayer in m_levelManagers)
                 {
+                    levelPlayer.GetPlayer.GetUI.GetBlindBox.EndPopups(); //clear popups
                     levelPlayer.GetSpawner.DestroyAllEnemies();
                     levelPlayer.GetSpawner.enabled = false;
                     levelPlayer.GetPlayer.GetControls.Zero();
