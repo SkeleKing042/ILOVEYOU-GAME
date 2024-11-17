@@ -199,7 +199,7 @@ namespace ILOVEYOU
                 if (NumberOfPlayers >= 2)
                 {
 
-                    if (m_debugging) Debug.Log("There's enough players, starting game.");
+                    Debug.Log("There's enough players, starting game.");
                     m_mainMenuUI.SetActive(false);
                     m_InGameSharedUI.SetActive(true);
                     foreach (LevelManager manager in m_levelManagers)
@@ -209,7 +209,7 @@ namespace ILOVEYOU
                 }
                 else
                 {
-                    if (m_debugging) Debug.Log("There aren't enough players");
+                    Debug.Log("There aren't enough players");
                     m_onStartError.Invoke();
                 }
             }*/
@@ -262,6 +262,7 @@ namespace ILOVEYOU
                 //disables player movement and enemy spawner
                 foreach (var levelPlayer in m_levelManagers)
                 {
+                    levelPlayer.GetPlayer.GetUI.GetBlindBox.EndPopups(); //clear popups
                     levelPlayer.GetSpawner.DestroyAllEnemies();
                     levelPlayer.GetSpawner.enabled = false;
                     levelPlayer.GetPlayer.GetControls.Zero();
@@ -406,6 +407,7 @@ namespace ILOVEYOU
                 foreach (LevelManager levelMan in m_levelManagers)
                 {
                     levelMan.GetPlayer.Pause(m_paused);
+                    levelMan.GetPlayer.GetControls.Zero();
                 }
             }
 

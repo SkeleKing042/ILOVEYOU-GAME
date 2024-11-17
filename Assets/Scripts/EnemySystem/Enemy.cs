@@ -254,7 +254,10 @@ namespace ILOVEYOU
                 if (m_dp)
                 {
                     m_dp.Play();
-                    GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+                    foreach(var smr in GetComponentsInChildren<SkinnedMeshRenderer>())
+                    {
+                        smr.enabled = false;
+                    }
                 }
                 Destroy(gameObject, m_dp ? m_dp.main.duration : 0);
             }

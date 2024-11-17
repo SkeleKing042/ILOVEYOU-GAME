@@ -41,7 +41,7 @@ namespace ILOVEYOU
             /// <returns></returns>
             public bool Startup(GameObject player, uint index)
             {
-                if (m_debugging) Debug.Log($"Starting {this}.");
+                Debug.Log($"Starting {this}.");
 
                 //setup name and position
                 gameObject.name = $"Level {index}";
@@ -50,7 +50,7 @@ namespace ILOVEYOU
                 GetComponent<NavMeshSurface>().BuildNavMesh();
 
                 //player setup
-                if (m_debugging) Debug.Log("Initalizing player.");
+                Debug.Log("Initalizing player.");
                 m_playMan = player.GetComponent<PlayerManager>();
                 if (!player.GetComponent<PlayerManager>().Startup(this, index))
                 {
@@ -68,7 +68,7 @@ namespace ILOVEYOU
                 player.GetComponent<PlayerControls>().GetPlayerAnimator.SetInteger("Player", (int)index);
 
                 //Setup the hazard manager
-                if (m_debugging) Debug.Log("Getting HazardManager");
+                Debug.Log("Getting HazardManager");
                 m_hazMan = GetComponent<HazardManager>();
                 if (!m_hazMan.Startup())
                 {
@@ -82,7 +82,7 @@ namespace ILOVEYOU
                 m_parSper = GetComponent<ParticleSpawner>();
 
                 //Get EnemySpawner
-                if (m_debugging) Debug.Log("Getting enemy spawnner.");
+                Debug.Log("Getting enemy spawnner.");
                 m_enSper = m_playMan.GetComponent<EnemySpawner>();
                 if (!m_enSper.Initialize())
                 {
@@ -92,7 +92,7 @@ namespace ILOVEYOU
                 }
 
                 //passed
-                if (m_debugging) Debug.Log($"{this} started successfully.");
+                Debug.Log($"{this} started successfully.");
                 return true;
             }
             /// <summary>
@@ -103,9 +103,9 @@ namespace ILOVEYOU
             /// <returns></returns>
             /*public bool ReadyPlayer(int index, PlayerInput input)
             {
-                if (m_debugging) Debug.Log($"A player has joined, begin preperation.");
+                Debug.Log($"A player has joined, begin preperation.");
 
-                if (m_debugging) Debug.Log($"Getting player manager.");
+                Debug.Log($"Getting player manager.");
                 //get PlayerManager
                 m_playMan = input.GetComponent<PlayerManager>();
 
@@ -124,7 +124,7 @@ namespace ILOVEYOU
                 }
 
 
-                if (m_debugging) Debug.Log("Getting enemy spawnner.");
+                Debug.Log("Getting enemy spawnner.");
                 //Get EnemySpawner
                 m_enSper = input.GetComponent<EnemySpawner>();
 
@@ -142,10 +142,10 @@ namespace ILOVEYOU
                     return false;
                 }
 
-                if (m_debugging) Debug.Log("Getting point tracker.");
+                Debug.Log("Getting point tracker.");
                 m_pointTracker = GetComponentInChildren<PointFollower>();
 
-                if (m_debugging) Debug.Log("Setting up point tracker");
+                Debug.Log("Setting up point tracker");
                 if(m_pointTracker == null)
                 {
                     Debug.LogWarning("AI tracker not found.");
@@ -156,7 +156,7 @@ namespace ILOVEYOU
                 }
                 m_playMan.GetComponentInChildren<PointerArrow>().Target = m_pointTracker.transform;
 
-                if (m_debugging) Debug.Log($"Player {index + 1} has joined.");
+                Debug.Log($"Player {index + 1} has joined.");
 
                 m_playMan.GetTaskManager.AddTask(new(TaskType.Area, 5));
 

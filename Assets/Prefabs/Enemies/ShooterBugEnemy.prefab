@@ -12,6 +12,22 @@ PrefabInstance:
       value: Disentergate
       objectReference: {fileID: 0}
     - target: {fileID: 4386381510256487379, guid: 416ebe538cea6984b92a7f054fbb72f3, type: 3}
+      propertyPath: ShapeModule.type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4386381510256487379, guid: 416ebe538cea6984b92a7f054fbb72f3, type: 3}
+      propertyPath: ShapeModule.m_Position.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4386381510256487379, guid: 416ebe538cea6984b92a7f054fbb72f3, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4386381510256487379, guid: 416ebe538cea6984b92a7f054fbb72f3, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4386381510256487379, guid: 416ebe538cea6984b92a7f054fbb72f3, type: 3}
       propertyPath: ShapeModule.m_SkinnedMeshRenderer
       value: 
       objectReference: {fileID: 0}
@@ -232,7 +248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ba1f3185939df8442815203c596db299, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.358
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ba1f3185939df8442815203c596db299, type: 3}
       propertyPath: m_LocalPosition.z
@@ -269,6 +285,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ba1f3185939df8442815203c596db299, type: 3}
       propertyPath: m_Name
       value: ShootingEnemy_MOD
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ba1f3185939df8442815203c596db299, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba1f3185939df8442815203c596db299, type: 3}
