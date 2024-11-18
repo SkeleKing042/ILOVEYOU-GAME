@@ -92,7 +92,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     AllowWithBoss: 1
-    CurrentChance: 0.27251357
   - DisruptCard: {fileID: 5968024172544978597, guid: dd03823435310a842942d5075241ee54, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -149,7 +148,7 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 1.0002358
+  m_allowDoubleUps: 1
   m_playerHealth: 15
   m_iframes: 1
   m_playerSpeed: 10
@@ -230,7 +229,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     AllowWithBoss: 0
-    CurrentChance: 0
   - DisruptCard: {fileID: 181290029558229270, guid: 9f9523a3d21be474cb358c337e57258b, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -305,7 +303,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0
   - DisruptCard: {fileID: 4827626793003550405, guid: 9445586d2e239764abe3ce16ee0270f0, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -380,7 +377,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0
   - DisruptCard: {fileID: 7919094890916979554, guid: faf10d97288fc92429c79b3f30529f8b, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -455,7 +451,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0
   - DisruptCard: {fileID: 4248793250358130411, guid: fdbefdc97ddd78643ad6c91b7b376199, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -530,7 +525,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0
   m_unseenRate: 10
   m_knockbackWindow: 0.1
   m_knockbackStrength: {x: 10, y: 1}

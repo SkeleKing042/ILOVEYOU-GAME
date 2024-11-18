@@ -43,6 +43,8 @@ namespace ILOVEYOU.Management
         [Tooltip("RNG table for cards. The Chances get combined into an average.")]
         [SerializeField] private CardData[] m_cardData = new CardData[2];
         public CardData[] GetCardData => m_cardData;
+        [SerializeField] private bool m_allowDoubleUps = false;
+        public bool DoAllowDoubleUps => m_allowDoubleUps;
 
         //[Header("Player")]
         [SerializeField] private float m_playerHealth = 15f;
