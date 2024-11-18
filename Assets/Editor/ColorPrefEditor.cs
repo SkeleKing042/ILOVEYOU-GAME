@@ -36,6 +36,7 @@ namespace ILOVEYOU.EditorScript
             keys.Add("Hazard color");
             keys.Add("Summon color");
 
+            Label InfoText = new Label("Opening this window will not allow for updates from a settings asset.");
             foreach(var color in keys)
             {
                 Label name = new(color);
