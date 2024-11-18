@@ -191,14 +191,7 @@ namespace ILOVEYOU
                 m_moveDir = new Vector3(m_moveDir.x, 0, m_moveDir.y);
                 //Debug.Log($"Moving {gameObject} by {m_moveDir}.");
 
-                //Converts movement into angle
-                float moveAngle = Mathf.Rad2Deg * Mathf.Atan2(m_moveDir.x, m_moveDir.z);
-                //gets quaternions to convert to vectors
-                Quaternion moveQ = Quaternion.Euler(0f, moveAngle, 0f);
-                Quaternion shotQ = m_facingObject.rotation;
-                //sets required animation variables
-                m_anim.SetFloat("moveX", (moveQ * Quaternion.Inverse(shotQ) * Vector3.forward * m_moveDir.magnitude).x);
-                m_anim.SetFloat("moveZ", (moveQ * Quaternion.Inverse(shotQ) * Vector3.forward * m_moveDir.magnitude).z);
+                UpdateAnimator();
             }
             public void OnFire(InputValue value)
             {
@@ -217,7 +210,25 @@ namespace ILOVEYOU
                 Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
                 m_facingObject.transform.rotation = rotation;
                 //m_playerModel.transform.rotation = rotation;
+
+                UpdateAnimator();
             }
+
+            /// <summary>
+            /// updates the player animator for movement
+            /// </summary>
+            private void UpdateAnimator()
+            {
+                //Converts movement into angle
+                float moveAngle = Mathf.Rad2Deg * Mathf.Atan2(m_moveDir.x, m_moveDir.z);
+                //gets quaternions to convert to vectors
+                Quaternion moveQ = Quaternion.Euler(0f, moveAngle, 0f);
+                Quaternion shotQ = m_facingObject.rotation;
+                //sets required animation variables
+                m_anim.SetFloat("moveX", (moveQ * Quaternion.Inverse(shotQ) * Vector3.forward * m_moveDir.magnitude).x);
+                m_anim.SetFloat("moveZ", (moveQ * Quaternion.Inverse(shotQ) * Vector3.forward * m_moveDir.magnitude).z);
+            }
+
             public void OnContextButton(InputValue value)
             {
                 //Debug.Log("HEwwo!!!!");
