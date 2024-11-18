@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 namespace ILOVEYOU
 {
+    using ILOVEYOU.Audio;
     using ILOVEYOU.UI;
     using Management;
     using UnityEngine.UI;
@@ -28,6 +29,7 @@ namespace ILOVEYOU
             [SerializeField] private Image m_cardFace;
             [SerializeField] private GameObject[] m_particleEffects;
             [SerializeField] private GameObject[] m_selfParticleEffects;
+            [SerializeField] private string m_soundToPlay = "CardSelect";
             void Awake()
             {
                 string key = $"{m_cardType} color";
@@ -44,6 +46,11 @@ namespace ILOVEYOU
             }
             public virtual void ExecuteEvents(PlayerManager caller)
             {
+                if (m_soundToPlay != null || m_soundToPlay != "")
+                {
+                    SoundManager.SFX.PlayRandomSound(m_soundToPlay);
+                }
+
                 //This function is called by a button on click event, a script with this function should be attached to the same gameobject as this script
                 switch (m_effectSelf)
                 {
