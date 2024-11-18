@@ -39,7 +39,7 @@ namespace ILOVEYOU
                         }
                     }
                     //lerps sphere size so it looks cool or something
-                    transform.GetChild(0).localScale = Vector3.Lerp(transform.GetChild(0).localScale, new(m_radius * 2f, m_radius * 2f, m_radius * 2f), Time.deltaTime * m_transSpeed);
+                    //transform.GetChild(0).localScale = Vector3.Lerp(transform.GetChild(0).localScale, new(m_radius * 2f, m_radius * 2f, m_radius * 2f), Time.deltaTime * m_transSpeed);
                 }
             }
 
@@ -50,7 +50,7 @@ namespace ILOVEYOU
             {
                 StopAllCoroutines();
 
-                transform.GetChild(0).gameObject.SetActive(true);
+                //transform.GetChild(0).gameObject.SetActive(true);
                 m_enable = true;
             }
             /// <summary>
@@ -60,7 +60,7 @@ namespace ILOVEYOU
             {
                 StopAllCoroutines();
 
-                transform.GetChild(0).gameObject.SetActive(true);
+                //transform.GetChild(0).gameObject.SetActive(true);
                 m_radius = size;
                 m_enable = true;
             }
@@ -71,7 +71,7 @@ namespace ILOVEYOU
             {
                 StopAllCoroutines();
 
-                transform.GetChild(0).gameObject.SetActive(true);
+                //transform.GetChild(0).gameObject.SetActive(true);
                 m_radius = size;
                 m_damage = damage;
                 m_enable = true;
@@ -82,9 +82,9 @@ namespace ILOVEYOU
             public void Disable()
             {
                 m_enable = false;
-                StartCoroutine(_SmoothTransition());
+                //StartCoroutine(_SmoothTransition());
             }
-            /// <summary>
+            /*/// <summary>
             /// does a cool transition when disabling. Hides the visual effect when it reaches zero
             /// </summary>
             private IEnumerator _SmoothTransition()
@@ -100,7 +100,7 @@ namespace ILOVEYOU
                 transform.GetChild(0).gameObject.SetActive(false);
 
                 yield return null;
-            }
+            }*/
 
             private void OnDrawGizmosSelected()
             {
