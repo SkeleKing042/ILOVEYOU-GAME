@@ -16,6 +16,7 @@ namespace ILOVEYOU.EditorScript
         SerializedProperty m_cardCountProp;
         SerializedProperty m_cardTimeOutProp;
         SerializedProperty m_cardDataProp;
+        SerializedProperty m_doAllowDoubleProp;
         SerializedProperty m_playerHealthProp;
         SerializedProperty m_iFramesProp;
         SerializedProperty m_playerSpeedProp;
@@ -154,6 +155,7 @@ namespace ILOVEYOU.EditorScript
             m_cardCountProp = serializedObject.FindProperty("m_numberOfCardToGive");
             m_cardTimeOutProp = serializedObject.FindProperty("m_cardTimeOut");
             m_cardDataProp = serializedObject.FindProperty("m_cardData");
+            m_doAllowDoubleProp = serializedObject.FindProperty("m_allowDoubleUps");
             m_playerHealthProp = serializedObject.FindProperty("m_playerHealth");
             m_iFramesProp = serializedObject.FindProperty("m_iframes");
             m_playerSpeedProp = serializedObject.FindProperty("m_playerSpeed");
@@ -238,6 +240,7 @@ namespace ILOVEYOU.EditorScript
                     {
                         //EditorGUILayout.IntSlider(m_cardCountProp, 0, 3, new GUIContent("Card Cap"));
                         EditorGUILayout.PropertyField(m_cardTimeOutProp, new GUIContent("Card timeout"));
+                        EditorGUILayout.PropertyField(m_doAllowDoubleProp, new GUIContent("Allow double ups"));
                     }
                 }
             }
