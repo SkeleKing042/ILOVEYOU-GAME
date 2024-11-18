@@ -61,20 +61,26 @@ namespace ILOVEYOU.MainMenu
 
             switch (selection)
             {
-                //start game
+                //Start game
                 case 0:
                     m_effect.StartType(m_inputField, "run ILOVEYOU.exe", 12f, StartGame);
                     break;
-                //options
+                //Options
                 case 1:
                     m_effect.StartType(m_inputField, "open options.cfg", 12f, OptionsMenu);
                     break;
-                //about
+                //Controls
                 case 2:
+                    break;
+                //Codex
+                case 3:
+                    break;
+                //About
+                case 4:
                     m_effect.StartType(m_inputField, "open README.txt", 12f, CreditsMenu);
                     break;
                 //Quit
-                case 3:
+                case 5:
                     m_effect.StartType(m_inputField, "shutdown", 12f, Quit);
                     break;
                 default:
@@ -123,6 +129,8 @@ namespace ILOVEYOU.MainMenu
             m_menuObjects[0].SetActive(true);
             m_menuObjects[1].SetActive(false);
             m_menuObjects[2].SetActive(false);
+            m_menuObjects[3].SetActive(false);
+            m_menuObjects[4].SetActive(false);
 
             foreach (GameObject obj in m_mainMenuButtons)
             {
@@ -146,7 +154,7 @@ namespace ILOVEYOU.MainMenu
             m_eventSystem.enabled = true;
 
             m_menuObjects[0].SetActive(false); //disable default menu
-            m_menuObjects[2].SetActive(true); //enable credits menu
+            m_menuObjects[4].SetActive(true); //enable credits menu
             m_eventSystem.SetSelectedGameObject(m_optionSelect[2]);
         }
         /// <summary>
