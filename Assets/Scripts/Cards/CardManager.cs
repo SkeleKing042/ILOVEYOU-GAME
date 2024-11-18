@@ -107,72 +107,71 @@ namespace ILOVEYOU
             }
             public DisruptCard[] DispenseCards(int count, PlayerManager player)
             {
+                Debug.Log("Gathering cards");
                 //Clamp the number of possible cards
                 Mathf.Clamp(count, 1, GameSettings.Current.GetCardData.Length - 1);
 
-                //Make a new array for the requested cards
-                List<DisruptCard> selectedCards = new();
                 //Update the chances of the cards dropping
                 UpdateChances(GameSettings.Current.GetCardData, player);
-                //Get enough cards
-                for (int c = 0; c < count; c++)
-                {
-                    /*int rndCard = -1;
-                        float rndChance = -1;
-                        rndCard = Random.Range(0, GameSettings.Current.GetCardData.Length);
-                         rndChance = Random.Range(0.0f, 1.0f);
-                        if (!selectedCards.Contains(rndCard) && GameSettings.Current.GetCardData[rndCard].CurrentChance >= rndChance) break;
-                    selectedCards.Add(rndCard);
-                    */
-                    //Get a random card
-                    for (int i = 100; i > 0; i--)
-                    {
-                        DisruptCard selected = GetRandomCard(GameSettings.Current.GetCardData);
-                        if (!selectedCards.Contains(selected))
-                        {
-                            selectedCards.Add(selected);
-                            break;
-                        }
-                    }
-                }
-                for (int i = 0; i < 100; i++)
-                {
-                    if (selectedCards.Count >= count)
-                        break;
 
-                    int rnd = Random.Range(0, GameSettings.Current.GetCardData.Length);
-                    selectedCards.Add(GameSettings.Current.GetCardData[rnd].DisruptCard);
-                }
-
-                DisruptCard[] cards = new DisruptCard[selectedCards.Count];
-                //Return the array
-                for(int i = 0; i < selectedCards.Count; i++)
+                //Make a new array for the requested cards
+                List<DisruptCard> cardInsts = new();
+                foreach(var card in GetRandomCard(GameSettings.Current.GetCardData, count))
                 {
-                    //Instance each card
-                    cards[i] = Instantiate(selectedCards[i]);
+                    cardInsts.Add(Instantiate(card));
                 }
                 m_onDispenseCard.Invoke();
-                return cards;
+                return cardInsts.ToArray();
             }
             static public CardData[] UpdateChances(CardData[] array, PlayerManager player = null)
             {
+                Debug.Log($"Updating card array of length {array.Length}");
                 foreach (var data in array)
                 {
                     data.GenerateChance(player);
                 }
                 return array;
             }
-            static public DisruptCard GetRandomCard(CardData[] array, int attempts = 100)
+            static public DisruptCard[] GetRandomCard(CardData[] array, int returnCount = 1, bool allowDoubleups = false)
             {
-                for (int i = attempts; i > 0; i--)
+                //Array size check
+                if(returnCount < 1) { Debug.Log("Return count set too low!"); returnCount = 1; }
+
+                //Make array
+                List<DisruptCard> returnedCards = new();
+                for (int c = 0; c < returnCount; c++)
                 {
+                    //Generate rng
                     float rndChance = Random.Range(0.00f, 1.00f);
-                    int rndCard = Random.Range(0, array.Length);
-                    Debug.Log($"Pulled card at index {rndCard}");
-                    if (array[rndCard].CurrentChance >= rndChance)
-                        return array[rndCard].DisruptCard;
+                    Debug.Log($"Rolled rnd of {rndChance * 100}%");
+                    int rndOffset = Random.Range(0, array.Length);
+                    //Go through until card found
+                    for(int i = 0; i < array.Length; i++)
+                    {
+                        if(i + rndOffset >= array.Length)
+                        {
+                            rndOffset -= array.Length - 1;
+                        }
+
+                        if (!allowDoubleups && returnedCards.Contains(array[i + rndOffset].DisruptCard))
+                        {
+                            Debug.Log($"Double up, skipping");
+                            continue;
+                        }
+                        if (array[i + rndOffset].CurrentChance >= rndChance)
+                        {
+                            Debug.Log($"{array[i + rndOffset].DisruptCard} has beaten the odds of {rndChance * 100}%");
+                            returnedCards.Add(array[i + rndOffset].DisruptCard);
+                            break;
+                        }
+                        else if (i == array.Length - 1)
+                        {
+                            Debug.Log($"Failed to get card with chance of {rndChance * 100}%, trying again.");
+                            c--;
+                        }
+                    }
                 }
-                return array[0].DisruptCard;
+                return returnedCards.ToArray();
             }
         }
     }
