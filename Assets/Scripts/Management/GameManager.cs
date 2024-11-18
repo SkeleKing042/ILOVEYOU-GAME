@@ -39,7 +39,8 @@ namespace ILOVEYOU
                 }
                 else
                 {
-                    CardManager.GetRandomCard(GameSettings.Current.GetUnseenCards).ExecuteEvents(null);
+                    CardManager.UpdateChances(GameSettings.Current.GetUnseenCards);
+                    CardManager.GetRandomCard(GameSettings.Current.GetUnseenCards)[0].ExecuteEvents(null);
                     m_countdown = GameSettings.Current.GetUnseenCardRate;
                 }
             }
@@ -55,8 +56,9 @@ namespace ILOVEYOU
             public static void ResetScore() { m_score = Vector2.zero; }
             ///////////////////////////////////////////////////////////////////////////////////////////////////
             [Header("Settings")]
-            [SerializeField] private GameSettings m_settings;
-            [SerializeField] private bool m_devMode;
+            [SerializeField] private GameSettings m_singleplayerSettings;
+            [SerializeField] private GameSettings m_multiplayerSettings;
+            [SerializeField, HideInInspector] private bool m_devMode;
             public bool IsDev => m_devMode;
             [SerializeField] private float m_roundStartCountdown;
             [SerializeField, HideInInspector] private UnseenAIPlayer m_unseenOne;
@@ -98,7 +100,16 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onTaskAssignment;
             private void Awake()
             {
-                m_settings.Assign();
+                if(ControllerManager.Instance.ControllerCount == 1)
+                {
+                    m_singleplayerSettings.Assign();
+                }
+                else
+                {
+                    m_multiplayerSettings.Assign();
+                }
+                
+                
                 //check for the input manager
                 if (!ControllerManager.Instance)
                 {
@@ -139,7 +150,7 @@ namespace ILOVEYOU
                 }
 
                 Debug.Log("Attempting to start the game.");
-                GameObject[] players = ControllerManager.Instance.JoinPlayers();
+                GameObject[] players = ControllerManager.Instance.JoinPlayers(2);
 
                 //Boss data setup
                 BossBar.Instances = new BossBar[players.Length];
@@ -188,7 +199,7 @@ namespace ILOVEYOU
                 if (NumberOfPlayers >= 2)
                 {
 
-                    if (m_debugging) Debug.Log("There's enough players, starting game.");
+                    Debug.Log("There's enough players, starting game.");
                     m_mainMenuUI.SetActive(false);
                     m_InGameSharedUI.SetActive(true);
                     foreach (LevelManager manager in m_levelManagers)
@@ -198,7 +209,7 @@ namespace ILOVEYOU
                 }
                 else
                 {
-                    if (m_debugging) Debug.Log("There aren't enough players");
+                    Debug.Log("There aren't enough players");
                     m_onStartError.Invoke();
                 }
             }*/
@@ -251,7 +262,8 @@ namespace ILOVEYOU
                 //disables player movement and enemy spawner
                 foreach (var levelPlayer in m_levelManagers)
                 {
-                    levelPlayer.GetSpawner.KillAllEnemies();
+                    levelPlayer.GetPlayer.GetUI.GetBlindBox.EndPopups(); //clear popups
+                    levelPlayer.GetSpawner.DestroyAllEnemies();
                     levelPlayer.GetSpawner.enabled = false;
                     levelPlayer.GetPlayer.GetControls.Zero();
                     levelPlayer.GetPlayer.GetControls.enabled = false;
@@ -395,6 +407,7 @@ namespace ILOVEYOU
                 foreach (LevelManager levelMan in m_levelManagers)
                 {
                     levelMan.GetPlayer.Pause(m_paused);
+                    levelMan.GetPlayer.GetControls.Zero();
                 }
             }
 

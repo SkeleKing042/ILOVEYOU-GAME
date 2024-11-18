@@ -52,7 +52,7 @@ namespace ILOVEYOU.MainMenu
 
         public void ButtonPressed(int selection)
         {
-            if (selection == 0 && ControllerManager.Instance.ControllerCount < 2) return;
+            if (selection == 0 && ControllerManager.Instance.ControllerCount < 1) return;
 
             foreach (GameObject obj in m_mainMenuButtons)
             {

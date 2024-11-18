@@ -24,7 +24,7 @@ namespace ILOVEYOU.Player
             Projectile p = other.GetComponent<Projectile>();
             if (p)
             {
-                Destroy(p.gameObject);
+                if (!p.IsFriendly) Destroy(p.gameObject);
             }
         }
         private void Awake()
