@@ -2030,6 +2030,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4875622312694227661}
     m_Modifications:
+    - target: {fileID: 142909519630332312, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_controlRef
+      value: 
+      objectReference: {fileID: 3879512174640564857}
     - target: {fileID: 346368986829536968, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_Name
       value: PlayerHUD
@@ -2270,6 +2274,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4142117476527317386, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_controlRef
+      value: 
+      objectReference: {fileID: 3879512174640564857}
     - target: {fileID: 4308220343116402444, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
