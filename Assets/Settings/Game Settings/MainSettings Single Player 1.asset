@@ -92,7 +92,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     AllowWithBoss: 1
-    CurrentChance: 0.27251357
   - DisruptCard: {fileID: 5968024172544978597, guid: dd03823435310a842942d5075241ee54, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -149,7 +148,7 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 1.0002358
+  m_allowDoubleUps: 1
   m_playerHealth: 15
   m_iframes: 1
   m_playerSpeed: 10
@@ -230,7 +229,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     AllowWithBoss: 0
-    CurrentChance: 0
   - DisruptCard: {fileID: 181290029558229270, guid: 9f9523a3d21be474cb358c337e57258b, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -305,7 +303,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0
   - DisruptCard: {fileID: 4827626793003550405, guid: 9445586d2e239764abe3ce16ee0270f0, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -380,7 +377,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0
   - DisruptCard: {fileID: 7919094890916979554, guid: faf10d97288fc92429c79b3f30529f8b, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -455,7 +451,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0
   - DisruptCard: {fileID: 4248793250358130411, guid: fdbefdc97ddd78643ad6c91b7b376199, type: 3}
     ChanceOverTime:
       serializedVersion: 2
@@ -530,8 +525,81 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     AllowWithBoss: 1
-    CurrentChance: 0
-  m_unseenRate: 10
+  - DisruptCard: {fileID: 3063484218868929400, guid: 80f3a9c1d8a308a43a2a9b8d3f078461, type: 3}
+    ChanceOverTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    ChanceOverEnemyCount:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    AllowWithBoss: 1
+  m_unseenRate: 25
   m_knockbackWindow: 0.1
   m_knockbackStrength: {x: 10, y: 1}
   m_knockbackRadius: 10
@@ -812,7 +880,11 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_modList:
   - Modifier: {fileID: 11400000, guid: 78a01c29a380f1e4583cc909d7cf9814, type: 2}
-    Chance: 0.2
+    Chance: 0.1
+  - Modifier: {fileID: 11400000, guid: ab19aebf41dcb5a449b4387f4afecc96, type: 2}
+    Chance: 0.1
+  - Modifier: {fileID: 11400000, guid: 33ae769ab263c5c4589687e9b162ac4d, type: 2}
+    Chance: 0.1
   m_modChanceOverTime:
     serializedVersion: 2
     m_Curve:
