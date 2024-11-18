@@ -100,14 +100,6 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onTaskAssignment;
             private void Awake()
             {
-                if(ControllerManager.Instance.ControllerCount == 1)
-                {
-                    m_singleplayerSettings.Assign();
-                }
-                else
-                {
-                    m_multiplayerSettings.Assign();
-                }
                 
                 
                 //check for the input manager
@@ -121,6 +113,14 @@ namespace ILOVEYOU
             }
             public void BeginSetup()
             {
+                if(ControllerManager.Instance.ControllerCount == 1)
+                {
+                    m_singleplayerSettings.Assign();
+                }
+                else
+                {
+                    m_multiplayerSettings.Assign();
+                }
                 Time.timeScale = 1f;
                 //Singleton setup
                 Instance = this;
