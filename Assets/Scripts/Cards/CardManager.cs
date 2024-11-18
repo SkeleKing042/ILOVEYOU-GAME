@@ -132,7 +132,7 @@ namespace ILOVEYOU
                 }
                 return array;
             }
-            static public DisruptCard[] GetRandomCard(CardData[] array, int returnCount = 1, bool allowDoubleups = false)
+            static public DisruptCard[] GetRandomCard(CardData[] array, int returnCount = 1)
             {
                 //Array size check
                 if(returnCount < 1) { Debug.Log("Return count set too low!"); returnCount = 1; }
@@ -153,7 +153,7 @@ namespace ILOVEYOU
                             rndOffset -= array.Length - 1;
                         }
 
-                        if (!allowDoubleups && returnedCards.Contains(array[i + rndOffset].DisruptCard))
+                        if (!GameSettings.Current.DoAllowDoubleUps && returnedCards.Contains(array[i + rndOffset].DisruptCard))
                         {
                             Debug.Log($"Double up, skipping");
                             continue;
