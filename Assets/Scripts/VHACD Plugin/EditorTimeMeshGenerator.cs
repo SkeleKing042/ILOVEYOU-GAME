@@ -8,6 +8,7 @@ namespace ILOVEYOU.Environment
     public class EditorTimeMeshGenerator : MonoBehaviour
     {
         [SerializeField] private bool m_generateWithColliders = true;
+        [SerializeField] private Material m_defaultMaterial;
         public void GenerateMeshes()
         {
             //Makes a new gObj, and loads the generated meshes into that
@@ -18,7 +19,9 @@ namespace ILOVEYOU.Environment
             {
                 GameObject newObj = new();
                 newObj.name = $"{gameObject.name} part {i}";
-                newObj.AddComponent<MeshRenderer>();
+                MeshRenderer rend = newObj.AddComponent<MeshRenderer>();
+                if (m_defaultMaterial)
+                    rend.material = m_defaultMaterial;
                 newObj.AddComponent<MeshFilter>().mesh = meshList[i];
                 if (m_generateWithColliders)
                     newObj.AddComponent<MeshCollider>().convex = true;
