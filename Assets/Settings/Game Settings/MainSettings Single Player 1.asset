@@ -525,7 +525,81 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     AllowWithBoss: 1
-  m_unseenRate: 10
+  - DisruptCard: {fileID: 3063484218868929400, guid: 80f3a9c1d8a308a43a2a9b8d3f078461, type: 3}
+    ChanceOverTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    ChanceOverEnemyCount:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    AllowWithBoss: 1
+  m_unseenRate: 25
   m_knockbackWindow: 0.1
   m_knockbackStrength: {x: 10, y: 1}
   m_knockbackRadius: 10
@@ -806,7 +880,11 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_modList:
   - Modifier: {fileID: 11400000, guid: 78a01c29a380f1e4583cc909d7cf9814, type: 2}
-    Chance: 0.2
+    Chance: 0.1
+  - Modifier: {fileID: 11400000, guid: ab19aebf41dcb5a449b4387f4afecc96, type: 2}
+    Chance: 0.1
+  - Modifier: {fileID: 11400000, guid: 33ae769ab263c5c4589687e9b162ac4d, type: 2}
+    Chance: 0.1
   m_modChanceOverTime:
     serializedVersion: 2
     m_Curve:
