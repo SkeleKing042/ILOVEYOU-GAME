@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ILOVEYOU.Environment
 {
-    [CustomEditor(typeof(EditorTimeMeshGenerator))]
+    [CustomEditor(typeof(EditorTimeMeshGenerator)),CanEditMultipleObjects]
     public class MeshGenEditor : Editor
     {
         EditorTimeMeshGenerator m_target;
