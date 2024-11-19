@@ -1,3 +1,4 @@
+using ILOVEYOU.Management;
 using ILOVEYOU.Player;
 using ILOVEYOU.ProjectileSystem;
 using ILOVEYOU.UI;
@@ -45,6 +46,10 @@ namespace ILOVEYOU
                 }
 
                 BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].InitializeHealthBar(m_maxHealth);
+
+                //Tell them to kill the boss
+                m_playerTransform.GetComponent<PlayerControls>().SetContext(null, 1, "KILL");
+                m_playerTransform.GetComponent<PlayerControls>().Invoke("RemoveAllContext", 3f);
             }
 
 
@@ -149,6 +154,12 @@ namespace ILOVEYOU
                 bool b = base.TakeDamage(damage);
                 BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_currentHealth);
                 return b;
+            }
+            public override void Death()
+            {
+                //Reward the player for the kill
+                m_playerTransform.GetComponent<TaskManager>().TaskCompletionPoints++;
+                base.Death();
             }
 
             //private void OnDestroy()
