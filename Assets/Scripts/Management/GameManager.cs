@@ -40,7 +40,9 @@ namespace ILOVEYOU
                 else
                 {
                     CardManager.UpdateChances(GameSettings.Current.GetUnseenCards);
-                    CardManager.GetRandomCard(GameSettings.Current.GetUnseenCards)[0].ExecuteEvents(null);
+                    var card = CardManager.GetRandomCard(GameSettings.Current.GetUnseenCards)[0];
+                    card.SetupColours();
+                    card.ExecuteEvents(null);
                     m_countdown = GameSettings.Current.GetUnseenCardRate;
                 }
             }
