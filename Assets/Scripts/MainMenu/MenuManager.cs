@@ -71,9 +71,11 @@ namespace ILOVEYOU.MainMenu
                     break;
                 //Controls
                 case 2:
+                    m_effect.StartType(m_inputField, "open help.txt", 12f, ControlsMenu);
                     break;
                 //Codex
                 case 3:
+                    m_effect.StartType(m_inputField, "open codex.txt", 12f, CodexMenu);
                     break;
                 //About
                 case 4:
@@ -149,13 +151,39 @@ namespace ILOVEYOU.MainMenu
             m_eventSystem.SetSelectedGameObject(m_optionSelect[1]);
         }
 
+        public void ControlsMenu()
+        {
+            m_eventSystem.enabled = true;
+
+            m_menuObjects[0].SetActive(false); //disable default menu
+
+            m_mainMenuButtons[2].GetComponent<CreatePopUpMenu>().CreatePopUp(transform);
+
+            foreach (GameObject obj in m_mainMenuButtons)
+            {
+                obj.GetComponent<Button>().interactable = true;
+            }
+
+            //m_menuObjects[2].SetActive(true); //enable options menu
+            //m_eventSystem.SetSelectedGameObject(m_optionSelect[2]);
+        }
+
+        public void CodexMenu()
+        {
+            m_eventSystem.enabled = true;
+
+            m_menuObjects[0].SetActive(false); //disable default menu
+            m_menuObjects[3].SetActive(true); //enable options menu
+            m_eventSystem.SetSelectedGameObject(m_optionSelect[3]);
+        }
+
         public void CreditsMenu()
         {
             m_eventSystem.enabled = true;
 
             m_menuObjects[0].SetActive(false); //disable default menu
             m_menuObjects[4].SetActive(true); //enable credits menu
-            m_eventSystem.SetSelectedGameObject(m_optionSelect[2]);
+            m_eventSystem.SetSelectedGameObject(m_optionSelect[4]);
         }
         /// <summary>
         /// plays sound
