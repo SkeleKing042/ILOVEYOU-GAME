@@ -71,12 +71,16 @@ namespace ILOVEYOU
                 //sets rotation
                 transform.rotation = rotation;
 
+                string modList = mods != null ? "" : "None";
                 foreach(var mod in mods)
                 {
                     mod.ApplyModifications(this);
                     GetComponentInChildren<ModifierDisplay>().AddModifierToDisplay(mod.GetIcon);
+                    modList += $"{mod.name}\n";
                 }
                 GetComponentInChildren<ModifierDisplay>().FixModImages();
+
+                Debug.Log($"Enemy {gameObject.name} initialized.\nSTATS:\nDamage: {m_damage}\nHealth: {m_currentHealth}/{m_maxHealth}\nSpeed: {m_agent.speed}\nSize: {target.transform.localScale}\nApplied Mods:\n{modList}");
 
                 //Potential TODO: add a "modifier" value that is dependent on current difficulty/time that influences the base values
             }
@@ -216,14 +220,17 @@ namespace ILOVEYOU
 
             public virtual bool TakeDamage(float damage)
             {
+                Debug.Log($"Enemy {gameObject.name} taking {damage} points of damage. (Health: {m_currentHealth}/{m_maxHealth})");
                 //do not take damage if dead
                 if (m_isDead)
                     return false;
                 m_blinkScript.StartBlink();
                 m_currentHealth -= damage;
+                Debug.Log($"Enemy {gameObject.name} took {damage} points of damage. (Health: {m_currentHealth}/{m_maxHealth})");
                 //death
                 if (m_currentHealth <= 0)
                 {
+                    Debug.Log($"Enemy {gameObject.name} has died.");
                     m_isDead = true;
                     enabled = false;
                     m_agent.enabled = false;
@@ -272,11 +279,15 @@ namespace ILOVEYOU
                 if (m_isDead)
                     return false;
 
+                string s = clampResult ? "healing" : "over-healing";
+                Debug.Log($"{gameObject.name} {s} for {health}\nCurrent health: {m_currentHealth}/{m_maxHealth}");
+                
                 m_currentHealth += health;
 
                 if (clampResult)
                     m_currentHealth = Mathf.Clamp(m_currentHealth, 0, m_maxHealth);
 
+                Debug.Log($"{gameObject.name} healed for {health}\nCurrent health: {m_currentHealth}/{m_maxHealth}");
                 return true;
             }
         }
