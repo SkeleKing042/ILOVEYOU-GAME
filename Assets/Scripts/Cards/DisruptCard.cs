@@ -69,7 +69,7 @@ namespace ILOVEYOU
                         break;
                 }
 
-                if(m_selfParticleEffects.Length > 0)
+                if(m_selfParticleEffects.Length > 0 && caller != null)
                     ParticleSpawner.SpawnParticles(m_selfParticleEffects, caller.transform);
             }
         }
