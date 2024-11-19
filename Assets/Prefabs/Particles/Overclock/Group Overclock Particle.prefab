@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3969650605000622945}
   m_Layer: 0
-  m_Name: Overclock Particle Group
+  m_Name: Group Overclock Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,6 +40,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3969650605000622945}
     m_Modifications:
+    - target: {fileID: 6900652113566030435, guid: d7e8062027cfe9547bd183ce2c000fcb, type: 3}
+      propertyPath: TrailModule.dieWithParticles
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6900652113566030435, guid: d7e8062027cfe9547bd183ce2c000fcb, type: 3}
+      propertyPath: TrailModule.sizeAffectsWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6900652113566030435, guid: d7e8062027cfe9547bd183ce2c000fcb, type: 3}
+      propertyPath: VelocityModule.orbitalZ.scalar
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 6900652113566030435, guid: d7e8062027cfe9547bd183ce2c000fcb, type: 3}
+      propertyPath: TrailModule.sizeAffectsLifetime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6900652113566030435, guid: d7e8062027cfe9547bd183ce2c000fcb, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 7296171056739990157, guid: d7e8062027cfe9547bd183ce2c000fcb, type: 3}
       propertyPath: m_Name
       value: Overclock Inner
