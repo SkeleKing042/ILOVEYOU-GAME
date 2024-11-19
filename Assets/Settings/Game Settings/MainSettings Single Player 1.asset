@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MainSettings Single Player 1
   m_EditorClassIdentifier: 
   m_announcement: []
-  m_difficultyCap: 60
+  m_difficultyCap: 120
   m_maxTaskCount: 1
   m_taskList:
   - m_type: 3
@@ -602,7 +602,7 @@ MonoBehaviour:
   m_unseenRate: 25
   m_knockbackWindow: 0.1
   m_knockbackStrength: {x: 10, y: 1}
-  m_knockbackRadius: 10
+  m_knockbackRadius: 20
   m_knockbackStunDuration: 0
   m_enemyGroups:
   - m_groupName: Swarm
@@ -880,11 +880,11 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_modList:
   - Modifier: {fileID: 11400000, guid: 78a01c29a380f1e4583cc909d7cf9814, type: 2}
-    Chance: 0.1
+    Chance: 0.5
   - Modifier: {fileID: 11400000, guid: ab19aebf41dcb5a449b4387f4afecc96, type: 2}
-    Chance: 0.1
+    Chance: 0.07
   - Modifier: {fileID: 11400000, guid: 33ae769ab263c5c4589687e9b162ac4d, type: 2}
-    Chance: 0.1
+    Chance: 0.04
   m_modChanceOverTime:
     serializedVersion: 2
     m_Curve:
