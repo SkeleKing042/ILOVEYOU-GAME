@@ -55,6 +55,15 @@ namespace ILOVEYOU
             private DamageBlink m_blinkScript;
             public virtual void Initialize(Transform target, EnemyModifier[] mods = null)
             {
+                string modList = mods != null ? "" : "None";
+                foreach(var mod in mods)
+                {
+                    mod.ApplyModifications(this);
+                    GetComponentInChildren<ModifierDisplay>().AddModifierToDisplay(mod.GetIcon);
+                    modList += $"{mod.name}\n";
+                }
+
+                GetComponentInChildren<ModifierDisplay>().FixModImages();
                 m_rigidBody = GetComponent<Rigidbody>();
                 m_playerTransform = target;
                 GetComponentInChildren<ModifierDisplay>().GetCamera = m_playerTransform.GetComponentInChildren<Camera>().transform;
@@ -70,15 +79,6 @@ namespace ILOVEYOU
                 rotation = Quaternion.Euler(0f, rotation.eulerAngles.y, 0f);
                 //sets rotation
                 transform.rotation = rotation;
-
-                string modList = mods != null ? "" : "None";
-                foreach(var mod in mods)
-                {
-                    mod.ApplyModifications(this);
-                    GetComponentInChildren<ModifierDisplay>().AddModifierToDisplay(mod.GetIcon);
-                    modList += $"{mod.name}\n";
-                }
-                GetComponentInChildren<ModifierDisplay>().FixModImages();
 
                 Debug.Log($"Enemy {gameObject.name} initialized.\nSTATS:\nDamage: {m_damage}\nHealth: {m_currentHealth}/{m_maxHealth}\nSpeed: {m_agent.speed}\nSize: {target.transform.localScale}\nApplied Mods:\n{modList}");
 
