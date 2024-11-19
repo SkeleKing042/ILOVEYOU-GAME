@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using ILOVEYOU.UI;
 using ILOVEYOU.MainMenu;
 using ILOVEYOU.Audio;
+using ILOVEYOU.Hazards;
+using ILOVEYOU.BuffSystem;
 
 namespace ILOVEYOU
 {
@@ -263,11 +265,13 @@ namespace ILOVEYOU
                 foreach (var levelPlayer in m_levelManagers)
                 {
                     levelPlayer.GetPlayer.GetUI.GetBlindBox.EndPopups(); //clear popups
-                    levelPlayer.GetSpawner.DestroyAllEnemies();
-                    levelPlayer.GetSpawner.enabled = false;
-                    levelPlayer.GetPlayer.GetControls.Zero();
+                    levelPlayer.GetPlayer.GetComponent<BuffDataSystem>().ClearAllBuffs(true); //remove buffs
+                    levelPlayer.GetSpawner.DestroyAllEnemies(); //kill enemies
+                    levelPlayer.GetSpawner.enabled = false; //disable spawner
+                    levelPlayer.GetPlayer.GetControls.Zero(); //disable controls
                     levelPlayer.GetPlayer.GetControls.enabled = false;
-                    levelPlayer.GetPlayer.GetUI.GetCardDisplay.DiscardHand();
+                    levelPlayer.GetPlayer.GetUI.GetCardDisplay.DiscardHand(); //Discard cards
+                    levelPlayer.GetComponentInChildren<HazardManager>().DisableAllHazards(); //Disable Hazards
                     //levelPlayer.GetPlayer.DiscardHand();
                 }
                 
