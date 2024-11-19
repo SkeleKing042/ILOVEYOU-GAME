@@ -9,7 +9,7 @@ namespace ILOVEYOU
     {
         public class BossEnemy : Enemy
         {
-            public static BossEnemy[] Instances = new BossEnemy[2];
+            public static BossEnemy[] Instances = new BossEnemy[1];
 
             BulletPattern m_pattern;
             [SerializeField] private float m_lungeTime = .3f;
@@ -19,23 +19,23 @@ namespace ILOVEYOU
             private float m_lungeCooldown;
             private float m_tempSpeed = 0f;
             private float m_maxSpeed = 0f;
-            private float m_maxHealth = 0f;
+            //private float m_currentHealth = 0f;
 
             private bool m_charging = false;
 
-            public override void Initialize(Transform target)
+            public override void Initialize(Transform target, EnemyModifier[] mods = null)
             {
                 m_lungeCooldown = m_lungeTime;
-                base.Initialize(target);
+                base.Initialize(target, mods);
                 m_pattern.AddTarget(m_playerTransform);
 
-                m_maxSpeed = m_speed;
-                m_maxHealth = m_health;
+                m_maxSpeed = m_agent.speed;
+                m_currentHealth = base.m_maxHealth;
 
 
                 if (Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID])
                 {
-                    Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].m_health = m_maxHealth;
+                    Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].m_currentHealth = m_maxHealth;
                     //BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].m_health);
                     Destroy(gameObject);
                 }
@@ -44,7 +44,7 @@ namespace ILOVEYOU
                     Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID] = this;
                 }
 
-                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].InitializeHealthBar("Legendary Big Boss", m_maxHealth);
+                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].InitializeHealthBar(m_maxHealth);
             }
 
 
@@ -54,25 +54,26 @@ namespace ILOVEYOU
             }
 
             // Update is called once per frame
-            void Update()
+            protected override void Update()
             {
                 //BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_health);
 
                 //this is simple movement logic, subsequent enemy scripts can be as simple or as complex as they want
-                if (Vector3.Distance(transform.position, m_playerTransform.position) < m_distanceCondition)
-                {
-                    DoNearAction();
-                }
-                else
-                {
-                    m_speed = m_maxSpeed;
-                    MoveToTarget();
-                }
-                
+                /*                    if (Vector3.Distance(transform.position, m_playerTransform.position) < m_distanceCondition)
+                                    {
+                                        DoNearAction();
+                                    }
+                                    else
+                                    {
+                                        m_speed = m_maxSpeed;
+                                        MoveToTarget();
+                                    }*/
+                base.Update();
             }
 
             public override void DoNearAction()
             {
+                DisableAIBrain();
                 if (m_tempSpeed >= 0)
                 {
                     m_rigidBody.MovePosition(m_rigidBody.position + (m_tempSpeed * Time.deltaTime * transform.forward));
@@ -85,7 +86,7 @@ namespace ILOVEYOU
                     Vector3 relativePos = m_playerTransform.position - transform.position;
                     //looks at the player (removing x, and z rotation)
                     Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-                    rotation = Quaternion.Euler(0f, Mathf.LerpAngle(transform.rotation.eulerAngles.y, rotation.eulerAngles.y, Time.deltaTime * m_turnSpeed), 0f);
+                    rotation = Quaternion.Euler(0f, Mathf.LerpAngle(transform.rotation.eulerAngles.y, rotation.eulerAngles.y, Time.deltaTime * m_agent.angularSpeed), 0f);
 
                     transform.rotation = rotation;
 
@@ -119,12 +120,23 @@ namespace ILOVEYOU
 
                     //shooting
                     m_pattern.PatternUpdate();
-                    m_speed = m_maxSpeed / 2f;
                     MoveToTarget();
                 }
                 
             }
-
+            public virtual void MoveToTarget()
+            {
+                //gets relative position between the player and enemy
+                Vector3 relativePos = m_playerTransform.position - transform.position;
+                //looks at the player (removing x, and z rotation)
+                Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+                rotation = Quaternion.Euler(0f, Mathf.LerpAngle(transform.rotation.eulerAngles.y, rotation.eulerAngles.y, Time.deltaTime * m_agent.angularSpeed), 0f);
+                //moves and rotates the enemy
+                //transform.SetPositionAndRotation(transform.position + (m_speed * Time.deltaTime * transform.forward), rotation);
+                m_rigidBody.MoveRotation(rotation);
+                m_rigidBody.MovePosition(m_rigidBody.position + (m_agent.speed / 2 * Time.deltaTime * transform.forward));
+                //m_rigidBody.velocity = (m_speed * transform.forward);
+            }
             private void OnDrawGizmos()
             {
                 Gizmos.DrawWireSphere(transform.position, m_distanceCondition);
@@ -132,16 +144,17 @@ namespace ILOVEYOU
                 Gizmos.DrawWireSphere(transform.position, m_distanceCondition / 2f);
             }
 
-            public override void TakeDamage(float damage)
+            public override bool TakeDamage(float damage)
             {
-                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_health);
-                base.TakeDamage(damage);
+                bool b = base.TakeDamage(damage);
+                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_currentHealth);
+                return b;
             }
 
-            private void OnDestroy()
-            {
-                BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_health);
-            }
+            //private void OnDestroy()
+            //{
+            //    BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_health);
+            //}
         }
     }
 

@@ -83,10 +83,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 167c115a03ec0a54794e0a8462edc2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 5
-  m_turnSpeed: 3
   m_damage: 1
-  m_health: 10
+  m_maxHealth: 1
+  m_deathTimeout: 10
   m_distanceCondition: 5
+  m_canBeStunned: 1
+  m_obscureMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_ignoreSight: 0
+  m_offscrenDespawnTime: 5
+  m_screenSizeBuffer: {x: 0, y: 0}
+  m_shouldRespawn: 0
+  m_repathTimes: {x: 0.2, y: 0.5}
   m_lungeTime: 0.5
   m_lungeSpeed: 15
+  m_wallMask:
+    serializedVersion: 2
+    m_Bits: 2048

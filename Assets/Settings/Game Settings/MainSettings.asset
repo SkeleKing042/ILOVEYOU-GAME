@@ -1,0 +1,793 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7aa59cabe82a34f807b2a13aea9a66, type: 3}
+  m_Name: MainSettings
+  m_EditorClassIdentifier: 
+  m_announcement: []
+  m_difficultyCap: 60
+  m_maxTaskCount: 1
+  m_taskList:
+  - m_type: 3
+    m_capValue: 5
+  - m_type: 1
+    m_capValue: 10
+  - m_type: 2
+    m_capValue: 10
+  - m_type: 3
+    m_capValue: 10
+  m_numberOfCardToGive: 3
+  m_cardTimeOut: 10
+  m_cardData:
+  - DisruptCard: {fileID: 181290029558229270, guid: 9f9523a3d21be474cb358c337e57258b, type: 3}
+    ChanceOverTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    ChanceOverEnemyCount:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.5
+        value: 0.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    AllowWithBoss: 1
+    CurrentChance: 0.5
+  - DisruptCard: {fileID: 2943384210519268959, guid: 313118f0d262fc64090349f7082b78b9, type: 3}
+    ChanceOverTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.49873352
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    ChanceOverEnemyCount:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.9971377
+        value: 1.0123311
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.5
+        value: 0.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    AllowWithBoss: 1
+    CurrentChance: 0.27098483
+  - DisruptCard: {fileID: 4827626793003550405, guid: 9445586d2e239764abe3ce16ee0270f0, type: 3}
+    ChanceOverTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    ChanceOverEnemyCount:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    AllowWithBoss: 1
+    CurrentChance: 1
+  - DisruptCard: {fileID: 5968024172544978597, guid: dd03823435310a842942d5075241ee54, type: 3}
+    ChanceOverTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    ChanceOverEnemyCount:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    AllowWithBoss: 1
+    CurrentChance: 1
+  - DisruptCard: {fileID: 7919094890916979554, guid: faf10d97288fc92429c79b3f30529f8b, type: 3}
+    ChanceOverTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.49873352
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    ChanceOverEnemyCount:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.9971377
+        value: 1.0123311
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    AllowWithBoss: 1
+    CurrentChance: 0.54196966
+  - DisruptCard: {fileID: 4248793250358130411, guid: fdbefdc97ddd78643ad6c91b7b376199, type: 3}
+    ChanceOverTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.009644962
+        value: 0.0031298166
+        inSlope: 4.659403
+        outSlope: 4.659403
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.2064476
+        value: 0.9201126
+        inSlope: 2.660128
+        outSlope: 2.660128
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.32974634
+        value: 1.001595
+        inSlope: 0.10580699
+        outSlope: 0.10580699
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.987651
+        value: 0.25679865
+        inSlope: -0.44923958
+        outSlope: -0.44923958
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    ChanceOverEnemyCount:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.015167674
+        value: 1.0004413
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.00037
+        value: 0.24788064
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    AllowWithBoss: 1
+    CurrentChance: 0.24324296
+  - DisruptCard: {fileID: 3063484218868929400, guid: 80f3a9c1d8a308a43a2a9b8d3f078461, type: 3}
+    ChanceOverTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    ChanceOverEnemyCount:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.0001415
+        value: 0.24998164
+        inSlope: -2.6100633
+        outSlope: -2.6100633
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.07499999
+        outWeight: 0.33333334
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    AllowWithBoss: 1
+    CurrentChance: 1.0050939
+  - DisruptCard: {fileID: 938783057243066637, guid: 27302251ee741cb49851d9d5a55fb851, type: 3}
+    ChanceOverTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    ChanceOverEnemyCount:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    ChanceOverHealthDelta:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.8
+        value: 2
+        inSlope: 6.164538
+        outSlope: 6.164538
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.049874336
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    AllowWithBoss: 0
+    CurrentChance: 0.007958369
+  m_playerHealth: 15
+  m_iframes: 1
+  m_playerSpeed: 10
+  m_playerShootingPattern: {fileID: 11400000, guid: f80c5045f971c394096cc345a99bb1a5, type: 2}
+  m_useUnseen: 0
+  m_unseenCards: []
+  m_unseenRate: 10
+  m_knockbackWindow: 0.1
+  m_knockbackStrength: {x: 10, y: 1}
+  m_knockbackRadius: 10
+  m_knockbackStunDuration: 3
+  m_enemyGroups:
+  - m_groupName: Swarm
+    m_spawnRate:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_enemyPrefabs:
+    - {fileID: 291654530562668115, guid: 1e6a3e7b31e14aa4b801981ef3044904, type: 3}
+    - {fileID: 1923789606412629652, guid: 5376137f086b2b5429f2512e47f7b803, type: 3}
+    m_usingMods: 0
+  - m_groupName: Boss
+    m_spawnRate:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_enemyPrefabs:
+    - {fileID: 4970928481276679482, guid: c19bc291bb2e3e24c9717d55867875d9, type: 3}
+    m_usingMods: 0
+  - m_groupName: Just moths
+    m_spawnRate:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: -Infinity
+        outSlope: 0.041791968
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.11287125
+      - serializedVersion: 3
+        time: 0.2
+        value: 0
+        inSlope: Infinity
+        outSlope: 0.00028996138
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 1
+      - serializedVersion: 3
+        time: 0.4
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 1
+        outWeight: 1
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.28382838
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_enemyPrefabs:
+    - {fileID: 4186434829523837888, guid: 8a2742483f7908c4c9c9cae83ccd0685, type: 3}
+    m_usingMods: 0
+  - m_groupName: Just Scorpions
+    m_spawnRate:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -Infinity
+        outSlope: 1
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.17821781
+      - serializedVersion: 3
+        time: 0.2
+        value: 1
+        inSlope: Infinity
+        outSlope: 0.13534483
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.10891089
+      - serializedVersion: 3
+        time: 0.5
+        value: 0
+        inSlope: -9.82605
+        outSlope: -0.1006075
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0.02640267
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.5
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_enemyPrefabs:
+    - {fileID: 291654530562668115, guid: 1e6a3e7b31e14aa4b801981ef3044904, type: 3}
+    m_usingMods: 0
+  - m_groupName: Just Shooters
+    m_spawnRate:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.17821781
+      - serializedVersion: 3
+        time: 0.4
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.23561922
+      - serializedVersion: 3
+        time: 0.5
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_enemyPrefabs:
+    - {fileID: 1923789606412629652, guid: 5376137f086b2b5429f2512e47f7b803, type: 3}
+    m_usingMods: 0
+  m_spawnRangeMin: 21
+  m_spawnRangeMax: 30
+  m_spawnTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.030422688
+    - serializedVersion: 3
+      time: 5
+      value: 0.5
+      inSlope: -1.028624
+      outSlope: 0
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.04356432
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_spawnCap:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 50
+      inSlope: 0
+      outSlope: Infinity
+      tangentMode: 97
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 50
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 5
+      value: 100
+      inSlope: 40.5543
+      outSlope: 40.5543
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.059833884
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_modList: []
+  m_modChanceOverTime:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_modCountOverTime:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_prefColors:
+  - m_key: Important Color
+    m_color: {r: 0, g: 1, b: 0, a: 1}
+  - m_key: Buff color
+    m_color: {r: 1, g: 0, b: 0, a: 1}
+  - m_key: Debuff color
+    m_color: {r: 1, g: 0, b: 1, a: 1}
+  - m_key: Hazard color
+    m_color: {r: 1, g: 1, b: 0, a: 1}
+  - m_key: Summon color
+    m_color: {r: 0, g: 1, b: 1, a: 1}

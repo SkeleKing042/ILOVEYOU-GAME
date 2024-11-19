@@ -148,6 +148,13 @@
         "com.unity.shadergraph": "12.1.12"
       }
     },
+    "com.unity.robotics.vhacd": {
+      "version": "https://github.com/Unity-Technologies/VHACD.git?path=/com.unity.robotics.vhacd",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "854b3d820901804c338365c63f067ad7f1c4b9c0"
+    },
     "com.unity.searcher": {
       "version": "4.9.1",
       "depth": 1,
@@ -222,15 +229,14 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
-    "com.unity.visualscripting": {
-      "version": "1.9.1",
+    "com.unity.visualeffectgraph": {
+      "version": "12.1.12",
       "depth": 0,
-      "source": "registry",
+      "source": "builtin",
       "dependencies": {
-        "com.unity.ugui": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
+        "com.unity.shadergraph": "12.1.12",
+        "com.unity.render-pipelines.core": "12.1.12"
+      }
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

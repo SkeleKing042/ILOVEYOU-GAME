@@ -19,7 +19,7 @@ namespace ILOVEYOU
             protected int m_pierce; // how many time a bullet can go through a target
             protected float m_lifeTime; // how long the projectile lasts in seconds
             protected bool m_isFriendly; // if the projectile has been shot by the player (might not need this)
-
+            public bool IsFriendly { get { return m_isFriendly; } }
 
             private void FixedUpdate()
             {
@@ -55,10 +55,12 @@ namespace ILOVEYOU
                 //if bullet collided with enemy
                 if (other.gameObject.GetComponent<Enemy>())
                 {
-                    other.gameObject.GetComponent<Enemy>()
-                        .TakeDamage(m_damage);
-                    m_pierce--;
-                    if (m_pierce <= 0) Destroy(gameObject);
+                    //try to damage the other object - don't to anything if damages fails to be dealt.
+                    if (other.gameObject.GetComponent<Enemy>().TakeDamage(m_damage))
+                    {
+                        m_pierce--;
+                        if (m_pierce <= 0) Destroy(gameObject);
+                    }
                     return;
                 }
                 //if bullet collided with player

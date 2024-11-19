@@ -1,6 +1,4 @@
 using ILOVEYOU.ProjectileSystem;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 namespace ILOVEYOU
 {
@@ -10,9 +8,9 @@ namespace ILOVEYOU
         {
             BulletPattern m_pattern;
 
-            public override void Initialize(Transform target)
+            public override void Initialize(Transform target, EnemyModifier[] mods = null)
             {
-                base.Initialize(target);
+                base.Initialize(target, mods);
                 m_pattern.AddTarget(m_playerTransform);
             }
             void Awake()
@@ -21,21 +19,20 @@ namespace ILOVEYOU
           
             }
 
-            void Update()
+            public override void EnableAIBrain()
             {
-                //this is simple movement logic, subsequent enemy scripts can be as simple or as complex as they want
-                if (Vector3.Distance(transform.position, m_playerTransform.position) < m_distanceCondition)
-                {
-                    DoNearAction();
-                }
-                else
-                {
-                    MoveToTarget();
-                }
+                m_anim.SetBool("Attacking", false);
+                base.EnableAIBrain();
             }
 
             public override void DoNearAction()
             {
+                if (m_usingAIBrain)
+                {
+                    DisableAIBrain();
+                }
+
+                m_anim.SetBool("Attacking", true);
                 m_pattern.PatternUpdate();
                 //gets relative position between the player and enemy
                 Vector3 relativePos = m_playerTransform.position - transform.position;
