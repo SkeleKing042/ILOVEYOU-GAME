@@ -32,8 +32,12 @@ namespace ILOVEYOU
             [SerializeField] private string m_soundToPlay = "CardSelect";
             void Awake()
             {
+                SetupColours();
+            }
+            public void SetupColours()
+            {
                 string key = $"{m_cardType} color";
-                if(!PlayerPrefs.HasKey($"{key} R"))
+                if (!PlayerPrefs.HasKey($"{key} R"))
                 {
                     ColorPref.Set(key, m_color);
                 }

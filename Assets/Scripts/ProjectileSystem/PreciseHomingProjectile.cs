@@ -1,3 +1,5 @@
+using ILOVEYOU.EnemySystem;
+using ILOVEYOU.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,18 +35,21 @@ namespace ILOVEYOU
                     //move bullet
                     transform.position += (m_speed + m_velocity) * Time.fixedDeltaTime * transform.forward;
 
+                    return;
                 }
                 //attempts to retarget if old one is lost
                 else if (Physics.CheckSphere(transform.position, m_checkRadius, m_mask))
                 {
                     Collider[] cols = Physics.OverlapSphere(transform.position, m_checkRadius, m_mask);
-                    m_target = cols[0].transform;
+                    //accept the target if it doesn't have the enemy script, or if it does, that it isn't dead.
+                    if (!cols[0].GetComponent<Enemy>() || !cols[0].GetComponent<Enemy>().IsDead)
+                    {
+                        m_target = cols[0].transform;
+                        return;
+                    }
                 }
                 //othewise just move with current velocity
-                else
-                {
-                    transform.position += (m_speed + m_velocity) * Time.fixedDeltaTime * transform.forward;
-                }
+                transform.position += (m_speed + m_velocity) * Time.fixedDeltaTime * transform.forward;
 
 
             }
