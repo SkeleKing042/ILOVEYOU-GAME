@@ -731,7 +731,9 @@ MonoBehaviour:
     m_isStackable: 2
     m_isPermanent: 0
     m_time: 10
-    m_particleEffect: []
+    m_particleEffect:
+    - {fileID: 7296171056739990157, guid: d7e8062027cfe9547bd183ce2c000fcb, type: 3}
+    - {fileID: 3949200205364074168, guid: cee4c69d4be504144870a73310183f2b, type: 3}
     m_maxHealthValue: 0
     m_moveSpeedValue: 0
     m_shootSpeedValue: 0
