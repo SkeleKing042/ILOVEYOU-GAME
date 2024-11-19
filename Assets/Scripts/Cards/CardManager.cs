@@ -56,7 +56,7 @@ namespace ILOVEYOU
                     {
                         sum += p.GetLevelManager.GetSpawner.PercentToMaxEnemies;
                     }
-                    chances[1] = sum / others.Length;
+                    chances[1] = ChanceOverEnemyCount.Evaluate(sum / others.Length);
                 }
 
                 //Get the average health for all other players
