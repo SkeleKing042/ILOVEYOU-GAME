@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using ILOVEYOU.UI;
 using ILOVEYOU.MainMenu;
 using ILOVEYOU.Audio;
+using ILOVEYOU.Hazards;
+using ILOVEYOU.BuffSystem;
 
 namespace ILOVEYOU
 {
@@ -40,7 +42,9 @@ namespace ILOVEYOU
                 else
                 {
                     CardManager.UpdateChances(GameSettings.Current.GetUnseenCards);
-                    CardManager.GetRandomCard(GameSettings.Current.GetUnseenCards).ExecuteEvents(null);
+                    var card = CardManager.GetRandomCard(GameSettings.Current.GetUnseenCards)[0];
+                    card.SetupColours();
+                    card.ExecuteEvents(null);
                     m_countdown = GameSettings.Current.GetUnseenCardRate;
                 }
             }
@@ -100,14 +104,6 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onTaskAssignment;
             private void Awake()
             {
-                if(ControllerManager.Instance.ControllerCount == 1)
-                {
-                    m_singleplayerSettings.Assign();
-                }
-                else
-                {
-                    m_multiplayerSettings.Assign();
-                }
                 
                 
                 //check for the input manager
@@ -121,6 +117,14 @@ namespace ILOVEYOU
             }
             public void BeginSetup()
             {
+                if(ControllerManager.Instance.ControllerCount == 1)
+                {
+                    m_singleplayerSettings.Assign();
+                }
+                else
+                {
+                    m_multiplayerSettings.Assign();
+                }
                 Time.timeScale = 1f;
                 //Singleton setup
                 Instance = this;
@@ -263,11 +267,13 @@ namespace ILOVEYOU
                 foreach (var levelPlayer in m_levelManagers)
                 {
                     levelPlayer.GetPlayer.GetUI.GetBlindBox.EndPopups(); //clear popups
-                    levelPlayer.GetSpawner.DestroyAllEnemies();
-                    levelPlayer.GetSpawner.enabled = false;
-                    levelPlayer.GetPlayer.GetControls.Zero();
+                    levelPlayer.GetPlayer.GetComponent<BuffDataSystem>().ClearAllBuffs(true); //remove buffs
+                    levelPlayer.GetSpawner.DestroyAllEnemies(); //kill enemies
+                    levelPlayer.GetSpawner.enabled = false; //disable spawner
+                    levelPlayer.GetPlayer.GetControls.Zero(); //disable controls
                     levelPlayer.GetPlayer.GetControls.enabled = false;
-                    levelPlayer.GetPlayer.GetUI.GetCardDisplay.DiscardHand();
+                    levelPlayer.GetPlayer.GetUI.GetCardDisplay.DiscardHand(); //Discard cards
+                    levelPlayer.GetComponentInChildren<HazardManager>().DisableAllHazards(); //Disable Hazards
                     //levelPlayer.GetPlayer.DiscardHand();
                 }
                 

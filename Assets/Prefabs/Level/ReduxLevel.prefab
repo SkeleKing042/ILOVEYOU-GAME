@@ -215,7 +215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d524e60daf2b441988eaf5125908d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_debugging: 0
   m_hazardContainer: {fileID: 7541849866350878212}
   m_onGlobalHazardEnable:
     m_PersistentCalls:
@@ -277,7 +276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf7a114aeb035f4889c090dd15b9558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_debugging: 0
   m_damage: 1
   m_rate: 0.5
 --- !u!1 &8486646176180553140
@@ -779,6 +777,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 21.33
       objectReference: {fileID: 0}
+    - target: {fileID: 2186546654012046805, guid: 59a32c094634f5c4b9dfdfda72300783, type: 3}
+      propertyPath: m_effectOnActive.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 2310474797260870189}
+    - target: {fileID: 2186546654012046805, guid: 59a32c094634f5c4b9dfdfda72300783, type: 3}
+      propertyPath: m_effectOnDeactive.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 2310474797260870189}
+    - target: {fileID: 2186546654012046805, guid: 59a32c094634f5c4b9dfdfda72300783, type: 3}
+      propertyPath: m_effectOnActive.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 2186546654012046805, guid: 59a32c094634f5c4b9dfdfda72300783, type: 3}
+      propertyPath: m_effectOnDeactive.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
     - target: {fileID: 2280437850993922651, guid: 59a32c094634f5c4b9dfdfda72300783, type: 3}
       propertyPath: m_LocalPosition.y
       value: 21.33
@@ -1070,6 +1084,14 @@ PrefabInstance:
     - target: {fileID: 5763472015592787487, guid: 59a32c094634f5c4b9dfdfda72300783, type: 3}
       propertyPath: m_LocalPosition.y
       value: 21.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795663629759944190, guid: 59a32c094634f5c4b9dfdfda72300783, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795663629759944190, guid: 59a32c094634f5c4b9dfdfda72300783, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5837772689749338782, guid: 59a32c094634f5c4b9dfdfda72300783, type: 3}
       propertyPath: m_Materials.Array.data[2]
@@ -1455,7 +1477,8 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 95
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1235849151326241436, guid: 59a32c094634f5c4b9dfdfda72300783, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 59a32c094634f5c4b9dfdfda72300783, type: 3}
 --- !u!1 &645743608757668221 stripped
 GameObject:
@@ -1625,6 +1648,24 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &2310474797260870189 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8913845403768758295, guid: 59a32c094634f5c4b9dfdfda72300783, type: 3}
+  m_PrefabInstance: {fileID: 6603442248209707578}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &3174256507907224563
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2310474797260870189}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 13.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2351445545624651205 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8864809196600260607, guid: 59a32c094634f5c4b9dfdfda72300783, type: 3}

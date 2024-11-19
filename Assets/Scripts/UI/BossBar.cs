@@ -57,7 +57,7 @@ namespace ILOVEYOU
                 //activates object and generates name
                 gameObject.SetActive(true);
                 //transform.GetChild(0).gameObject.SetActive(true);
-                m_nameBox.text = GenerateName();
+                if (!m_active) m_nameBox.text = GenerateName();
                 //resets values
                 m_lag.maxValue = maxHealth;
                 m_lag.value = 0f;

@@ -30,6 +30,7 @@ namespace ILOVEYOU.EnemySystem
         [SerializeField] private AnimationCurve m_value;
         public override bool ApplyModifications(Enemy target)
         {
+            Debug.Log($"Appling {m_modType} {m_operation} to {target.name}");
             if(m_modType.HasFlag(ModifierType.Damage))
             {
                 Debug.Log("using damage");

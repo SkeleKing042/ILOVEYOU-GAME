@@ -525,15 +525,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1791074288124450012, guid: 249be88ab0e8cb9468540c191c23d3a2, type: 3}
       propertyPath: m_PresetInfoIsWorld
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4199018123313872988, guid: 249be88ab0e8cb9468540c191c23d3a2, type: 3}
       propertyPath: m_Name
-      value: Cracks1
+      value: Cracks
       objectReference: {fileID: 0}
     - target: {fileID: 4199018123313872988, guid: 249be88ab0e8cb9468540c191c23d3a2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7542392756407492377, guid: 249be88ab0e8cb9468540c191c23d3a2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7578657505337627169, guid: 249be88ab0e8cb9468540c191c23d3a2, type: 3}
       propertyPath: m_Pivot.x
@@ -618,6 +622,14 @@ PrefabInstance:
     - target: {fileID: 7578657505337627169, guid: 249be88ab0e8cb9468540c191c23d3a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8418548040590200396, guid: 249be88ab0e8cb9468540c191c23d3a2, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086457678731346686, guid: 249be88ab0e8cb9468540c191c23d3a2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 249be88ab0e8cb9468540c191c23d3a2, type: 3}

@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 4223124445082925710}
   - component: {fileID: 1791074288124450012}
   - component: {fileID: 7176656379276933356}
+  - component: {fileID: 2178430560919916625}
   m_Layer: 5
   m_Name: Cracks
   m_TagString: Untagged
@@ -257,6 +258,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2178430560919916625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4199018123313872988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d1fe15873a6d249b2053e06ea8e7a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_controlRef: {fileID: 0}
+  m_threashold: 0.5
 --- !u!1 &6825103231971192153
 GameObject:
   m_ObjectHideFlags: 0
