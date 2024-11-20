@@ -48,7 +48,7 @@ namespace ILOVEYOU
                 BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].InitializeHealthBar(m_maxHealth);
 
                 //Tell them to kill the boss
-                m_playerTransform.GetComponent<PlayerControls>().SetContext(null, 1, "KILL");
+                m_playerTransform.GetComponent<PlayerControls>().GetContextBox.SetContext(null, 1, "Send that motherfucker into the stratosphere!!");
                 m_playerTransform.GetComponent<PlayerControls>().Invoke("RemoveAllContext", 3f);
             }
 

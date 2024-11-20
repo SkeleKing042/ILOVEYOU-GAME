@@ -132,7 +132,7 @@ namespace ILOVEYOU
                 }
                 return array;
             }
-            static public DisruptCard[] GetRandomCard(CardData[] array, int returnCount = 1)
+            static public DisruptCard[] GetRandomCard(CardData[] array, int returnCount = 1, int attempts = 100)
             {
                 //Array size check
                 if(returnCount < 1) { Debug.Log("Return count set too low!"); returnCount = 1; }
@@ -142,7 +142,11 @@ namespace ILOVEYOU
                 for (int c = 0; c < returnCount; c++)
                 {
                     //Generate rng
-                    float rndChance = Random.Range(0.00f, 1.00f);
+                    float rndChance = 0;
+                    if (attempts > 0)
+                    {
+                        rndChance = Random.Range(0.00f, 1.00f);
+                    }
                     Debug.Log($"Rolled rnd of {rndChance * 100}%");
                     int rndOffset = Random.Range(0, array.Length);
                     //Go through until card found
@@ -170,6 +174,8 @@ namespace ILOVEYOU
                             c--;
                         }
                     }
+                    attempts--;
+
                 }
                 return returnedCards.ToArray();
             }
