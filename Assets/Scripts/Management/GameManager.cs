@@ -242,17 +242,36 @@ namespace ILOVEYOU
             /// <summary>
             /// function that does the setup for when a player loses
             /// </summary>
-            /// <param name="player">player manager of the losing player</param>
-            public void PlayerDeath(PlayerManager player)
+            /// <param name="deadPlayer">player manager of the losing player</param>
+            public void PlayerDeath(PlayerManager deadPlayer)
             {
 
-                player.GetComponent<Animator>().SetTrigger("Death");
-                player.GetControls.GetPlayerAnimator.SetTrigger("Death");
-                //foreach(other player)
-                //start win animation
+                deadPlayer.GetComponent<Animator>().SetTrigger("Death");
+                deadPlayer.GetControls.GetPlayerAnimator.SetTrigger("Death");
 
-                //winning player
-                int playerNum = (player == m_levelManagers[0].GetPlayer) ? 1 : 0;
+                //should the game end?
+                List<PlayerManager> livingPlayers = new();
+                foreach(var player in GetOtherPlayers(null))
+                {
+                    if(player.GetControls.GetHealthPercent >= 0)
+                    {
+                        livingPlayers.Add(player);
+                        if (livingPlayers.Count >= 2)
+                        {
+                            Debug.Log("There are still more then 2 players alive. Game will continue");
+                            return;
+                        }
+                    }
+                }
+                //start win animation
+                foreach(var livingPlayer in livingPlayers)
+                {
+                    livingPlayer.GetComponent<Animator>().SetTrigger("Win");
+                    livingPlayer.GetControls.GetPlayerAnimator.SetTrigger("Win");
+                }
+
+                //score might need a change
+                int playerNum = (deadPlayer == m_levelManagers[0].GetPlayer) ? 1 : 0;
                 switch (playerNum)
                 {
                     case 0:
