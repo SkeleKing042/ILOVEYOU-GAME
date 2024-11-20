@@ -48,7 +48,7 @@ namespace ILOVEYOU
                 m_tasks = new Task[GameSettings.Current.GetMaxTaskCount];
                 for (int i = 0; i < m_tasks.Length; i++)
                 {
-                    m_tasks[i] = new(TaskType.Invalid, 0);
+                    m_tasks[i] = new();
                 }
                 //m_taskBars = new Image[m_taskLimit];
 
@@ -61,7 +61,7 @@ namespace ILOVEYOU
             /// <param name="type"></param>
             /// <param name="cap"></param>
             /// <returns>The index of the task</returns>
-            public int AddTask(TaskType type, float cap)
+            public int AddTask(Task template)
             {
                 //Find an empty slot in the array
                 for (int i = 0; i < m_tasks.Length; i++)
@@ -69,7 +69,7 @@ namespace ILOVEYOU
                     if (m_tasks[i] == null || m_tasks[i].GetTaskType == TaskType.Invalid)
                     {
                         //Fill the slot with a new task
-                        m_tasks[i] = new(type, cap);
+                        m_tasks[i] = new(template);
 
                         //Set up ui element
                         if (m_taskDisplay) m_taskDisplay.SetTask(ref m_tasks[i]);
@@ -94,15 +94,6 @@ namespace ILOVEYOU
                 return -1;
             }
             /// <summary>
-            /// Creates a new class to add to the list
-            /// </summary>
-            /// <param name="task"></param>
-            /// <returns>The index of the task</returns>
-            public int AddTask(Task task)
-            {
-                return AddTask(task.GetTaskType, task.GetCapValue);
-            }
-            /// <summary>
             /// Checks if any tasks are complete and removes them from the list
             /// </summary>
             /// <returns></returns>
@@ -116,8 +107,17 @@ namespace ILOVEYOU
                     if (m_tasks[i].IsComplete)
                     {
                         m_player.GetUI.GetLog.LogInput($"{m_tasks[i].GetTaskType} task complete. Rewarding cards.");
+
+                        //heal the player if the option is enabled
+                        if (GameSettings.Current.CanTasksHeal && m_tasks[i].GetHealAmount > 0)
+                        {
+                            float h = m_tasks[i].GetHealAmount;
+                            Debug.Log($"Player healed for {h}.\nCurrent Health: {m_player.GetControls.GetHealthPercent}");
+                            m_player.GetControls.HealDamage(h);
+                        }
+
                         //..clear the task in that slot
-                        m_tasks[i] = new(TaskType.Invalid, 0);
+                        m_tasks[i] = new();
 
                         //Give the player a point that will get exchanged for cards later
                         m_boomBox.gameObject.SetActive(true);

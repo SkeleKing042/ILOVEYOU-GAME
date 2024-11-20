@@ -1,5 +1,7 @@
 using ILOVEYOU.Management;
+using System;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace ILOVEYOU.EditorScript
@@ -13,6 +15,7 @@ namespace ILOVEYOU.EditorScript
         SerializedProperty m_diffCapProp;
         SerializedProperty m_maxTasksProp;
         SerializedProperty m_taskListProp;
+        SerializedProperty m_tasksHealProp;
         SerializedProperty m_cardCountProp;
         SerializedProperty m_cardTimeOutProp;
         SerializedProperty m_cardDataProp;
@@ -40,6 +43,8 @@ namespace ILOVEYOU.EditorScript
         //Dictionary<string, object> SavedValues = new();
         //bool cardsEnabled = true;
         //bool cardsUpdated = true;
+
+        private ReorderableList m_taskList;
 
         bool m_displayTaskSettings = false;
         /*bool m_tasksAreEnabled
@@ -152,6 +157,7 @@ namespace ILOVEYOU.EditorScript
             m_diffCapProp = serializedObject.FindProperty("m_difficultyCap");
             m_maxTasksProp = serializedObject.FindProperty("m_maxTaskCount");
             m_taskListProp = serializedObject.FindProperty("m_taskList");
+            m_tasksHealProp = serializedObject.FindProperty("m_tasksCanHeal");
             m_cardCountProp = serializedObject.FindProperty("m_numberOfCardToGive");
             m_cardTimeOutProp = serializedObject.FindProperty("m_cardTimeOut");
             m_cardDataProp = serializedObject.FindProperty("m_cardData");
@@ -179,6 +185,8 @@ namespace ILOVEYOU.EditorScript
         }
         public override void OnInspectorGUI()
         {
+            m_taskList = new(serializedObject, serializedObject.FindProperty("m_taskList"), true, true, true, true);
+
             EditorGUILayout.HelpBox("These are the settings that will be used in-game. To assign settings, find the \"settings\" variable in the GameManager, or click assign to change settings in realtime\n(Assigned settings will reset on scene start).", MessageType.Info);
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("Assign"))
@@ -193,20 +201,51 @@ namespace ILOVEYOU.EditorScript
 
             serializedObject.Update();
 
+            #region misc
             //title
             EditorGUILayout.PropertyField(m_announcProp, new GUIContent("Announcement title"));
             //difficulty
             EditorGUILayout.LabelField("Difficulty Settings", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(m_diffCapProp, new GUIContent("Max Difficulty Value"));
             if (m_diffCapProp.floatValue < 0) m_diffCapProp.floatValue = 0;
-
-            //task
+            #endregion
+            #region Task Settings
             GUILayout.Space(16);
             m_displayTaskSettings = EditorGUILayout.Foldout(m_displayTaskSettings, "Task settings");
             if (m_displayTaskSettings)
             {
-                //EditorGUILayout.PropertyField(m_maxTasksProp, new GUIContent("Max Task Count"));
-                EditorGUILayout.PropertyField(m_taskListProp, new GUIContent("Task List"));
+                EditorGUILayout.PropertyField(m_tasksHealProp, new GUIContent("Can tasks heal"));
+                
+                //Draw the elements in the array
+                m_taskList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
+                {
+                    rect.y += 2;
+                    var element = m_taskList.serializedProperty.GetArrayElementAtIndex(index);
+                    float valueSize = 100;
+                    //type
+                    EditorGUI.PropertyField(new Rect(rect.x, rect.y, rect.width - valueSize - 5, EditorGUIUtility.singleLineHeight), element.FindPropertyRelative("m_type"), GUIContent.none);
+                    //value
+                    EditorGUI.PropertyField(new Rect(rect.x + rect.width - valueSize, rect.y, valueSize, EditorGUIUtility.singleLineHeight), element.FindPropertyRelative("m_capValue"), GUIContent.none);
+                    //only if tasks should heal...
+                    if (m_tasksHealProp.boolValue)
+                    {
+                        //...should the heal value be drawn.
+                        rect.y += EditorGUIUtility.singleLineHeight + 2;
+                        EditorGUI.PropertyField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), element.FindPropertyRelative("m_healAmount"), new GUIContent("Heal amount"));
+                    }
+
+
+                };
+                if (m_tasksHealProp.boolValue)
+                    m_taskList.elementHeight = EditorGUIUtility.singleLineHeight * 2 + 5;
+
+                m_taskList.drawHeaderCallback = (Rect rect) =>
+                {
+                    EditorGUI.LabelField(rect, "Task list");
+                };
+
+                m_taskList.DoLayoutList();
+
             }
             if(m_taskListProp.arraySize < 2)
             {
@@ -219,8 +258,8 @@ namespace ILOVEYOU.EditorScript
                 m_taskListProp.InsertArrayElementAtIndex(1);
 
             }
-
-            //card
+            #endregion
+            #region Card Settings
             GUILayout.Space(16);
             if (m_cardsAreEnabled)
             {
@@ -248,8 +287,8 @@ namespace ILOVEYOU.EditorScript
             {
                 m_cardsAreEnabled = true;
             }
-
-            //player
+            #endregion
+            #region Player Settings
             GUILayout.Space(16);
             m_displayPlayerSettings = EditorGUILayout.Foldout(m_displayPlayerSettings, new GUIContent("Player Settings"));
             if (m_displayPlayerSettings)
@@ -259,8 +298,8 @@ namespace ILOVEYOU.EditorScript
                 EditorGUILayout.PropertyField(m_playerSpeedProp, new GUIContent("Player Speed"));
                 EditorGUILayout.PropertyField(m_playerShootingProp, new GUIContent("Player Shooting Pattern"));
             }
-
-            //unseen ai
+            #endregion
+            #region Unseen AI Settings
             GUILayout.Space(16);
             if (m_useUnseenProp.boolValue)
             {
@@ -290,8 +329,8 @@ namespace ILOVEYOU.EditorScript
                     m_displayUnseenSettings = true;
                 }
             }
-
-            //card burst
+            #endregion
+            #region Card Burst Settings
             GUILayout.Space(16);
             if (m_usingCardBurst)
             {
@@ -353,11 +392,8 @@ namespace ILOVEYOU.EditorScript
                 m_usingCardBurst = true;
                 m_displayCardBurstSettings = true;
             }
-
-            //if (m_usingCardBurst)
-
-
-            //enemy
+            #endregion
+            #region Enemy Settings
             GUILayout.Space(16);
             m_displayEnemySettings = EditorGUILayout.Foldout(m_displayEnemySettings, new GUIContent("Enemy settings"));
             if (m_displayEnemySettings)
@@ -414,20 +450,15 @@ namespace ILOVEYOU.EditorScript
                     }
                 }
             }
-
-            //colors
+            #endregion
+            #region Colour Settings
             GUILayout.Space(16);
             m_displayColorStyles = EditorGUILayout.Foldout(m_displayColorStyles, new GUIContent("Colors"));
             if (m_displayColorStyles)
             {
                 EditorGUILayout.PropertyField(m_colorsProp, new GUIContent("Game Color"));
             }
-
-
-
-
-
-
+            #endregion
 
             serializedObject.ApplyModifiedProperties();
             //base.OnInspectorGUI();
