@@ -254,10 +254,17 @@ namespace ILOVEYOU
                 m_anim.SetFloat("moveZ", 0f);
                 m_anim.SetBool("Shooting", false);
             }
-            public void HealDamage(float value)
+            public void HealDamage(float value, bool doOverheal = false)
             {
                 Debug.Log($"Healing {gameObject.name} for {value} points");
-                m_health += value;
+                if (doOverheal)
+                {
+                    m_health += value;
+                }
+                else
+                {
+                    m_health = Mathf.Clamp(m_health + value, 0, m_maxHealth);
+                }
                 UpdateHealthBar();
             }
             /// <summary>
