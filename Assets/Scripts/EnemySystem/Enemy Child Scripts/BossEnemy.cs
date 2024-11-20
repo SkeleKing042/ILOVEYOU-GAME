@@ -68,6 +68,10 @@ namespace ILOVEYOU
                                         m_speed = m_maxSpeed;
                                         MoveToTarget();
                                     }*/
+
+                m_anim.SetBool("Charging", m_charging);
+                m_anim.SetFloat("Velocity", m_tempSpeed);
+
                 base.Update();
             }
 
