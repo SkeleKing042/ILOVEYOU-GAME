@@ -28,21 +28,23 @@ namespace ILOVEYOU.UI
 
         void FixedUpdate()
         {
+            //Only update the UI if the health has changed
             if (m_lastPercent != m_controlRef.GetHealthPercent)
             {
-                if (m_controlRef.GetHealthPercent <= m_threashold)
+                //Disable all the child objects
+                for (int i = 0; i < transform.childCount; i++)
                 {
-                    for (int i = 0; i < Mathf.RoundToInt(transform.childCount * (1 - m_controlRef.GetHealthPercent / m_threashold)); i++)
-                    {
-                        GameObject childT = transform.GetChild(i).gameObject;
-                        if (!childT.activeSelf)
-                        {
-                            childT.SetActive(true);
-                        }
-                    }
+                    transform.GetChild(i).gameObject.SetActive(false);
                 }
+                //Only enable a percentage of the children equal to the current health value after the threashold
+                for (int i = 0; i < Mathf.RoundToInt(transform.childCount * (1 - m_controlRef.GetHealthPercent / m_threashold)); i++)
+                {
+                    transform.GetChild(i).gameObject.SetActive(true);
+                }
+                //remember the last percentage
                 m_lastPercent = m_controlRef.GetHealthPercent;
             }
+
         }
     }
 }
