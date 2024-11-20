@@ -254,6 +254,12 @@ namespace ILOVEYOU
                 m_anim.SetFloat("moveZ", 0f);
                 m_anim.SetBool("Shooting", false);
             }
+            public void HealDamage(float value)
+            {
+                Debug.Log($"Healing {gameObject.name} for {value} points");
+                m_health += value;
+                UpdateHealthBar();
+            }
             /// <summary>
             /// makes the player take the damage oh noooo this is bad
             /// </summary>
