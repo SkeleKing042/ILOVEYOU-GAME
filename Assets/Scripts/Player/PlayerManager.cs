@@ -44,6 +44,7 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent<bool> m_onCardSelected;
             [SerializeField] private UnityEvent m_onBlind;
             [SerializeField] private UnityEvent m_onUnblind;
+            [SerializeField] public UnityEvent OnVictory;
             public bool Startup(LevelManager manager, uint index)
             {
                 Debug.Log($"Starting {this}.");

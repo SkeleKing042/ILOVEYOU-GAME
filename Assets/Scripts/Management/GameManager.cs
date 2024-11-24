@@ -266,8 +266,9 @@ namespace ILOVEYOU
                 //start win animation
                 foreach(var livingPlayer in livingPlayers)
                 {
-                    livingPlayer.GetComponent<Animator>().SetTrigger("Win");
-                    livingPlayer.GetControls.GetPlayerAnimator.SetTrigger("Win");
+                    livingPlayer.OnVictory.Invoke();
+                    //livingPlayer.GetComponent<Animator>().SetTrigger("Win");
+                    //livingPlayer.GetControls.GetPlayerAnimator.SetTrigger("Win");
                 }
 
                 //score might need a change
