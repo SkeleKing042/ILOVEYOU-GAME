@@ -28,6 +28,7 @@ namespace ILOVEYOU
             private float m_iframesCurrent;
             [SerializeField] private Animator m_anim; //animator should be located on the player model
             public Animator GetPlayerAnimator { get { return m_anim; } }
+            [SerializeField] private Renderer[] m_characterRenderers;
 
             [Header("Movement")]
             private float m_moveSpeed;
@@ -115,6 +116,11 @@ namespace ILOVEYOU
                 return true;
             }
 
+            public void SetMaterial(Material[] materials)
+            {
+                m_characterRenderers[0].material = materials[0];
+                m_characterRenderers[1].material = materials[1];
+            }
 
             /// <summary>
             /// Changes a stat
@@ -185,14 +191,7 @@ namespace ILOVEYOU
                 m_moveDir = new Vector3(m_moveDir.x, 0, m_moveDir.y);
                 //Debug.Log($"Moving {gameObject} by {m_moveDir}.");
 
-                //Converts movement into angle
-                float moveAngle = Mathf.Rad2Deg * Mathf.Atan2(m_moveDir.x, m_moveDir.z);
-                //gets quaternions to convert to vectors
-                Quaternion moveQ = Quaternion.Euler(0f, moveAngle, 0f);
-                Quaternion shotQ = m_facingObject.rotation;
-                //sets required animation variables
-                m_anim.SetFloat("moveX", (moveQ * Quaternion.Inverse(shotQ) * Vector3.forward * m_moveDir.magnitude).x);
-                m_anim.SetFloat("moveZ", (moveQ * Quaternion.Inverse(shotQ) * Vector3.forward * m_moveDir.magnitude).z);
+                UpdateAnimator();
             }
             public void OnFire(InputValue value)
             {
@@ -211,7 +210,25 @@ namespace ILOVEYOU
                 Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
                 m_facingObject.transform.rotation = rotation;
                 //m_playerModel.transform.rotation = rotation;
+
+                UpdateAnimator();
             }
+
+            /// <summary>
+            /// updates the player animator for movement
+            /// </summary>
+            private void UpdateAnimator()
+            {
+                //Converts movement into angle
+                float moveAngle = Mathf.Rad2Deg * Mathf.Atan2(m_moveDir.x, m_moveDir.z);
+                //gets quaternions to convert to vectors
+                Quaternion moveQ = Quaternion.Euler(0f, moveAngle, 0f);
+                Quaternion shotQ = m_facingObject.rotation;
+                //sets required animation variables
+                m_anim.SetFloat("moveX", (moveQ * Quaternion.Inverse(shotQ) * Vector3.forward * m_moveDir.magnitude).x);
+                m_anim.SetFloat("moveZ", (moveQ * Quaternion.Inverse(shotQ) * Vector3.forward * m_moveDir.magnitude).z);
+            }
+
             public void OnContextButton(InputValue value)
             {
                 //Debug.Log("HEwwo!!!!");
@@ -232,6 +249,7 @@ namespace ILOVEYOU
             {
                 m_moveDir = Vector3.zero;
                 m_rb.velocity = Vector3.zero;
+                m_aimDir = Vector3.zero;
                 m_anim.SetFloat("moveX", 0f);
                 m_anim.SetFloat("moveZ", 0f);
                 m_anim.SetBool("Shooting", false);
@@ -265,14 +283,15 @@ namespace ILOVEYOU
                 m_plaMa.GetUI.UpdateHealthBar(current);
             }
 
-            public void BulletShoot()
+            public void PlaySound(string name)
             {
-                SoundManager.SFX.PlayRandomSound("PlayerShoot");
+                SoundManager.SFX.PlayRandomSound(name);
             }
 
             private void OnDrawGizmos()
             {
 #if UNITY_EDITOR
+                if(m_facingObject)
                 {
                     Gizmos.color = Color.red;
 

@@ -52,7 +52,7 @@ namespace ILOVEYOU.MainMenu
 
         public void ButtonPressed(int selection)
         {
-            if (selection == 0 && ControllerManager.Instance.ControllerCount < 2) return;
+            if (selection == 0 && ControllerManager.Instance.ControllerCount < 1) return;
 
             foreach (GameObject obj in m_mainMenuButtons)
             {
@@ -61,20 +61,28 @@ namespace ILOVEYOU.MainMenu
 
             switch (selection)
             {
-                //start game
+                //Start game
                 case 0:
                     m_effect.StartType(m_inputField, "run ILOVEYOU.exe", 12f, StartGame);
                     break;
-                //options
+                //Options
                 case 1:
                     m_effect.StartType(m_inputField, "open options.cfg", 12f, OptionsMenu);
                     break;
-                //about
+                //Controls
                 case 2:
+                    m_effect.StartType(m_inputField, "open help.txt", 12f, ControlsMenu);
+                    break;
+                //Codex
+                case 3:
+                    m_effect.StartType(m_inputField, "open codex.txt", 12f, CodexMenu);
+                    break;
+                //About
+                case 4:
                     m_effect.StartType(m_inputField, "open README.txt", 12f, CreditsMenu);
                     break;
                 //Quit
-                case 3:
+                case 5:
                     m_effect.StartType(m_inputField, "shutdown", 12f, Quit);
                     break;
                 default:
@@ -123,6 +131,8 @@ namespace ILOVEYOU.MainMenu
             m_menuObjects[0].SetActive(true);
             m_menuObjects[1].SetActive(false);
             m_menuObjects[2].SetActive(false);
+            m_menuObjects[3].SetActive(false);
+            m_menuObjects[4].SetActive(false);
 
             foreach (GameObject obj in m_mainMenuButtons)
             {
@@ -141,13 +151,39 @@ namespace ILOVEYOU.MainMenu
             m_eventSystem.SetSelectedGameObject(m_optionSelect[1]);
         }
 
+        public void ControlsMenu()
+        {
+            m_eventSystem.enabled = true;
+
+            m_menuObjects[0].SetActive(false); //disable default menu
+
+            m_mainMenuButtons[2].GetComponent<CreatePopUpMenu>().CreatePopUp(transform);
+
+            foreach (GameObject obj in m_mainMenuButtons)
+            {
+                obj.GetComponent<Button>().interactable = true;
+            }
+
+            //m_menuObjects[2].SetActive(true); //enable options menu
+            //m_eventSystem.SetSelectedGameObject(m_optionSelect[2]);
+        }
+
+        public void CodexMenu()
+        {
+            m_eventSystem.enabled = true;
+
+            m_menuObjects[0].SetActive(false); //disable default menu
+            m_menuObjects[3].SetActive(true); //enable options menu
+            m_eventSystem.SetSelectedGameObject(m_optionSelect[3]);
+        }
+
         public void CreditsMenu()
         {
             m_eventSystem.enabled = true;
 
             m_menuObjects[0].SetActive(false); //disable default menu
-            m_menuObjects[2].SetActive(true); //enable credits menu
-            m_eventSystem.SetSelectedGameObject(m_optionSelect[2]);
+            m_menuObjects[4].SetActive(true); //enable credits menu
+            m_eventSystem.SetSelectedGameObject(m_optionSelect[4]);
         }
         /// <summary>
         /// plays sound

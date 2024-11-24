@@ -58,6 +58,19 @@ namespace ILOVEYOU
                 }
             }
             /// <summary>
+            /// destroys all enemies
+            /// </summary>
+            public void DestroyAllEnemies()
+            {
+                for (int i = 0; i < m_enemyObjects.Count; i++)
+                {
+                    //possible todo: disintergrate enemies?
+                    Destroy(m_enemyObjects[i]);
+                }
+
+                m_enemyObjects.Clear();
+            }
+            /// <summary>
             /// Disables all enemies
             /// </summary>
             public void DisableAllEnemies()

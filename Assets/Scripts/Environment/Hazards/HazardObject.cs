@@ -11,7 +11,6 @@ namespace ILOVEYOU
 
         public class HazardObject : MonoBehaviour
         {
-            [SerializeField] private bool m_debugging;
             private bool m_isActive = false;
             private bool m_triggerOnce = false;
             private bool m_triggered = false;
@@ -39,7 +38,7 @@ namespace ILOVEYOU
 
                 EnableHazard();
                 CancelInvoke();
-                Invoke("DisableHazard", time);
+                Invoke(nameof(DisableHazard), time);
             }
             /// <summary>
             /// Enables all the triggers on this object.
@@ -50,17 +49,20 @@ namespace ILOVEYOU
 
                 if (m_isActive == false)
                 {
+                    Debug.Log($"Enabling {name} hazard");
                     m_isActive = true;
                     m_effectOnActive.Invoke();
                 }
             }
+            public void DisableHazard() { DisableHazard(false); }
             /// <summary>
             /// Disables all the trigger on this object.
             /// </summary>
-            public void DisableHazard()
+            public void DisableHazard(bool force = false)
             {
-                if (m_isActive == true)
+                if (m_isActive == true || force)
                 {
+                    Debug.Log($"Disabling {name} hazard");
                     m_isActive = false;
                     m_effectOnDeactive.Invoke();
                 }
@@ -108,7 +110,7 @@ namespace ILOVEYOU
             }
             public void LogObject(GameObject go)
             {
-                if(m_debugging) Debug.Log($"{go} is causing a collision event with {gameObject}.");
+                Debug.Log($"{go} is causing a collision event with {gameObject}.");
             }
             #endregion
         }

@@ -4,6 +4,8 @@ using ILOVEYOU.Shader;
 using UnityEngine.AI;
 using System.Collections;
 using ILOVEYOU.UI;
+using UnityEngine.Events;
+using ILOVEYOU.Audio;
 namespace ILOVEYOU
 {
     namespace EnemySystem
@@ -15,6 +17,7 @@ namespace ILOVEYOU
             [SerializeField] protected float m_maxHealth = 1f;
             public float GetSetMaxHealth { get { return m_maxHealth; } set { m_maxHealth = value; } }
             protected float m_currentHealth = 1f;
+            public float GetCurrentHealth => m_currentHealth;
             [SerializeField] protected float m_deathTimeout = 10f;
             [SerializeField] protected float m_distanceCondition = 1f;
             [SerializeField] protected bool m_canBeStunned = false;
@@ -22,10 +25,15 @@ namespace ILOVEYOU
             protected float m_stunnedRecoveryTime = 1f;
             protected bool m_isDead = false;
             public bool IsDead => m_isDead;
+            [SerializeField] private ParticleSystem m_dp;
 
             [SerializeField] protected LayerMask m_obscureMask;
             protected bool m_canSeePlayer { get { return !Physics.Raycast(transform.position, (m_playerTransform.position - transform.position).normalized, (m_playerTransform.position - transform.position).magnitude, m_obscureMask); } }
             [SerializeField] protected bool m_ignoreSight;
+
+            [Header("Events")]
+            [SerializeField] protected UnityEvent m_onDeath; //called when health reaches 0
+            [SerializeField] protected UnityEvent m_onDeathTimeout; //called when object is about to be destroyed
 
             [Header("Despawning offscreen")]
             [Tooltip("The time this enemy can spend offscreen before despawning")]
@@ -47,6 +55,15 @@ namespace ILOVEYOU
             private DamageBlink m_blinkScript;
             public virtual void Initialize(Transform target, EnemyModifier[] mods = null)
             {
+                string modList = mods != null ? "" : "None";
+                foreach(var mod in mods)
+                {
+                    mod.ApplyModifications(this);
+                    GetComponentInChildren<ModifierDisplay>().AddModifierToDisplay(mod.GetIcon);
+                    modList += $"{mod.name}\n";
+                }
+
+                GetComponentInChildren<ModifierDisplay>().FixModImages();
                 m_rigidBody = GetComponent<Rigidbody>();
                 m_playerTransform = target;
                 GetComponentInChildren<ModifierDisplay>().GetCamera = m_playerTransform.GetComponentInChildren<Camera>().transform;
@@ -63,12 +80,7 @@ namespace ILOVEYOU
                 //sets rotation
                 transform.rotation = rotation;
 
-                foreach(var mod in mods)
-                {
-                    mod.ApplyModifications(this);
-                    GetComponentInChildren<ModifierDisplay>().AddModifierToDisplay(mod.GetIcon);
-                }
-                GetComponentInChildren<ModifierDisplay>().FixModImages();
+                Debug.Log($"Enemy {gameObject.name} initialized.\nSTATS:\nDamage: {m_damage}\nHealth: {m_currentHealth}/{m_maxHealth}\nSpeed: {m_agent.speed}\nSize: {target.transform.localScale}\nApplied Mods:\n{modList}");
 
                 //Potential TODO: add a "modifier" value that is dependent on current difficulty/time that influences the base values
             }
@@ -208,14 +220,17 @@ namespace ILOVEYOU
 
             public virtual bool TakeDamage(float damage)
             {
+                Debug.Log($"Enemy {gameObject.name} taking {damage} points of damage. (Health: {m_currentHealth}/{m_maxHealth})");
                 //do not take damage if dead
                 if (m_isDead)
                     return false;
                 m_blinkScript.StartBlink();
                 m_currentHealth -= damage;
+                Debug.Log($"Enemy {gameObject.name} took {damage} points of damage. (Health: {m_currentHealth}/{m_maxHealth})");
                 //death
                 if (m_currentHealth <= 0)
                 {
+                    Debug.Log($"Enemy {gameObject.name} has died.");
                     m_isDead = true;
                     enabled = false;
                     m_agent.enabled = false;
@@ -228,9 +243,35 @@ namespace ILOVEYOU
                         col.enabled = false;
                     }*/
                     m_anim?.SetTrigger("Death");
-                    Destroy(gameObject, m_deathTimeout);
+                    //Destroy(gameObject, m_deathTimeout);
+                    Death();
+                    Invoke(nameof(DeathTimeout), m_deathTimeout);
                 }
                 return true;
+            }
+
+            public virtual void Death()
+            {
+                m_onDeath.Invoke();
+            }
+
+            public virtual void DeathTimeout()
+            {
+                m_onDeathTimeout.Invoke();
+                if (m_dp)
+                {
+                    m_dp.Play();
+                    foreach(var smr in GetComponentsInChildren<SkinnedMeshRenderer>())
+                    {
+                        smr.enabled = false;
+                    }
+                }
+                Destroy(gameObject, m_dp ? m_dp.main.duration : 0);
+            }
+
+            public virtual void PlaySound(string group)
+            {
+                SoundManager.SFX.PlayRandomSound(group);
             }
 
             public virtual bool HealDamage(float health, bool clampResult = true)
@@ -238,11 +279,15 @@ namespace ILOVEYOU
                 if (m_isDead)
                     return false;
 
+                string s = clampResult ? "healing" : "over-healing";
+                Debug.Log($"{gameObject.name} {s} for {health}\nCurrent health: {m_currentHealth}/{m_maxHealth}");
+                
                 m_currentHealth += health;
 
                 if (clampResult)
                     m_currentHealth = Mathf.Clamp(m_currentHealth, 0, m_maxHealth);
 
+                Debug.Log($"{gameObject.name} healed for {health}\nCurrent health: {m_currentHealth}/{m_maxHealth}");
                 return true;
             }
         }

@@ -17,7 +17,6 @@ namespace ILOVEYOU
 
         public class HazardManager : MonoBehaviour
         {
-            [SerializeField] private bool m_debugging;
             [SerializeField] private Transform m_hazardContainer;
             private HazardObject[] m_levelHazards;
             private List<HazardObject> m_tempLevelHazards = new();
@@ -26,18 +25,22 @@ namespace ILOVEYOU
             // Start is called before the first frame update
             public bool Startup()
             {
-                if (m_debugging) Debug.Log($"Starting {this}.");
+                Debug.Log($"Starting {this}.");
                 //Get all the hazards in the level.
                 m_levelHazards = m_hazardContainer.GetComponentsInChildren<HazardObject>();
 
 
                 if (m_levelHazards.Length == 0)
                 {
-                    if (m_debugging) Debug.LogWarning($"{this} was unable to find any hazard objects.");
+                    Debug.LogWarning($"{this} was unable to find any hazard objects.");
+                }
+                foreach(var hazard in m_levelHazards)
+                {
+                    hazard.DisableHazard(true);
                 }
 
                 //passed
-                if (m_debugging) Debug.Log($"{this} started successfully.");
+                Debug.Log($"{this} started successfully.");
                 return true;
             }
             /// <summary>
@@ -45,7 +48,7 @@ namespace ILOVEYOU
             /// </summary>
             public void EnableAllHazards()
             {
-                if (m_debugging) Debug.Log("Triggering hazards.");
+                Debug.Log("Triggering hazards.");
                 foreach(HazardObject hazardObject in m_levelHazards)
                 {
                     hazardObject.EnableHazard();
@@ -62,7 +65,7 @@ namespace ILOVEYOU
             /// <param name="time">Amount of time hazards are active for</param>
             public void EnableAllHazards(float time)
             {
-                if (m_debugging) Debug.Log($"Triggering hazards for {time} seconds.");
+                Debug.Log($"Triggering hazards for {time} seconds.");
                 foreach (HazardObject hazardObject in m_levelHazards)
                 {
                     hazardObject.EnableHazard(time);
@@ -78,7 +81,7 @@ namespace ILOVEYOU
             /// </summary>
             public void DisableAllHazards()
             {
-                if (m_debugging) Debug.Log("Disabling hazards.");
+                Debug.Log("Disabling hazards.");
                 foreach (HazardObject hazardObject in m_levelHazards)
                 {
                     hazardObject.DisableHazard();
@@ -95,7 +98,7 @@ namespace ILOVEYOU
             /// <param name="type">Type if hazard to enable</param>
             public void EnableTypeHazards(HazardTypes type)
             {
-                if (m_debugging) Debug.Log($"Triggering {type} hazards.");
+                Debug.Log($"Triggering {type} hazards.");
                 foreach (HazardObject hazardObject in m_levelHazards)
                 {
                     if (type == hazardObject.HazardType()) hazardObject.EnableHazard();
@@ -108,7 +111,7 @@ namespace ILOVEYOU
             }
             public void EnableTypeHazards(HazardTypes type, float time)
             {
-                if (m_debugging) Debug.Log($"Triggering {type} hazards for {time} seconds."); ;
+                Debug.Log($"Triggering {type} hazards for {time} seconds."); ;
                 foreach (HazardObject hazardObject in m_levelHazards)
                 {
                     if (type == hazardObject.HazardType()) hazardObject.EnableHazard(time);
@@ -125,7 +128,7 @@ namespace ILOVEYOU
             /// <param name="type">Type to disable</param>
             public void DisableAllTypeHazards(HazardTypes type)
             {
-                if (m_debugging) Debug.Log("Disabling hazards.");
+                Debug.Log("Disabling hazards.");
                 foreach (HazardObject hazardObject in m_levelHazards)
                 {
                     if (type == hazardObject.HazardType()) hazardObject.DisableHazard();

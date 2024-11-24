@@ -17,6 +17,9 @@ namespace ILOVEYOU
             private float m_timer = 0f;
             private float m_lagDamage = 0f;
 
+            [SerializeField] private TextMeshProUGUI m_nameBox;
+            [SerializeField] private TextMeshProUGUI m_damageNumBox;
+
             [SerializeField] private Slider m_lag;
             [SerializeField] private Slider m_current;
 
@@ -31,7 +34,7 @@ namespace ILOVEYOU
                     if (m_timer <= 0f)
                     {
                         m_lagDamage = 0f;
-                        transform.GetChild(0).GetChild(1).gameObject.SetActive(false); //hides damage number
+                        m_damageNumBox.gameObject.SetActive(false); //hides damage number
                         m_lag.value = Mathf.MoveTowards(m_lag.value, m_current.value, Time.deltaTime * m_current.maxValue / 2f); //moves the timer
                     }
                 }
@@ -54,7 +57,7 @@ namespace ILOVEYOU
                 //activates object and generates name
                 gameObject.SetActive(true);
                 //transform.GetChild(0).gameObject.SetActive(true);
-                transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = GenerateName();
+                if (!m_active) m_nameBox.text = GenerateName();
                 //resets values
                 m_lag.maxValue = maxHealth;
                 m_lag.value = 0f;
@@ -90,8 +93,8 @@ namespace ILOVEYOU
                 {
                     //shows the darksouls damage number and increases its damage
                     m_lagDamage += m_current.value - value;
-                    transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
-                    transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + m_lagDamage; //lazy i know
+                    m_damageNumBox.gameObject.SetActive(true);
+                    m_damageNumBox.text = "" + m_lagDamage; //lazy i know
                     //resets timer and decreases health bar
                     m_timer = 0.3f;
                     m_current.value = value;
