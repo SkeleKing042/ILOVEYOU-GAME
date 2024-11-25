@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
@@ -30,6 +31,7 @@ namespace ILOVEYOU.MainMenu
         [SerializeField] private UnityEvent<string, float> m_onPlayerLeft;
         //[SerializeField] private Animator[] m_playerIndis;
         [SerializeField] private TextMeshProUGUI[] m_joinText;
+        [SerializeField] private Button[] m_startButtons = new Button[0];
 
         // Start is called before the first frame update
         void Awake()
@@ -140,6 +142,8 @@ namespace ILOVEYOU.MainMenu
             }
 
             m_eventSystem.SetSelectedGameObject(m_optionSelect[0]);
+
+            CheckPlayerCounts();
         }
 
         public void OptionsMenu()
@@ -163,6 +167,7 @@ namespace ILOVEYOU.MainMenu
             {
                 obj.GetComponent<Button>().interactable = true;
             }
+            CheckPlayerCounts();
 
             //m_menuObjects[2].SetActive(true); //enable options menu
             //m_eventSystem.SetSelectedGameObject(m_optionSelect[2]);
@@ -191,6 +196,20 @@ namespace ILOVEYOU.MainMenu
         public void PlaySound(string soundName)
         {
             SoundManager.UI.PlayRandomSound(soundName);
+        }
+
+        public void CheckPlayerCounts()
+        {
+            m_startButtons[0].interactable = false;
+            m_startButtons[1].interactable = false;
+            if(ControllerManager.Instance.ControllerCount > 0)
+            {
+                m_startButtons[1].interactable = true;
+                if(ControllerManager.Instance.ControllerCount > 1)
+                {
+                    m_startButtons[0].interactable = true;
+                }
+            }
         }
 
         public void Quit()

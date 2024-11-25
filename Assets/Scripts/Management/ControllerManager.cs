@@ -78,12 +78,12 @@ namespace ILOVEYOU
 
             }
             //instances player objects - for scene start
-            public GameObject[] JoinPlayers(int playerCount)
+            public GameObject[] JoinPlayers(int playerCount = 0)
             {
                 Debug.Log("Instancing players...");
                 m_ignoreJoin = true;
                 GameObject[] players = new GameObject[transform.childCount];
-                for (int i = 0; i < Mathf.Clamp(transform.childCount, 0, playerCount); i++)
+                for (int i = 0; i < Mathf.Clamp(transform.childCount, 0, playerCount == 0 ? transform.childCount : playerCount); i++)
                 {
                     Controller current = transform.GetChild(i).GetComponent<Controller>();
                     if (!current.IsAssigned)
