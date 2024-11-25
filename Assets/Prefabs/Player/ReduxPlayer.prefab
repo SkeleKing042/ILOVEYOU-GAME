@@ -795,6 +795,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 3879512174640564857}
+          m_TargetAssemblyTypeName: ILOVEYOU.Player.PlayerControls, Assembly-CSharp
+          m_MethodName: StopSound
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 4
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - m_name: CopyPaste
     m_buffType: 1
     m_buffID: 2
@@ -888,6 +900,18 @@ MonoBehaviour:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 3879512174640564857}
+          m_TargetAssemblyTypeName: ILOVEYOU.Player.PlayerControls, Assembly-CSharp
+          m_MethodName: StopSound
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 5
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -2074,7 +2098,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 749821975477938192, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_fontSize
-      value: 28.35
+      value: 29.75
       objectReference: {fileID: 0}
     - target: {fileID: 749821975477938192, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_fontSizeMin
@@ -2598,6 +2622,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7953061024499127825, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8129183387341650052, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8397348101932003883, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}

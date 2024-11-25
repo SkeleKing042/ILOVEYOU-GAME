@@ -268,6 +268,11 @@ namespace ILOVEYOU
                 SoundManager.SFX.PlayRandomSound(name);
             }
 
+            public void StopSound(int id)
+            {
+                SoundManager.SFX.ClearAudio(id);
+            }
+
             private void OnDrawGizmos()
             {
 #if UNITY_EDITOR
