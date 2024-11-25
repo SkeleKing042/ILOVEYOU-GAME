@@ -50,7 +50,7 @@ MonoBehaviour:
     m_manualLoad: 0
   - m_sounds:
     - m_name: PlayerFootsteps
-      m_soundMult: 0.136
+      m_soundMult: 0.23
       m_clips:
       - {fileID: 8300000, guid: 4c6d5cfa90bab264c9eb26d833ada5df, type: 3}
     - m_name: PlayerShoot
@@ -69,6 +69,34 @@ MonoBehaviour:
       m_soundMult: 0.5
       m_clips:
       - {fileID: 8300000, guid: 16b675db40e576a4587523c456fb8d42, type: 3}
+    - m_name: PopUpOpen
+      m_soundMult: 0.5
+      m_clips:
+      - {fileID: 8300000, guid: 17ce5da8dcafee142902ed24f18476b5, type: 3}
+    - m_name: PopUpClosed
+      m_soundMult: 0.5
+      m_clips:
+      - {fileID: 8300000, guid: 33375f8d1c77ecd4c9c97eac45164598, type: 3}
+    - m_name: OverClock
+      m_soundMult: 0.723
+      m_clips:
+      - {fileID: 8300000, guid: 53d96b699e927364dba063c13fabc958, type: 3}
+    - m_name: CopyPaste
+      m_soundMult: 1
+      m_clips:
+      - {fileID: 8300000, guid: 36b3f87eac9d5f141bbbaa0ec8bb7664, type: 3}
+    - m_name: CyberAttack
+      m_soundMult: 1
+      m_clips:
+      - {fileID: 8300000, guid: e7690900dd048714ba1c8dda3847c5eb, type: 3}
+    - m_name: DialUp
+      m_soundMult: 0.208
+      m_clips:
+      - {fileID: 8300000, guid: 63326731e1d68af409787bf3ba2eae6e, type: 3}
+    - m_name: BossSpawn
+      m_soundMult: 1
+      m_clips:
+      - {fileID: 8300000, guid: 9032174e19d99264a9f03de1791daeac, type: 3}
     m_tag: 1
     m_manualLoad: 0
   - m_sounds:
