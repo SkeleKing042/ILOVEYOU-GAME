@@ -33,6 +33,8 @@ namespace ILOVEYOU.Management
         public int GetMaxTaskCount => m_maxTaskCount;
         [SerializeField] private Task[] m_taskList = new Task[2];
         public Task[] GetTasks => m_taskList;
+        [SerializeField] private bool m_tasksCanHeal;
+        public bool CanTasksHeal => m_tasksCanHeal;
 
         //[Header("Cards")]
         [Tooltip("The number of cards shown to the player.\nPLEASE KEEP AT 3")]

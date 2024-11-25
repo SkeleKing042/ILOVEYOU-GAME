@@ -17,7 +17,7 @@ namespace ILOVEYOU
             private void Update()
             {
                 //this is to ensure that the player can close the windows again just in case it gets overriden
-                m_playerControls.SetContext(WindowClosed, 2, $"Press <sprite=\"buttonSpriteSheet\" index=3> to close Popups!");
+                m_playerControls.GetContextBox.SetContext(WindowClosed, 2, $"Press <sprite=\"buttonSpriteSheet\" index=3> to close Popups!");
             }
             /// <summary>
             /// sets up variables in order for this script to work
@@ -49,7 +49,7 @@ namespace ILOVEYOU
 
                 }
                 //sets the context button to WindowClosed() to allow for closing of the window
-                m_playerControls.SetContext(WindowClosed, 2, "Mash <sprite=\"buttonSpriteSheet\" index=3> to close Popups!");
+                m_playerControls.GetContextBox.SetContext(WindowClosed, 2, "Mash <sprite=\"buttonSpriteSheet\" index=3> to close Popups!");
             }
             /// <summary>
             /// Destroys and resets required variables. Disables gameobject
@@ -64,7 +64,7 @@ namespace ILOVEYOU
                     Destroy(objToRemove);
                 }
                 //removes context
-                m_playerControls.RemoveSetContext(WindowClosed);
+                m_playerControls.GetContextBox.RemoveSetContext(WindowClosed);
                 //disables object
                 gameObject.SetActive(false);
             }

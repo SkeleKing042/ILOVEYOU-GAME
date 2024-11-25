@@ -1,3 +1,4 @@
+using ILOVEYOU.Management;
 using ILOVEYOU.Player;
 using ILOVEYOU.ProjectileSystem;
 using ILOVEYOU.UI;
@@ -45,6 +46,10 @@ namespace ILOVEYOU
                 }
 
                 BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].InitializeHealthBar(m_maxHealth);
+
+                //Tell them to kill the boss
+                m_playerTransform.GetComponent<PlayerControls>().GetContextBox.SetContext(null, 1, "Kill the boss!!");
+                m_playerTransform.GetComponent<PlayerControls>().Invoke("RemoveAllContext", 3f);
             }
 
 
@@ -68,6 +73,10 @@ namespace ILOVEYOU
                                         m_speed = m_maxSpeed;
                                         MoveToTarget();
                                     }*/
+
+                m_anim.SetBool("Charging", m_charging);
+                m_anim.SetFloat("Velocity", m_tempSpeed);
+
                 base.Update();
             }
 
@@ -149,6 +158,12 @@ namespace ILOVEYOU
                 bool b = base.TakeDamage(damage);
                 BossBar.Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID].UpdateHealthBar(m_currentHealth);
                 return b;
+            }
+            public override void Death()
+            {
+                //Reward the player for the kill
+                m_playerTransform.GetComponent<TaskManager>().TaskCompletionPoints++;
+                base.Death();
             }
 
             //private void OnDestroy()

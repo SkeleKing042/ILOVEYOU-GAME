@@ -601,9 +601,9 @@ MonoBehaviour:
     AllowWithBoss: 1
   m_unseenRate: 25
   m_knockbackWindow: 0.1
-  m_knockbackStrength: {x: 10, y: 1}
+  m_knockbackStrength: {x: 15, y: 1}
   m_knockbackRadius: 20
-  m_knockbackStunDuration: 0
+  m_knockbackStunDuration: 0.5
   m_enemyGroups:
   - m_groupName: Swarm
     m_spawnRate:
