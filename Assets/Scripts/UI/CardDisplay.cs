@@ -14,6 +14,7 @@ namespace ILOVEYOU
         {
             [SerializeField] private Transform[] m_displayPoints;
             private DisruptCard[] m_cards = new DisruptCard[0];
+            [SerializeField] private GameObject m_background;
 
             [Header("Events")]
             [SerializeField] private UnityEvent m_onGetCards;
@@ -30,6 +31,7 @@ namespace ILOVEYOU
                     m_cards = new DisruptCard[0];
                 }
                 gameObject.SetActive(true);
+                m_background.SetActive(true);
                 m_onGetCards.Invoke();
                 m_cards = new DisruptCard[cards.Length];
                 m_cards = cards;
@@ -56,6 +58,7 @@ namespace ILOVEYOU
                 }
                 m_cards = new DisruptCard[0];
                 gameObject.SetActive(false);
+                m_background.SetActive(false);
             }
         }
     }

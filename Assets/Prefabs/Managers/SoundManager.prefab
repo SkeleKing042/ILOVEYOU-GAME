@@ -50,7 +50,7 @@ MonoBehaviour:
     m_manualLoad: 0
   - m_sounds:
     - m_name: PlayerFootsteps
-      m_soundMult: 0.136
+      m_soundMult: 0.23
       m_clips:
       - {fileID: 8300000, guid: 4c6d5cfa90bab264c9eb26d833ada5df, type: 3}
     - m_name: PlayerShoot
@@ -69,25 +69,43 @@ MonoBehaviour:
       m_soundMult: 0.5
       m_clips:
       - {fileID: 8300000, guid: 16b675db40e576a4587523c456fb8d42, type: 3}
+    - m_name: PopUpOpen
+      m_soundMult: 0.5
+      m_clips:
+      - {fileID: 8300000, guid: 17ce5da8dcafee142902ed24f18476b5, type: 3}
+    - m_name: PopUpClosed
+      m_soundMult: 0.5
+      m_clips:
+      - {fileID: 8300000, guid: 33375f8d1c77ecd4c9c97eac45164598, type: 3}
+    - m_name: OverClock
+      m_soundMult: 0.723
+      m_clips:
+      - {fileID: 8300000, guid: 53d96b699e927364dba063c13fabc958, type: 3}
+    - m_name: CopyPaste
+      m_soundMult: 1
+      m_clips:
+      - {fileID: 8300000, guid: 36b3f87eac9d5f141bbbaa0ec8bb7664, type: 3}
+    - m_name: CyberAttack
+      m_soundMult: 1
+      m_clips:
+      - {fileID: 8300000, guid: e7690900dd048714ba1c8dda3847c5eb, type: 3}
+    - m_name: DialUp
+      m_soundMult: 0.208
+      m_clips:
+      - {fileID: 8300000, guid: 63326731e1d68af409787bf3ba2eae6e, type: 3}
+    - m_name: BossSpawn
+      m_soundMult: 1
+      m_clips:
+      - {fileID: 8300000, guid: 9032174e19d99264a9f03de1791daeac, type: 3}
     m_tag: 1
     m_manualLoad: 0
   - m_sounds:
-    - m_name: TestMusic
-      m_soundMult: 0.333
+    - m_name: Music
+      m_soundMult: 0.3
       m_clips:
-      - {fileID: 8300000, guid: b5ac01f56f8815748bfc3e82656fd164, type: 3}
-      - {fileID: 8300000, guid: 3b74ffd9b13d1ac4aa3f81b12292f27e, type: 3}
-      - {fileID: 8300000, guid: 82d1402dac23c0743be38548d47ae37f, type: 3}
-      - {fileID: 8300000, guid: b11469b56b65d234aaf2376e2fe79de5, type: 3}
-      - {fileID: 8300000, guid: f3d3d5cb9da0efa4c897ca6bb77073ab, type: 3}
-      - {fileID: 8300000, guid: 25e28da2a56934242a83647a6cc108c3, type: 3}
-      - {fileID: 8300000, guid: a5683291ebaa4264c80dac811cc625cc, type: 3}
-      - {fileID: 8300000, guid: c7ad210f81bf27543820be87e54f4840, type: 3}
-      - {fileID: 8300000, guid: cead3a592426ca747abcc828bde41476, type: 3}
-      - {fileID: 8300000, guid: 75a9819dd5b9ccd47b125d4920c0ad5d, type: 3}
-      - {fileID: 8300000, guid: 4b18b82991304454ca5f63cff5a418b1, type: 3}
-      - {fileID: 8300000, guid: 72073b932815e0845aa09a613b8a7025, type: 3}
-      - {fileID: 8300000, guid: 1f41364b69bab2846a6bd6b843224775, type: 3}
+      - {fileID: 8300000, guid: d7027ce363e851e4998b0c029a5045d1, type: 3}
+      - {fileID: 8300000, guid: c5f57b27f1f4028468074e76f267e653, type: 3}
+      - {fileID: 8300000, guid: 73eb8ff6063a1c84fab94ce3d2718b34, type: 3}
     m_tag: 2
     m_manualLoad: 1
   - m_sounds:

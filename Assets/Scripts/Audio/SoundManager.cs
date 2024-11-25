@@ -532,7 +532,10 @@ namespace ILOVEYOU.Audio
         {
             return PlayerPrefs.GetFloat(Enum.GetName(typeof(SoundTag), m_soundData.Tag) + " Volume", 1f);
         }
-
+        /// <summary>
+        /// clears audio in manager
+        /// </summary>
+        /// <param name="allAudio">If true clears all audio indiscriminately of audio tag or ID</param>
         public void ClearAudio(bool allAudio)
         {
             int count = transform.childCount;
@@ -547,6 +550,23 @@ namespace ILOVEYOU.Audio
                         index++;
                         continue;
                     }
+                }
+
+                Destroy(transform.GetChild(index).gameObject);
+            }
+        }
+
+        public void ClearAudio(int id)
+        {
+            int count = transform.childCount;
+            int index = 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (transform.GetChild(i).GetComponent<SoundID>().SoundTag != m_soundData.Tag && transform.GetChild(i).GetComponent<SoundID>().ID != id)
+                {
+                    index++;
+                    continue;
                 }
 
                 Destroy(transform.GetChild(index).gameObject);
