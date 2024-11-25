@@ -18,6 +18,10 @@ namespace ILOVEYOU.Environment
             GameObject parent = new();
             parent.name = gameObject.name + " convexed";
 
+            parent.transform.position = Vector3.zero;
+            parent.transform.rotation = Quaternion.identity;
+            parent.transform.localScale = Vector3.one;
+
             //Figure out the file path
             string filePath = SceneManager.GetActiveScene().path;
             filePath = filePath.Remove(filePath.Length - ".unity".Length, ".unity".Length);
