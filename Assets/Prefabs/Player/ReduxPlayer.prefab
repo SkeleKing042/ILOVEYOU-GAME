@@ -2098,7 +2098,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 749821975477938192, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_fontSize
-      value: 29.75
+      value: 50.7
       objectReference: {fileID: 0}
     - target: {fileID: 749821975477938192, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_fontSizeMin
@@ -2294,12 +2294,44 @@ PrefabInstance:
       objectReference: {fileID: 3879512174640564857}
     - target: {fileID: 3221515562550018329, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_popUpPrefabs.Array.size
-      value: 3
+      value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3221515562550018329, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_popUpPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 2699786535628314200, guid: a5355ed785886e442b186b5b9c343fcd, type: 3}
+    - target: {fileID: 3221515562550018329, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_popUpPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 5593432017073117317, guid: 8e67c7088eb770846b46bae5e66aca01, type: 3}
     - target: {fileID: 3221515562550018329, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_popUpPrefabs.Array.data[2]
       value: 
-      objectReference: {fileID: 984702783358042588, guid: aa3f6a928dbf7d0429398c2e589fafef, type: 3}
+      objectReference: {fileID: 6183278181155569716, guid: 433cee9188128e242bafd060f53493eb, type: 3}
+    - target: {fileID: 3221515562550018329, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_popUpPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 3125732762979968755, guid: 5b32a1f288453b04c8ff385e979ee3c5, type: 3}
+    - target: {fileID: 3221515562550018329, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_popUpPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 754589733388498474, guid: dd1de8be811832f44807cfa1349cb8ad, type: 3}
+    - target: {fileID: 3221515562550018329, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_popUpPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 2152008510914132410, guid: 6695d279c78c52442a9c3152425a8e3b, type: 3}
+    - target: {fileID: 3221515562550018329, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_popUpPrefabs.Array.data[6]
+      value: 
+      objectReference: {fileID: 360930932179983942, guid: 9c08a1ebaf3ac01448e2f741ea151ede, type: 3}
+    - target: {fileID: 3221515562550018329, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_popUpPrefabs.Array.data[7]
+      value: 
+      objectReference: {fileID: 7739911465510778239, guid: 6a7e325ab2cbcee4196d753d9317aa2e, type: 3}
+    - target: {fileID: 3221515562550018329, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_popUpPrefabs.Array.data[8]
+      value: 
+      objectReference: {fileID: 5961955698036859183, guid: 0d72adf31ee43fe41abde9729ed5012d, type: 3}
     - target: {fileID: 3729699121368928241, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_Value
       value: 0.2
