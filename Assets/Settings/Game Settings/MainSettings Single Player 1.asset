@@ -14,16 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_announcement: []
   m_difficultyCap: 120
+  m_PlayerLimit: 1
   m_maxTaskCount: 1
   m_taskList:
   - m_type: 3
     m_capValue: 5
+    m_healAmount: 0
   - m_type: 1
     m_capValue: 10
+    m_healAmount: 0
   - m_type: 2
     m_capValue: 10
+    m_healAmount: 0
   - m_type: 3
     m_capValue: 10
+    m_healAmount: 0
+  m_tasksCanHeal: 0
   m_numberOfCardToGive: 3
   m_cardTimeOut: 10
   m_cardData:
