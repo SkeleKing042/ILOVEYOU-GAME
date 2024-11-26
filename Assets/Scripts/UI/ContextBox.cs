@@ -46,5 +46,9 @@ namespace ILOVEYOU.UI
             m_contextText.text = "";
             gameObject.SetActive(false);
         }
+        public void RemoveAllContext(float delay)
+        {
+            Invoke(nameof(RemoveAllContext), delay);
+        }
     }
 }

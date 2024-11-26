@@ -49,7 +49,7 @@ namespace ILOVEYOU
 
                 //Tell them to kill the boss
                 m_playerTransform.GetComponent<PlayerControls>().GetContextBox.SetContext(null, 1, "Kill the boss!!");
-                m_playerTransform.GetComponent<PlayerControls>().Invoke("RemoveAllContext", 3f);
+                m_playerTransform.GetComponent<PlayerControls>().GetContextBox.RemoveAllContext(3f);
             }
 
 
