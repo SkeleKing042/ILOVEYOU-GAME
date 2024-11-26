@@ -14,6 +14,7 @@ namespace ILOVEYOU.EditorScript
         GameSettings m_target;
         SerializedProperty m_announcProp;
         SerializedProperty m_diffCapProp;
+        SerializedProperty m_playerLimitProp;
         SerializedProperty m_maxTasksProp;
         SerializedProperty m_taskListProp;
         SerializedProperty m_tasksHealProp;
@@ -156,6 +157,7 @@ namespace ILOVEYOU.EditorScript
             m_target = (GameSettings)target;
             m_announcProp = serializedObject.FindProperty("m_announcement");
             m_diffCapProp = serializedObject.FindProperty("m_difficultyCap");
+            m_playerLimitProp = serializedObject.FindProperty("m_PlayerLimit");
             m_maxTasksProp = serializedObject.FindProperty("m_maxTaskCount");
             m_taskListProp = serializedObject.FindProperty("m_taskList");
             m_tasksHealProp = serializedObject.FindProperty("m_tasksCanHeal");
@@ -213,6 +215,7 @@ namespace ILOVEYOU.EditorScript
             //difficulty
             EditorGUILayout.LabelField("Difficulty Settings", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(m_diffCapProp, new GUIContent("Max Difficulty Value"));
+            EditorGUILayout.PropertyField(m_playerLimitProp, new GUIContent("Player Limit"));
             if (m_diffCapProp.floatValue < 0) m_diffCapProp.floatValue = 0;
             #endregion
             #region Task Settings

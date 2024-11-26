@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
@@ -30,11 +31,13 @@ namespace ILOVEYOU.MainMenu
         [SerializeField] private UnityEvent<string, float> m_onPlayerLeft;
         //[SerializeField] private Animator[] m_playerIndis;
         [SerializeField] private TextMeshProUGUI[] m_joinText;
+        [SerializeField] private Button[] m_startButtons = new Button[0];
 
         // Start is called before the first frame update
         void Awake()
         {
             Time.timeScale = 1f;
+            ControllerManager.Instance.doJoinLeave = true;
 
             if(!SoundManager.Environment.IsPlaying(100)) SoundManager.Environment.PlaySoundLoop("ComputerStartUp", 1, 100);
 
@@ -48,6 +51,8 @@ namespace ILOVEYOU.MainMenu
             }
 
             m_lastPlayerCount = (int)ControllerManager.Instance.ControllerCount;
+
+            CheckPlayerCounts();
         }
 
         public void ButtonPressed(int selection)
@@ -140,6 +145,8 @@ namespace ILOVEYOU.MainMenu
             }
 
             m_eventSystem.SetSelectedGameObject(m_optionSelect[0]);
+
+            CheckPlayerCounts();
         }
 
         public void OptionsMenu()
@@ -155,9 +162,10 @@ namespace ILOVEYOU.MainMenu
         {
             m_eventSystem.enabled = true;
 
-            m_menuObjects[0].SetActive(false); //disable default menu
+            CheckPlayerCounts();
+            //m_menuObjects[0].SetActive(false); //disable default menu
 
-            m_mainMenuButtons[2].GetComponent<CreatePopUpMenu>().CreatePopUp(transform);
+            m_mainMenuButtons[3].GetComponent<CreatePopUpMenu>().CreatePopUp(transform);
 
             foreach (GameObject obj in m_mainMenuButtons)
             {
@@ -191,6 +199,36 @@ namespace ILOVEYOU.MainMenu
         public void PlaySound(string soundName)
         {
             SoundManager.UI.PlayRandomSound(soundName);
+        }
+
+        public void CheckPlayerCounts()
+        {
+            //dont do this if we're not on the main menu
+            if (!m_menuObjects[0].activeSelf)
+                return;
+
+            m_startButtons[0].interactable = false;
+            m_startButtons[1].interactable = false;
+
+            if(ControllerManager.Instance.ControllerCount > 0)
+            {
+                m_startButtons[1].interactable = true;
+                if(ControllerManager.Instance.ControllerCount > 1)
+                {
+                    m_startButtons[0].interactable = true;
+                }
+                else if(EventSystem.current && (EventSystem.current.currentSelectedGameObject == m_startButtons[0] || EventSystem.current.currentSelectedGameObject == null))
+                {
+                    //Move to options
+                    EventSystem.current.SetSelectedGameObject(m_mainMenuButtons[2]);
+                }
+            }
+            //if on the singleplayer option
+            else if(EventSystem.current && (EventSystem.current.currentSelectedGameObject == m_startButtons[1] || EventSystem.current.currentSelectedGameObject == null))
+            {
+                //Move to options
+                EventSystem.current.SetSelectedGameObject(m_mainMenuButtons[2]);
+            }
         }
 
         public void Quit()

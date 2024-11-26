@@ -60,8 +60,7 @@ namespace ILOVEYOU
             public static void ResetScore() { m_score = Vector2.zero; }
             ///////////////////////////////////////////////////////////////////////////////////////////////////
             [Header("Settings")]
-            [SerializeField] private GameSettings m_singleplayerSettings;
-            [SerializeField] private GameSettings m_multiplayerSettings;
+            [SerializeField] private GameSettings m_defaultSettings;
             [SerializeField, HideInInspector] private bool m_devMode;
             public bool IsDev => m_devMode;
             [SerializeField] private float m_roundStartCountdown;
@@ -104,7 +103,11 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onTaskAssignment;
             private void Awake()
             {
-                
+                //use default settings
+                if (!GameSettings.Current)
+                {
+                    m_defaultSettings.Assign();
+                }
                 
                 //check for the input manager
                 if (!ControllerManager.Instance)
@@ -117,14 +120,6 @@ namespace ILOVEYOU
             }
             public void BeginSetup()
             {
-                if(ControllerManager.Instance.ControllerCount == 1)
-                {
-                    m_singleplayerSettings.Assign();
-                }
-                else
-                {
-                    m_multiplayerSettings.Assign();
-                }
                 Time.timeScale = 1f;
                 //Singleton setup
                 Instance = this;
@@ -154,7 +149,7 @@ namespace ILOVEYOU
                 }
 
                 Debug.Log("Attempting to start the game.");
-                GameObject[] players = ControllerManager.Instance.JoinPlayers(2);
+                GameObject[] players = ControllerManager.Instance.JoinPlayers(GameSettings.Current.GetPlayerLimit);
 
                 //Boss data setup
                 BossBar.Instances = new BossBar[players.Length];
@@ -253,7 +248,7 @@ namespace ILOVEYOU
                 List<PlayerManager> livingPlayers = new();
                 foreach(var player in GetOtherPlayers(null))
                 {
-                    if(player.GetControls.GetHealthPercent >= 0)
+                    if(player.GetControls.GetHealthPercent > 0)
                     {
                         livingPlayers.Add(player);
                         if (livingPlayers.Count >= 2)
