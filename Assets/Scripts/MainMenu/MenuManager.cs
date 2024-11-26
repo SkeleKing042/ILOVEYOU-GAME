@@ -209,6 +209,17 @@ namespace ILOVEYOU.MainMenu
                 {
                     m_startButtons[0].interactable = true;
                 }
+                else if(EventSystem.current.currentSelectedGameObject == m_startButtons[0] || EventSystem.current.currentSelectedGameObject == null)
+                {
+                    //Move to options
+                    EventSystem.current.SetSelectedGameObject(m_mainMenuButtons[2]);
+                }
+            }
+            //if on the singleplayer option
+            else if(EventSystem.current.currentSelectedGameObject == m_startButtons[1] || EventSystem.current.currentSelectedGameObject == null)
+            {
+                //Move to options
+                EventSystem.current.SetSelectedGameObject(m_mainMenuButtons[2]);
             }
         }
 
