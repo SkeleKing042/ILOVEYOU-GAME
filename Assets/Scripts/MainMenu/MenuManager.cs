@@ -161,7 +161,7 @@ namespace ILOVEYOU.MainMenu
 
             m_menuObjects[0].SetActive(false); //disable default menu
 
-            m_mainMenuButtons[2].GetComponent<CreatePopUpMenu>().CreatePopUp(transform);
+            m_mainMenuButtons[3].GetComponent<CreatePopUpMenu>().CreatePopUp(transform);
 
             foreach (GameObject obj in m_mainMenuButtons)
             {
@@ -178,7 +178,7 @@ namespace ILOVEYOU.MainMenu
             m_eventSystem.enabled = true;
 
             m_menuObjects[0].SetActive(false); //disable default menu
-            m_menuObjects[3].SetActive(true); //enable options menu
+            m_menuObjects[4].SetActive(true); //enable options menu
             m_eventSystem.SetSelectedGameObject(m_optionSelect[3]);
         }
 
@@ -187,7 +187,7 @@ namespace ILOVEYOU.MainMenu
             m_eventSystem.enabled = true;
 
             m_menuObjects[0].SetActive(false); //disable default menu
-            m_menuObjects[4].SetActive(true); //enable credits menu
+            m_menuObjects[5].SetActive(true); //enable credits menu
             m_eventSystem.SetSelectedGameObject(m_optionSelect[4]);
         }
         /// <summary>
