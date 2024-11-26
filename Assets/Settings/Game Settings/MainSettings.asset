@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_announcement: []
   m_difficultyCap: 60
+  m_PlayerLimit: 0
   m_maxTaskCount: 1
   m_taskList:
   - m_type: 3
@@ -517,7 +518,7 @@ MonoBehaviour:
       m_RotationOrder: 0
     AllowWithBoss: 0
   m_allowDoubleUps: 0
-  m_playerHealth: 9999
+  m_playerHealth: 15
   m_iframes: 1
   m_playerSpeed: 10
   m_playerShootingPattern: {fileID: 11400000, guid: f80c5045f971c394096cc345a99bb1a5, type: 2}
