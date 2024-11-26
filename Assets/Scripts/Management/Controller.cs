@@ -46,7 +46,8 @@ namespace ILOVEYOU
             {
                 if (!IsAssigned)
                 {
-                    ControllerManager.Instance.PlayerLeft(this);
+                    if(ControllerManager.Instance.doJoinLeave)
+                        ControllerManager.Instance.PlayerLeft(this);
                 }
             }
         }
