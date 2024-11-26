@@ -26,6 +26,8 @@ namespace ILOVEYOU.Management
         //[Header("Difficulty")]
         [SerializeField] private float m_difficultyCap = 60f;
         public float GetDiffCap => m_difficultyCap;
+        [SerializeField] private int m_PlayerLimit = 0;
+        public int GetPlayerLimit => m_PlayerLimit;
 
         //[Header("Tasks")]
         [Tooltip("The maximum number of tasks a player can have.")]
