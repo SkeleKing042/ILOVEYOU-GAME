@@ -1,4 +1,5 @@
 using ILOVEYOU.Management;
+using ILOVEYOU.Tools;
 using System;
 using UnityEditor;
 using UnityEditorInternal;
@@ -189,13 +190,18 @@ namespace ILOVEYOU.EditorScript
 
             EditorGUILayout.HelpBox("These are the settings that will be used in-game. To assign settings, find the \"settings\" variable in the GameManager, or click assign to change settings in realtime\n(Assigned settings will reset on scene start).", MessageType.Info);
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Assign"))
+            float scale = EditorGUIUtility.currentViewWidth / 3 - 10;
+            if (GUILayout.Button("Assign", GUILayout.Width(scale)))
             {
                 m_target.Assign();
             }
-            if(GUILayout.Button("Initialize color preferences"))
+            if(GUILayout.Button("Initialize color prefs", GUILayout.Width(scale)))
             {
                 m_target.InitalizePrefs();
+            }
+            if(GUILayout.Button("Export to JSON", GUILayout.Width(scale)))
+            {
+                JsonHandler.WriteData(m_target, m_target.name);
             }
             EditorGUILayout.EndHorizontal();
 
