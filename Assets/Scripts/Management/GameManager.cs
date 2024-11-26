@@ -248,7 +248,7 @@ namespace ILOVEYOU
                 List<PlayerManager> livingPlayers = new();
                 foreach(var player in GetOtherPlayers(null))
                 {
-                    if(player.GetControls.GetHealthPercent >= 0)
+                    if(player.GetControls.GetHealthPercent > 0)
                     {
                         livingPlayers.Add(player);
                         if (livingPlayers.Count >= 2)
