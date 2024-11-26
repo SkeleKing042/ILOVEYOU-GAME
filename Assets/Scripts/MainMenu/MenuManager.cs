@@ -37,6 +37,7 @@ namespace ILOVEYOU.MainMenu
         void Awake()
         {
             Time.timeScale = 1f;
+            ControllerManager.Instance.doJoinLeave = true;
 
             if(!SoundManager.Environment.IsPlaying(100)) SoundManager.Environment.PlaySoundLoop("ComputerStartUp", 1, 100);
 
@@ -50,6 +51,8 @@ namespace ILOVEYOU.MainMenu
             }
 
             m_lastPlayerCount = (int)ControllerManager.Instance.ControllerCount;
+
+            CheckPlayerCounts();
         }
 
         public void ButtonPressed(int selection)
@@ -159,7 +162,8 @@ namespace ILOVEYOU.MainMenu
         {
             m_eventSystem.enabled = true;
 
-            m_menuObjects[0].SetActive(false); //disable default menu
+            CheckPlayerCounts();
+            //m_menuObjects[0].SetActive(false); //disable default menu
 
             m_mainMenuButtons[3].GetComponent<CreatePopUpMenu>().CreatePopUp(transform);
 
@@ -167,7 +171,6 @@ namespace ILOVEYOU.MainMenu
             {
                 obj.GetComponent<Button>().interactable = true;
             }
-            CheckPlayerCounts();
 
             //m_menuObjects[2].SetActive(true); //enable options menu
             //m_eventSystem.SetSelectedGameObject(m_optionSelect[2]);
@@ -178,7 +181,7 @@ namespace ILOVEYOU.MainMenu
             m_eventSystem.enabled = true;
 
             m_menuObjects[0].SetActive(false); //disable default menu
-            m_menuObjects[4].SetActive(true); //enable options menu
+            m_menuObjects[3].SetActive(true); //enable options menu
             m_eventSystem.SetSelectedGameObject(m_optionSelect[3]);
         }
 
@@ -187,7 +190,7 @@ namespace ILOVEYOU.MainMenu
             m_eventSystem.enabled = true;
 
             m_menuObjects[0].SetActive(false); //disable default menu
-            m_menuObjects[5].SetActive(true); //enable credits menu
+            m_menuObjects[4].SetActive(true); //enable credits menu
             m_eventSystem.SetSelectedGameObject(m_optionSelect[4]);
         }
         /// <summary>
@@ -200,8 +203,13 @@ namespace ILOVEYOU.MainMenu
 
         public void CheckPlayerCounts()
         {
+            //dont do this if we're not on the main menu
+            if (!m_menuObjects[0].activeSelf)
+                return;
+
             m_startButtons[0].interactable = false;
             m_startButtons[1].interactable = false;
+
             if(ControllerManager.Instance.ControllerCount > 0)
             {
                 m_startButtons[1].interactable = true;
@@ -209,6 +217,17 @@ namespace ILOVEYOU.MainMenu
                 {
                     m_startButtons[0].interactable = true;
                 }
+                else if(EventSystem.current && (EventSystem.current.currentSelectedGameObject == m_startButtons[0] || EventSystem.current.currentSelectedGameObject == null))
+                {
+                    //Move to options
+                    EventSystem.current.SetSelectedGameObject(m_mainMenuButtons[2]);
+                }
+            }
+            //if on the singleplayer option
+            else if(EventSystem.current && (EventSystem.current.currentSelectedGameObject == m_startButtons[1] || EventSystem.current.currentSelectedGameObject == null))
+            {
+                //Move to options
+                EventSystem.current.SetSelectedGameObject(m_mainMenuButtons[2]);
             }
         }
 
