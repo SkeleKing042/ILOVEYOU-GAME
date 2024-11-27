@@ -788,7 +788,7 @@ RectTransform:
   - {fileID: 429551464}
   - {fileID: 969215092}
   m_Father: {fileID: 1375062887}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1677,13 +1677,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Pop Ups
+  m_text: 'Pop Ups - Hazard
 
     ====================
 
-    This card does the things with
-    the stuff and how much information can I fit in here and uhh I don''t know what
-    else to type aaaaaaaaaaaaaaaaa'
+    Infect your opponent with
+    an ad bomb. This will create ads to obscure the opponents screen and make it
+    harder to see. [ads must be manually dismissed]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
   m_sharedMaterial: {fileID: 8576475959318980258, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
@@ -1794,7 +1794,7 @@ RectTransform:
   - {fileID: 1950366949}
   - {fileID: 2145760682}
   m_Father: {fileID: 1375062887}
-  m_RootOrder: 1
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -3546,13 +3546,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Overclock
+  m_text: 'Overclock - Buff
 
     ====================
 
-    This card does the things with
-    the stuff and how much information can I fit in here and uhh I don''t know what
-    else to type aaaaaaaaaaaaaaaaa'
+    Create a dangerous area
+    around yourself that damages all enemies in its radius.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
   m_sharedMaterial: {fileID: 8576475959318980258, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
@@ -4353,7 +4352,7 @@ RectTransform:
   - {fileID: 415537950}
   - {fileID: 1037384130}
   m_Father: {fileID: 1375062887}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -6321,13 +6320,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Overheat
+  m_text: 'Overheat - Hazard
 
     ====================
 
-    This card does the things with
-    the stuff and how much information can I fit in here and uhh I don''t know what
-    else to type aaaaaaaaaaaaaaaaa'
+    Stop the fans on your
+    opponents map, causing the computer to heat up, damaging any player standing
+    on them.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
   m_sharedMaterial: {fileID: 8576475959318980258, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
@@ -6977,13 +6976,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Dial up
+  m_text: 'Dial Up - Attack
 
     ====================
 
-    This card does the things with
-    the stuff and how much information can I fit in here and uhh I don''t know what
-    else to type aaaaaaaaaaaaaaaaa'
+    Simulates the effect of
+    a dial up internet connection, causing the player to "lag". [disable and enable
+    the player movement in bursts]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
   m_sharedMaterial: {fileID: 8576475959318980258, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
@@ -7434,7 +7433,7 @@ RectTransform:
   - {fileID: 1962004081}
   - {fileID: 1378996990}
   m_Father: {fileID: 1375062887}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -7875,7 +7874,7 @@ RectTransform:
   - {fileID: 1822512621}
   - {fileID: 2016305178}
   m_Father: {fileID: 1375062887}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -8211,14 +8210,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1242785987}
-  - {fileID: 304617910}
-  - {fileID: 1350645527}
   - {fileID: 709927789}
+  - {fileID: 1350645527}
   - {fileID: 2099881716}
-  - {fileID: 2030843109}
+  - {fileID: 1242785987}
   - {fileID: 106254032}
   - {fileID: 1867085070}
+  - {fileID: 304617910}
+  - {fileID: 2030843109}
   m_Father: {fileID: 1911914028}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8323,13 +8322,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Bug Swarm
+  m_text: 'Bug Swarm - Summon
 
     ====================
 
-    This card does the things with
-    the stuff and how much information can I fit in here and uhh I don''t know what
-    else to type aaaaaaaaaaaaaaaaa'
+    Send an extra large
+    wave of enemies to invade your opponet. crushing them under the sheer amount
+    of enemies.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
   m_sharedMaterial: {fileID: 8576475959318980258, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
@@ -8675,13 +8674,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Giant Bug
+  m_text: 'Giant Bug -  Summon
 
     ====================
 
-    This card does the things with
-    the stuff and how much information can I fit in here and uhh I don''t know what
-    else to type aaaaaaaaaaaaaaaaa'
+    Summon a boss to invade
+    the opponents map and attack them. [boss can only be summoned by those who have
+    lost health]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
   m_sharedMaterial: {fileID: 8576475959318980258, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
@@ -10672,7 +10671,7 @@ RectTransform:
   - {fileID: 109259386}
   - {fileID: 300299048}
   m_Father: {fileID: 1375062887}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -12051,13 +12050,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cyber Attack
+  m_text: 'Cyber Attack - Attack
 
     ====================
 
-    This card does the things
-    with the stuff and how much information can I fit in here and uhh I don''t know
-    what else to type aaaaaaaaaaaaaaaaa'
+    Hack the opponents
+    weapon, disabling their gun for a short time.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
   m_sharedMaterial: {fileID: 8576475959318980258, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
@@ -12168,7 +12166,7 @@ RectTransform:
   - {fileID: 866616481}
   - {fileID: 579904022}
   m_Father: {fileID: 1375062887}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -12632,7 +12630,7 @@ RectTransform:
   - {fileID: 1923395204}
   - {fileID: 1426271805}
   m_Father: {fileID: 1375062887}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -12748,13 +12746,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Copy Paste
+  m_text: 'Copy Paste - Buff
 
     ====================
 
-    This card does the things with
-    the stuff and how much information can I fit in here and uhh I don''t know what
-    else to type aaaaaaaaaaaaaaaaa'
+    Copy and paste yourself,
+    gaining a temporary increase in power with a clone who will shoot alongside you. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
   m_sharedMaterial: {fileID: 8576475959318980258, guid: e13afa0bd05b3bf4c850127518bee778, type: 2}
