@@ -630,6 +630,7 @@ MonoBehaviour:
   m_spawnMask:
     serializedVersion: 2
     m_Bits: 2048
+  m_spawnEffect: {fileID: 7115864477131207924, guid: c6854a637dd50aa468387b06ec3b0e2d, type: 3}
   m_onSpawnEnemy:
     m_PersistentCalls:
       m_Calls: []
@@ -1100,7 +1101,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.51812994, g: 0.23891956, b: 0.8584906, a: 1}
+  m_BackGroundColor: {r: 0, g: 0, b: 0.13333334, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
