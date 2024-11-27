@@ -162,7 +162,6 @@ namespace ILOVEYOU.MainMenu
         {
             m_eventSystem.enabled = true;
 
-            CheckPlayerCounts();
             //m_menuObjects[0].SetActive(false); //disable default menu
 
             m_mainMenuButtons[3].GetComponent<CreatePopUpMenu>().CreatePopUp(transform);
@@ -171,6 +170,7 @@ namespace ILOVEYOU.MainMenu
             {
                 obj.GetComponent<Button>().interactable = true;
             }
+            CheckPlayerCounts();
 
             //m_menuObjects[2].SetActive(true); //enable options menu
             //m_eventSystem.SetSelectedGameObject(m_optionSelect[2]);
