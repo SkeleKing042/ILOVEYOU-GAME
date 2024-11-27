@@ -24,7 +24,7 @@ namespace ILOVEYOU
             [SerializeField] private PointerArrow m_pointer;
             public PointerArrow GetPointer { get { return m_pointer; } }
             [Header("HUD elements")]
-            [SerializeField] private Transform m_mirroredUIContainer;
+            [SerializeField] private Transform[] m_mirroredUIElements;
             [SerializeField] private EventLogUI m_eventLog;
             public EventLogUI GetLog { get { return m_eventLog; } }
             [Header("Health")]
@@ -51,7 +51,8 @@ namespace ILOVEYOU
                 //flip hud if odd - needs tweaking
                 if (id % 2 == 1)
                 {
-                    m_mirroredUIContainer.localScale = new(-1, 1, 1);
+                    foreach (var element in m_mirroredUIElements)
+                        element.localScale = new(-1, 1, 1);
                 }
                 m_blindBox.Initialize();
                 m_cardDisplay.gameObject.SetActive(false);

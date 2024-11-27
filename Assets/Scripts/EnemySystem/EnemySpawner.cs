@@ -29,6 +29,7 @@ namespace ILOVEYOU
         {
             private float m_spawnRange { get { return Random.Range(GameSettings.Current.GetSpawnRangeMin, GameSettings.Current.GetSpawnRangeMax); } }
             [SerializeField] private LayerMask m_spawnMask;
+            [SerializeField] private GameObject m_spawnEffect;
 
             private List<GameObject> m_enemyObjects = new();
             public List<GameObject> GetEnemies => m_enemyObjects;
@@ -192,6 +193,12 @@ namespace ILOVEYOU
                         //intializes enemy script
                         enemy.GetComponent<Enemy>().Initialize(transform, mods.ToArray());
                         m_enemyObjects.Add(enemy);
+
+                        //spawns in spawn object
+                        GameObject spawnObject = Instantiate(m_spawnEffect);
+                        spawnObject.transform.position = enemy.transform.position;
+                        Destroy(spawnObject, 1f);
+
                         return true;
                     }
                 }

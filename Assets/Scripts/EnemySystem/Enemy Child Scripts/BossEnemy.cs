@@ -162,6 +162,7 @@ namespace ILOVEYOU
             public override void Death()
             {
                 //Reward the player for the kill
+                Instances[m_playerTransform.GetComponent<PlayerManager>().GetPlayerID] = null;
                 m_playerTransform.GetComponent<TaskManager>().TaskCompletionPoints++;
                 base.Death();
             }

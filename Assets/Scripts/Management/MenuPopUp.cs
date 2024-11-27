@@ -21,7 +21,6 @@ namespace ILOVEYOU.Management
         public void Return()
         {
             if (m_returnObject) FindObjectOfType<MultiplayerEventSystem>().SetSelectedGameObject(m_returnObject);
-            FindObjectOfType<MenuManager>().CheckPlayerCounts();
 
             Destroy(gameObject);
         }

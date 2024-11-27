@@ -136,7 +136,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &460270274889268336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +170,7 @@ MonoBehaviour:
   - {fileID: 3608856759758107794}
   - {fileID: 7280582238146026412}
   - {fileID: 2862850302919118775}
+  m_background: {fileID: 0}
   m_onGetCards:
     m_PersistentCalls:
       m_Calls:
