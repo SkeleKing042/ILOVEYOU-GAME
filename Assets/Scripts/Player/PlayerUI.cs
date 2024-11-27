@@ -71,29 +71,30 @@ namespace ILOVEYOU
             }
             private IEnumerator FadeHealthBar()
             {
+                yield return new WaitForEndOfFrame();
                 m_eStop = false;
 
-                Color current = m_healthFill.color;
+                Color originalColour = m_healthFill.color;
                 m_healthFill.color = Color.white;
-                Color flipped = new Color(1 - current.r, 1 - current.g, 1 - current.b, 0);
+                Color flipped = new Color(1 - originalColour.r, 1 - originalColour.g, 1 - originalColour.b, 0);
 
-                float currentPosition = m_healthFill.rectTransform.offsetMin.x;
+                float OriginalPosition = m_healthFill.rectTransform.offsetMin.x;
                 m_healthFill.rectTransform.offsetMin += new Vector2(m_sizeBurst, 0);
                 while (true)
                 {
                     if(m_eStop)
                     {
-                        m_healthFill.color = current;
-                        m_healthFill.rectTransform.offsetMin = new Vector2(currentPosition, m_healthFill.rectTransform.offsetMin.y);
+                        m_healthFill.color = originalColour;
+                        m_healthFill.rectTransform.offsetMin = new Vector2(OriginalPosition, m_healthFill.rectTransform.offsetMin.y);
                         break;
                     }
                     bool doBreak = true;
-                    if (m_healthFill.color != current)
+                    if (m_healthFill.color != originalColour)
                     {
                         doBreak = false;
                         m_healthFill.color -= flipped * m_flashReductionRate;
                     }
-                    if (m_healthFill.rectTransform.offsetMin.x != currentPosition)
+                    if (m_healthFill.rectTransform.offsetMin.x != OriginalPosition)
                     {
                         doBreak = false;
                         m_healthFill.rectTransform.offsetMin -= new Vector2(m_sizeReductionRate, 0);
