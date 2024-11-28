@@ -166,6 +166,11 @@ namespace ILOVEYOU
                         index = 2;
                         break;
                 }
+                if(index == -1)
+                {
+                    Debug.LogWarning("Unabled to select card with given input.");
+                    return;
+                }
                 m_onCardSelected.Invoke(m_cardsHeld[index].DoesEffectSelf);
                 _executeSelectedCard(index);
             }

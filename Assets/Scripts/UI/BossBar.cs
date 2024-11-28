@@ -102,7 +102,8 @@ namespace ILOVEYOU
                     //closes health bar if killed
                     if (value <= 0f)
                     {
-                        Invoke(nameof(_CloseHealthBar), 0.5f);
+                        /*Invoke(nameof(*/
+                        _CloseHealthBar();//), 0.2f);
                     }
                 }
             }

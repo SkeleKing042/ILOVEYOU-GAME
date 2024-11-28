@@ -82,7 +82,7 @@ namespace ILOVEYOU
             {
                 Debug.Log("Instancing players...");
                 doJoinLeave = false;
-                GameObject[] players = new GameObject[transform.childCount];
+                GameObject[] players = new GameObject[Mathf.Clamp(transform.childCount, 0, playerCount == 0 ? transform.childCount : playerCount)];
                 for (int i = 0; i < Mathf.Clamp(transform.childCount, 0, playerCount == 0 ? transform.childCount : playerCount); i++)
                 {
                     Controller current = transform.GetChild(i).GetComponent<Controller>();
