@@ -143,6 +143,10 @@ namespace ILOVEYOU.Management
             InitalizePrefs();
             Current = this;
         }
+        public static void Unassign(){
+            Debug.Log("Removing applied settings");
+            Current = null;
+        }
         public void InitalizePrefs()
         {
             foreach(var color in m_prefColors)

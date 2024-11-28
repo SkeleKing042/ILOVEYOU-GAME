@@ -1,5 +1,7 @@
 using ILOVEYOU.Management;
+using System.Collections;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace ILOVEYOU.Tools
@@ -47,6 +49,33 @@ namespace ILOVEYOU.Tools
             {
                 return JsonUtility.FromJson<T>(json);
             }
+        }
+        
+        public class AsyncMethod<T>{
+            public delegate T CreateNew(string name);
+        }
+        public static async Task<T[]> ReadAllFromFolder<T>(string folderPath, AsyncMethod<T>.CreateNew c)
+        {
+            //Get all the file paths from the given directory
+            string[] filePaths = Directory.GetFiles(folderPath);
+            //Find the number of items in the directory
+            int fileCount = filePaths.Length;
+            //Reset the array
+            T[] files = new T[fileCount];
+
+
+            for(int i = 0; i < fileCount; i++){
+                //Create a temporery item
+                string fileName = Path.GetFileName($"{filePaths[i]}");
+                fileName = fileName.Remove(fileName.Length - ".txt".Length, ".txt".Length);
+                files[i] = c(fileName);
+                //Read the file at the current index
+                string json = File.ReadAllText($"{filePaths[i]}");
+                //Overwrite the temporery item with the one in the json file
+                JsonUtility.FromJsonOverwrite(json, files[i]);
+            }
+            //All the files have now been loaded into the array.
+            return files;
         }
     }
 }

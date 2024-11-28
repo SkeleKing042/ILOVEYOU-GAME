@@ -203,7 +203,7 @@ namespace ILOVEYOU.EditorScript
             }
             if(GUILayout.Button("Export to JSON", GUILayout.Width(scale)))
             {
-                JsonHandler.WriteData(m_target, m_target.name);
+                JsonHandler.WriteData(m_target, m_target.name, $"{DirectoryUtilities.GameDataPath}CustomSettings/");
             }
             EditorGUILayout.EndHorizontal();
 

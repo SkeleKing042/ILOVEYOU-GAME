@@ -5,7 +5,10 @@ namespace ILOVEYOU.Tools
 {
     public static class DirectoryUtilities
     {
-        public static string GameDataPath => Application.persistentDataPath + "/GameData/";
+        public static string GameDataPath {get {
+            CheckForFolderPath(Application.persistentDataPath + "/GameData/");
+            return Application.persistentDataPath + "/GameData/";
+        }}
 
         static public bool CheckForFolderPath(string path, bool doCreate = true)
         {
