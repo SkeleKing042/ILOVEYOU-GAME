@@ -90,6 +90,10 @@ namespace ILOVEYOU.MainMenu
                 case 5:
                     m_effect.StartType(m_inputField, "shutdown", 12f, Quit);
                     break;
+                //Custom Settings
+                case 6:
+                    m_effect.StartType(m_inputField, "run modtool.exe", 12f, CustomMenu);
+                    break;
                 default:
                     m_effect.StartType(m_inputField, "Uhhh idk what I'm typing", 12f);
                     break;
@@ -166,14 +170,16 @@ namespace ILOVEYOU.MainMenu
 
             m_mainMenuButtons[3].GetComponent<CreatePopUpMenu>().CreatePopUp(transform);
 
-            foreach (GameObject obj in m_mainMenuButtons)
-            {
-                obj.GetComponent<Button>().interactable = true;
-            }
-            CheckPlayerCounts();
-
+            ReenableButtons();
+        
             //m_menuObjects[2].SetActive(true); //enable options menu
             //m_eventSystem.SetSelectedGameObject(m_optionSelect[2]);
+        }
+        public void CustomMenu()
+        {
+            m_eventSystem.enabled = true;
+
+            m_mainMenuButtons[7].GetComponent<CreatePopUpMenu>().CreatePopUp(transform).SetReturnAction(() => ReenableButtons());
         }
 
         public void CodexMenu()
@@ -229,6 +235,14 @@ namespace ILOVEYOU.MainMenu
                 //Move to options
                 EventSystem.current.SetSelectedGameObject(m_mainMenuButtons[2]);
             }
+        }
+        public void ReenableButtons()
+        {
+            foreach (GameObject obj in m_mainMenuButtons)
+            {
+                obj.GetComponent<Button>().interactable = true;
+            }
+            CheckPlayerCounts();
         }
 
         public void Quit()

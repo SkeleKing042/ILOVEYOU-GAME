@@ -3,11 +3,13 @@ using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Player;
 using ILOVEYOU.ProjectileSystem;
 using ILOVEYOU.UI;
+using System;
 using UnityEngine;
 
 namespace ILOVEYOU.Management
 {
     [CreateAssetMenu(fileName = "NewGameSettings", menuName = "ILOVEYOU Objects/New Game Settings")]
+    [Serializable]
     public class GameSettings : ScriptableObject
     {
         public static GameSettings Current { get; private set; }
@@ -18,7 +20,7 @@ namespace ILOVEYOU.Management
             {
                 if (m_announcement.Length > 0)
                 {
-                    int rnd = Random.Range(0, m_announcement.Length); return m_announcement[rnd];
+                    int rnd = UnityEngine.Random.Range(0, m_announcement.Length); return m_announcement[rnd];
                 }
                 return "";
             }
@@ -126,6 +128,11 @@ namespace ILOVEYOU.Management
                                                                     new("Debuff color", Color.white),
                                                                     new("Hazard color", Color.white),
                                                                     new("Summon color", Color.white) };
+
+        public GameSettings()
+        {
+
+        }
         public void Assign()
         {
             Debug.Log("Assigning new settings.");
@@ -135,6 +142,10 @@ namespace ILOVEYOU.Management
             }
             InitalizePrefs();
             Current = this;
+        }
+        public static void Unassign(){
+            Debug.Log("Removing applied settings");
+            Current = null;
         }
         public void InitalizePrefs()
         {

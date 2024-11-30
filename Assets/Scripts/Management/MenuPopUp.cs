@@ -10,6 +10,8 @@ namespace ILOVEYOU.Management
     {
         [SerializeField] private GameObject m_firstSelected;
         private GameObject m_returnObject;
+        public delegate void Callback();
+        private Callback m_returnAction;
 
         // Start is called before the first frame update
         void Start()
@@ -21,7 +23,7 @@ namespace ILOVEYOU.Management
         public void Return()
         {
             if (m_returnObject) FindObjectOfType<MultiplayerEventSystem>().SetSelectedGameObject(m_returnObject);
-
+            if(m_returnAction != null) m_returnAction.Invoke();
             Destroy(gameObject);
         }
 
@@ -36,6 +38,10 @@ namespace ILOVEYOU.Management
         public void SetReturn(GameObject returnObj)
         {
             m_returnObject = returnObj;
+        }
+        public void SetReturnAction(Callback cb)
+        {
+            m_returnAction = cb;
         }
 
         public void ChangeScene(int scene)
