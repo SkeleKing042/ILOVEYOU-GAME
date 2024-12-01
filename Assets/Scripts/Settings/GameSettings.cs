@@ -133,15 +133,18 @@ namespace ILOVEYOU.Management
         {
 
         }
-        public void Assign()
+        public void Assign(bool Override = false)
         {
-            Debug.Log("Assigning new settings.");
-            foreach(var player in FindObjectsOfType<PlayerControls>())
+            if (Current == null || Override)
             {
-                player.ChangeWeapon(GetPlayerShootingPattern);
+                Debug.Log("Assigning new settings.");
+                Current = this;
+                InitalizePrefs();
+                foreach (var player in FindObjectsOfType<PlayerControls>())
+                {
+                    player.ChangeWeapon(GetPlayerShootingPattern);
+                }
             }
-            InitalizePrefs();
-            Current = this;
         }
         public static void Unassign(){
             Debug.Log("Removing applied settings");
