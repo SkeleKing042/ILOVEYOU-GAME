@@ -3,6 +3,7 @@ using ILOVEYOU.Player;
 using ILOVEYOU.ProjectileSystem;
 using ILOVEYOU.UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace ILOVEYOU
 {
@@ -50,6 +51,7 @@ namespace ILOVEYOU
                 //Tell them to kill the boss
                 m_playerTransform.GetComponent<PlayerControls>().GetContextBox.SetContext(null, 1, "Kill the boss!!");
                 m_playerTransform.GetComponent<PlayerControls>().GetContextBox.RemoveAllContext(3f);
+                ControllerVibrationHandler.Instance.SetMotors(m_playerTransform.GetComponent<PlayerInput>().GetDevice<Gamepad>(), new ControllerVibrationHandler.VibeInfo[] { new(0.166f, 0.166f), new(0.166f, 0.166f), new(0.166f, 0.166f) });
             }
 
 

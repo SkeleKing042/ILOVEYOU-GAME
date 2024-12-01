@@ -11,6 +11,7 @@ namespace ILOVEYOU.Management
         public static ControllerVibrationHandler Instance {get; private set;}
         private void Awake()
         {
+            DontDestroyOnLoad(this);
             if(Instance == null)
                 Instance = this;
             else
@@ -70,9 +71,10 @@ namespace ILOVEYOU.Management
         /// </summary>
         /// <param name="device">The gamepad to target</param>
         /// <param name="vibe"></param>
-        public void SetMotorsForTime(Gamepad device, VibeInfo vibe)
+        public void SetMotors(Gamepad device, VibeInfo vibe)
         {
             GameObject newGO = new GameObject();
+            DontDestroyOnLoad(newGO);
             newGO.name = $"vibing for {vibe.Duration} seconds.";
             newGO.AddComponent<vibeInstance>().StartVibes(device, vibe);
         }
@@ -81,7 +83,7 @@ namespace ILOVEYOU.Management
         /// </summary>
         /// <param name="device">The device to target</param>
         /// <param name="vibes"></param>
-        public void SetMotorBurst(Gamepad device, VibeInfo[] vibes)
+        public void SetMotors(Gamepad device, VibeInfo[] vibes)
         {
             StartCoroutine(_startMotorBurst(device, vibes));
         }
@@ -89,7 +91,7 @@ namespace ILOVEYOU.Management
         {
             foreach(var vibe in vibes)
             {
-                SetMotorsForTime(device, vibe);
+                SetMotors(device, vibe);
                 yield return new WaitForSeconds(vibe.Duration + vibe.Cooldown);
             }
         }
