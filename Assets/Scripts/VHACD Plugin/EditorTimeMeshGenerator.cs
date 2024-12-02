@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace ILOVEYOU.Environment
 {
+#if UNITY_EDITOR
     [RequireComponent(typeof(VHACD))]
     public class EditorTimeMeshGenerator : MonoBehaviour
     {
@@ -61,4 +62,5 @@ namespace ILOVEYOU.Environment
             }
         }
     }
+#endif
 }
