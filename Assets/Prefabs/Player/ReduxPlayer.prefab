@@ -2501,6 +2501,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6086628624578418823, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6122181987106447691, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_ChildControlHeight
       value: 1
@@ -2627,11 +2631,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6920419126782677741, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6920419126782677741, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 0.897
       objectReference: {fileID: 0}
     - target: {fileID: 7048187148438474933, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_AnchorMax.y
