@@ -33,6 +33,7 @@ namespace ILOVEYOU.UI
                 string count = set.GetPlayerLimit == 0 ? "N/A" : set.GetPlayerLimit.ToString();
                 butInst.GetComponentInChildren<TextMeshProUGUI>().text = $"{set.name}\nPlayer Limit = {count}";
                 butInst.name = $"{set.name} setting button";
+                if (set.IsOutdated) butInst.GetComponentInChildren<TextMeshProUGUI>().color = Color.magenta;
                 //Have the button assign the setting on selection.
                 butInst.onClick.AddListener(() => set.Assign(true));
                 //Move the new instance to the context box

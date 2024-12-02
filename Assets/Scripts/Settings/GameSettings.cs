@@ -13,6 +13,8 @@ namespace ILOVEYOU.Management
     public class GameSettings : ScriptableObject
     {
         public static GameSettings Current { get; private set; }
+        public string BuildVersion;
+        public bool IsOutdated { get { return BuildVersion != Application.version; } }
         [SerializeField] private string[] m_announcement = new string[0];
         public string GetAnouncement
         {

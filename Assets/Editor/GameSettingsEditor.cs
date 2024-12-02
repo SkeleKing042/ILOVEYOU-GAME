@@ -155,6 +155,7 @@ namespace ILOVEYOU.EditorScript
         private void OnEnable()
         {
             m_target = (GameSettings)target;
+            m_target.BuildVersion = Application.version;
             m_announcProp = serializedObject.FindProperty("m_announcement");
             m_diffCapProp = serializedObject.FindProperty("m_difficultyCap");
             m_playerLimitProp = serializedObject.FindProperty("m_PlayerLimit");
