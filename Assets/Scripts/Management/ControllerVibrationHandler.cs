@@ -73,10 +73,13 @@ namespace ILOVEYOU.Management
         /// <param name="vibe"></param>
         public void SetMotors(Gamepad device, VibeInfo vibe)
         {
-            GameObject newGO = new GameObject();
-            DontDestroyOnLoad(newGO);
-            newGO.name = $"vibing for {vibe.Duration} seconds.";
-            newGO.AddComponent<vibeInstance>().StartVibes(device, vibe);
+            if (device != null)
+            {
+                GameObject newGO = new GameObject();
+                DontDestroyOnLoad(newGO);
+                newGO.name = $"vibing for {vibe.Duration} seconds.";
+                newGO.AddComponent<vibeInstance>().StartVibes(device, vibe);
+            }
         }
         /// <summary>
         /// Able to set multiple vibrations in sequence.
