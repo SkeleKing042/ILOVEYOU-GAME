@@ -18,6 +18,13 @@ namespace ILOVEYOU.Management
             DirectoryUtilities.CheckForFolderPath($"{DirectoryUtilities.GameDataPath}{m_filePath}/");
 
             GameSettings[] settings = await JsonHandler.ReadAllFromFolder<GameSettings>($"{DirectoryUtilities.GameDataPath}{m_filePath}/", _createNewTemplate);
+            foreach(var set in settings)
+            {
+                if(set.BuildVersion != Application.version)
+                {
+                    Debug.LogWarning($"Settings \"{set.name}\" was built in version {set.BuildVersion} not version {Application.version}!\nThis may cause errors.");
+                }
+            }
             SetList.AddRange(settings);
             return settings;
         }
