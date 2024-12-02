@@ -55,7 +55,7 @@ MonoBehaviour:
   m_effectOnActive:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9207007489336916185}
+      - m_Target: {fileID: 6958898180726381364}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Play
         m_Mode: 1
@@ -67,7 +67,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3189387285692064842}
+      - m_Target: {fileID: 4449136469516469840}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Play
         m_Mode: 1
@@ -79,7 +79,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8531837148254062934}
+      - m_Target: {fileID: 4063278039272888427}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Play
         m_Mode: 1
@@ -101,6 +101,42 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1740377550512894922}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 4975188016360304302}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 4671993092938526869}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
           m_BoolArgument: 1
         m_CallState: 2
   m_effectsToApplyOnEnter:
@@ -127,7 +163,7 @@ MonoBehaviour:
   m_effectOnDeactive:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9207007489336916185}
+      - m_Target: {fileID: 6958898180726381364}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Stop
         m_Mode: 1
@@ -139,7 +175,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3189387285692064842}
+      - m_Target: {fileID: 4449136469516469840}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Stop
         m_Mode: 1
@@ -151,7 +187,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8531837148254062934}
+      - m_Target: {fileID: 4063278039272888427}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Stop
         m_Mode: 1
@@ -173,6 +209,42 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1740377550512894922}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4975188016360304302}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4671993092938526869}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2113477503186827581
@@ -551,7 +623,7 @@ MonoBehaviour:
   m_effectOnActive:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1964807374350271095}
+      - m_Target: {fileID: 3036835861899468802}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Play
         m_Mode: 1
@@ -563,7 +635,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5146308032683467018}
+      - m_Target: {fileID: 4460286676531585918}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Play
         m_Mode: 1
@@ -575,7 +647,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7770128898987748895}
+      - m_Target: {fileID: 5244413001087368628}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Play
         m_Mode: 1
@@ -597,6 +669,42 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 5949513560207067388}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 4995607123543903104}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 3490866926403245386}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
           m_BoolArgument: 1
         m_CallState: 2
   m_effectsToApplyOnEnter:
@@ -623,7 +731,7 @@ MonoBehaviour:
   m_effectOnDeactive:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1964807374350271095}
+      - m_Target: {fileID: 3036835861899468802}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Stop
         m_Mode: 1
@@ -635,7 +743,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5146308032683467018}
+      - m_Target: {fileID: 4460286676531585918}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Stop
         m_Mode: 1
@@ -647,7 +755,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7770128898987748895}
+      - m_Target: {fileID: 5244413001087368628}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Stop
         m_Mode: 1
@@ -669,6 +777,42 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5949513560207067388}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4995607123543903104}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3490866926403245386}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &4665666781878104682
@@ -827,7 +971,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2615893886648922375}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.66, y: 0, z: 0.2}
+  m_LocalPosition: {x: -0.7, y: 0, z: 0.2}
   m_LocalScale: {x: 18.91, y: 0.1, z: 18.91}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -852,7 +996,7 @@ MonoBehaviour:
   m_effectOnActive:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1877428916686150674}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Play
         m_Mode: 1
@@ -864,29 +1008,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
+      - m_Target: {fileID: 628481557230976122}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: malfunction
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8814142411491955491}
-        m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 2615893886648922375}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
@@ -924,7 +1056,7 @@ MonoBehaviour:
   m_effectOnDeactive:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1877428916686150674}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Stop
         m_Mode: 1
@@ -936,29 +1068,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
-        m_MethodName: Stop
-        m_Mode: 1
+      - m_Target: {fileID: 628481557230976122}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: malfunction
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8814142411491955491}
-        m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
-        m_MethodName: Stop
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 2615893886648922375}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
@@ -1807,7 +1927,7 @@ MonoBehaviour:
   m_effectOnActive:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 737202704925114046}
+      - m_Target: {fileID: 1557053512022052693}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Play
         m_Mode: 1
@@ -1819,7 +1939,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6971751506292796268}
+      - m_Target: {fileID: 7733993061294757629}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Play
         m_Mode: 1
@@ -1831,7 +1951,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7910632897830992018}
+      - m_Target: {fileID: 4104157067550631297}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Play
         m_Mode: 1
@@ -1853,6 +1973,42 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 7867272623241373611}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1432497185490157059}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 4629995311319731583}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
           m_BoolArgument: 1
         m_CallState: 2
   m_effectsToApplyOnEnter:
@@ -1879,7 +2035,7 @@ MonoBehaviour:
   m_effectOnDeactive:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 737202704925114046}
+      - m_Target: {fileID: 1557053512022052693}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Stop
         m_Mode: 1
@@ -1891,7 +2047,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6971751506292796268}
+      - m_Target: {fileID: 7733993061294757629}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Stop
         m_Mode: 1
@@ -1903,7 +2059,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7910632897830992018}
+      - m_Target: {fileID: 4104157067550631297}
         m_TargetAssemblyTypeName: UnityEngine.VFX.VisualEffect, UnityEngine
         m_MethodName: Stop
         m_Mode: 1
@@ -1925,6 +2081,42 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7867272623241373611}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1432497185490157059}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4629995311319731583}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: malfunction
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &8034215192564222488
@@ -1957,542 +2149,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1001 &969569593400716321
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6926668400224105155}
-    m_Modifications:
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.5300016
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6797930357601942097, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_Name
-      value: Fire VFX Graph Scaled Up
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
---- !u!2083052967 &5146308032683467018 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 5341200489310391595, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-  m_PrefabInstance: {fileID: 969569593400716321}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &2434981316091208500
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6926668401412880856}
-    m_Modifications:
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.53
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6797930357601942097, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_Name
-      value: Fire VFX Graph Scaled Up
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
---- !u!2083052967 &7770128898987748895 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 5341200489310391595, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-  m_PrefabInstance: {fileID: 2434981316091208500}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &2871035135292159417
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 5888115473491453906}
-    m_Modifications:
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 5.8058424
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 5.8058424
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.5299988
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6797930357601942097, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_Name
-      value: Fire VFX Graph Scaled Up (2)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
---- !u!2083052967 &7910632897830992018 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 5341200489310391595, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-  m_PrefabInstance: {fileID: 2871035135292159417}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &3089296194206000711
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 5888115473250408135}
-    m_Modifications:
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 5.805843
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 5.805843
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.5300007
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.0022753095
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3108603535823673147, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6797930357601942097, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_Name
-      value: Fire VFX Graph Scaled Up (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
---- !u!2083052967 &6971751506292796268 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 5341200489310391595, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-  m_PrefabInstance: {fileID: 3089296194206000711}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &3480682561461804552
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6452278424694816938}
-    m_Modifications:
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 13.008225
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 13.008225
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.56
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6797930357601942097, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_Name
-      value: Fire VFX Graph Scaled Up (2)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
---- !u!2083052967 &8814142411491955491 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 5341200489310391595, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-  m_PrefabInstance: {fileID: 3480682561461804552}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &3880445966598583794
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6926668400306572960}
-    m_Modifications:
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.5299988
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6797930357601942097, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_Name
-      value: Fire VFX Graph Scaled Up
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
---- !u!2083052967 &9207007489336916185 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 5341200489310391595, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-  m_PrefabInstance: {fileID: 3880445966598583794}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &4357493382790464637
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6926668401466462139}
-    m_Modifications:
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.5299988
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6797930357601942097, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_Name
-      value: Fire VFX Graph Scaled Up
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
---- !u!2083052967 &8531837148254062934 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 5341200489310391595, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-  m_PrefabInstance: {fileID: 4357493382790464637}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &4622048363716129685
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6926668401238388904}
-    m_Modifications:
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 5.805841
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 5.805841
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.5299988
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6797930357601942097, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_Name
-      value: Fire VFX Graph Scaled Up (3)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
---- !u!2083052967 &737202704925114046 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 5341200489310391595, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-  m_PrefabInstance: {fileID: 4622048363716129685}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5337145328736977018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3291,138 +2947,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2614735254598111838, guid: b6e5f9997e65dba469e97b73f846f0e9, type: 3}
   m_PrefabInstance: {fileID: 5337145328736977018}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &5862460134173331292
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 5888115473631301128}
-    m_Modifications:
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 5.805842
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 5.805842
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.00025488005
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.5299788
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.009710124
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071069
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.70710677
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6797930357601942097, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_Name
-      value: Fire VFX Graph Scaled Up
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
---- !u!2083052967 &1964807374350271095 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 5341200489310391595, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-  m_PrefabInstance: {fileID: 5862460134173331292}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &7376117036825422177
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6926668401685743389}
-    m_Modifications:
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.5299988
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053073626072573850, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6797930357601942097, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-      propertyPath: m_Name
-      value: Fire VFX Graph Scaled Up
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
---- !u!2083052967 &3189387285692064842 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 5341200489310391595, guid: 4c0a4d70b2afd0447beb07f6fd0c284d, type: 3}
-  m_PrefabInstance: {fileID: 7376117036825422177}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8934741722367468955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3702,54 +3226,94 @@ PrefabInstance:
     - {fileID: 2041350029140558458, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
     - {fileID: 2041350028646812402, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
---- !u!4 &5888115473250408135 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3046788027717350236, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+--- !u!95 &628481557230976122 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8306402323390912993, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
   m_PrefabInstance: {fileID: 8934741722367468955}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5888115473491453906 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3046788027421770313, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+--- !u!95 &1432497185490157059 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7502949544027495320, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
   m_PrefabInstance: {fileID: 8934741722367468955}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5888115473631301128 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3046788028419107731, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+--- !u!2083052967 &1557053512022052693 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 7954860702090029774, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
   m_PrefabInstance: {fileID: 8934741722367468955}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6452278424694816938 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2483046113134322993, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+--- !u!95 &1740377550512894922 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7194927476155455057, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
   m_PrefabInstance: {fileID: 8934741722367468955}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6926668400224105155 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2008302467247560536, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+--- !u!2083052967 &1877428916686150674 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 7058094876479256969, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
   m_PrefabInstance: {fileID: 8934741722367468955}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6926668400306572960 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2008302467294522171, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+--- !u!2083052967 &3036835861899468802 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 5898473486707082649, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
   m_PrefabInstance: {fileID: 8934741722367468955}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6926668401238388904 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2008302467438056755, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+--- !u!95 &3490866926403245386 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5443893980590764241, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
   m_PrefabInstance: {fileID: 8934741722367468955}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6926668401412880856 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2008302468402781251, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+--- !u!2083052967 &4063278039272888427 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 4872118108402400752, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
   m_PrefabInstance: {fileID: 8934741722367468955}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6926668401466462139 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2008302468219791904, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+--- !u!2083052967 &4104157067550631297 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 4830798180198154266, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
   m_PrefabInstance: {fileID: 8934741722367468955}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6926668401685743389 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2008302468138918534, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+--- !u!2083052967 &4449136469516469840 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 5062070488236352459, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+  m_PrefabInstance: {fileID: 8934741722367468955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!2083052967 &4460286676531585918 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 5050940208787326693, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+  m_PrefabInstance: {fileID: 8934741722367468955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4629995311319731583 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4305327403166394596, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+  m_PrefabInstance: {fileID: 8934741722367468955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4671993092938526869 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4262890920627590414, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+  m_PrefabInstance: {fileID: 8934741722367468955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4975188016360304302 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4536813014212184885, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+  m_PrefabInstance: {fileID: 8934741722367468955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4995607123543903104 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4516374252176141851, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+  m_PrefabInstance: {fileID: 8934741722367468955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!2083052967 &5244413001087368628 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 3691106253176805423, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+  m_PrefabInstance: {fileID: 8934741722367468955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5949513560207067388 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2985463574887935335, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+  m_PrefabInstance: {fileID: 8934741722367468955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!2083052967 &6958898180726381364 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 1976074477814808239, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
   m_PrefabInstance: {fileID: 8934741722367468955}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &7469995460051532808 stripped
@@ -3801,3 +3365,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e084a301114ee934ba9b8e3598e6f2ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!2083052967 &7733993061294757629 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 1200840370445644646, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+  m_PrefabInstance: {fileID: 8934741722367468955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7867272623241373611 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1644023349726544432, guid: 8c6859ece8189a24bb58608f4e686acf, type: 3}
+  m_PrefabInstance: {fileID: 8934741722367468955}
+  m_PrefabAsset: {fileID: 0}
