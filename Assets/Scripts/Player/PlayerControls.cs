@@ -74,7 +74,7 @@ namespace ILOVEYOU
                 m_maxHealth = GameSettings.Current.GetPlayerHealth;
                 m_health = m_maxHealth;
                 m_moveSpeed = GameSettings.Current.GetPlayerSpeed;
-                UpdateHealthBar();
+                UpdateHealthBar(Color.white);
                 m_allowShooting = true;
             }
             public bool Startup()
@@ -232,7 +232,7 @@ namespace ILOVEYOU
                 {
                     m_health = Mathf.Clamp(m_health + value, 0, m_maxHealth);
                 }
-                UpdateHealthBar();
+                UpdateHealthBar(Color.green);
             }
             /// <summary>
             /// makes the player take the damage oh noooo this is bad
@@ -242,7 +242,7 @@ namespace ILOVEYOU
                 if (m_iframesCurrent > 0) return;
                 m_health -= damage;
                 m_iframesCurrent = GameSettings.Current.GetiFrameDuration;
-                UpdateHealthBar();
+                UpdateHealthBar(Color.white);
                 //reset all timed tasks when damaged
                 m_plaMa.GetTaskManager.UpdateTimers(true);
                 if (m_health <= 0)
@@ -257,10 +257,10 @@ namespace ILOVEYOU
                 
             }
 
-            public void UpdateHealthBar()
+            public void UpdateHealthBar(Color flashColor)
             {
                 float current = m_health / m_maxHealth;
-                m_plaMa.GetUI.UpdateHealthBar(current);
+                m_plaMa.GetUI.UpdateHealthBar(current, flashColor);
             }
 
             public void PlaySound(string name)
