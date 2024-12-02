@@ -106,30 +106,30 @@ namespace ILOVEYOU.Management
         public float GetModChance => m_modChanceOverTime.Evaluate(GameManager.Instance.PercentToMaxDiff);
         [SerializeField] private AnimationCurve m_modCountOverTime;
         public float GetMaxModCount => m_modCountOverTime.Evaluate(GameManager.Instance.PercentToMaxDiff);
-        [System.Serializable]
-        public struct ColorPrefType
-        {
-            public string m_key;
-            public Color m_color;
-
-            public ColorPrefType(string key, Color color)
-            {
-                m_key = key;
-                m_color = color;
-            }
-
-            public void setup()
-            {
-                Debug.Log($"Initializing color with key {m_key} and value {m_color.ToString()}");
-                ColorPref.Set(m_key, m_color);
-            }
-        }
-        //[Header("Color")]
-        [SerializeField] private ColorPrefType[] m_prefColors = { new("Important Color", Color.white),
-                                                                    new("Buff color", Color.white),
-                                                                    new("Debuff color", Color.white),
-                                                                    new("Hazard color", Color.white),
-                                                                    new("Summon color", Color.white) };
+        //[System.Serializable]
+        //public struct ColorPrefType
+        //{
+        //    public string m_key;
+        //    public Color m_color;
+        //
+        //    public ColorPrefType(string key, Color color)
+        //    {
+        //        m_key = key;
+        //        m_color = color;
+        //    }
+        //
+        //    public void setup()
+        //    {
+        //        Debug.Log($"Initializing color with key {m_key} and value {m_color.ToString()}");
+        //        ColorPref.Set(m_key, m_color);
+        //    }
+        //}
+        ////[Header("Color")]
+        //[SerializeField] private ColorPrefType[] m_prefColors = { new("Important Color", Color.white),
+        //                                                            new("Buff color", Color.white),
+        //                                                            new("Debuff color", Color.white),
+        //                                                            new("Hazard color", Color.white),
+        //                                                            new("Summon color", Color.white) };
 
         public GameSettings()
         {
@@ -141,7 +141,7 @@ namespace ILOVEYOU.Management
             {
                 Debug.Log("Assigning new settings.");
                 Current = this;
-                InitalizePrefs();
+                //InitalizePrefs();
                 foreach (var player in FindObjectsOfType<PlayerControls>())
                 {
                     player.ChangeWeapon(GetPlayerShootingPattern);
@@ -152,12 +152,12 @@ namespace ILOVEYOU.Management
             Debug.Log("Removing applied settings");
             Current = null;
         }
-        public void InitalizePrefs()
-        {
-            foreach(var color in m_prefColors)
-            {
-                color.setup();
-            }
-        }
+        //public void InitalizePrefs()
+        //{
+        //    foreach(var color in m_prefColors)
+        //    {
+        //        color.setup();
+        //    }
+        //}
     }
 }
