@@ -88,7 +88,8 @@ namespace ILOVEYOU.Management
         /// <param name="vibes"></param>
         public void SetMotors(Gamepad device, VibeInfo[] vibes)
         {
-            StartCoroutine(_startMotorBurst(device, vibes));
+            if(device != null)
+                StartCoroutine(_startMotorBurst(device, vibes));
         }
         private IEnumerator _startMotorBurst(Gamepad device, VibeInfo[] vibes)
         {
