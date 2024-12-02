@@ -44,7 +44,7 @@ namespace ILOVEYOU.Management
 
         //[Header("Cards")]
         [Tooltip("The number of cards shown to the player.\nPLEASE KEEP AT 3")]
-        [SerializeField] private int m_numberOfCardToGive = 3;
+        [SerializeField] private int m_numberOfCardToGive = 0;
         public int GetNumberOfCardsToGive => m_numberOfCardToGive;
         [SerializeField] private float m_cardTimeOut = 10f;
         public float GetCardTimeOut => m_cardTimeOut;

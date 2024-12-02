@@ -71,7 +71,7 @@ namespace ILOVEYOU.EditorScript
         bool m_displayCardSettings = false;
         bool m_cardsAreEnabled
         {
-            get { return m_cardDataProp.arraySize > 0; }
+            get { return m_cardDataProp.arraySize > 0 && m_cardCountProp.intValue == 3; }
             set
             {
                 switch (value)
@@ -80,10 +80,12 @@ namespace ILOVEYOU.EditorScript
                         if (m_cardDataProp.arraySize == 0)
                         {
                             m_cardDataProp.InsertArrayElementAtIndex(0);
+                            m_cardCountProp.intValue = 3;
                         }
                         break;
                     case false:
                         m_cardDataProp.ClearArray();
+                        m_cardCountProp.intValue = 0;
                         break;
                 }
             }
