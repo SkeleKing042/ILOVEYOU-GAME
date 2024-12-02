@@ -71,6 +71,8 @@ namespace ILOVEYOU
             private void _setID(int index, PlayerInput input)
             {
                 input.transform.SetSiblingIndex(index);
+                //ControllerVibrationHandler.Instance.SetMotorsForTime(input.GetDevice<Gamepad>(), new(0.123f, 0.234f, 0.5f));
+                ControllerVibrationHandler.Instance.SetMotors(input.GetDevice<Gamepad>(), new ControllerVibrationHandler.VibeInfo[] {new (0.2f, 0.1f), new(0.2f)});
                 m_controllers.Insert(index, input.GetComponent<Controller>());
                 m_controllers[index].name = $"{input.currentControlScheme} - {index}";
                 m_controllers[index].ID = (uint)index;

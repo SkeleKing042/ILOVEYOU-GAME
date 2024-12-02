@@ -50,6 +50,10 @@ namespace ILOVEYOU
                         ControllerManager.Instance.PlayerLeft(this);
                 }
             }
+            public void OnDeviceLost()
+            {
+                OnLeave();
+            }
         }
     }
 }

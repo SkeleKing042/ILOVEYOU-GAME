@@ -242,6 +242,7 @@ namespace ILOVEYOU
                 if (m_iframesCurrent > 0) return;
                 m_health -= damage;
                 m_iframesCurrent = GameSettings.Current.GetiFrameDuration;
+                ControllerVibrationHandler.Instance.SetMotors(GetComponent<PlayerInput>().GetDevice<Gamepad>(), (ControllerVibrationHandler.VibeInfo)new(0.5f));
                 UpdateHealthBar(Color.white);
                 //reset all timed tasks when damaged
                 m_plaMa.GetTaskManager.UpdateTimers(true);
