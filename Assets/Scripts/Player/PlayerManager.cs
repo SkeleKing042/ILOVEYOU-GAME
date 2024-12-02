@@ -214,11 +214,6 @@ namespace ILOVEYOU
                 //Invoke("_disableBlindness", m_time);
             }
 
-            public void UpdateHealthBar(float value)
-            {
-                m_playerUI.UpdateHealthBar(value);
-            }
-
             public void Pause(bool pause)
             {
                 m_paused = pause;

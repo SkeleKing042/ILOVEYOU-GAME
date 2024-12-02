@@ -71,7 +71,7 @@ namespace ILOVEYOU.EditorScript
         bool m_displayCardSettings = false;
         bool m_cardsAreEnabled
         {
-            get { return m_cardDataProp.arraySize > 0; }
+            get { return m_cardDataProp.arraySize > 0 && m_cardCountProp.intValue == 3; }
             set
             {
                 switch (value)
@@ -80,10 +80,12 @@ namespace ILOVEYOU.EditorScript
                         if (m_cardDataProp.arraySize == 0)
                         {
                             m_cardDataProp.InsertArrayElementAtIndex(0);
+                            m_cardCountProp.intValue = 3;
                         }
                         break;
                     case false:
                         m_cardDataProp.ClearArray();
+                        m_cardCountProp.intValue = 0;
                         break;
                 }
             }
@@ -155,6 +157,7 @@ namespace ILOVEYOU.EditorScript
         private void OnEnable()
         {
             m_target = (GameSettings)target;
+            m_target.BuildVersion = Application.version;
             m_announcProp = serializedObject.FindProperty("m_announcement");
             m_diffCapProp = serializedObject.FindProperty("m_difficultyCap");
             m_playerLimitProp = serializedObject.FindProperty("m_PlayerLimit");

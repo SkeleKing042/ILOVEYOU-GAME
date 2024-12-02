@@ -39,9 +39,12 @@ namespace ILOVEYOU.Management
         {
             m_returnObject = returnObj;
         }
-        public void SetReturnAction(Callback cb)
+        public void SetReturnAction(Callback[] cb)
         {
-            m_returnAction = cb;
+            foreach(var callback in cb)
+            {
+                m_returnAction += callback;
+            }
         }
 
         public void ChangeScene(int scene)

@@ -369,7 +369,7 @@ namespace ILOVEYOU
             public void GivePlayerCards(PlayerManager player)
             {
                 //Giving cards
-                if (player.GetTaskManager.TaskCompletionPoints > 0 && !player.CardsInHand)
+                if (player.GetTaskManager.TaskCompletionPoints > 0 && !player.CardsInHand && GameSettings.Current.GetNumberOfCardsToGive > 0)
                 {
                     //hand out cards to the player
                     Debug.Log($"Player {player.GetPlayerID} has completed a task, dealing cards.");

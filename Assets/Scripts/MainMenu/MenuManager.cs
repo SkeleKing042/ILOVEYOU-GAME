@@ -22,6 +22,8 @@ namespace ILOVEYOU.MainMenu
         [SerializeField] private GameObject[] m_menuObjects;
         [SerializeField] private GameObject[] m_mainMenuButtons;
         [SerializeField] private GameObject[] m_optionSelect;
+        //Im not sure of another solution for this
+        [SerializeField] private CreatePopUpMenu m_customSettingsPopup;
 
         private int m_lastPlayerCount = 0;
         //private bool[] m_connected = new bool[2];
@@ -179,7 +181,9 @@ namespace ILOVEYOU.MainMenu
         {
             m_eventSystem.enabled = true;
 
-            m_mainMenuButtons[7].GetComponent<CreatePopUpMenu>().CreatePopUp(transform).SetReturnAction(() => ReenableButtons());
+            //disable the options tab
+            m_menuObjects[1].SetActive(false);
+            m_customSettingsPopup.CreatePopUp(transform).SetReturnAction(new MenuPopUp.Callback[] { () => ReenableButtons(), () => m_menuObjects[1].SetActive(true) });
         }
 
         public void CodexMenu()

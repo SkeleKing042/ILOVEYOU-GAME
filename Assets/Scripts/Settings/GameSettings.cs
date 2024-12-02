@@ -13,6 +13,8 @@ namespace ILOVEYOU.Management
     public class GameSettings : ScriptableObject
     {
         public static GameSettings Current { get; private set; }
+        public string BuildVersion;
+        public bool IsOutdated { get { return BuildVersion != Application.version; } }
         [SerializeField] private string[] m_announcement = new string[0];
         public string GetAnouncement
         {
@@ -42,7 +44,7 @@ namespace ILOVEYOU.Management
 
         //[Header("Cards")]
         [Tooltip("The number of cards shown to the player.\nPLEASE KEEP AT 3")]
-        [SerializeField] private int m_numberOfCardToGive = 3;
+        [SerializeField] private int m_numberOfCardToGive = 0;
         public int GetNumberOfCardsToGive => m_numberOfCardToGive;
         [SerializeField] private float m_cardTimeOut = 10f;
         public float GetCardTimeOut => m_cardTimeOut;
@@ -133,15 +135,18 @@ namespace ILOVEYOU.Management
         {
 
         }
-        public void Assign()
+        public void Assign(bool Override = false)
         {
-            Debug.Log("Assigning new settings.");
-            foreach(var player in FindObjectsOfType<PlayerControls>())
+            if (Current == null || Override)
             {
-                player.ChangeWeapon(GetPlayerShootingPattern);
+                Debug.Log("Assigning new settings.");
+                Current = this;
+                InitalizePrefs();
+                foreach (var player in FindObjectsOfType<PlayerControls>())
+                {
+                    player.ChangeWeapon(GetPlayerShootingPattern);
+                }
             }
-            InitalizePrefs();
-            Current = this;
         }
         public static void Unassign(){
             Debug.Log("Removing applied settings");
