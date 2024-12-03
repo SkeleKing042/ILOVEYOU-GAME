@@ -23,6 +23,7 @@ namespace ILOVEYOU
                 m_trail = GetComponentInChildren<LineRenderer>();
                 m_path = new();
                 m_agent = GetComponent<NavMeshAgent>();
+                gameObject.SetActive(false);
             }
             public void Update()
             {
