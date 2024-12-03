@@ -58,10 +58,12 @@ namespace ILOVEYOU.Management
                 m_device = newDevice;
 
                 m_device.SetMotorSpeeds(vibe.LowFrequency, vibe.HighFrequency);
-                Invoke("EndVibes", vibe.Duration);
+                StartCoroutine(EndVibes(vibe.Duration));
             }
-            public void EndVibes()
+            public IEnumerator EndVibes(float time)
             {
+                yield return new WaitForSecondsRealtime(time);
+
                 m_device.SetMotorSpeeds(0, 0);
                 Destroy(gameObject);
             }
@@ -96,7 +98,7 @@ namespace ILOVEYOU.Management
             foreach(var vibe in vibes)
             {
                 SetMotors(device, vibe);
-                yield return new WaitForSeconds(vibe.Duration + vibe.Cooldown);
+                yield return new WaitForSecondsRealtime(vibe.Duration + vibe.Cooldown);
             }
         }
     }

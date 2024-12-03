@@ -119,6 +119,8 @@ namespace ILOVEYOU
                 foreach(var card in GetRandomCard(GameSettings.Current.GetCardData, count))
                 {
                     cardInsts.Add(Instantiate(card));
+                    card.SetPlayerID((int)player.GetPlayerID);
+                    card.SetupColours();
                 }
                 m_onDispenseCard.Invoke();
                 return cardInsts.ToArray();

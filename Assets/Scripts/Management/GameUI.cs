@@ -34,7 +34,7 @@ namespace ILOVEYOU
             // Start is called before the first frame update
             public void Start()
             {
-                m_importantColor = ColorPref.Get("Important Color");
+                m_importantColor = ColorPref.Get("Important Color" + 0);
             }
             public void CreatePauseMenu()
             {
