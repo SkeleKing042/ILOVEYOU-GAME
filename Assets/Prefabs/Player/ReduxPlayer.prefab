@@ -971,23 +971,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_victoryText: {fileID: 3451253909012436337}
   m_victoryStrings:
+  - 'TEST COMPLETE
+
+    0 ERRORS'
   - BUILD SUCCESSFUL
-  - SCAN COMPLETE
-  - FILE SAVED
-  - MALWARE CLEARED
-  - SYSTEM RECOVERED
-  - BRANCH MERGED
-  - TEST COMPLETE\n0 ERRORS
+  - 'BRANCH MERGED
+
+    0 CONFLICTS'
+  - MALWARE EXPUNGED
+  - FILES RECOVERED
+  - BUGS SQUASHED
+  - SYSTEM RESTORED
+  - SYSTEM SCAN COMPLETE
+  - SPAM BLOCKED
+  - UPDATE COMPLETE
   m_lossText: {fileID: 3306656003244751}
   m_lossStrings:
   - STACK OVERFLOW ERROR
+  - MERGE CONFLICT UNRESOLVED
   - SYSTEM CRASH
   - 404 USER NOT FOUND
   - DATA WIPED
-  - FORMATTED
+  - REFORMATTED
   - OVERWRITTEN
   - ERASED
   - SYSTEM32 DELETED
+  - NULL REFERENCE ERROR
 --- !u!1 &2313846247829714107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,7 +1914,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 1601854360
+    rgba: 8018840
   m_fontColor: {r: 0.5943396, g: 0.35604307, b: 0.4764984, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3

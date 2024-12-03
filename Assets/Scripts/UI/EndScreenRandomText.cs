@@ -9,8 +9,10 @@ namespace ILOVEYOU.UI
     public class EndScreenRandomText : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI m_victoryText;
+        [TextArea]
         [SerializeField] private string[] m_victoryStrings;
         [SerializeField] private TextMeshProUGUI m_lossText;
+        [TextArea]
         [SerializeField] private string[] m_lossStrings;
 
         public void ApplyRandomVictory()
