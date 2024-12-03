@@ -65,7 +65,8 @@ namespace ILOVEYOU
                 {
                     healthSum += p.GetControls.GetHealthPercent;
                 }
-                healthSum /= others.Length;
+                if(others.Length > 0)
+                    healthSum /= others.Length;
 
                 //Compare this health average to the caller's current health.
                 if(player != null)

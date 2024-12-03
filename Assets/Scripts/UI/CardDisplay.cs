@@ -1,4 +1,5 @@
 using ILOVEYOU.Cards;
+using ILOVEYOU.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace ILOVEYOU
             [SerializeField] private Transform[] m_displayPoints;
             private DisruptCard[] m_cards = new DisruptCard[0];
             [SerializeField] private GameObject m_background;
+            [SerializeField] private PlayerManager m_player;
 
             [Header("Events")]
             [SerializeField] private UnityEvent m_onGetCards;
@@ -24,9 +26,10 @@ namespace ILOVEYOU
             {
                 if (m_cards.Length > 0)
                 {
-                    foreach (var card in m_cards)
+                    foreach(var card in m_cards)
                     {
-                        Destroy(card.gameObject);
+                        if (card)
+                            Destroy(card.gameObject);
                     }
                     m_cards = new DisruptCard[0];
                 }
@@ -51,14 +54,17 @@ namespace ILOVEYOU
             }
             public void DiscardHand()
             {
-                m_onDiscard.Invoke("SelectedCard", -1);
-                foreach(var card in m_cards)
+                if (!m_player.CardsInHand)
                 {
-                    Destroy(card.gameObject);
+                    Debug.Log("Discarding card visuals");
+                    foreach (var card in m_cards)
+                    {
+                        if (card)
+                            Destroy(card.gameObject);
+                    }
+                    gameObject.SetActive(false);
+                    m_background.GetComponent<Animator>().SetBool("Show", false);
                 }
-                m_cards = new DisruptCard[0];
-                gameObject.SetActive(false);
-                m_background.GetComponent<Animator>().SetBool("Show", false);
             }
         }
     }
