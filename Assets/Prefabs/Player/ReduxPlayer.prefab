@@ -1533,7 +1533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa887d8fbfd7ba349916be22ffcd4dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_patternObj: {fileID: 11400000, guid: f80c5045f971c394096cc345a99bb1a5, type: 2}
+  m_patternObj: {fileID: 11400000, guid: 7f46f4091edf10241b1784297b3edcc0, type: 2}
   m_isPlayer: 1
   m_fireSpeedMulti: 1
   m_damageMulti: 1
@@ -2453,6 +2453,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4435714905001376730, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -43.00003
+      objectReference: {fileID: 0}
     - target: {fileID: 4850376945507884156, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -300
@@ -2487,7 +2491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5474753518340476444, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 100
+      value: 100.00003
       objectReference: {fileID: 0}
     - target: {fileID: 5715371356237877210, guid: c81e032e02b8b674eaa608a69ccdb343, type: 3}
       propertyPath: m_SizeDelta.y
