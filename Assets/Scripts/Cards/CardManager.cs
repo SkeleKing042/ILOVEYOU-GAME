@@ -116,9 +116,13 @@ namespace ILOVEYOU
 
                 //Make a new array for the requested cards
                 List<DisruptCard> cardInsts = new();
-                foreach(var card in GetRandomCard(GameSettings.Current.GetCardData, count))
+                DisruptCard[] cards = GetRandomCard(GameSettings.Current.GetCardData, count);
+                foreach (var card in cards)
                 {
                     cardInsts.Add(Instantiate(card));
+                }
+                foreach(var card in cardInsts)
+                {
                     card.SetPlayerID((int)player.GetPlayerID);
                     card.SetupColours();
                 }
