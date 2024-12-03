@@ -44,17 +44,11 @@ namespace ILOVEYOU
             public void SetupColours()
             {
                 string key = $"{m_cardType} color" + m_playerID;
-                if (!PlayerPrefs.HasKey($"{key} R"))
-                {
-                    ColorPref.Set(key, m_color);
-                }
-                else
-                {
-                    m_color = ColorPref.Get(key);
-                }
+                m_color = ColorPref.Get(key);
 
                 m_cardFace.color = m_color;
             }
+
             public virtual void ExecuteEvents(PlayerManager caller)
             {
                 SoundManager.SFX.PlayRandomSound("CardSelect");
