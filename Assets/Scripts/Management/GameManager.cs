@@ -294,6 +294,7 @@ namespace ILOVEYOU
                 
 
                 enabled = false;
+                m_gameUI.GameOver();
 
                 //does a cool animation
                 StartCoroutine(_CoolSlowMo(playerNum));
