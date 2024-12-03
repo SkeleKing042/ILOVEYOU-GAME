@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 1683116684548966319}
   - component: {fileID: 1683116684548966318}
   - component: {fileID: 1683116684548966316}
+  - component: {fileID: 5556974337300279718}
   m_Layer: 5
   m_Name: ColourPopup
   m_TagString: Untagged
@@ -159,6 +160,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_firstSelected: {fileID: 3844641727344601650}
+--- !u!114 &5556974337300279718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683116684548966304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91dd975f8f8a2fb448042b8c125bbbc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1683116684611817566
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,6 +732,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 312114433053683580, guid: 342c44880f0d3494b8bb97af68c096be, type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 7303841251827817581}
+    - target: {fileID: 312114433053683580, guid: 342c44880f0d3494b8bb97af68c096be, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -1065,6 +1082,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6825685887955854502 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 312114433053683580, guid: 342c44880f0d3494b8bb97af68c096be, type: 3}
+  m_PrefabInstance: {fileID: 6552015400730528730}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844641727344601650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6992030318893298449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1088,6 +1116,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 312114433053683580, guid: 342c44880f0d3494b8bb97af68c096be, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 1683116686207163893}
+    - target: {fileID: 312114433053683580, guid: 342c44880f0d3494b8bb97af68c096be, type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 6825685887955854502}
     - target: {fileID: 312114433053683580, guid: 342c44880f0d3494b8bb97af68c096be, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 4
@@ -1410,7 +1446,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7575545590116803221, guid: 342c44880f0d3494b8bb97af68c096be, type: 3}
       propertyPath: m_Name
-      value: Player 1 menu (1)
+      value: Player 2 menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7849979242388131146, guid: 342c44880f0d3494b8bb97af68c096be, type: 3}
+      propertyPath: m_text
+      value: Player 2 Colour
+      objectReference: {fileID: 0}
+    - target: {fileID: 8050050249414828520, guid: 342c44880f0d3494b8bb97af68c096be, type: 3}
+      propertyPath: m_Name
+      value: Player 2 Colour
       objectReference: {fileID: 0}
     - target: {fileID: 8202619602102593975, guid: 342c44880f0d3494b8bb97af68c096be, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1423,6 +1467,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5264980605088769348, guid: 342c44880f0d3494b8bb97af68c096be, type: 3}
   m_PrefabInstance: {fileID: 6992030318893298449}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7303841251827817581 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 312114433053683580, guid: 342c44880f0d3494b8bb97af68c096be, type: 3}
+  m_PrefabInstance: {fileID: 6992030318893298449}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8169759974354787244 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1182335565785884861, guid: 342c44880f0d3494b8bb97af68c096be, type: 3}

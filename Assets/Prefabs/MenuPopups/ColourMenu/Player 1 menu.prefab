@@ -1582,13 +1582,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_palletes:
-  - m_paletteName: RED
-    m_importantColour: {r: 1, g: 0, b: 0, a: 1}
+  - m_paletteName: Default
+    m_importantColour: {r: 0, g: 1, b: 0, a: 1}
     m_buffColour: {r: 1, g: 0, b: 0, a: 1}
-    m_debuffColour: {r: 1, g: 0, b: 0, a: 1}
-    m_hazardColour: {r: 1, g: 0, b: 0, a: 1}
-    m_summonColour: {r: 1, g: 0, b: 0, a: 1}
-    m_backgroundColour: {r: 1, g: 0, b: 0, a: 1}
+    m_debuffColour: {r: 1, g: 0, b: 1, a: 1}
+    m_hazardColour: {r: 1, g: 1, b: 0, a: 1}
+    m_summonColour: {r: 0, g: 1, b: 1, a: 1}
+    m_backgroundColour: {r: 0, g: 0, b: 0.6666667, a: 1}
   - m_paletteName: BLUE
     m_importantColour: {r: 0, g: 0.06818819, b: 1, a: 1}
     m_buffColour: {r: 0, g: 0.013357639, b: 1, a: 1}

@@ -4556,6 +4556,7 @@ GameObject:
   - component: {fileID: 712153552}
   - component: {fileID: 712153554}
   - component: {fileID: 712153553}
+  - component: {fileID: 712153555}
   m_Layer: 5
   m_Name: BlueBackground
   m_TagString: Untagged
@@ -4621,6 +4622,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 712153551}
   m_CullTransparentMesh: 1
+--- !u!114 &712153555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712153551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91dd975f8f8a2fb448042b8c125bbbc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &723845450
 GameObject:
   m_ObjectHideFlags: 0
@@ -9142,7 +9155,7 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 1000424343}
+    m_SelectOnUp: {fileID: 976873784}
     m_SelectOnDown: {fileID: 321205301}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
