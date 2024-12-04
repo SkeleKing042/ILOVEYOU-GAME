@@ -187,7 +187,7 @@ namespace ILOVEYOU.EditorScript
             m_modListProp = serializedObject.FindProperty("m_modList");
             m_modChanceProp = serializedObject.FindProperty("m_modChanceOverTime");
             m_modCapProp = serializedObject.FindProperty("m_modCountOverTime");
-            m_colorsProp = serializedObject.FindProperty("m_prefColors");
+            //m_colorsProp = serializedObject.FindProperty("m_prefColors");
         }
         public override void OnInspectorGUI()
         {
@@ -202,7 +202,7 @@ namespace ILOVEYOU.EditorScript
             }
             if(GUILayout.Button("Initialize color prefs", GUILayout.Width(scale)))
             {
-                m_target.InitalizePrefs();
+                //m_target.InitalizePrefs();
             }
             if(GUILayout.Button("Export to JSON", GUILayout.Width(scale)))
             {
@@ -464,12 +464,12 @@ namespace ILOVEYOU.EditorScript
             }
             #endregion
             #region Colour Settings
-            GUILayout.Space(16);
-            m_displayColorStyles = EditorGUILayout.Foldout(m_displayColorStyles, new GUIContent("Colors"));
-            if (m_displayColorStyles)
-            {
-                EditorGUILayout.PropertyField(m_colorsProp, new GUIContent("Game Color"));
-            }
+            //GUILayout.Space(16);
+            //m_displayColorStyles = EditorGUILayout.Foldout(m_displayColorStyles, new GUIContent("Colors"));
+            //if (m_displayColorStyles)
+            //{
+            //    EditorGUILayout.PropertyField(m_colorsProp, new GUIContent("Game Color"));
+            //}
             #endregion
 
             serializedObject.ApplyModifiedProperties();

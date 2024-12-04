@@ -24,6 +24,7 @@ namespace ILOVEYOU
             };
             [SerializeField] private category m_cardType;
             private Color m_color;
+            private int m_playerID = 0;
             [SerializeField] private bool m_effectSelf;
             public bool DoesEffectSelf => m_effectSelf;
             [SerializeField] private Image m_cardFace;
@@ -34,22 +35,20 @@ namespace ILOVEYOU
             [SerializeField] private bool m_loop;
             void Awake()
             {
-                SetupColours();
+                //SetupColours();
+            }
+            public void SetPlayerID(int id)
+            {
+                m_playerID = id;
             }
             public void SetupColours()
             {
-                string key = $"{m_cardType} color";
-                if (!PlayerPrefs.HasKey($"{key} R"))
-                {
-                    ColorPref.Set(key, m_color);
-                }
-                else
-                {
-                    m_color = ColorPref.Get(key);
-                }
+                string key = $"{m_cardType} color" + m_playerID;
+                m_color = ColorPref.Get(key);
 
                 m_cardFace.color = m_color;
             }
+
             public virtual void ExecuteEvents(PlayerManager caller)
             {
                 SoundManager.SFX.PlayRandomSound("CardSelect");

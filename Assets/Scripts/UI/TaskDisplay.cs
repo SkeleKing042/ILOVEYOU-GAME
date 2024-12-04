@@ -21,9 +21,9 @@ namespace ILOVEYOU
             [SerializeField] private Sprite[] m_taskIcons;
             [SerializeField] private string[] m_taskDescriptions;
             // Start is called before the first frame update
-            public void SetTask(ref Task task)
+            public void SetTask(ref Task task, int playerID)
             {
-                Color impC = ColorPref.Get("Important Color");
+                Color impC = ColorPref.Get("Important Color" + playerID);
 
                 m_iconDisplays[1].color = impC;
                 m_descriptionBox.color = impC;

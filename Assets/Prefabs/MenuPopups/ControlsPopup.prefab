@@ -489,6 +489,7 @@ GameObject:
   - component: {fileID: 1206977303380969756}
   - component: {fileID: 1206977303380969757}
   - component: {fileID: 1206977303380969759}
+  - component: {fileID: 1576076911028577372}
   m_Layer: 5
   m_Name: ControlsPopup
   m_TagString: Untagged
@@ -571,6 +572,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_firstSelected: {fileID: 1206977301787530053}
+--- !u!114 &1576076911028577372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206977303380969747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91dd975f8f8a2fb448042b8c125bbbc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1206977303385104109
 GameObject:
   m_ObjectHideFlags: 0
