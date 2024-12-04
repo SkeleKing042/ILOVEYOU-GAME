@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using ILOVEYOU.UI;
 using ILOVEYOU.MainMenu;
 using ILOVEYOU.Audio;
+using ILOVEYOU.Hazards;
+using ILOVEYOU.BuffSystem;
 
 namespace ILOVEYOU
 {
@@ -40,7 +42,9 @@ namespace ILOVEYOU
                 else
                 {
                     CardManager.UpdateChances(GameSettings.Current.GetUnseenCards);
-                    CardManager.GetRandomCard(GameSettings.Current.GetUnseenCards)[0].ExecuteEvents(null);
+                    var card = CardManager.GetRandomCard(GameSettings.Current.GetUnseenCards)[0];
+                    card.SetupColours();
+                    card.ExecuteEvents(null);
                     m_countdown = GameSettings.Current.GetUnseenCardRate;
                 }
             }
@@ -56,8 +60,7 @@ namespace ILOVEYOU
             public static void ResetScore() { m_score = Vector2.zero; }
             ///////////////////////////////////////////////////////////////////////////////////////////////////
             [Header("Settings")]
-            [SerializeField] private GameSettings m_singleplayerSettings;
-            [SerializeField] private GameSettings m_multiplayerSettings;
+            [SerializeField] private GameSettings m_defaultSettings;
             [SerializeField, HideInInspector] private bool m_devMode;
             public bool IsDev => m_devMode;
             [SerializeField] private float m_roundStartCountdown;
@@ -100,15 +103,11 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent m_onTaskAssignment;
             private void Awake()
             {
-                if(ControllerManager.Instance.ControllerCount == 1)
+                //use default settings
+                if (!GameSettings.Current)
                 {
-                    m_singleplayerSettings.Assign();
+                    m_defaultSettings.Assign();
                 }
-                else
-                {
-                    m_multiplayerSettings.Assign();
-                }
-                
                 
                 //check for the input manager
                 if (!ControllerManager.Instance)
@@ -150,7 +149,7 @@ namespace ILOVEYOU
                 }
 
                 Debug.Log("Attempting to start the game.");
-                GameObject[] players = ControllerManager.Instance.JoinPlayers(2);
+                GameObject[] players = ControllerManager.Instance.JoinPlayers(GameSettings.Current.GetPlayerLimit);
 
                 //Boss data setup
                 BossBar.Instances = new BossBar[players.Length];
@@ -238,17 +237,37 @@ namespace ILOVEYOU
             /// <summary>
             /// function that does the setup for when a player loses
             /// </summary>
-            /// <param name="player">player manager of the losing player</param>
-            public void PlayerDeath(PlayerManager player)
+            /// <param name="deadPlayer">player manager of the losing player</param>
+            public void PlayerDeath(PlayerManager deadPlayer)
             {
 
-                player.GetComponent<Animator>().SetTrigger("Death");
-                player.GetControls.GetPlayerAnimator.SetTrigger("Death");
-                //foreach(other player)
-                //start win animation
+                deadPlayer.GetComponent<Animator>().SetTrigger("Death");
+                deadPlayer.GetControls.GetPlayerAnimator.SetTrigger("Death");
 
-                //winning player
-                int playerNum = (player == m_levelManagers[0].GetPlayer) ? 1 : 0;
+                //should the game end?
+                List<PlayerManager> livingPlayers = new();
+                foreach(var player in GetOtherPlayers(null))
+                {
+                    if(player.GetControls.GetHealthPercent > 0)
+                    {
+                        livingPlayers.Add(player);
+                        if (livingPlayers.Count >= 2)
+                        {
+                            Debug.Log("There are still more then 2 players alive. Game will continue");
+                            return;
+                        }
+                    }
+                }
+                //start win animation
+                foreach(var livingPlayer in livingPlayers)
+                {
+                    livingPlayer.OnVictory.Invoke();
+                    //livingPlayer.GetComponent<Animator>().SetTrigger("Win");
+                    //livingPlayer.GetControls.GetPlayerAnimator.SetTrigger("Win");
+                }
+
+                //score might need a change
+                int playerNum = (deadPlayer == m_levelManagers[0].GetPlayer) ? 1 : 0;
                 switch (playerNum)
                 {
                     case 0:
@@ -263,11 +282,13 @@ namespace ILOVEYOU
                 foreach (var levelPlayer in m_levelManagers)
                 {
                     levelPlayer.GetPlayer.GetUI.GetBlindBox.EndPopups(); //clear popups
-                    levelPlayer.GetSpawner.DestroyAllEnemies();
-                    levelPlayer.GetSpawner.enabled = false;
-                    levelPlayer.GetPlayer.GetControls.Zero();
+                    levelPlayer.GetPlayer.GetComponent<BuffDataSystem>().ClearAllBuffs(true); //remove buffs
+                    levelPlayer.GetSpawner.DestroyAllEnemies(); //kill enemies
+                    levelPlayer.GetSpawner.enabled = false; //disable spawner
+                    levelPlayer.GetPlayer.GetControls.Zero(); //disable controls
                     levelPlayer.GetPlayer.GetControls.enabled = false;
-                    levelPlayer.GetPlayer.GetUI.GetCardDisplay.DiscardHand();
+                    levelPlayer.GetPlayer.GetUI.GetCardDisplay.DiscardHand(); //Discard cards
+                    levelPlayer.GetComponentInChildren<HazardManager>().DisableAllHazards(); //Disable Hazards
                     //levelPlayer.GetPlayer.DiscardHand();
                 }
                 
@@ -348,7 +369,7 @@ namespace ILOVEYOU
             public void GivePlayerCards(PlayerManager player)
             {
                 //Giving cards
-                if (player.GetTaskManager.TaskCompletionPoints > 0 && !player.CardsInHand)
+                if (player.GetTaskManager.TaskCompletionPoints > 0 && !player.CardsInHand && GameSettings.Current.GetNumberOfCardsToGive > 0)
                 {
                     //hand out cards to the player
                     Debug.Log($"Player {player.GetPlayerID} has completed a task, dealing cards.");

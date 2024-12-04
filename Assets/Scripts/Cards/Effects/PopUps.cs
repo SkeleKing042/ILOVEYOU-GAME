@@ -1,3 +1,4 @@
+using ILOVEYOU.Audio;
 using ILOVEYOU.Player;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace ILOVEYOU
             private void Update()
             {
                 //this is to ensure that the player can close the windows again just in case it gets overriden
-                m_playerControls.SetContext(WindowClosed, 2, $"Press <sprite=\"buttonSpriteSheet\" index=3> to close Popups!");
+                m_playerControls.GetContextBox.SetContext(WindowClosed, 2, $"Press <sprite=\"buttonSpriteSheet\" index=3> to close Popups!");
             }
             /// <summary>
             /// sets up variables in order for this script to work
@@ -48,8 +49,10 @@ namespace ILOVEYOU
                     m_currentPopups.Add(popup);
 
                 }
+                //temp for now: possibly make it delayed opening
+                SoundManager.SFX.PlayRandomSound("PopUpOpen");
                 //sets the context button to WindowClosed() to allow for closing of the window
-                m_playerControls.SetContext(WindowClosed, 2, "Mash <sprite=\"buttonSpriteSheet\" index=3> to close Popups!");
+                m_playerControls.GetContextBox.SetContext(WindowClosed, 2, "Mash <sprite=\"buttonSpriteSheet\" index=3> to close Popups!");
             }
             /// <summary>
             /// Destroys and resets required variables. Disables gameobject
@@ -64,7 +67,7 @@ namespace ILOVEYOU
                     Destroy(objToRemove);
                 }
                 //removes context
-                m_playerControls.RemoveSetContext(WindowClosed);
+                m_playerControls.GetContextBox.RemoveSetContext(WindowClosed);
                 //disables object
                 gameObject.SetActive(false);
             }
@@ -76,6 +79,7 @@ namespace ILOVEYOU
                 GameObject objToRemove = m_currentPopups[^1];
                 m_currentPopups.Remove(objToRemove);
                 Destroy(objToRemove);
+                SoundManager.SFX.PlayRandomSound("PopUpClosed");
                 //if all windows are destroyed end this script
                 if (m_currentPopups.Count == 0) EndPopups();
 

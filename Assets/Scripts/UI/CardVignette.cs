@@ -24,7 +24,8 @@ namespace ILOVEYOU
             {
                 wantedColor.a = 0.0001f;
                 m_image.color = wantedColor;
-
+                m_fadingOut = false;
+                StopAllCoroutines();
                 StartCoroutine(FadeVisual());
             }
 

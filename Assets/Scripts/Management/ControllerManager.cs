@@ -15,7 +15,7 @@ namespace ILOVEYOU
 
         public class ControllerManager : MonoBehaviour
         {
-            bool m_ignoreJoin = false;
+            public bool doJoinLeave = true;
             [SerializeField] private uint m_maxControllers;
             [SerializeField] private List<Controller> m_controllers = new();
             [SerializeField] private Material[] m_playerMaterials;
@@ -42,7 +42,7 @@ namespace ILOVEYOU
             //called on controller input
             public void OnPlayerJoined(PlayerInput input)
             {
-                if (!m_ignoreJoin)
+                if (doJoinLeave)
                 {
                     Debug.Log($"Player joined with {input.devices[0]}.");
                     //made child so not destroyed on scene change
@@ -71,6 +71,8 @@ namespace ILOVEYOU
             private void _setID(int index, PlayerInput input)
             {
                 input.transform.SetSiblingIndex(index);
+                //ControllerVibrationHandler.Instance.SetMotorsForTime(input.GetDevice<Gamepad>(), new(0.123f, 0.234f, 0.5f));
+                ControllerVibrationHandler.Instance.SetMotors(input.GetDevice<Gamepad>(), new ControllerVibrationHandler.VibeInfo[] {new (0.2f, 0.1f), new(0.2f)});
                 m_controllers.Insert(index, input.GetComponent<Controller>());
                 m_controllers[index].name = $"{input.currentControlScheme} - {index}";
                 m_controllers[index].ID = (uint)index;
@@ -78,12 +80,12 @@ namespace ILOVEYOU
 
             }
             //instances player objects - for scene start
-            public GameObject[] JoinPlayers(int playerCount)
+            public GameObject[] JoinPlayers(int playerCount = 0)
             {
                 Debug.Log("Instancing players...");
-                m_ignoreJoin = true;
-                GameObject[] players = new GameObject[transform.childCount];
-                for (int i = 0; i < Mathf.Clamp(transform.childCount, 0, playerCount); i++)
+                doJoinLeave = false;
+                GameObject[] players = new GameObject[Mathf.Clamp(transform.childCount, 0, playerCount == 0 ? transform.childCount : playerCount)];
+                for (int i = 0; i < Mathf.Clamp(transform.childCount, 0, playerCount == 0 ? transform.childCount : playerCount); i++)
                 {
                     Controller current = transform.GetChild(i).GetComponent<Controller>();
                     if (!current.IsAssigned)
@@ -95,7 +97,7 @@ namespace ILOVEYOU
 
                     }
                 }
-                m_ignoreJoin = false;
+                doJoinLeave = true;
                 Debug.Log("Players instanced...");
                 return players;
             }
@@ -106,6 +108,11 @@ namespace ILOVEYOU
                 m_recentID = caller.ID;
                 Destroy(caller.gameObject);
                 m_controllers.RemoveAt(index);
+            }
+
+            public static void ToggleJoinLeave(bool value)
+            {
+                Instance.doJoinLeave = value;
             }
         }
     }

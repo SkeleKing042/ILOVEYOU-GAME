@@ -3,14 +3,18 @@ using ILOVEYOU.EnemySystem;
 using ILOVEYOU.Player;
 using ILOVEYOU.ProjectileSystem;
 using ILOVEYOU.UI;
+using System;
 using UnityEngine;
 
 namespace ILOVEYOU.Management
 {
     [CreateAssetMenu(fileName = "NewGameSettings", menuName = "ILOVEYOU Objects/New Game Settings")]
+    [Serializable]
     public class GameSettings : ScriptableObject
     {
         public static GameSettings Current { get; private set; }
+        public string BuildVersion;
+        public bool IsOutdated { get { return BuildVersion != Application.version; } }
         [SerializeField] private string[] m_announcement = new string[0];
         public string GetAnouncement
         {
@@ -18,7 +22,7 @@ namespace ILOVEYOU.Management
             {
                 if (m_announcement.Length > 0)
                 {
-                    int rnd = Random.Range(0, m_announcement.Length); return m_announcement[rnd];
+                    int rnd = UnityEngine.Random.Range(0, m_announcement.Length); return m_announcement[rnd];
                 }
                 return "";
             }
@@ -26,6 +30,8 @@ namespace ILOVEYOU.Management
         //[Header("Difficulty")]
         [SerializeField] private float m_difficultyCap = 60f;
         public float GetDiffCap => m_difficultyCap;
+        [SerializeField] private int m_PlayerLimit = 0;
+        public int GetPlayerLimit => m_PlayerLimit;
 
         //[Header("Tasks")]
         [Tooltip("The maximum number of tasks a player can have.")]
@@ -33,16 +39,20 @@ namespace ILOVEYOU.Management
         public int GetMaxTaskCount => m_maxTaskCount;
         [SerializeField] private Task[] m_taskList = new Task[2];
         public Task[] GetTasks => m_taskList;
+        [SerializeField] private bool m_tasksCanHeal;
+        public bool CanTasksHeal => m_tasksCanHeal;
 
         //[Header("Cards")]
         [Tooltip("The number of cards shown to the player.\nPLEASE KEEP AT 3")]
-        [SerializeField] private int m_numberOfCardToGive = 3;
+        [SerializeField] private int m_numberOfCardToGive = 0;
         public int GetNumberOfCardsToGive => m_numberOfCardToGive;
         [SerializeField] private float m_cardTimeOut = 10f;
         public float GetCardTimeOut => m_cardTimeOut;
         [Tooltip("RNG table for cards. The Chances get combined into an average.")]
         [SerializeField] private CardData[] m_cardData = new CardData[2];
         public CardData[] GetCardData => m_cardData;
+        [SerializeField] private bool m_allowDoubleUps = false;
+        public bool DoAllowDoubleUps => m_allowDoubleUps;
 
         //[Header("Player")]
         [SerializeField] private float m_playerHealth = 15f;
@@ -120,15 +130,27 @@ namespace ILOVEYOU.Management
                                                                     new("Debuff color", Color.white),
                                                                     new("Hazard color", Color.white),
                                                                     new("Summon color", Color.white) };
-        public void Assign()
+
+        public GameSettings()
         {
-            Debug.Log("Assigning new settings.");
-            foreach(var player in FindObjectsOfType<PlayerControls>())
+
+        }
+        public void Assign(bool Override = false)
+        {
+            if (Current == null || Override)
             {
-                player.ChangeWeapon(GetPlayerShootingPattern);
+                Debug.Log("Assigning new settings.");
+                Current = this;
+                InitalizePrefs();
+                foreach (var player in FindObjectsOfType<PlayerControls>())
+                {
+                    player.ChangeWeapon(GetPlayerShootingPattern);
+                }
             }
-            InitalizePrefs();
-            Current = this;
+        }
+        public static void Unassign(){
+            Debug.Log("Removing applied settings");
+            Current = null;
         }
         public void InitalizePrefs()
         {

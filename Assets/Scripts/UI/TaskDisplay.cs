@@ -20,7 +20,7 @@ namespace ILOVEYOU
             [Header("Task information")]
             [SerializeField] private Sprite[] m_taskIcons;
             [SerializeField] private string[] m_taskDescriptions;
-            // Start is called before the first frhttps://www.ecosia.org/search?tt=vivaldi&q=dna+jokerame update
+            // Start is called before the first frame update
             public void SetTask(ref Task task)
             {
                 Color impC = ColorPref.Get("Important Color");
@@ -33,7 +33,8 @@ namespace ILOVEYOU
                 m_taskRef = task;
                 m_descriptionBox.text = m_taskDescriptions[(int)m_taskRef.GetTaskType];
                 m_iconDisplays[0].sprite = m_iconDisplays[1].sprite = m_taskIcons[(int)m_taskRef.GetTaskType];
-                gameObject.SetActive(true);
+                GetComponent<Animator>().SetBool("Show", true);
+                //gameObject.SetActive(true);
             }
 
             // Update is called once per frame
@@ -42,7 +43,8 @@ namespace ILOVEYOU
                 if (m_taskRef != null && !m_taskRef.IsComplete)
                     m_iconDisplays[1].fillAmount = m_taskRef.GetPercent;
                 else
-                    gameObject.SetActive(false);
+                    //gameObject.SetActive(false);
+                    GetComponent<Animator>().SetBool("Show", false);
             }
         }
     }

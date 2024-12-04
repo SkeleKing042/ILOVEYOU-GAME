@@ -179,29 +179,37 @@ PrefabInstance:
       value: SoundManager
       objectReference: {fileID: 0}
     - target: {fileID: 5205332031336300303, guid: 8fb6d962342bb1d4790f9c3435bcf5e5, type: 3}
-      propertyPath: m_data.Array.data[1].m_sounds.Array.data[0].m_soundMult
-      value: 0.198
+      propertyPath: m_data.Array.data[1].m_sounds.Array.data[12].m_name
+      value: BossSpawn
       objectReference: {fileID: 0}
     - target: {fileID: 5205332031336300303, guid: 8fb6d962342bb1d4790f9c3435bcf5e5, type: 3}
-      propertyPath: m_data.Array.data[2].m_sounds.Array.data[0].m_soundMult
-      value: 0.3
+      propertyPath: m_data.Array.data[1].m_sounds.Array.data[13].m_name
+      value: BossSpawn
       objectReference: {fileID: 0}
     - target: {fileID: 5205332031336300303, guid: 8fb6d962342bb1d4790f9c3435bcf5e5, type: 3}
-      propertyPath: m_data.Array.data[2].m_sounds.Array.data[0].m_clips.Array.size
-      value: 3
+      propertyPath: m_data.Array.data[1].m_sounds.Array.data[12].m_soundMult
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5205332031336300303, guid: 8fb6d962342bb1d4790f9c3435bcf5e5, type: 3}
-      propertyPath: m_data.Array.data[2].m_sounds.Array.data[0].m_clips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: d7027ce363e851e4998b0c029a5045d1, type: 3}
+      propertyPath: m_data.Array.data[1].m_sounds.Array.data[13].m_soundMult
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5205332031336300303, guid: 8fb6d962342bb1d4790f9c3435bcf5e5, type: 3}
-      propertyPath: m_data.Array.data[2].m_sounds.Array.data[0].m_clips.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: c5f57b27f1f4028468074e76f267e653, type: 3}
+      propertyPath: m_data.Array.data[1].m_sounds.Array.data[12].m_clips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5205332031336300303, guid: 8fb6d962342bb1d4790f9c3435bcf5e5, type: 3}
-      propertyPath: m_data.Array.data[2].m_sounds.Array.data[0].m_clips.Array.data[2]
+      propertyPath: m_data.Array.data[1].m_sounds.Array.data[13].m_clips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5205332031336300303, guid: 8fb6d962342bb1d4790f9c3435bcf5e5, type: 3}
+      propertyPath: m_data.Array.data[1].m_sounds.Array.data[12].m_clips.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 73eb8ff6063a1c84fab94ce3d2718b34, type: 3}
+      objectReference: {fileID: 8300000, guid: 9032174e19d99264a9f03de1791daeac, type: 3}
+    - target: {fileID: 5205332031336300303, guid: 8fb6d962342bb1d4790f9c3435bcf5e5, type: 3}
+      propertyPath: m_data.Array.data[1].m_sounds.Array.data[13].m_clips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9032174e19d99264a9f03de1791daeac, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fb6d962342bb1d4790f9c3435bcf5e5, type: 3}
 --- !u!1001 &859448653
@@ -279,3 +287,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetScene: IntroScene
+--- !u!114 &859448659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859448654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b1050e9c35bc04882617703f00491d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

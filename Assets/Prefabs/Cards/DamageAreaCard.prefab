@@ -591,7 +591,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_cardType: 0
-  m_effectSelf: 0
+  m_effectSelf: 1
   m_cardFace: {fileID: 7590896537987752700}
+  m_particleEffects: []
+  m_selfParticleEffects: []
+  m_soundToPlay: OverClock
+  m_cardID: 4
+  m_loop: 1
   m_effectsToGive: 
   m_effectsToGiveSelf: 01000000

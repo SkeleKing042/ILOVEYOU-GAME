@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
@@ -21,6 +22,8 @@ namespace ILOVEYOU.MainMenu
         [SerializeField] private GameObject[] m_menuObjects;
         [SerializeField] private GameObject[] m_mainMenuButtons;
         [SerializeField] private GameObject[] m_optionSelect;
+        //Im not sure of another solution for this
+        [SerializeField] private CreatePopUpMenu m_customSettingsPopup;
 
         private int m_lastPlayerCount = 0;
         //private bool[] m_connected = new bool[2];
@@ -30,11 +33,13 @@ namespace ILOVEYOU.MainMenu
         [SerializeField] private UnityEvent<string, float> m_onPlayerLeft;
         //[SerializeField] private Animator[] m_playerIndis;
         [SerializeField] private TextMeshProUGUI[] m_joinText;
+        [SerializeField] private Button[] m_startButtons = new Button[0];
 
         // Start is called before the first frame update
         void Awake()
         {
             Time.timeScale = 1f;
+            ControllerManager.Instance.doJoinLeave = true;
 
             if(!SoundManager.Environment.IsPlaying(100)) SoundManager.Environment.PlaySoundLoop("ComputerStartUp", 1, 100);
 
@@ -48,6 +53,8 @@ namespace ILOVEYOU.MainMenu
             }
 
             m_lastPlayerCount = (int)ControllerManager.Instance.ControllerCount;
+
+            CheckPlayerCounts();
         }
 
         public void ButtonPressed(int selection)
@@ -61,21 +68,33 @@ namespace ILOVEYOU.MainMenu
 
             switch (selection)
             {
-                //start game
+                //Start game
                 case 0:
                     m_effect.StartType(m_inputField, "run ILOVEYOU.exe", 12f, StartGame);
                     break;
-                //options
+                //Options
                 case 1:
                     m_effect.StartType(m_inputField, "open options.cfg", 12f, OptionsMenu);
                     break;
-                //about
+                //Controls
                 case 2:
+                    m_effect.StartType(m_inputField, "open help.txt", 12f, ControlsMenu);
+                    break;
+                //Codex
+                case 3:
+                    m_effect.StartType(m_inputField, "open codex.txt", 12f, CodexMenu);
+                    break;
+                //About
+                case 4:
                     m_effect.StartType(m_inputField, "open README.txt", 12f, CreditsMenu);
                     break;
                 //Quit
-                case 3:
+                case 5:
                     m_effect.StartType(m_inputField, "shutdown", 12f, Quit);
+                    break;
+                //Custom Settings
+                case 6:
+                    m_effect.StartType(m_inputField, "run modtool.exe", 12f, CustomMenu);
                     break;
                 default:
                     m_effect.StartType(m_inputField, "Uhhh idk what I'm typing", 12f);
@@ -123,6 +142,8 @@ namespace ILOVEYOU.MainMenu
             m_menuObjects[0].SetActive(true);
             m_menuObjects[1].SetActive(false);
             m_menuObjects[2].SetActive(false);
+            m_menuObjects[3].SetActive(false);
+            m_menuObjects[4].SetActive(false);
 
             foreach (GameObject obj in m_mainMenuButtons)
             {
@@ -130,6 +151,8 @@ namespace ILOVEYOU.MainMenu
             }
 
             m_eventSystem.SetSelectedGameObject(m_optionSelect[0]);
+
+            CheckPlayerCounts();
         }
 
         public void OptionsMenu()
@@ -141,13 +164,44 @@ namespace ILOVEYOU.MainMenu
             m_eventSystem.SetSelectedGameObject(m_optionSelect[1]);
         }
 
+        public void ControlsMenu()
+        {
+            m_eventSystem.enabled = true;
+
+            //m_menuObjects[0].SetActive(false); //disable default menu
+
+            m_mainMenuButtons[3].GetComponent<CreatePopUpMenu>().CreatePopUp(transform);
+
+            ReenableButtons();
+        
+            //m_menuObjects[2].SetActive(true); //enable options menu
+            //m_eventSystem.SetSelectedGameObject(m_optionSelect[2]);
+        }
+        public void CustomMenu()
+        {
+            m_eventSystem.enabled = true;
+
+            //disable the options tab
+            m_menuObjects[1].SetActive(false);
+            m_customSettingsPopup.CreatePopUp(transform).SetReturnAction(new MenuPopUp.Callback[] { () => ReenableButtons(), () => m_menuObjects[1].SetActive(true) });
+        }
+
+        public void CodexMenu()
+        {
+            m_eventSystem.enabled = true;
+
+            m_menuObjects[0].SetActive(false); //disable default menu
+            m_menuObjects[3].SetActive(true); //enable options menu
+            m_eventSystem.SetSelectedGameObject(m_optionSelect[3]);
+        }
+
         public void CreditsMenu()
         {
             m_eventSystem.enabled = true;
 
             m_menuObjects[0].SetActive(false); //disable default menu
-            m_menuObjects[2].SetActive(true); //enable credits menu
-            m_eventSystem.SetSelectedGameObject(m_optionSelect[2]);
+            m_menuObjects[4].SetActive(true); //enable credits menu
+            m_eventSystem.SetSelectedGameObject(m_optionSelect[4]);
         }
         /// <summary>
         /// plays sound
@@ -155,6 +209,44 @@ namespace ILOVEYOU.MainMenu
         public void PlaySound(string soundName)
         {
             SoundManager.UI.PlayRandomSound(soundName);
+        }
+
+        public void CheckPlayerCounts()
+        {
+            //dont do this if we're not on the main menu
+            if (!m_menuObjects[0].activeSelf)
+                return;
+
+            m_startButtons[0].interactable = false;
+            m_startButtons[1].interactable = false;
+
+            if(ControllerManager.Instance.ControllerCount > 0)
+            {
+                m_startButtons[1].interactable = true;
+                if(ControllerManager.Instance.ControllerCount > 1)
+                {
+                    m_startButtons[0].interactable = true;
+                }
+                else if(EventSystem.current && (EventSystem.current.currentSelectedGameObject == m_startButtons[0] || EventSystem.current.currentSelectedGameObject == null))
+                {
+                    //Move to options
+                    EventSystem.current.SetSelectedGameObject(m_mainMenuButtons[2]);
+                }
+            }
+            //if on the singleplayer option
+            else if(EventSystem.current && (EventSystem.current.currentSelectedGameObject == m_startButtons[1] || EventSystem.current.currentSelectedGameObject == null))
+            {
+                //Move to options
+                EventSystem.current.SetSelectedGameObject(m_mainMenuButtons[2]);
+            }
+        }
+        public void ReenableButtons()
+        {
+            foreach (GameObject obj in m_mainMenuButtons)
+            {
+                obj.GetComponent<Button>().interactable = true;
+            }
+            CheckPlayerCounts();
         }
 
         public void Quit()

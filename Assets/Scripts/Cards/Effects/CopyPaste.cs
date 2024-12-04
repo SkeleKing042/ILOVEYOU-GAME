@@ -59,7 +59,7 @@ namespace ILOVEYOU
                     //create clone
                     GameObject clone = Instantiate(m_cloneObj);
                     clone.transform.position = transform.position;
-                    clone.GetComponent<CopyPasteClone>().Initialize(Target.transform, m_targetObject.GetComponent<BulletPattern>().GetBulletPatternObject);
+                    clone.GetComponent<CopyPasteClone>().Initialize(Target.transform, m_targetObject.GetComponent<BulletPattern>().GetBulletPatternObject, GetComponentInParent<PlayerControls>().GetPlayerAnimator);
 
                     clones[i] = clone;
                 }

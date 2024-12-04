@@ -21,9 +21,11 @@ namespace ILOVEYOU.Management
         /// <summary>
         /// Creates popup
         /// </summary>
-        public void CreatePopUp(Transform parent)
+        public MenuPopUp CreatePopUp(Transform parent)
         {
-            Instantiate(m_popUp, parent).GetComponent<MenuPopUp>().SetReturn(gameObject);
+            MenuPopUp popup = Instantiate(m_popUp, parent).GetComponent<MenuPopUp>();
+            popup.SetReturn(gameObject);
+            return popup;
         }
     }
 

@@ -44,6 +44,7 @@ namespace ILOVEYOU
             [SerializeField] private UnityEvent<bool> m_onCardSelected;
             [SerializeField] private UnityEvent m_onBlind;
             [SerializeField] private UnityEvent m_onUnblind;
+            [SerializeField] public UnityEvent OnVictory;
             public bool Startup(LevelManager manager, uint index)
             {
                 Debug.Log($"Starting {this}.");
@@ -165,6 +166,11 @@ namespace ILOVEYOU
                         index = 2;
                         break;
                 }
+                if(index == -1)
+                {
+                    Debug.LogWarning("Unabled to select card with given input.");
+                    return;
+                }
                 m_onCardSelected.Invoke(m_cardsHeld[index].DoesEffectSelf);
                 _executeSelectedCard(index);
             }
@@ -206,11 +212,6 @@ namespace ILOVEYOU
                 m_onBlind.Invoke();
                 m_playerUI.GetLog.LogInput($"Reciving packet... running program \"areaSingles.exe\"");
                 //Invoke("_disableBlindness", m_time);
-            }
-
-            public void UpdateHealthBar(float value)
-            {
-                m_playerUI.UpdateHealthBar(value);
             }
 
             public void Pause(bool pause)
