@@ -959,6 +959,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 47530dc7c26f85a41aa37bec670e4fda, type: 2}
+        m_TargetAssemblyTypeName: ILOVEYOU.Management.GameSettings, Assembly-CSharp
+        m_MethodName: Unassign
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &8195189020572794367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1079,6 +1091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91dd975f8f8a2fb448042b8c125bbbc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_background: 1
 --- !u!1 &5820314798841013056
 GameObject:
   m_ObjectHideFlags: 0

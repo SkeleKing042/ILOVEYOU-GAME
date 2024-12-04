@@ -114,6 +114,14 @@ namespace ILOVEYOU
             {
                 Instance.doJoinLeave = value;
             }
+
+            public static void WipeAssignedObjects()
+            {
+                foreach(Controller con in Instance.m_controllers)
+                {
+                    con.AssignObject(null);
+                }
+            }
         }
     }
 }
