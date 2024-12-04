@@ -137,6 +137,10 @@ namespace ILOVEYOU
                 {
                     m_unseenOne = new(true);
                 }
+                else 
+                { 
+                    m_unseenOne = new(false); 
+                }
 
                 //Set card manager
                 Debug.Log("Getting CardManager");
