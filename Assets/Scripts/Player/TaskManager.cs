@@ -72,7 +72,7 @@ namespace ILOVEYOU
                         m_tasks[i] = new(template);
 
                         //Set up ui element
-                        if (m_taskDisplay) m_taskDisplay.SetTask(ref m_tasks[i]);
+                        if (m_taskDisplay) m_taskDisplay.SetTask(ref m_tasks[i], (int)m_player.GetPlayerID);
 
                         if (m_tasks[i].GetTaskType == TaskType.Area)
                         {
@@ -83,7 +83,7 @@ namespace ILOVEYOU
                             m_player.GetLevelManager.StartSequence(m_tasks[i]);
                         }
 
-                        m_player.GetUI.GetLog.LogInput($"<color=#{ColorUtility.ToHtmlStringRGBA(ColorPref.Get("Important Color"))}><sprite=\"iconSheet\" index={(int)m_tasks[i].GetTaskType} color=#{ColorUtility.ToHtmlStringRGBA(ColorPref.Get("Important Color"))}>{m_tasks[i].GetTaskType}</color> task assigned to task list.");
+                        m_player.GetUI.GetLog.LogInput($"<color=#{ColorUtility.ToHtmlStringRGBA(ColorPref.Get("Important Color" + m_player.GetPlayerID))}><sprite=\"iconSheet\" index={(int)m_tasks[i].GetTaskType} color=#{ColorUtility.ToHtmlStringRGBA(ColorPref.Get("Important Color" + m_player.GetPlayerID))}>{m_tasks[i].GetTaskType}</color> task assigned to task list.");
 
                         _verifyTaskList();
                         //Return the index of the new task

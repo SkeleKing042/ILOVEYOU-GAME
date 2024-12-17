@@ -8,14 +8,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MAT_Scorpion
-  m_Shader: {fileID: 4800000, guid: 0e9d5a909a1f7e84882a534d0d11e49f, type: 3}
-  m_ValidKeywords: []
+  m_Shader: {fileID: -6465566751694194690, guid: 29f06f61c1a59c3458be11c2b8bf9045, type: 3}
+  m_ValidKeywords:
+  - _ALPHATEST_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2450
+  stringTagMap:
+    RenderType: TransparentCutout
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -60,6 +62,30 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_067d1b924c52427a96ba22998b2dfbb0_Texture_1:
+        m_Texture: {fileID: 2800000, guid: d940c7b724faa7349ae86c384fad7fab, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_36f3d69e391b4ffabd046728490f909e_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 406650c69d7c9e04bb8f1e0ac9fc622b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_9a0d7c0c62264a4ba8f08840d1f74744_Texture_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_9a8a8449415949028ad8f02da3613bd5_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 7c379812c95122441bf7317fc00d30c2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_b1f115c358334d2ab301e69db52f3fb5_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 891e3be0acbac7c47867a13f9b2d0cdb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_b966498635604017a0bc1548a1c12d3b_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 5534b243f8cdf4a4f99e7bb75c25bcf7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 2800000, guid: 5534b243f8cdf4a4f99e7bb75c25bcf7, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -78,9 +104,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaClip: 0
+    - _AlphaClip: 1
     - _Blend: 0
     - _BumpScale: 1
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -110,7 +137,14 @@ Material:
     - _UseNormalMap: 1
     - _UseRoughnessMap: 1
     - _WorkflowMode: 1
+    - _ZTest: 4
     - _ZWrite: 1
+    - _ZWriteControl: 0
+    - _disolve_amount: 0
+    - _disolve_size: 0.944
+    - _dissolve_amount: 0
+    - _dissolve_emision_falloff: 0.583
+    - _dissolve_size: 0.904
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -118,6 +152,8 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _UvOffset: {r: 0, g: 0, b: 0, a: 0}
     - _UvTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _disolve_colour: {r: 0.03137255, g: 2, b: 1.4196079, a: 0}
+    - _dissolve_colour: {r: 0.32247674, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1006476597317520199
 MonoBehaviour:

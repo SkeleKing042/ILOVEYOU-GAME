@@ -134,7 +134,7 @@ namespace ILOVEYOU
                 m_cardsHeld = new DisruptCard[0];
                 CancelInvoke();
                 m_onDiscardHand.Invoke();
-                m_playerUI.GetLog.LogInput($"<i><#888888>Discarding hand.</color></i>");
+                Debug.Log($"Player {m_playerID} discards hand.");
             }
             /// <summary>
             /// Takes a player's input to select a card

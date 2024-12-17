@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 3373434672898651143}
   - component: {fileID: 2025150851362625422}
   - component: {fileID: 5537073685078288322}
+  - component: {fileID: 2043554026830247153}
   m_Layer: 5
   m_Name: Binary
   m_TagString: Untagged
@@ -223,13 +224,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 2be72a3097c39a04bb7ad0a206ee296d, type: 3}
+  m_Texture: {fileID: 2800000, guid: f78fb4b4a153b9d48846fd450710d50f, type: 3}
   m_UVRect:
     serializedVersion: 2
-    x: -0.037
+    x: 0.13
     y: 0
     width: 0.91
-    height: 2.64
+    height: 2.08
 --- !u!114 &5537073685078288322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +244,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_speed: {x: 0, y: 0.2}
+--- !u!114 &2043554026830247153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369068343999698055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91dd975f8f8a2fb448042b8c125bbbc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_background: 0
 --- !u!1 &395412723076507311
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,6 +697,7 @@ GameObject:
   - component: {fileID: 3909495317436331095}
   - component: {fileID: 2229049815765453113}
   - component: {fileID: 9205252429111580329}
+  - component: {fileID: 3361035933918141793}
   m_Layer: 5
   m_Name: Binary
   m_TagString: Untagged
@@ -751,13 +766,26 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 2be72a3097c39a04bb7ad0a206ee296d, type: 3}
+  m_Texture: {fileID: 2800000, guid: f78fb4b4a153b9d48846fd450710d50f, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 0.25
     height: 0.75
+--- !u!114 &3361035933918141793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6824566816688820954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91dd975f8f8a2fb448042b8c125bbbc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_background: 0
 --- !u!1 &6974633267869989627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1491,6 +1519,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4471390123010415936, guid: 78076f4ad357a5844a604569e6f8d985, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969622517098763681, guid: 78076f4ad357a5844a604569e6f8d985, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969622517098763681, guid: 78076f4ad357a5844a604569e6f8d985, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5094887078727722943, guid: 78076f4ad357a5844a604569e6f8d985, type: 3}
       propertyPath: m_Name
       value: HealthBar
@@ -2107,6 +2147,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8c5bd2f5d139ee4d871bddb657f811b, type: 3}
+--- !u!1 &5833453200779691854 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1445799289900732484, guid: c8c5bd2f5d139ee4d871bddb657f811b, type: 3}
+  m_PrefabInstance: {fileID: 4964114731936601866}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2078581959439340867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5833453200779691854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91dd975f8f8a2fb448042b8c125bbbc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_background: 1
 --- !u!224 &7254630841306803591 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2326588991722371725, guid: c8c5bd2f5d139ee4d871bddb657f811b, type: 3}

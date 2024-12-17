@@ -137,6 +137,10 @@ namespace ILOVEYOU
                 {
                     m_unseenOne = new(true);
                 }
+                else 
+                { 
+                    m_unseenOne = new(false); 
+                }
 
                 //Set card manager
                 Debug.Log("Getting CardManager");
@@ -294,6 +298,7 @@ namespace ILOVEYOU
                 
 
                 enabled = false;
+                m_gameUI.GameOver();
 
                 //does a cool animation
                 StartCoroutine(_CoolSlowMo(playerNum));

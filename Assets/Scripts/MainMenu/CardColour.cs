@@ -16,13 +16,13 @@ namespace ILOVEYOU.MainMenu
             m_cardFace = GetComponent<Image>();
 
             string key = $"{m_cardType} color";
-            if (!PlayerPrefs.HasKey($"{key} R"))
+            if (!PlayerPrefs.HasKey($"{key + 0} R")) //the + 0 is just to specify player 1's colours
             {
-                ColorPref.Set(key, m_color);
+                ColorPref.Set(key + 0, m_color);
             }
             else
             {
-                m_color = ColorPref.Get(key);
+                m_color = ColorPref.Get(key + 0);
             }
 
             m_cardFace.color = m_color;

@@ -34,11 +34,11 @@ namespace ILOVEYOU
             // Start is called before the first frame update
             public void Start()
             {
-                m_importantColor = ColorPref.Get("Important Color");
+                m_importantColor = ColorPref.Get("Important Color" + 0);
             }
             public void CreatePauseMenu()
             {
-                Instantiate(m_pauseMenu, transform.GetChild(0).GetChild(0));
+                Instantiate(m_pauseMenu, transform.GetChild(0));
             }
             public void DisplayWinScreen(int winnerID)
             {
@@ -60,6 +60,11 @@ namespace ILOVEYOU
             {
                 Color timeColour = Color.white - new Color(1- m_importantColor.r, 1- m_importantColor.g, 1- m_importantColor.b) * Mathf.Clamp(GameManager.Instance.PercentToMaxDiff, 0, 1);
                 m_timerText.text = $"<color=#{ColorUtility.ToHtmlStringRGB(timeColour)}>{(int)currentTime}</color>";
+            }
+
+            public void GameOver()
+            {
+                m_InGameSharedUI.SetActive(false);
             }
 
             public IEnumerator PlayAnnouncement()
